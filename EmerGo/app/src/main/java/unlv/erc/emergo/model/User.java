@@ -1,23 +1,24 @@
+
 package unlv.erc.emergo.model;
 
-public class User{
+public abstract class User{
 
-    private String name;
-    private String birthday;
+    private String name ;
+    private String birthday ;
     private String typeBlood;
-    private String cardiac;
-    private String diabetic;
-    private String hypertension;
-    private String seropositive;
-    private String observations;
-    private Integer ID;
+    private String cardiac ;
+    private String diabetic ;
+    private String hypertension ;
+    private String seropositive ;
+    private String observations ;
+    private Integer id ;
 
-    public User(){
+    public User() {
 
     }
 
     public User(String name,String birthday,String typeBlood,String cardiac,String diabetic,
-                String hypertension,String seropositive,String observations,Integer id){
+                String hypertension,String seropositive,String observations,Integer id) {
         setName(name);
         setBirthday(birthday);
         setTypeBlood(typeBlood);
@@ -26,7 +27,7 @@ public class User{
         setHypertension(hypertension);
         setSeropositive(seropositive);
         setObservations(observations);
-        setID(id);
+        setId(id);
     }
 
     public String getObservations() {
@@ -37,13 +38,12 @@ public class User{
         this.observations = observations;
     }
 
-
-    public Integer getID() {
-        return ID;
+    public Integer getId() {
+        return id;
     }
 
-    public void setID(Integer ID) {
-        this.ID = ID;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
