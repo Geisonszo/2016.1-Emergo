@@ -15,27 +15,27 @@ public class UserTest extends TestCase {
     public void testGetName(){
         user = new User();
         String name = "Peter";
-        user.setName("Peter");
-        assertEquals(name,user.getName());
+        user.setNameUser("Peter");
+        assertEquals(name,user.getNameUser());
     }
 
     public void testSetName(){
         user = new User();
-        user.setName("Maria Joaquina");
-        assertEquals("Maria Joaquina", user.getName());
+        user.setNameUser("Maria Joaquina");
+        assertEquals("Maria Joaquina", user.getNameUser());
     }
 
     public void testSetNameEmpty(){
         user = new User();
-        user.setName("");
-        assertEquals("", user.getName());
+        user.setNameUser("");
+        assertEquals("", user.getNameUser());
     }
 
     public void testSetNameLowerThree(){
         user = new User();
-        user.setName("Ana");
+        user.setNameUser("Ana");
         boolean result = true;
-        if(user.getName().trim().length()<MINIMUM_LENGTH_NAME){
+        if(user.getNameUser().trim().length()<MINIMUM_LENGTH_NAME){
             assertFalse(result);
         }else{
             assertTrue(result);
@@ -45,9 +45,9 @@ public class UserTest extends TestCase {
     public void testSetNameMaximumSize(){
         user = new User();
 
-        user.setName("Pedro Alvares Cabral de Valentina");
+        user.setNameUser("Pedro Alvares Cabral de Valentina");
         boolean result = true;
-        if(user.getName().trim().length()>MAXIMUM_LENGHT_NAME){
+        if(user.getNameUser().trim().length()>MAXIMUM_LENGHT_NAME){
             assertFalse(result);
         }else{
             assertTrue(result);
@@ -58,17 +58,17 @@ public class UserTest extends TestCase {
 
     public void testSetBirthday(){
         user = new User();
-        user.setBirthday("12/03/1990");
-        assertEquals("12/03/1990", user.getBirthday());
+        user.setBirthdayUser("12/03/1990");
+        assertEquals("12/03/1990", user.getBirthdayUser());
     }
 
     // tests for typeBlood
 
     public void testSetTypeBloodBiggerThree(){
         user = new User();
-        user.setTypeBlood("AB-");
+        user.setTypeBloodUser("AB-");
         boolean result = true;
-        if(user.getTypeBlood().length()>MAXIMUM_TYPEBLOOD){
+        if(user.getTypeBloodUser().length()>MAXIMUM_TYPEBLOOD){
             assertFalse(result);
         }else{
             assertTrue(result);
@@ -77,9 +77,9 @@ public class UserTest extends TestCase {
 
     public void testSetTypeBloodNull() {
         user = new User();
-        user.setTypeBlood("AB+");
+        user.setTypeBloodUser("AB+");
         boolean result = true;
-        if(user.getTypeBlood()==null){
+        if(user.getTypeBloodUser()==null){
             result = false;
             assertTrue(result);
         }else{
@@ -89,9 +89,9 @@ public class UserTest extends TestCase {
 
     public void testSetTypeBloodLowerOrEqualsTwo(){
         User user = new User();
-        user.setTypeBlood("A-");
+        user.setTypeBloodUser("A-");
         boolean result = true;
-        if(user.getTypeBlood().length()<=MAXIMUM_TYPEBLOOD-1){
+        if(user.getTypeBloodUser().length()<=MAXIMUM_TYPEBLOOD-1){
             assertTrue(result);
         }else{
             assertFalse(result);
@@ -101,35 +101,35 @@ public class UserTest extends TestCase {
     public void testGetInformationsAboutUser(){
         user = new User("Leoncio", "24/03/1994", "AB", "yes", "no", "no", "no",
                 "o que se leva da vida é a vida que se leva",1);
-        assertEquals("Leoncio", user.getName());
-        assertEquals("24/03/1994", user.getBirthday());
-        assertEquals("AB", user.getTypeBlood());
-        assertEquals("yes", user.getCardiac());
-        assertEquals("no", user.getDiabetic());
-        assertEquals("no", user.getHypertension());
-        assertEquals("no", user.getSeropositive());
-        assertEquals("o que se leva da vida é a vida que se leva", user.getObservations());
+        assertEquals("Leoncio", user.getNameUser());
+        assertEquals("24/03/1994", user.getBirthdayUser());
+        assertEquals("AB", user.getTypeBloodUser());
+        assertEquals("yes", user.getCardiacUser());
+        assertEquals("no", user.getDiabeticUser());
+        assertEquals("no", user.getHypertensionUser());
+        assertEquals("no", user.getSeropositiveUser());
+        assertEquals("o que se leva da vida é a vida que se leva", user.getObservationsUser());
     }
 
     public void testSetInformationsAboutUser(){
         user = new User("", "", "", "", "", "", "",
                 "",1);
-        user.setName("Gabriela");
-        user.setBirthday("01/01/1990");
-        user.setTypeBlood("A+");
-        user.setCardiac("no");
-        user.setDiabetic("yes");
-        user.setHypertension("no");
-        user.setSeropositive("no");
-        user.setObservations("alergias a lactose e glutem");
+        user.setNameUser("Gabriela");
+        user.setBirthdayUser("01/01/1990");
+        user.setTypeBloodUser("A+");
+        user.setCardiacUser("no");
+        user.setDiabeticUser("yes");
+        user.setHypertensionUser("no");
+        user.setSeropositiveUser("no");
+        user.setObservationsUser("alergias a lactose e glutem");
 
-        assertEquals("Gabriela", user.getName());
-        assertEquals("01/01/1990", user.getBirthday());
-        assertEquals("A+", user.getTypeBlood());
-        assertEquals("no", user.getCardiac());
-        assertEquals("yes", user.getDiabetic());
-        assertEquals("no", user.getHypertension());
-        assertEquals("no", user.getSeropositive());
-        assertEquals("alergias a lactose e glutem", user.getObservations());
+        assertEquals("Gabriela", user.getNameUser());
+        assertEquals("01/01/1990", user.getBirthdayUser());
+        assertEquals("A+", user.getTypeBloodUser());
+        assertEquals("no", user.getCardiacUser());
+        assertEquals("yes", user.getDiabeticUser());
+        assertEquals("no", user.getHypertensionUser());
+        assertEquals("no", user.getSeropositiveUser());
+        assertEquals("alergias a lactose e glutem", user.getObservationsUser());
     }
 }

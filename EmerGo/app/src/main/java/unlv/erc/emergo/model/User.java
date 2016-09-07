@@ -1,104 +1,105 @@
 
 package unlv.erc.emergo.model;
 
-public abstract class User{
+public class User{
 
-    private String name = "";
-    private String birthday = "";
-    private String typeBlood = "";
-    private String cardiac = "";
-    private String diabetic = "";
-    private String hypertension = "";
-    private String seropositive = "";
-    private String observations = "";
-    private Integer id = 0;
+    private String nameUser = "";
+    private String birthdayUser = "";
+    private String typeBloodUser = "";
+    private String cardiacUser = "";
+    private String diabeticUser = "";
+    private String hypertensionUser = "";
+    private String seropositiveUser = "";
+    private String observationsUser = "";
+    private Integer idUser = 0;
 
     public User() {
 
     }
 
-    public User(String name,String birthday,String typeBlood,String cardiac,String diabetic,
-                String hypertension,String seropositive,String observations,Integer id) {
-        setName(name);
-        setBirthday(birthday);
-        setTypeBlood(typeBlood);
-        setCardiac(cardiac);
-        setDiabetic(diabetic);
-        setHypertension(hypertension);
-        setSeropositive(seropositive);
-        setObservations(observations);
-        setId(id);
+    public User(String nameUser,String birthdayUser,String typeBloodUser,String cardiacUser,
+                String diabeticUser,String hypertensionUser,String seropositiveUser,
+                String observationsUser,Integer idUser) {
+        setNameUser(nameUser);
+        setBirthdayUser(birthdayUser);
+        setTypeBloodUser(typeBloodUser);
+        setCardiacUser(cardiacUser);
+        setDiabeticUser(diabeticUser);
+        setHypertensionUser(hypertensionUser);
+        setSeropositiveUser(seropositiveUser);
+        setObservationsUser(observationsUser);
+        setIdUser(idUser);
     }
 
-    public String getObservations() {
-        return observations;
+    public String getNameUser() {
+        return nameUser;
     }
 
-    public void setObservations(String observations) {
-        this.observations = observations;
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
     }
 
-    public Integer getId() {
-        return id;
+    public String getBirthdayUser() {
+        return birthdayUser;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setBirthdayUser(String birthdayUser) {
+        this.birthdayUser = birthdayUser;
     }
 
-    public String getName() {
-        return name;
+    public String getTypeBloodUser() {
+        return typeBloodUser;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTypeBloodUser(String typeBloodUser) {
+        this.typeBloodUser = typeBloodUser;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getCardiacUser() {
+        return cardiacUser;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setCardiacUser(String cardiacUser) {
+        this.cardiacUser = cardiacUser;
     }
 
-    public String getTypeBlood() {
-        return typeBlood;
+    public String getDiabeticUser() {
+        return diabeticUser;
     }
 
-    public void setTypeBlood(String typeBlood) {
-        this.typeBlood = typeBlood;
+    public void setDiabeticUser(String diabeticUser) {
+        this.diabeticUser = diabeticUser;
     }
 
-    public String getCardiac() {
-        return cardiac;
+    public String getHypertensionUser() {
+        return hypertensionUser;
     }
 
-    public void setCardiac(String cardiac) {
-        this.cardiac = cardiac;
+    public void setHypertensionUser(String hypertensionUser) {
+        this.hypertensionUser = hypertensionUser;
     }
 
-    public String getDiabetic() {
-        return diabetic;
+    public String getSeropositiveUser() {
+        return seropositiveUser;
     }
 
-    public void setDiabetic(String diabetic) {
-        this.diabetic = diabetic;
+    public void setSeropositiveUser(String seropositiveUser) {
+        this.seropositiveUser = seropositiveUser;
     }
 
-    public String getHypertension() {
-        return hypertension;
+    public String getObservationsUser() {
+        return observationsUser;
     }
 
-    public void setHypertension(String hypertension) {
-        this.hypertension = hypertension;
+    public void setObservationsUser(String observationsUser) {
+        this.observationsUser = observationsUser;
     }
 
-    public String getSeropositive() {
-        return seropositive;
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public void setSeropositive(String seropositive) {
-        this.seropositive = seropositive;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 }

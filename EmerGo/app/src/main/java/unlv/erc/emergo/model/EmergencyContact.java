@@ -4,7 +4,7 @@
 
 package unlv.erc.emergo.model;
 
-public abstract class EmergencyContact {
+public class EmergencyContact {
 
     private String name;
     private String phone;

@@ -3,7 +3,7 @@ package unlv.erc.emergo.model;
 
 import com.orm.SugarRecord;
 
-public abstract class HealthUnit extends SugarRecord{
+public class HealthUnit extends SugarRecord{
 
     private Double latitude;
     private Double longitude;
