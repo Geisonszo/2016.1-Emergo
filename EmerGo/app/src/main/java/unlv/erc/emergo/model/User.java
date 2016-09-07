@@ -3,15 +3,15 @@ package unlv.erc.emergo.model;
 
 public abstract class User{
 
-    private String name ;
-    private String birthday ;
-    private String typeBlood;
-    private String cardiac ;
-    private String diabetic ;
-    private String hypertension ;
-    private String seropositive ;
-    private String observations ;
-    private Integer id ;
+    private String name = "";
+    private String birthday = "";
+    private String typeBlood = "";
+    private String cardiac = "";
+    private String diabetic = "";
+    private String hypertension = "";
+    private String seropositive = "";
+    private String observations = "";
+    private Integer id = 0;
 
     public User() {
 
