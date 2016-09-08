@@ -23,15 +23,19 @@ import unlv.erc.emergo.R;
 
 public class MainScreenController extends Activity {
 
-    private Button goButton, fineButton;
-    private Services services = new Services();
+    private Button goButton;
+    private Button fineButton;
     private DataAccessObject dataAccessObject = new DataAccessObject(this);
     private Cursor result;
     UserDao myDatabase;
-    private final int MAXIMUMARRAY = 7;
+
+    //Maximum number of rows that the medical records may have.
+    private final int MAXIMUM_ARRAY = 7;
     private int number = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
         goButton = (Button) findViewById(R.id.buttonGo);
@@ -43,33 +47,37 @@ public class MainScreenController extends Activity {
         dataAccessObject.setDataOnSugar();
         result = myDatabase.getUser();
 
-        if(result.getCount() == 0){
+        if(result.getCount() == 0) {
 
-        }else{
+        } else {
             medicalRecordsNotification();
         }
     }
 
     public void goClicked(View main_Screen) {
-        final String ROUTETRACED = "Rota mais próxima traçada";
-        Toast.makeText(MainScreenController.this, ROUTETRACED, Toast.LENGTH_SHORT).show();
+
+        final String ROUTE_TRACED = "Rota mais próxima traçada";
+        Toast.makeText(MainScreenController.this, ROUTE_TRACED,
+                Toast.LENGTH_SHORT).show();
         Intent routeActivity = new Intent();
         routeActivity.setClass(MainScreenController.this, RouteActivity.class);
         routeActivity.putExtra("numeroUs", -1);
         startActivity(routeActivity);
     }
 
-    public void okayClicked(View view){
+    public void okayClicked(View view) {
+
         Intent mapScreen = new Intent();
         mapScreen.setClass(getBaseContext(), MapScreenController.class);
         startActivity(mapScreen);
     }
 
+    private void medicalRecordsNotification() {
 
-    private void medicalRecordsNotification(){
         result.moveToFirst();
         int notifyID = 1;
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
+        NotificationCompat.Builder notification =
+                new NotificationCompat.Builder(this);
 
         notification.setContentTitle("Ficha Médica");
         notification.setContentText("Você tem uma ficha médica!");
@@ -78,35 +86,38 @@ public class MainScreenController extends Activity {
 
         notification.setNumber(++number);
 
-        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-
+        NotificationCompat.InboxStyle inboxStyle =
+                new NotificationCompat.InboxStyle();
 
         String events[] = new String[7];
 
-        events[0] = new String("Nome: "+result.getString(1));
-        events[1] = new String("Data de Nascimento: "+result.getString(2));
-        events[2] = new String("Tipo Sanguineo: "+result.getString(3));
-        events[3] = new String("Cardiaco: "+result.getString(4));
-        events[4] = new String("Diabetico: "+result.getString(5));
-        events[5] = new String("Hipertenso: "+result.getString(6));
-        events[6] = new String("Soropositivo: "+result.getString(7));
-        events[6] = new String("Observações Especiais: "+result.getString(8));
+        events[0] = new String("Nome: " + result.getString(1));
+        events[1] = new String("Data de Nascimento: " + result.getString(2));
+        events[2] = new String("Tipo Sanguineo: " + result.getString(3));
+        events[3] = new String("Cardiaco: " + result.getString(4));
+        events[4] = new String("Diabetico: " + result.getString(5));
+        events[5] = new String("Hipertenso: " + result.getString(6));
+        events[6] = new String("Soropositivo: " + result.getString(7));
+        events[6] = new String("Observações Especiais: " + result.getString(8));
 
         inboxStyle.setBigContentTitle("Ficha Médica");
 
-        for(int aux=0;aux<MAXIMUMARRAY;aux++){
+        for(int aux = 0;aux<MAXIMUM_ARRAY;aux++) {
             inboxStyle.addLine(events[aux]);
         }
+
         notification.setStyle(inboxStyle);
 
         Intent resultIntent = new Intent(this,MedicalRecordsController.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(MedicalRecordsController.class);
         stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPedindIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent resultPedindIntent = stackBuilder.getPendingIntent(0,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         notification.setContentIntent(resultPedindIntent);
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
 
         notificationManager.notify(notifyID,notification.build());
     }
