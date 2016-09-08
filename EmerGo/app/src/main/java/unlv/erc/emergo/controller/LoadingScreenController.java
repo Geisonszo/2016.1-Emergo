@@ -9,14 +9,16 @@ import android.widget.ProgressBar;
 
 import unlv.erc.emergo.R;
 public class LoadingScreenController extends Activity {
+
     private static int SPLASH_TIME_OUT = 9000;
     private ProgressBar spinner;
 
-    protected void onCreate (Bundle savedInstanceState){
+    protected void onCreate (Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_screen);
 
-        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner = (ProgressBar)findViewById(R.id.progressBar);
         spinner.setVisibility(View.VISIBLE);
 
         new Handler().postDelayed(new Runnable() {
@@ -24,11 +26,12 @@ public class LoadingScreenController extends Activity {
             @Override
             public void run() {
 
-                Intent contador = new Intent(LoadingScreenController.this, MainScreenController.class);
-                startActivity(contador);
-
+                Intent timeCounter = new Intent (LoadingScreenController.this,
+                        MainScreenController.class);
+                startActivity(timeCounter);
                 finish();
             }
+
         }, SPLASH_TIME_OUT);
 
     }
