@@ -136,7 +136,7 @@ public class InformationSearchScreenController extends Activity {
     /**
      * When the "buttonGo" is pressed, it will exit the current class, opened the activity
      * "RouteActivity," only different from the method of "buttonRoute", will now be chosen the
-     * route nearest the usuário.Quando the RouteActivity is finished, come in method "finish ()"
+     * route nearest the user.When the RouteActivity is finished, come in method "finish ()"
      * which will close the activity "RouteActivity".
      */
     public void buttonClickGo() {
@@ -154,7 +154,6 @@ public class InformationSearchScreenController extends Activity {
     /**
      * Exchange of current activity and start activity "SearchController".
      * @param mapScreen
-     * @return SearchUsController
      */
 
     public void open_search(View mapScreen) {
@@ -166,12 +165,11 @@ public class InformationSearchScreenController extends Activity {
     }
 
     /**
-     * Exchange of current activity and start activity "SearchController".
-     * @param map_screen
-     * @return ConfigController
+     * Exchange of current activity and start activity "ConfigController".
+     * @param viewConfig
      */
 
-    public void openConfig(View map_screen) {
+    public void openConfig(View viewConfig) {
 
         Intent config = new Intent();
 
@@ -182,7 +180,6 @@ public class InformationSearchScreenController extends Activity {
     /**
      * Exchange of current activity and start activity "ListOfHealthUnitsController".
      * @param map_screen
-     * @return ListOfHealthUnitsController
      */
 
     public void listMapsImageClicked(View map_screen) {
@@ -197,7 +194,6 @@ public class InformationSearchScreenController extends Activity {
     /**
      * Exchange of current activity and start activity "MapScreenController".
      * @param mapScreen
-     * @return MapScreenController
      */
 
     public void openMap(View mapScreen) {
@@ -222,7 +218,6 @@ public class InformationSearchScreenController extends Activity {
     /**
      * Set the value of attribute listOfInformations.
      * @param listOfInformations
-     * @return Information of health Units.
      */
 
     public void setListOfInformations(List<String> listOfInformations) {

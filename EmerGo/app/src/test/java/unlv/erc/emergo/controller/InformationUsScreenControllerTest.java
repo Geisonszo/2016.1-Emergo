@@ -5,8 +5,6 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.List;
 
-import unlv.erc.emergo.controller.InformationUsScreenController;
-
 
 public class InformationUsScreenControllerTest extends TestCase{
 
@@ -109,8 +107,8 @@ public class InformationUsScreenControllerTest extends TestCase{
     public void testIfSetCep(){
         String cep = "123423";
         boolean valido = true;
-        info.setCep(cep);
-        if(cep.compareTo(info.getCep()) == 0){
+        info.setAddressNumber(cep);
+        if(cep.compareTo(info.getAddressNumber()) == 0){
             assertTrue(valido);
         }else{
             assertFalse(valido);
@@ -120,8 +118,8 @@ public class InformationUsScreenControllerTest extends TestCase{
     public void testIfSetBairro(){
         String bairro = "Birro das flores";
         boolean valido = true;
-        info.setCep(bairro);
-        if(bairro.equals(info.getBairro())){
+        info.setAddressNumber(bairro);
+        if(bairro.equals(info.getAddressNumber())){
             assertTrue(valido);
         }
     }
@@ -129,8 +127,8 @@ public class InformationUsScreenControllerTest extends TestCase{
     public void testIfSetMunicipio(){
         String municipio = "municipio";
         boolean valido = true;
-        info.setMunicipio(municipio);
-        if(municipio.equals(info.getMunicipio())){
+        info.setCity(municipio);
+        if(municipio.equals(info.getCity())){
             assertTrue(valido);
         }
     }
@@ -138,8 +136,8 @@ public class InformationUsScreenControllerTest extends TestCase{
     public void testIfSetUf(){
         String uf = "unidade federativa";
         boolean valido = true;
-        info.setUf(uf);
-        if(uf.equals(info.getUf())){
+        info.setState(uf);
+        if(uf.equals(info.getState())){
             assertTrue(valido);
         }
     }
@@ -147,8 +145,8 @@ public class InformationUsScreenControllerTest extends TestCase{
     public void testIfSetGestao(){
         String gestao = "gestao de negocio";
         boolean valido = true;
-        info.setGestao(gestao);
-        if(gestao.equals(info.getGestao())){
+        info.setUnitType(gestao);
+        if(gestao.equals(info.getUnitType())){
             assertTrue(valido);
         }
     }
@@ -156,8 +154,8 @@ public class InformationUsScreenControllerTest extends TestCase{
     public void testIfSetNome(){
         String nome = "my name";
         boolean valido = true;
-        info.setNome(nome);
-        if(nome.equals(info.getNome())){
+        info.setNameHealthUnit(nome);
+        if(nome.equals(info.getNameHealthUnit())){
             assertTrue(valido);
         }
     }
@@ -165,8 +163,8 @@ public class InformationUsScreenControllerTest extends TestCase{
     public void testIfSetTitulo(){
         String titulo = "o titulo";
         boolean valido = true;
-        info.setTitulo(titulo);
-        if(titulo.equals(info.getTitulo())){
+        info.setTitleHealthUnit(titulo);
+        if(titulo.equals(info.getTitleHealthUnit())){
             assertTrue(valido);
         }
     }

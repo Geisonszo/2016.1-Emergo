@@ -24,6 +24,5 @@ public class AboutApp extends Activity {
 
         informationAboutApp = (TextView) findViewById(R.id.aboutApp);
         informationAboutApp.setText(messageAboutApp);
-
     }
 }

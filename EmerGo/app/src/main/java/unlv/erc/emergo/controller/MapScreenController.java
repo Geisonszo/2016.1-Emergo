@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -108,8 +107,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     private void messageAboutPermission(Boolean location, Boolean storage) {
 
         if (location && storage) {
+
             Toast.makeText(this, "Permissão aprovada", Toast.LENGTH_SHORT).show();
         } else {
+
             Toast.makeText(this,"Permita ter o acesso para te localizar",
                     Toast.LENGTH_SHORT).show();
         }
@@ -127,6 +128,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         mMap.setOnMarkerClickListener(this);
 
         if (mGoogleApiClient == null) {
+
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
@@ -136,18 +138,22 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     }
 
     protected void onStart() {
+
         mGoogleApiClient.connect();
         super.onStart();
     }
 
     protected void onStop() {
+
         mGoogleApiClient.disconnect();
         super.onStop();
     }
 
     @Override
     public void onConnected(Bundle connectionHint) {
+
         if (Build.VERSION.SDK_INT >= 23) {
+
             checkPermissions();
         }
 
@@ -155,19 +161,23 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
                 mGoogleApiClient);
 
         if (mLastLocation != null) {
-            location = mLastLocation;
 
+            location = mLastLocation;
             LatLng userLatLng = new LatLng(location.getLatitude() , location.getLongitude());
+
             focusOnSelfPosition(userLatLng);
             services.setMarkersOnMap(mMap , HealthUnitController.getClosestsUs());
 
         } else {
+
             Toast.makeText(this, "Não foi possível localizar sua posição",
                     Toast.LENGTH_SHORT).show();
             Intent mainScreen = new Intent();
+
             mainScreen.setClass(this, MainScreenController.class);
             startActivity(mainScreen);
-            finish();        }
+            finish();
+        }
     }
 
     @Override
@@ -179,6 +189,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
 
         if (Build.VERSION.SDK_INT >= 23) {
+
             checkPermissions();
         }
 
@@ -187,6 +198,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
 
     private void focusOnSelfPosition(LatLng userLatLng) {
+
         mMap.addMarker(new MarkerOptions().position(userLatLng).title(yourPosition)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom
@@ -201,14 +213,17 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED) {
+
             permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
             message += "\nTer acesso a localização no mapa";
         }
 
         if (!permissions.isEmpty()) {
+
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             String[] params = permissions.toArray(new String[permissions.size()]);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
                 requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
             }
         }
@@ -217,24 +232,31 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
+
         switch (requestCode) {
+
             case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
                 Map<String, Integer> perms = new HashMap<>();
+
                 perms.put(Manifest.permission.ACCESS_FINE_LOCATION,
                         PackageManager.PERMISSION_GRANTED);
 
                 for (int i = 0; i < permissions.length; i++) {
+
                     perms.put(permissions[i], grantResults[i]);
                 }
 
-                Boolean location = false , storage = false;
+                Boolean location = false;
+                Boolean storage = false;
 
                 location = perms.get(Manifest.permission.ACCESS_FINE_LOCATION) ==
                         PackageManager.PERMISSION_GRANTED;
                 try {
+
                     storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
                             PackageManager.PERMISSION_GRANTED;
-                } catch (RuntimeException ex){
+                } catch (RuntimeException ex) {
+
                     Toast.makeText(this , "É necessário ter a permissão" ,
                             Toast.LENGTH_LONG).show();
                     Intent main = new Intent();
