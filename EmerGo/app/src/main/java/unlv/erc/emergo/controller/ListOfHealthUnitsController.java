@@ -17,8 +17,8 @@ import unlv.erc.emergo.model.HealthUnit;
 
 public class ListOfHealthUnitsController extends Activity {
 
-    private List<String> uSs = new ArrayList<>();
-    private ListView uSsList;
+    private List<String> listHealthUnits = new ArrayList<>();
+    private ListView listHealthUnitsListView;
     private int numberOfUsClicked = 0;
 
     @Override
@@ -27,10 +27,11 @@ public class ListOfHealthUnitsController extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_of_health_unit);
 
-        uSs = get50closestUs(HealthUnitController.getClosestsUs());
+        listHealthUnits = get50closestUs(HealthUnitController.getClosestsUs());
         setuSsList((ListView) findViewById(R.id.list_of_hospitalUnit));
-        uSsList.setAdapter(new ArrayAdapter<String>(this, R.layout.item, R.id.hospitalUnitText,uSs));
-        uSsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listHealthUnitsListView.setAdapter(new ArrayAdapter<String>(this, R.layout.item,
+                                                    R.id.hospitalUnitText,listHealthUnits));
+        listHealthUnitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,int position,long id) {
@@ -62,9 +63,9 @@ public class ListOfHealthUnitsController extends Activity {
         return closestsUs;
     }
 
-    public void setuSsList(ListView uSsList) {
+    public void setuSsList(ListView listHealthUnitsListView) {
 
-        this.uSsList = uSsList;
+        this.listHealthUnitsListView= listHealthUnitsListView;
     }
 
 
