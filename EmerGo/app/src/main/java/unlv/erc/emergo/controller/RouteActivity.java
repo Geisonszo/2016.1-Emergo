@@ -1,24 +1,34 @@
 package unlv.erc.emergo.controller;
 
 import android.Manifest;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
 import android.database.Cursor;
+
 import android.graphics.Color;
+
 import android.location.Location;
+
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+
 import android.telephony.SmsManager;
+
 import android.util.Log;
+
 import android.view.View;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,7 +43,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -43,8 +52,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,32 +63,37 @@ import java.util.Map;
 
 import dao.EmergencyContactDao;
 import dao.UserDao;
+
 import helper.DirectionsJSONParser;
+
 import unlv.erc.emergo.R;
-
-
 
 public class RouteActivity  extends FragmentActivity implements View.OnClickListener, OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-    private static int SPLASH_TIME_OUT = 3400;
+    public Boolean canceled = false;
+    public int indexOfClosestUs;
     public String SAMUNumber = "tel:192";
     private GoogleMap mMap;
+    private Cursor result;
+    private Location mLastLocation;
+    private GoogleApiClient mGoogleApiClient = null;
+    private static int SPLASH_TIME_OUT = 3400;
     ArrayList<LatLng> pointsOfRoute = new ArrayList<>();
     EmergencyContactDao emergencyContactDao = new EmergencyContactDao(this);
     LatLng myLocation ;
     TextView timer;
-    ImageView user , cancelCall , phone , userInformation;
-    Button buttonGo , selfLocation;
-    private Cursor result;
+    ImageView user;
+    ImageView cancelCall;
+    ImageView phone;
+    ImageView userInformation;
+    Button buttonGo;
+    Button selfLocation;
     UserDao myDatabase;
-    int indexOfClosestUs;
-    Intent i;
-    Boolean canceled = false;
+    Intent intent;
     SupportMapFragment mapFragment;
-    private Location mLastLocation;
-    private GoogleApiClient mGoogleApiClient = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,16 +101,14 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
         setContentView(R.layout.route_activity);
 
         if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
+            mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
+        } else {
+            // nothing to do
         }
 
         checkPermissions();
         linkButtonsAndXml();
-
         getExtraIntent();
     }
 
@@ -110,29 +124,36 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     @Override
     public void onConnected(Bundle connectionHint) {
+
         if (Build.VERSION.SDK_INT >= 23) {
             checkPermissions();
+        } else {
+            // nothing to do
         }
 
-        this.mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
+        this.mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         myDatabase = new UserDao(this);
         result = myDatabase.getUser();
+
         getMapFragment();
         Location location = getUserPosition(mLastLocation);
         HealthUnitController.setDistanceBetweenUserAndUs(HealthUnitController.getClosestsUs() , location);
         selectIndexOfClosestUs(location);
+
         myLocation = new LatLng(location.getLatitude() , location.getLongitude());
+
         setYourPositionOnMap();
         focusOnYourPosition();
         pointsOfRoute.add (myLocation);
-        try{
+        try {
             getMapData();
             setMarkerOfClosestUsOnMap();
-        }catch (RuntimeException c){
+        } catch (RuntimeException c){
             Toast.makeText(this , "Sem internet" , Toast.LENGTH_SHORT).show();
+
             Intent main = new Intent();
+
             main.setClass(this , MainScreenController.class);
             startActivity(main);
             finish();
@@ -146,8 +167,11 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         if (Build.VERSION.SDK_INT >= 23) {
             checkPermissions();
+        } else {
+            // nothing to do
         }
 
         mMap = googleMap;
@@ -159,35 +183,37 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
         Location location = new Location("");
         location.setLatitude(mLastLocation.getLatitude());
         location.setLongitude(mLastLocation.getLongitude());
+
         return location;
     }
 
     private void getExtraIntent() {
-        i= getIntent();
-        indexOfClosestUs =  i.getIntExtra("numeroUs" , 0);
+        intent = getIntent();
+        indexOfClosestUs =  intent.getIntExtra("numeroUs" , 0);
     }
 
     private void getMapFragment() {
-        mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mMap = mapFragment.getMap();
     }
 
     private void getMapData() {
-        String urlInitial =  getDirectionsUrl(myLocation ,
-                new LatLng(HealthUnitController.getClosestsUs().get(indexOfClosestUs).getLatitude(),
-                        HealthUnitController.getClosestsUs().get(indexOfClosestUs).getLongitude()));
+        String urlInitial =  getDirectionsUrl(myLocation, new LatLng(HealthUnitController.getClosestsUs()
+                .get(indexOfClosestUs).getLatitude(), HealthUnitController.getClosestsUs()
+                .get(indexOfClosestUs).getLongitude()));
         DownloadTask downloadTask = new DownloadTask();
         downloadTask.execute(urlInitial);
     }
 
     private void selectIndexOfClosestUs(Location location) {
-        if(indexOfClosestUs == -1){
-            indexOfClosestUs = HealthUnitController.selectClosestUs(HealthUnitController.getClosestsUs() , location);
+
+        if(indexOfClosestUs == -1) {
+            indexOfClosestUs = HealthUnitController.selectClosestUs(HealthUnitController.getClosestsUs(),
+                    location);
             cancelCall.setVisibility(View.VISIBLE);
             phone.setVisibility(View.INVISIBLE);
             startCountDown();
-        }else{
+        } else {
             timer.setText("");
             phone.setVisibility(View.VISIBLE);
             cancelCall.setVisibility(View.INVISIBLE);
@@ -227,13 +253,16 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
 
     private void openCountDown() {
+
         new CountDownTimer(3000 , 1000) {
+
             public void onTick(long millisUntilFinished) {
-                if(!canceled){
+
+                if(!canceled) {
                     long milis = millisUntilFinished / 1000;
                     String time =  String.valueOf(milis) ;
                     timer.setText(time);
-                }else{
+                } else {
                     timer.setText("");
                 }
 
@@ -244,9 +273,12 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
                 phone.setVisibility(View.VISIBLE);
             }
         }.start();
-        if(!canceled){
+
+        if(!canceled) {
             sendMessage();
             callSamu();
+        } else {
+            // nothing to do
         }
     }
 
@@ -258,23 +290,38 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.buttonGo){
+
+        if(v.getId() == R.id.buttonGo) {
             openMap();
+        } else {
+            // nothing to do
         }
-        if(v.getId() == R.id.selfLocation){
+
+        if(v.getId() == R.id.selfLocation) {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom
                     (new LatLng(myLocation.latitude, myLocation.longitude), 13.0f));
+        } else {
+            // nothing to do
         }
-        if(v.getId() == R.id.userInformation){
+
+        if(v.getId() == R.id.userInformation) {
             Intent config = new Intent();
             config.setClass(RouteActivity.this , ConfigController.class);
             startActivity(config);
+        } else {
+            // nothing to do
         }
-        if(v.getId() == R.id.cancelarLigacao){
+
+        if(v.getId() == R.id.cancelarLigacao) {
             cancelCalling();
+        } else {
+            // nothing to do
         }
-        if(v.getId() == R.id.phone){
+
+        if(v.getId() == R.id.phone) {
             callSamu();
+        } else {
+            // nothing to do
         }
     }
 
@@ -293,11 +340,12 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
 
     private void setMarkerOfClosestUsOnMap() {
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(HealthUnitController.getClosestsUs().get(indexOfClosestUs).getLatitude()
-                        ,HealthUnitController.getClosestsUs().get(indexOfClosestUs).getLongitude()))
-                .title(HealthUnitController.getClosestsUs().get(indexOfClosestUs).getNameHospital() + "")
-                .snippet(HealthUnitController.getClosestsUs().get(indexOfClosestUs).getUnitType()));
+
+        mMap.addMarker(new MarkerOptions().position(new LatLng(HealthUnitController.getClosestsUs()
+                .get(indexOfClosestUs).getLatitude(), HealthUnitController.getClosestsUs()
+                .get(indexOfClosestUs).getLongitude())).title(HealthUnitController.getClosestsUs()
+                .get(indexOfClosestUs).getNameHospital() + "").snippet(HealthUnitController
+                .getClosestsUs().get(indexOfClosestUs).getUnitType()));
     }
 
     private void focusOnYourPosition() {
@@ -307,6 +355,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     private void setYourPositionOnMap() {
         final String yourPosition = "Sua posição";
+
         mMap.addMarker(new MarkerOptions().position(myLocation).title(yourPosition)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
     }
@@ -314,12 +363,12 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     private String getDirectionsUrl(LatLng origin,LatLng dest){
 
-        String str_origin = "origin="+origin.latitude+","+origin.longitude;
-        String str_dest = "destination="+dest.latitude+","+dest.longitude;
+        String stringOrigin = "origin=" + origin.latitude + "," + origin.longitude;
+        String stringDestination = "destination=" + dest.latitude+"," + dest.longitude;
         String sensor = "sensor=false";
-        String parameters = str_origin+"&"+str_dest+"&"+sensor;
+        String parameters = stringOrigin + "&" + stringDestination + "&" + sensor;
         String output = "json";
-        String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters;
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
 
         return url;
     }
@@ -329,11 +378,12 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
         @Override
         protected String doInBackground(String... url) {
             String data = "";
-            try{
+            try {
                 data = downloadUrl(url[0]);
-            }catch(Exception e){
+            } catch(Exception e) {
                 Log.d("Background Task",e.toString());
             }
+
             return data;
         }
 
@@ -349,17 +399,17 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     public void showInformationUser(){
         result.moveToFirst();
 
-        if(result.getCount() == 0){
+        if(result.getCount() == 0) {
             Toast.makeText(this,"Não existe nenhum cadastro no momento.",Toast.LENGTH_LONG).show();
-        }else{
-            showMessageDialog("Notificações do Usuário","Nome: "+result.getString(1)+ "\n" +
-                    "Data de Aniversário: "+result.getString(2)+ "\n" +
-                    "Tipo Sanguíneo: "+result.getString(3)+ "\n" +
-                    "Cardiaco: "+result.getString(4)+ "\n" +
-                    "Diabetico: "+result.getString(5)+ "\n" +
-                    "Hipertenso: "+result.getString(6)+ "\n" +
-                    "Soropositivo: "+result.getString(7)+ "\n" +
-                    "Observações Especiais: "+result.getString(8));
+        } else {
+            showMessageDialog("Notificações do Usuário","Nome: " + result.getString(1) + "\n" +
+                    "Data de Aniversário: " + result.getString(2) + "\n" +
+                    "Tipo Sanguíneo: " + result.getString(3) + "\n" +
+                    "Cardiaco: " + result.getString(4) + "\n" +
+                    "Diabetico: " + result.getString(5) + "\n" +
+                    "Hipertenso: " + result.getString(6) + "\n" +
+                    "Soropositivo: " + result.getString(7) + "\n" +
+                    "Observações Especiais: " + result.getString(8));
         }
     }
 
@@ -367,7 +417,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
-        try{
+        try {
             urlConnection = getHttpURLConnection(strUrl, urlConnection);
             iStream = urlConnection.getInputStream();
 
@@ -377,18 +427,19 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
             data = sb.toString();
             br.close();
-        }catch(Exception e){
+        } catch(Exception e) {
             Log.d("Error downloading url", e.toString());
-        }finally{
+        } finally {
             iStream.close();
             urlConnection.disconnect();
         }
+
         return data;
     }
 
     private void concatenateBufferRead(BufferedReader br, StringBuffer sb) throws IOException {
         String line = "";
-        while( ( line = br.readLine())  != null){
+        while( ( line = br.readLine())  != null) {
             sb.append(line);
         }
     }
@@ -401,19 +452,19 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
         return urlConnection;
     }
 
-    public class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> >{
+    public class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>>> {
 
         @Override
         protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
 
             JSONObject jObject;
             List<List<HashMap<String, String>>> routes = null;
-            try{
+            try {
                 jObject = new JSONObject(jsonData[0]);
                 DirectionsJSONParser parser = new DirectionsJSONParser();
 
                 routes = parser.parse(jObject);
-            }catch(Exception e){
+            } catch(Exception e) {
                 e.printStackTrace();
             }
             return routes;
@@ -452,32 +503,43 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
         List<String> permissions = new ArrayList<>();
         String message = "Permissão";
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
             message += "\nTer acesso a localização no mapa";
+        } else {
+            // nothing to do
         }
+
         if (!permissions.isEmpty()) {
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             String[] params = permissions.toArray(new String[permissions.size()]);
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            } else {
+                // nothing to do
             }
+
+        } else {
+            // nothing to do
         }
     }
 
     public void sendMessage() {
         Cursor result = emergencyContactDao.getEmergencyContact();
-        if(result.getCount()!=0){
-            try{
-                while (result.moveToNext()){
+
+        if(result.getCount()!=0) {
+            try {
+                while (result.moveToNext()) {
                     SmsManager.getDefault().sendTextMessage(result.getString(2),null,
                             result.getString(1)+", Estou precisando de ajuda urgente!",null,null);
                 }
                 Toast.makeText(getApplicationContext(),"Ajuda a caminho!", Toast.LENGTH_LONG).show();
-            }catch (Exception exception){
+            } catch (Exception exception) {
                 Toast.makeText(getApplicationContext(),"Impossivel encaminhar o SMS", Toast.LENGTH_LONG).show();
             }
-        }else{
+        } else {
             Toast.makeText(getApplicationContext(),"Nenhum contato adicionado", Toast.LENGTH_LONG).show();
         }
     }
@@ -508,9 +570,9 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
 
     private Boolean getaBooleanPermission(Map<String, Integer> perms, Boolean storage) {
-        try{
+        try {
             storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        }catch (RuntimeException ex){
+        } catch (RuntimeException ex) {
             Toast.makeText(this , "É necessário ter a permissão" , Toast.LENGTH_LONG).show();
             Intent main = new Intent();
             main.setClass(this , MainScreenController.class);
@@ -523,7 +585,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     private void messageAboutPermission(Boolean location, Boolean storage) {
         if (location && storage) {
             Toast.makeText(this, "Permissão aprovada", Toast.LENGTH_SHORT).show();
-        } else{
+        } else {
             Toast.makeText(this,"Permita ter o acesso para te localizar", Toast.LENGTH_SHORT).show();
         }
     }

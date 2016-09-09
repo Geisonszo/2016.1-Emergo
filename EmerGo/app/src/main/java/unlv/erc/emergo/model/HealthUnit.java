@@ -1,6 +1,5 @@
 package unlv.erc.emergo.model;
 
-
 import com.orm.SugarRecord;
 
 public class HealthUnit extends SugarRecord{
