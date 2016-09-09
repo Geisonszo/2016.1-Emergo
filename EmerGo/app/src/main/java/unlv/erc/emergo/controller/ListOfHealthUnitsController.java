@@ -19,7 +19,7 @@ public class ListOfHealthUnitsController extends Activity {
 
     private List<String> uSs = new ArrayList<>();
     private ListView uSsList;
-    private int numberOfUsClicked;
+    private int numberOfUsClicked = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
