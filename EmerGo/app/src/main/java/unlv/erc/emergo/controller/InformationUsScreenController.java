@@ -23,15 +23,15 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     private Button buttonRoute;
     private ImageView buttonGo;
     private Intent receive;
-    private int numberUsSelected;
-    private String padding;
-    private String titleHealthUnit;
-    private String nameHeatlthUnit;
-    private String unitType;
-    private String state;
-    private String city;
-    private String district;
-    private String addressNumber;
+    private int numberUsSelected = 0;
+    private String padding = "";
+    private String titleHealthUnit = "";
+    private String nameHeatlthUnit = "";
+    private String unitType = "";
+    private String state = "";
+    private String city = "";
+    private String district = "";
+    private String addressNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
