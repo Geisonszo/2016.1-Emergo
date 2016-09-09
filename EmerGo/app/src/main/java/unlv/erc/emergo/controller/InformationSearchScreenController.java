@@ -24,7 +24,6 @@ import unlv.erc.emergo.model.HealthUnit;
 
 public class InformationSearchScreenController extends Activity {
 
-
     private List<String> listOfInformations = new ArrayList<String>();
     private ListView healthUnitInfo;
     private Intent receive;
@@ -40,11 +39,12 @@ public class InformationSearchScreenController extends Activity {
     private String district = "";
     private String addressNumber = "";
     private final int LOWERCLOSE = -1;
-    private final int VALUEDEFAULTINTENT = 0;
+    private final int VALUE_DEFAULT_INTENT = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_us_screen);
 
@@ -75,7 +75,8 @@ public class InformationSearchScreenController extends Activity {
      * type of care,UF,city,neighborhood and zip code.
      */
 
-    public void setInformation(HealthUnit healthUnit){
+    public void setInformation(HealthUnit healthUnit) {
+
         setPadding("\n");
         setTitle("        Informações da Unidade de Saúde");
         setNameHealthUnit("  Nome: " + healthUnit.getNameHospital());
@@ -91,7 +92,8 @@ public class InformationSearchScreenController extends Activity {
      * saved data in ArrayLists will be shown in a ArrayAdapter.
      */
 
-    public void  addInformationToList(){
+    public void  addInformationToList() {
+
         listOfInformations.add(padding);
         listOfInformations.add(titleHealthUnit);
         listOfInformations.add(nameHealthUnit);
@@ -107,7 +109,8 @@ public class InformationSearchScreenController extends Activity {
      * Shows the information saved in the arraylist and put in a ArrayAdapter.
      */
 
-    public void showInformationOnScreen(){
+    public void showInformationOnScreen() {
+
         ArrayAdapter<String> adapter = new ArrayAdapter <String> (this ,
                                                                 android.R.layout.simple_list_item_1,
                                                                 listOfInformations);
@@ -120,10 +123,12 @@ public class InformationSearchScreenController extends Activity {
      * close the activity "RouteActivity".
      */
 
-    public void buttonRoute(){
+    public void buttonRoute() {
+
         Intent route = new Intent();
+
         route.setClass(this , RouteActivity.class);
-        route.putExtra("numeroUs" , receive.getIntExtra("position" , VALUEDEFAULTINTENT));
+        route.putExtra("numeroUs" , receive.getIntExtra("position" , VALUE_DEFAULT_INTENT));
         startActivity(route);
         finish();
     }
@@ -134,8 +139,10 @@ public class InformationSearchScreenController extends Activity {
      * route nearest the usuário.Quando the RouteActivity is finished, come in method "finish ()"
      * which will close the activity "RouteActivity".
      */
-    public void buttonClickGo(){
+    public void buttonClickGo() {
+
         final String ROUTETRACED = "Rota mais próxima traçada";
+
         Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
         Intent routeActivity = new Intent();
         routeActivity.setClass(this , RouteActivity.class);
@@ -150,8 +157,10 @@ public class InformationSearchScreenController extends Activity {
      * @return SearchUsController
      */
 
-    public void open_search(View mapScreen){
+    public void open_search(View mapScreen) {
+
         Intent openSearch = new Intent();
+
         openSearch.setClass(this , SearchUsController.class);
         startActivity(openSearch);
     }
@@ -162,8 +171,10 @@ public class InformationSearchScreenController extends Activity {
      * @return ConfigController
      */
 
-    public void openConfig(View map_screen){
+    public void openConfig(View map_screen) {
+
         Intent config = new Intent();
+
         config.setClass(this , ConfigController.class);
         startActivity(config);
     }
@@ -174,8 +185,10 @@ public class InformationSearchScreenController extends Activity {
      * @return ListOfHealthUnitsController
      */
 
-    public void listMapsImageClicked(View map_screen){
+    public void listMapsImageClicked(View map_screen) {
+
         Intent listOfHealth = new Intent();
+
         listOfHealth.setClass(this, ListOfHealthUnitsController.class);
         startActivity(listOfHealth);
         finish();
@@ -187,8 +200,10 @@ public class InformationSearchScreenController extends Activity {
      * @return MapScreenController
      */
 
-    public void openMap(View mapScreen){
+    public void openMap(View mapScreen) {
+
         Intent mapActivity = new Intent();
+
         mapActivity.setClass(this, MapScreenController.class);
         startActivity(mapActivity);
         finish();
@@ -200,6 +215,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public List<String> getListOfInformations() {
+
         return listOfInformations;
     }
 
@@ -210,6 +226,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setListOfInformations(List<String> listOfInformations) {
+
         this.listOfInformations = listOfInformations;
     }
 
@@ -219,6 +236,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public ListView getHealthUnitInfo() {
+
         return healthUnitInfo;
     }
 
@@ -228,6 +246,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setHealthUnitInfo(ListView healthUnitInfo) {
+
         this.healthUnitInfo = healthUnitInfo;
     }
 
@@ -237,6 +256,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public Intent getReceive() {
+
         return receive;
     }
 
@@ -246,6 +266,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setReceive(Intent receive) {
+
         this.receive = receive;
     }
 
@@ -255,6 +276,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public Button getButtonRoute() {
+
         return buttonRoute;
     }
 
@@ -264,6 +286,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setButtonRoute(Button buttonRoute) {
+
         this.buttonRoute = buttonRoute;
     }
 
@@ -273,6 +296,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public ImageView getButtonGo() {
+
         return buttonGo;
     }
 
@@ -282,6 +306,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setButtonGo(ImageView buttonGo) {
+
         this.buttonGo = buttonGo;
     }
 
@@ -291,6 +316,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public int getNumberUsSelected() {
+
         return numberUsSelected;
     }
 
@@ -300,6 +326,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setNumberUsSelected(int numberUsSelected) {
+
         this.numberUsSelected = numberUsSelected;
     }
 
@@ -309,6 +336,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public String getPadding() {
+
         return padding;
     }
 
@@ -318,6 +346,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setPadding(String padding) {
+
         this.padding = padding;
     }
 
@@ -327,6 +356,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public String getTitleHealthUnit() {
+
         return titleHealthUnit;
     }
 
@@ -336,6 +366,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setTitleHealthUnit(String titleHealthUnit) {
+
         this.titleHealthUnit = titleHealthUnit;
     }
 
@@ -354,6 +385,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setNameHealthUnit(String nameHealthUnit) {
+
         this.nameHealthUnit = nameHealthUnit;
     }
 
@@ -363,6 +395,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public String getUnitType() {
+
         return unitType;
     }
 
@@ -372,6 +405,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setUnitType(String unitType) {
+
         this.unitType = unitType;
     }
 
@@ -381,6 +415,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public String getState() {
+
         return state;
     }
 
@@ -390,6 +425,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setState(String state) {
+
         this.state = state;
     }
 
@@ -399,6 +435,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public String getCity() {
+
         return city;
     }
 
@@ -408,6 +445,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setCity(String city) {
+
         this.city = city;
     }
 
@@ -417,6 +455,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public String getDistrict() {
+
         return district;
     }
 
@@ -426,6 +465,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setDistrict(String district) {
+
         this.district = district;
     }
 
@@ -435,6 +475,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public String getAddressNumber() {
+
         return addressNumber;
     }
 
@@ -444,6 +485,7 @@ public class InformationSearchScreenController extends Activity {
      */
 
     public void setAddressNumber(String addressNumber) {
+
         this.addressNumber = addressNumber;
     }
 }

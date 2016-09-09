@@ -35,6 +35,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_us_screen);
 
@@ -49,22 +50,27 @@ public class InformationUsScreenController extends Activity implements View.OnCl
         setInformation(HealthUnitController.getClosestsUs().get(numberUsSelected));
 
         addInformationToList();
-
     }
 
     @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.botaoRota){
+    public void onClick(View viewOnClick) {
+
+        if(viewOnClick.getId() == R.id.botaoRota) {
+
             Intent route = new Intent();
+
             route.setClass(InformationUsScreenController.this , RouteActivity.class);
             route.putExtra("numeroUs" , receive.getIntExtra("position" , 0));
             startActivity(route);
             finish();
         }
-        if(v.getId() == R.id.buttonGo){
+
+        if(viewOnClick.getId() == R.id.buttonGo) {
+
             final String ROUTETRACED = "Rota mais próxima traçada";
-            Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
             Intent routeActivity = new Intent();
+
+            Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
             routeActivity.setClass(InformationUsScreenController.this , RouteActivity.class);
             routeActivity.putExtra("numeroUs" , -1);
             startActivity(routeActivity);
@@ -72,20 +78,19 @@ public class InformationUsScreenController extends Activity implements View.OnCl
         }
     }
 
-    public void setInformation(HealthUnit hospital){
+    public void setInformation(HealthUnit healthUnit) {
+
         setPadding("\n");
         setTitleHealthUnit("        Informações da Unidade de Saúde");
-        setNameHeatlthUnit("  Nome: " + hospital.getNameHospital());
-        setUnitType("  Tipo de atendimento: " + hospital.getUnitType());
-        setState("  UF: " + hospital.getState());
-        setCity("  Cidade: " + hospital.getCity());
-        setDistrict("  Bairro: " + hospital.getDistrict());
-        setAddressNumber("  Cep: " + hospital.getAddressNumber());
+        setNameHeatlthUnit("  Nome: " + healthUnit.getNameHospital());
+        setUnitType("  Tipo de atendimento: " + healthUnit.getUnitType());
+        setState("  UF: " + healthUnit.getState());
+        setCity("  Cidade: " + healthUnit.getCity());
+        setDistrict("  Bairro: " + healthUnit.getDistrict());
+        setAddressNumber("  Cep: " + healthUnit.getAddressNumber());
     }
 
-
-
-    public void  addInformationToList(){
+    public void  addInformationToList() {
 
         listOfInformations.add(padding);
         listOfInformations.add(titleHealthUnit);
@@ -98,150 +103,187 @@ public class InformationUsScreenController extends Activity implements View.OnCl
         showInformationOnScreen();
     }
 
-    public void showInformationOnScreen(){
-        ArrayAdapter<String> adapter = new ArrayAdapter <String> (this ,
-                android.R.layout.simple_list_item_1,
-                listOfInformations );
+    public void showInformationOnScreen() {
+
+        ArrayAdapter<String> adapter = new ArrayAdapter <String> (this,
+                                                                android.R.layout.simple_list_item_1,
+                                                                listOfInformations);
+
         healthUnitInfo.setAdapter(adapter);
     }
 
+    public void open_search(View mapScreen) {
 
-    public void open_search(View mapScreen){
         Intent openSearch = new Intent();
-        openSearch.setClass(this , SearchUsController.class);
+
+        openSearch.setClass(this,SearchUsController.class);
         startActivity(openSearch);
     }
 
-    public void listMapsImageClicked(View map_screen){
+    public void listMapsImageClicked(View map_screen) {
+
         Intent listOfHealth = new Intent();
-        listOfHealth.setClass(this, ListOfHealthUnitsController.class);
+
+        listOfHealth.setClass(this,ListOfHealthUnitsController.class);
         startActivity(listOfHealth);
         finish();
     }
 
-    public void openMap(View mapScreen){
+    public void openMap(View mapScreen) {
+
         Intent mapActivity = new Intent();
-        mapActivity.setClass(this, MapScreenController.class);
+
+        mapActivity.setClass(this,MapScreenController.class);
         startActivity(mapActivity);
         finish();
     }
 
-    public void openConfig(View map_screen){
+    public void openConfig(View map_screen) {
+
         Intent config = new Intent();
+
         config.setClass(this , ConfigController.class);
         startActivity(config);
         finish();
     }
 
     public List<String> getListOfInformations() {
+
         return listOfInformations;
     }
 
     public void setListOfInformations(List<String> listOfInformations) {
+
         this.listOfInformations = listOfInformations;
     }
 
     public ListView getHealthUnitInfo() {
+
         return healthUnitInfo;
     }
 
     public void setHealthUnitInfo(ListView healthUnitInfo) {
+
         this.healthUnitInfo = healthUnitInfo;
     }
 
     public Button getButtonRoute() {
+
         return buttonRoute;
     }
 
     public void setButtonRoute(Button buttonRoute) {
+
         this.buttonRoute = buttonRoute;
     }
 
     public ImageView getButtonGo() {
+
         return buttonGo;
     }
 
     public void setButtonGo(ImageView buttonGo) {
+
         this.buttonGo = buttonGo;
     }
 
     public Intent getReceive() {
+
         return receive;
     }
 
     public void setReceive(Intent receive) {
+
         this.receive = receive;
     }
 
     public int getNumberUsSelected() {
+
         return numberUsSelected;
     }
 
     public void setNumberUsSelected(int numberUsSelected) {
+
         this.numberUsSelected = numberUsSelected;
     }
 
     public String getPadding() {
+
         return padding;
     }
 
     public void setPadding(String padding) {
+
         this.padding = padding;
     }
 
     public String getTitleHealthUnit() {
+
         return titleHealthUnit;
     }
 
     public void setTitleHealthUnit(String titleHealthUnit) {
+
         this.titleHealthUnit = titleHealthUnit;
     }
 
     public String getNameHeatlthUnit() {
+
         return nameHeatlthUnit;
     }
 
     public void setNameHeatlthUnit(String nameHeatlthUnit) {
+
         this.nameHeatlthUnit = nameHeatlthUnit;
     }
 
     public String getUnitType() {
+
         return unitType;
     }
 
     public void setUnitType(String unitType) {
+
         this.unitType = unitType;
     }
 
     public String getState() {
+
         return state;
     }
 
     public void setState(String state) {
+
         this.state = state;
     }
 
     public String getCity() {
+
         return city;
     }
 
     public void setCity(String city) {
+
         this.city = city;
     }
 
     public String getDistrict() {
+
         return district;
     }
 
     public void setDistrict(String district) {
+
         this.district = district;
     }
 
     public String getAddressNumber() {
+
         return addressNumber;
     }
 
     public void setAddressNumber(String addressNumber) {
+
         this.addressNumber = addressNumber;
     }
 }
