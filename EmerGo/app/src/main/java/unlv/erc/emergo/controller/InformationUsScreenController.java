@@ -3,7 +3,6 @@ package unlv.erc.emergo.controller;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,14 +19,19 @@ import unlv.erc.emergo.model.HealthUnit;
 public class InformationUsScreenController extends Activity implements View.OnClickListener {
 
     private List <String> listOfInformations = new ArrayList<String>();
-    private ListView hospInfo;
-    private Button route;
+    private ListView healthUnitInfo;
+    private Button buttonRoute;
     private ImageView buttonGo;
     private Intent receive;
     private int numberUsSelected;
-    private String padding ,titulo, nome ,gestao , uf ,municipio ,
-                    bairro ,cep ;
-
+    private String padding;
+    private String titleHealthUnit;
+    private String nameHeatlthUnit;
+    private String unitType;
+    private String state;
+    private String city;
+    private String district;
+    private String addressNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +40,12 @@ public class InformationUsScreenController extends Activity implements View.OnCl
 
         setReceive(getIntent());
         setNumberUsSelected(receive.getIntExtra("position" , 0));
-        route = (Button) findViewById(R.id.botaoRota);
-        route.setOnClickListener(this);
+        buttonRoute = (Button) findViewById(R.id.botaoRota);
+        buttonRoute.setOnClickListener(this);
         buttonGo = (ImageView) findViewById(R.id.buttonGo);
         buttonGo.setOnClickListener(this);
 
-        setHospInfo((ListView) findViewById(R.id.hospInformation));
+        setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
         setInformation(HealthUnitController.getClosestsUs().get(numberUsSelected));
 
         addInformationToList();
@@ -70,13 +74,13 @@ public class InformationUsScreenController extends Activity implements View.OnCl
 
     public void setInformation(HealthUnit hospital){
         setPadding("\n");
-        setTitulo("        Informações da Unidade de Saúde");
-        setNome("  Nome: " + hospital.getNameHospital());
-        setGestao("  Tipo de atendimento: " + hospital.getUnitType());
-        setUf("  UF: " + hospital.getState());
-        setMunicipio("  Cidade: " + hospital.getCity());
-        setBairro("  Bairro: " + hospital.getDistrict());
-        setCep("  Cep: " + hospital.getAddressNumber());
+        setTitleHealthUnit("        Informações da Unidade de Saúde");
+        setNameHeatlthUnit("  Nome: " + hospital.getNameHospital());
+        setUnitType("  Tipo de atendimento: " + hospital.getUnitType());
+        setState("  UF: " + hospital.getState());
+        setCity("  Cidade: " + hospital.getCity());
+        setDistrict("  Bairro: " + hospital.getDistrict());
+        setAddressNumber("  Cep: " + hospital.getAddressNumber());
     }
 
 
@@ -84,13 +88,13 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     public void  addInformationToList(){
 
         listOfInformations.add(padding);
-        listOfInformations.add(titulo);
-        listOfInformations.add(nome);
-        listOfInformations.add(gestao);
-        listOfInformations.add(uf);
-        listOfInformations.add(municipio);
-        listOfInformations.add(bairro);
-        listOfInformations.add(cep);
+        listOfInformations.add(titleHealthUnit);
+        listOfInformations.add(nameHeatlthUnit);
+        listOfInformations.add(unitType);
+        listOfInformations.add(state);
+        listOfInformations.add(city);
+        listOfInformations.add(district);
+        listOfInformations.add(addressNumber);
         showInformationOnScreen();
     }
 
@@ -98,7 +102,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
         ArrayAdapter<String> adapter = new ArrayAdapter <String> (this ,
                 android.R.layout.simple_list_item_1,
                 listOfInformations );
-        hospInfo.setAdapter(adapter);
+        healthUnitInfo.setAdapter(adapter);
     }
 
 
@@ -129,65 +133,116 @@ public class InformationUsScreenController extends Activity implements View.OnCl
         finish();
     }
 
-    public void setHospInfo(ListView hospInfo) {
-        this.hospInfo = hospInfo;
+    public List<String> getListOfInformations() {
+        return listOfInformations;
+    }
+
+    public void setListOfInformations(List<String> listOfInformations) {
+        this.listOfInformations = listOfInformations;
+    }
+
+    public ListView getHealthUnitInfo() {
+        return healthUnitInfo;
+    }
+
+    public void setHealthUnitInfo(ListView healthUnitInfo) {
+        this.healthUnitInfo = healthUnitInfo;
+    }
+
+    public Button getButtonRoute() {
+        return buttonRoute;
+    }
+
+    public void setButtonRoute(Button buttonRoute) {
+        this.buttonRoute = buttonRoute;
+    }
+
+    public ImageView getButtonGo() {
+        return buttonGo;
+    }
+
+    public void setButtonGo(ImageView buttonGo) {
+        this.buttonGo = buttonGo;
+    }
+
+    public Intent getReceive() {
+        return receive;
     }
 
     public void setReceive(Intent receive) {
         this.receive = receive;
     }
 
+    public int getNumberUsSelected() {
+        return numberUsSelected;
+    }
+
     public void setNumberUsSelected(int numberUsSelected) {
         this.numberUsSelected = numberUsSelected;
     }
 
+    public String getPadding() {
+        return padding;
+    }
 
     public void setPadding(String padding) {
         this.padding = padding;
     }
-    public String getPadding() { return  padding;}
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-    public String getTitulo() { return titulo; }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    public String getNome(){ return nome; }
-
-    public void setGestao(String gestao) {
-        this.gestao = gestao;
-    }
-    public String getGestao(){ return gestao; }
-
-    public void setUf(String uf) {
-        this.uf = uf;
+    public String getTitleHealthUnit() {
+        return titleHealthUnit;
     }
 
-    public String getUf(){return uf;}
-
-    public void setMunicipio(String municipio) {
-        this.municipio = municipio;
+    public void setTitleHealthUnit(String titleHealthUnit) {
+        this.titleHealthUnit = titleHealthUnit;
     }
 
-    public String getMunicipio(){return municipio;}
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
+    public String getNameHeatlthUnit() {
+        return nameHeatlthUnit;
     }
 
-    public String getBairro(){
-        return bairro;
+    public void setNameHeatlthUnit(String nameHeatlthUnit) {
+        this.nameHeatlthUnit = nameHeatlthUnit;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public String getUnitType() {
+        return unitType;
     }
 
-    public String  getCep(){
-        return cep;
+    public void setUnitType(String unitType) {
+        this.unitType = unitType;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getAddressNumber() {
+        return addressNumber;
+    }
+
+    public void setAddressNumber(String addressNumber) {
+        this.addressNumber = addressNumber;
     }
 }
 
