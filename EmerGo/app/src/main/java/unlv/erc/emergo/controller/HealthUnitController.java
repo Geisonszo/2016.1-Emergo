@@ -2,12 +2,11 @@ package unlv.erc.emergo.controller;
 
 import android.content.Context;
 import android.location.Location;
-
 import java.util.ArrayList;
-
 import unlv.erc.emergo.model.HealthUnit;
 
 public class HealthUnitController {
+
     private static HealthUnitController instance = null;
     static ArrayList<HealthUnit> closestsUs = new ArrayList<HealthUnit>();
 
@@ -27,7 +26,6 @@ public class HealthUnitController {
         return closestsUs;
     }
 
-
     public static void setClosestsUs(HealthUnit healthUnit) {
         closestsUs.add(healthUnit);
     }
@@ -42,14 +40,14 @@ public class HealthUnitController {
     }
 
     public static int selectClosestUs(ArrayList<HealthUnit> closestsUs , Location location){
-        double menor = 99999;
-        int posicao = 0;
+        double smaller = 99999;
+        int position = 0;
         for(int aux = 0 ; aux < closestsUs.size() ; aux++){
-            if(closestsUs.get(aux).getDistance() < menor){
-                menor = closestsUs.get(aux).getDistance();
-                posicao = aux;
+            if(closestsUs.get(aux).getDistance() < smaller){
+                smaller = closestsUs.get(aux).getDistance();
+                position = aux;
             }
         }
-        return posicao;
+        return position;
     }
 }
