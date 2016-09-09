@@ -21,15 +21,17 @@ import java.util.List;
 import unlv.erc.emergo.R;
 import unlv.erc.emergo.model.HealthUnit;
 
-public class SearchUsController extends AppCompatActivity implements SearchView.OnQueryTextListener , View.OnClickListener{
+public class SearchUsController extends AppCompatActivity
+        implements SearchView.OnQueryTextListener, View.OnClickListener {
 
     private SearchView mSearchView;
-    private ImageView map , usList;
     private ImageView goButton;
+    private ImageView map;
+    private ImageView usList;
     private List<String> searchUss = new ArrayList<>();
     private int numberOfUsClicked;
     private ListView uSsList;
-    private CharSequence Busca;
+    private CharSequence search;
     ArrayList<String> closestsUs;
     ArrayList<HealthUnit> abc;
 
@@ -45,20 +47,16 @@ public class SearchUsController extends AppCompatActivity implements SearchView.
         this.mSearchView = mSearchView;
     }
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_screen);
-    }
-
-    public void openInformationUsScreen(){
+    public void openInformationUsScreen() {
 
         Intent informationScreen = new Intent();
-        informationScreen.putExtra("position", numberOfUsClicked );
-        informationScreen.setClass(SearchUsController.this, InformationSearchScreenController.class);
+        
+        informationScreen.putExtra("position", numberOfUsClicked);
+        informationScreen.setClass(SearchUsController.this,
+                InformationSearchScreenController.class);
         startActivity(informationScreen);
         finish();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,6 +75,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView.
         //Pega o Componente.
         mSearchView = (SearchView) menu.findItem(R.id.search)
                 .getActionView();
+
         //Define um texto de ajuda:
         mSearchView.setQueryHint("Busca");
 
@@ -88,21 +87,27 @@ public class SearchUsController extends AppCompatActivity implements SearchView.
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.buttonGo){
+        if (v.getId() == R.id.buttonGo) {
+
             Intent route = new Intent();
+
             route.setClass(SearchUsController.this, RouteActivity.class);
             startActivity(route);
             finish();
         }
-        if(v.getId() == R.id.iconMap){
+        if (v.getId() == R.id.iconMap) {
+
             Intent map = new Intent();
+
             map.setClass(SearchUsController.this, MapScreenController.class);
             map.putExtra("numeroUs" , -1);
             startActivity(map);
             finish();
         }
-        if(v.getId() == R.id.iconList){
+        if (v.getId() == R.id.iconList) {
+
             Intent list = new Intent();
+
             list.setClass(SearchUsController.this, ListOfHealthUnitsController.class);
             startActivity(list);
             finish();
@@ -111,12 +116,14 @@ public class SearchUsController extends AppCompatActivity implements SearchView.
 
     public ArrayList<String> getSearchsUs(ArrayList<HealthUnit> closest){
 
-        Busca = mSearchView.getQuery();
+        search = mSearchView.getQuery();
         closestsUs = new ArrayList<>();
         abc = new ArrayList<>();
         int numberOfUs;
-        for(numberOfUs = 0 ; numberOfUs < HealthUnitController.getClosestsUs().size() ; numberOfUs++){
-            if (closest.get(numberOfUs).getNameHospital().toLowerCase().contains(Busca)) {
+
+        for(numberOfUs = 0 ; numberOfUs < HealthUnitController.getClosestsUs().size() ;
+            numberOfUs++) {
+            if (closest.get(numberOfUs).getNameHospital().toLowerCase().contains(search)) {
                 closestsUs.add(closest.get(numberOfUs ).getNameHospital());
                 abc.add(HealthUnitController.getClosestsUs().get(numberOfUs));
             }
@@ -127,7 +134,6 @@ public class SearchUsController extends AppCompatActivity implements SearchView.
     public void setuSsList(ListView uSsList) {
         this.uSsList = uSsList;
     }
-
 
     @Override
     public boolean onQueryTextSubmit(String query) {
@@ -150,5 +156,10 @@ public class SearchUsController extends AppCompatActivity implements SearchView.
             }
         });
         return false;
+    }
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_screen);
     }
 }
