@@ -27,6 +27,7 @@ public class ConfigController extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.config);
         iconList = (ImageView) findViewById(R.id.iconList);
@@ -37,13 +38,15 @@ public class ConfigController extends Activity {
 
 
         buttonGo.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                routeScreen();
+                createRouteScreen();
             }
         });
 
         iconList.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 listUs();
@@ -51,25 +54,29 @@ public class ConfigController extends Activity {
         });
 
         medicalRecord.setOnClickListener(new View.OnClickListener() {
+
             public void onClick(View v) {
-                medicalRecord();
+                showMedicalRecord();
             }
         });
 
         emergencyContact.setOnClickListener(new View.OnClickListener() {
+
             public void onClick(View v) {
-                emergencyContact();
+                acessEmergencyContact();
             }
         });
 
         aboutApp.setOnClickListener(new View.OnClickListener() {
+
             public void onClick(View v) {
-                aboutApp();
+                seeInfoAboutApp();
             }
         });
+
     }
 
-    public void routeScreen() {
+    public void createRouteScreen() {
         Intent map = new Intent();
         map.setClass(this , RouteActivity.class);
         map.putExtra("numeroUs" , -1);
@@ -77,7 +84,7 @@ public class ConfigController extends Activity {
         finish();
     }
 
-    public void open_search (View mapScreen) {
+    public void openSearch (View mapScreen) {
 
         Intent openSearch = new Intent();
         openSearch.setClass(this , SearchUsController.class);
@@ -93,21 +100,21 @@ public class ConfigController extends Activity {
         finish();
     }
 
-    public void medicalRecord() {
+    public void showMedicalRecord() {
 
         Intent medicalRecord = new Intent();
         medicalRecord.setClass(this,MedicalRecordsController.class);
         startActivity(medicalRecord);
     }
 
-    public void emergencyContact() {
+    public void acessEmergencyContact() {
 
         Intent emergencyContact = new Intent();
         emergencyContact.setClass(this,EmergencyContactController.class);
         startActivity(emergencyContact);
     }
 
-    public void aboutApp() {
+    public void seeInfoAboutApp() {
 
         Intent aboutApp = new Intent();
         aboutApp.setClass(this,AboutApp.class);
@@ -135,7 +142,6 @@ public class ConfigController extends Activity {
     public void openConfig(View map_screen){
 
         Toast.makeText(this , MESSAGE , Toast.LENGTH_SHORT ).show();
-
     }
 
     public void openMap(View mapScreen){
