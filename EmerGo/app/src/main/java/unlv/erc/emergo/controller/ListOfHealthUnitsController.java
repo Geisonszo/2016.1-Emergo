@@ -42,20 +42,32 @@ public class ListOfHealthUnitsController extends Activity {
         });
     }
 
+    /**
+     * The purpose of this method is based on the choice of the health unit that the User choose to
+     * take that choice and open the InformationUsScreen class, which will be shown the information
+     * of the health unit chosen.
+     */
+
     public void openInformationUsScreen() {
 
         Intent informationScreen = new Intent();
 
         informationScreen.putExtra("position", numberOfUsClicked);
-        informationScreen.setClass(ListOfHealthUnitsController.this, InformationUsScreenController.class);
+        informationScreen.setClass(ListOfHealthUnitsController.this,
+                                    InformationUsScreenController.class);
         startActivity(informationScreen);
         finish();
     }
 
+    /**
+     * The purpose of this function is to list the 50 closest to the user's healthUnits.
+     * @param closest
+     * @return List<String> closest
+     */
     public List<String> get50closestUs(ArrayList<HealthUnit> closest) {
 
         List<String> closestsUs = new ArrayList<String>();
-        int numberOfUs;
+        int numberOfUs = 0;
         for (numberOfUs = 0;numberOfUs < HealthUnitController.getClosestsUs().size();numberOfUs++) {
 
             closestsUs.add(closest.get(numberOfUs).getNameHospital());
@@ -63,11 +75,23 @@ public class ListOfHealthUnitsController extends Activity {
         return closestsUs;
     }
 
+    /**
+     * /**
+     * Set the value of attribute listHealthUnitsListView.
+     * @param listHealthUnitsListView
+     */
+
     public void setuSsList(ListView listHealthUnitsListView) {
 
         this.listHealthUnitsListView= listHealthUnitsListView;
     }
 
+    /**
+     * When the "buttonGo" is pressed, it will exit the current class, opened the activity
+     * "RouteActivity," only different from the method of "buttonRoute", will now be chosen the
+     * route nearest the user.When the RouteActivity is finished, come in method "finish ()"
+     * which will close the activity "RouteActivity".
+     */
 
     public void goClicked(View map_screen) {
 
@@ -83,6 +107,11 @@ public class ListOfHealthUnitsController extends Activity {
 
     }
 
+    /**
+     * Exchange of current activity and start activity "MapScreenController".
+     * @param mapScreen
+     */
+
     public void openMap(View mapScreen) {
 
         Intent mapActivity = new Intent();
@@ -92,13 +121,23 @@ public class ListOfHealthUnitsController extends Activity {
         finish();
     }
 
-    public void openConfig(View map_screen) {
+    /**
+     * Exchange of current activity and start activity "ConfigController".
+     * @param viewConfig
+     */
+
+    public void openConfig(View viewConfig) {
 
         Intent config = new Intent();
 
         config.setClass(ListOfHealthUnitsController.this, ConfigController.class);
         startActivity(config);
     }
+
+    /**
+     * Exchange of current activity and start activity "SearchController".
+     * @param mapScreen
+     */
 
     public void open_search(View mapScreen) {
 
@@ -109,4 +148,3 @@ public class ListOfHealthUnitsController extends Activity {
         finish();
     }
 }
-
