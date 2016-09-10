@@ -157,7 +157,7 @@
         android:layout_alignParentStart="true"
         android:id="@+id/phoneEditText"
         android:hint="(ddd)yyyyy-dddd" />
-    
+
     <EditText
 
         android:layout_width="match_parent"
