@@ -1,3 +1,9 @@
+/************************
+ * Class name: ListOfHealthUnitsController (.java)
+ *
+ * Purpose: The purpose of this class is to show the health units in list format..
+ ************************/
+
 package unlv.erc.emergo.controller;
 
 import android.app.Activity;

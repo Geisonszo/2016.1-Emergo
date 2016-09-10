@@ -1,3 +1,9 @@
+/************************
+ * Class name: MaskHelper (.java)
+ *
+ * Purpose: The purpose of this class is to add "masks" when necessary.
+ ************************/
+
 package helper;
 
 import android.text.Editable;
@@ -6,51 +12,55 @@ import android.widget.EditText;
 
 public class MaskHelper {
 
-    public static String unmask(String s) {
-        return s.replaceAll("[.]", "").replaceAll("[-]", "")
+    public static String unmask(String symbols) {
+        return symbols.replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")
                 .replaceAll("[)]", "");
     }
 
-    public static TextWatcher insert(final String mask, final EditText ediTxt) {
+    public static TextWatcher insert(final String mask, final EditText fieldEditText) {
 
         return new TextWatcher() {
 
             boolean isUpdating;
-            String old = "";
+            String oldString = "";
 
-            public void onTextChanged(CharSequence s, int start, int before,int count) {
+            public void onTextChanged(CharSequence word, int start, int before,int count) {
 
-                String str = MaskHelper.unmask(s.toString());
-                String mascara = "";
+                String newWord = MaskHelper.unmask(word.toString());
+                String mask = "";
 
                 if (isUpdating) {
 
-                    old = str;
+                    oldString = newWord;
                     isUpdating = false;
                     return;
+                } else {
+                    //Nothing to do
                 }
 
-                int i = 0;
-                for (char m : mask.toCharArray()) {
+                int aux = 0;
+                for (char message : mask.toCharArray()) {
 
-                    if (m != '#' && str.length() > old.length()) {
+                    if (message != '#' && newWord.length() > oldString.length()) {
 
-                        mascara += m;
+                        mask += message;
                         continue;
+                    } else{
+                        //Nothing to do
                     }
                     try {
 
-                        mascara += str.charAt(i);
-                    } catch (Exception e) {
+                        mask += newWord.charAt(aux);
+                    } catch (Exception error) {
 
                         break;
                     }
-                    i++;
+                    aux++;
                 }
                 isUpdating = true;
-                ediTxt.setText(mascara);
-                ediTxt.setSelection(mascara.length());
+                fieldEditText.setText(mask);
+                fieldEditText.setSelection(mask.length());
             }
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
