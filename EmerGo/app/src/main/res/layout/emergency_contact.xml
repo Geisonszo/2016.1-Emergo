@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
+
     xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/base_screen">
 
     <ImageView
+
         android:layout_width="153dp"
         android:layout_height="87dp"
         android:id="@+id/buttonGo"
@@ -19,6 +23,7 @@
         android:background="@drawable/go_base"/>
 
     <ImageView
+
         android:layout_width="56dp"
         android:layout_height="48dp"
         android:id="@+id/iconMap"
@@ -30,6 +35,7 @@
         android:onClick="openMap" />
 
     <ImageView
+
         android:layout_width="56dp"
         android:layout_height="48dp"
         android:id="@+id/iconList"
@@ -42,6 +48,7 @@
         android:onClick="listMapsImageClicked" />
 
     <ImageView
+
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:id="@+id/iconMenu"
@@ -52,6 +59,7 @@
         android:onClick="openConfig" />
 
     <ImageView
+
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:id="@+id/iconSearch"
@@ -61,6 +69,7 @@
         android:clickable="true" />
 
     <TextView
+
         android:text="Nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,17 +80,8 @@
         android:layout_below="@+id/iconSearch"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/nameFirstContactEditText"
-        android:layout_below="@+id/nameFirstContactTextView"
-        android:layout_alignParentStart="true"
-        android:hint="Insira o nome do contato de emergência" />
-
     <TextView
+
         android:text="Telefone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,41 +91,8 @@
         android:autoText="false"
         android:textSize="18sp"/>
 
-    <EditText
-        android:layout_width="138dp"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:layout_below="@+id/phoneFirstTextView"
-        android:layout_alignParentStart="true"
-        android:id="@+id/phoneEditText"
-        android:hint="(ddd)yyyyy-dddd" />
-
-    <Button
-        android:text="Alterar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/saveButtonFirstContact"
-        android:layout_toEndOf="@+id/buttonGo"
-        android:id="@+id/updateButtonFirstContact" />
-
-    <Button
-        android:text="Deletar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/deleteFirstContactButton"
-        android:layout_below="@+id/updateButtonFirstContact"
-        android:layout_alignEnd="@+id/updateButtonFirstContact" />
-
-    <Button
-        android:text="Salvar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/saveButtonFirstContact"
-        android:layout_below="@+id/nameFirstContactEditText"
-        android:layout_toStartOf="@+id/updateButtonFirstContact" />
-
     <TextView
+
         android:text="Nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -135,17 +102,8 @@
         android:autoText="false"
         android:textSize="18sp"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/nameSecondContactTextView"
-        android:layout_alignParentStart="true"
-        android:id="@+id/nameSecondContactEditText"
-        android:hint="Insira o nome do contato de emergência" />
-
     <TextView
+
         android:text="Telefone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -155,43 +113,8 @@
         android:autoText="false"
         android:textSize="18sp"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:layout_below="@+id/phoneSecondContactTextView"
-        android:layout_alignParentStart="true"
-        android:id="@+id/phoneSecondContactEditText"
-        android:layout_alignEnd="@+id/phoneEditText"
-        android:hint="(ddd)yyyyy-dddd"/>
-
-    <Button
-        android:text="Salvar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/phoneSecondContactEditText"
-        android:layout_alignStart="@+id/saveButtonFirstContact"
-        android:id="@+id/saveSecondContactButton" />
-
-    <Button
-        android:text="Deletar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/deleteSecondContactButton"
-        android:layout_below="@+id/updateSecondContactButton"
-        android:layout_alignStart="@+id/updateSecondContactButton" />
-
-    <Button
-        android:text="Alterar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/updateSecondContactButton"
-        android:layout_alignBaseline="@+id/phoneSecondContactEditText"
-        android:layout_alignBottom="@+id/phoneSecondContactEditText"
-        android:layout_toEndOf="@+id/saveSecondContactButton" />
-
     <TextView
+
         android:text="Nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -202,17 +125,8 @@
         android:layout_alignBottom="@+id/deleteSecondContactButton"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/nameThirdContactTextView"
-        android:layout_alignParentStart="true"
-        android:id="@+id/nameThirdContactEditText"
-        android:hint="Insira o nome do contato de emergência" />
-
     <TextView
+
         android:text="Telefone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -223,6 +137,63 @@
         android:textSize="18sp"/>
 
     <EditText
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/nameFirstContactEditText"
+        android:layout_below="@+id/nameFirstContactTextView"
+        android:layout_alignParentStart="true"
+        android:hint="Insira o nome do contato de emergência" />
+
+    <EditText
+
+        android:layout_width="138dp"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:layout_below="@+id/phoneFirstTextView"
+        android:layout_alignParentStart="true"
+        android:id="@+id/phoneEditText"
+        android:hint="(ddd)yyyyy-dddd" />
+    
+    <EditText
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/nameSecondContactTextView"
+        android:layout_alignParentStart="true"
+        android:id="@+id/nameSecondContactEditText"
+        android:hint="Insira o nome do contato de emergência" />
+
+    <EditText
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:layout_below="@+id/phoneSecondContactTextView"
+        android:layout_alignParentStart="true"
+        android:id="@+id/phoneSecondContactEditText"
+        android:layout_alignEnd="@+id/phoneEditText"
+        android:hint="(ddd)yyyyy-dddd"/>
+
+    <EditText
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/nameThirdContactTextView"
+        android:layout_alignParentStart="true"
+        android:id="@+id/nameThirdContactEditText"
+        android:hint="Insira o nome do contato de emergência" />
+
+    <EditText
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="phone"
@@ -234,6 +205,62 @@
         android:hint="(ddd)yyyyy-dddd" />
 
     <Button
+
+        android:text="Alterar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/saveButtonFirstContact"
+        android:layout_toEndOf="@+id/buttonGo"
+        android:id="@+id/updateButtonFirstContact" />
+
+    <Button
+
+        android:text="Deletar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deleteFirstContactButton"
+        android:layout_below="@+id/updateButtonFirstContact"
+        android:layout_alignEnd="@+id/updateButtonFirstContact" />
+
+    <Button
+
+        android:text="Salvar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/saveButtonFirstContact"
+        android:layout_below="@+id/nameFirstContactEditText"
+        android:layout_toStartOf="@+id/updateButtonFirstContact" />
+
+    <Button
+
+        android:text="Salvar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/phoneSecondContactEditText"
+        android:layout_alignStart="@+id/saveButtonFirstContact"
+        android:id="@+id/saveSecondContactButton" />
+
+    <Button
+
+        android:text="Deletar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deleteSecondContactButton"
+        android:layout_below="@+id/updateSecondContactButton"
+        android:layout_alignStart="@+id/updateSecondContactButton" />
+
+    <Button
+
+        android:text="Alterar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/updateSecondContactButton"
+        android:layout_alignBaseline="@+id/phoneSecondContactEditText"
+        android:layout_alignBottom="@+id/phoneSecondContactEditText"
+        android:layout_toEndOf="@+id/saveSecondContactButton" />
+
+    <Button
+
         android:text="Alterar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -243,6 +270,7 @@
         android:layout_alignEnd="@+id/iconList" />
 
     <Button
+
         android:text="Deletar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -251,6 +279,7 @@
         android:layout_toEndOf="@+id/saveThirdContactButton" />
 
     <Button
+
         android:text="Salvar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
