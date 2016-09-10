@@ -1,6 +1,5 @@
 package unlv.erc.emergo.controller;
 
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -12,17 +11,15 @@ import android.widget.RemoteViews;
 
 import unlv.erc.emergo.R;
 
-
-
-public class EmerGoWidgetProvider extends AppWidgetProvider{
+public class EmerGoWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
 
-        ComponentName thisWidget = new ComponentName(context,
-                EmerGoWidgetProvider.class);
+        ComponentName thisWidget = new ComponentName(context, EmerGoWidgetProvider.class);
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+
         for (int widgetId : allWidgetIds) {
 
             Intent intent = new Intent(context, RouteActivity.class);
@@ -33,7 +30,6 @@ public class EmerGoWidgetProvider extends AppWidgetProvider{
             views.setOnClickPendingIntent(R.id.update, pendingIntent);
 
             appWidgetManager.updateAppWidget(widgetId, views);
-
         }
     }
 }
