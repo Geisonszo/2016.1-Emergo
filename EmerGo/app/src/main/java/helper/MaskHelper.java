@@ -12,12 +12,28 @@ import android.widget.EditText;
 
 public class MaskHelper {
 
+    /**
+     * This function allows the symbols "." , "-", "", "/", "(", ")" May be used when necessary.
+     * @param symbols
+     * @return newSymbold
+     */
+
     public static String unmask(String symbols) {
-        return symbols.replaceAll("[.]", "").replaceAll("[-]", "")
+        String newSymbold = "";
+
+        newSymbold = symbols.replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")
                 .replaceAll("[)]", "");
+
+        return newSymbold;
     }
 
+    /**
+     * This function uses the "unmask" and when asked will apply the desired mask in the word.
+     * @param mask
+     * @param fieldEditText
+     * @return
+     */
     public static TextWatcher insert(final String mask, final EditText fieldEditText) {
 
         return new TextWatcher() {
