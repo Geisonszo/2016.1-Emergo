@@ -1,3 +1,9 @@
+/************************
+ * Class name: InformationUsScreenController (.java)
+ *
+ * Purpose: The purpose of this class is to show the information of the healthunits.
+ ************************/
+
 package unlv.erc.emergo.controller;
 
 import android.app.Activity;
