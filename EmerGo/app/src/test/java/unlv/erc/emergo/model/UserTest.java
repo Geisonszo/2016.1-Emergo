@@ -10,53 +10,62 @@ public class UserTest extends TestCase {
     private final int MAXIMUM_LENGHT_NAME = 42;
     private final int MAXIMUM_TYPEBLOOD = 3;
 
-    // tests for name
+    public void testGetName() {
 
-    public void testGetName(){
         user = new User();
         String name = "Peter";
         user.setNameUser("Peter");
         assertEquals(name,user.getNameUser());
     }
 
-    public void testSetName(){
+    public void testSetName() {
+
         user = new User();
         user.setNameUser("Maria Joaquina");
         assertEquals("Maria Joaquina", user.getNameUser());
     }
 
-    public void testSetNameEmpty(){
+    public void testSetNameEmpty() {
+
         user = new User();
         user.setNameUser("");
         assertEquals("", user.getNameUser());
     }
 
-    public void testSetNameLowerThree(){
+    public void testSetNameLowerThree() {
+
         user = new User();
         user.setNameUser("Ana");
         boolean result = true;
-        if(user.getNameUser().trim().length()<MINIMUM_LENGTH_NAME){
+
+        if(user.getNameUser().trim().length()<MINIMUM_LENGTH_NAME) {
+
             assertFalse(result);
-        }else{
+        } else {
+
             assertTrue(result);
         }
     }
 
-    public void testSetNameMaximumSize(){
-        user = new User();
+    public void testSetNameMaximumSize() {
 
+        user = new User();
         user.setNameUser("Pedro Alvares Cabral de Valentina");
         boolean result = true;
-        if(user.getNameUser().trim().length()>MAXIMUM_LENGHT_NAME){
+
+        if(user.getNameUser().trim().length()>MAXIMUM_LENGHT_NAME) {
+
             assertFalse(result);
-        }else{
+        } else {
+
             assertTrue(result);
         }
     }
 
     // tests birthday
 
-    public void testSetBirthday(){
+    public void testSetBirthday() {
+
         user = new User();
         user.setBirthdayUser("12/03/1990");
         assertEquals("12/03/1990", user.getBirthdayUser());
@@ -64,41 +73,54 @@ public class UserTest extends TestCase {
 
     // tests for typeBlood
 
-    public void testSetTypeBloodBiggerThree(){
+    public void testSetTypeBloodBiggerThree() {
+
         user = new User();
         user.setTypeBloodUser("AB-");
         boolean result = true;
-        if(user.getTypeBloodUser().length()>MAXIMUM_TYPEBLOOD){
+
+        if(user.getTypeBloodUser().length()>MAXIMUM_TYPEBLOOD) {
+
             assertFalse(result);
-        }else{
+        } else {
+
             assertTrue(result);
         }
     }
 
     public void testSetTypeBloodNull() {
+
         user = new User();
         user.setTypeBloodUser("AB+");
         boolean result = true;
-        if(user.getTypeBloodUser()==null){
+
+        if(user.getTypeBloodUser()==null) {
+
             result = false;
             assertTrue(result);
-        }else{
+        } else {
+
             assertTrue(result);
         }
     }
 
-    public void testSetTypeBloodLowerOrEqualsTwo(){
+    public void testSetTypeBloodLowerOrEqualsTwo() {
+
         User user = new User();
         user.setTypeBloodUser("A-");
         boolean result = true;
-        if(user.getTypeBloodUser().length()<=MAXIMUM_TYPEBLOOD-1){
+
+        if(user.getTypeBloodUser().length()<=MAXIMUM_TYPEBLOOD-1) {
+
             assertTrue(result);
-        }else{
+        } else {
+
             assertFalse(result);
         }
     }
 
-    public void testGetInformationsAboutUser(){
+    public void testGetInformationsAboutUser() {
+
         user = new User("Leoncio", "24/03/1994", "AB", "yes", "no", "no", "no",
                 "o que se leva da vida é a vida que se leva",1);
         assertEquals("Leoncio", user.getNameUser());
@@ -111,7 +133,8 @@ public class UserTest extends TestCase {
         assertEquals("o que se leva da vida é a vida que se leva", user.getObservationsUser());
     }
 
-    public void testSetInformationsAboutUser(){
+    public void testSetInformationsAboutUser() {
+
         user = new User("", "", "", "", "", "", "",
                 "",1);
         user.setNameUser("Gabriela");
