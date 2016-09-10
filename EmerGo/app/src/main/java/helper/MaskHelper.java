@@ -22,7 +22,7 @@ public class MaskHelper {
 
         return new TextWatcher() {
 
-            boolean isUpdating;
+            boolean isUpdating = false;
             String oldString = "";
 
             public void onTextChanged(CharSequence word, int start, int before,int count) {
