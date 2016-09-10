@@ -15,11 +15,16 @@ import java.io.IOException;
 
 import unlv.erc.emergo.R;
 
-public class ConfigController extends Activity{
+public class ConfigController extends Activity {
+
     private Button emergencyContact;
     private ImageView iconList, buttonGo;
     private Button medicalRecord;
     private Button aboutApp;
+
+    final String MESSAGE = "Está tentando abrir a página atual";
+    final String ROUTETRACED = "Rota mais próxima traçada";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,14 +62,14 @@ public class ConfigController extends Activity{
             }
         });
 
-        aboutApp.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        aboutApp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 aboutApp();
             }
         });
     }
 
-    public void routeScreen(){
+    public void routeScreen() {
         Intent map = new Intent();
         map.setClass(this , RouteActivity.class);
         map.putExtra("numeroUs" , -1);
@@ -72,40 +77,44 @@ public class ConfigController extends Activity{
         finish();
     }
 
-    public void open_search(View mapScreen){
+    public void open_search (View mapScreen) {
+
         Intent openSearch = new Intent();
         openSearch.setClass(this , SearchUsController.class);
         startActivity(openSearch);
         finish();
     }
 
-    public void listUs(){
+    public void listUs() {
+
         Intent listUs = new Intent();
         listUs.setClass(this , ListOfHealthUnitsController.class);
         startActivity(listUs);
         finish();
     }
 
-    public void medicalRecord(){
+    public void medicalRecord() {
+
         Intent medicalRecord = new Intent();
         medicalRecord.setClass(this,MedicalRecordsController.class);
         startActivity(medicalRecord);
     }
 
-    public void emergencyContact(){
+    public void emergencyContact() {
+
         Intent emergencyContact = new Intent();
         emergencyContact.setClass(this,EmergencyContactController.class);
         startActivity(emergencyContact);
     }
 
-    public void aboutApp(){
+    public void aboutApp() {
+
         Intent aboutApp = new Intent();
         aboutApp.setClass(this,AboutApp.class);
         startActivity(aboutApp);
     }
 
     public void goClicked(View map_screen) throws IOException, JSONException {
-        final String ROUTETRACED = "Rota mais próxima traçada";
 
         Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
         Intent routeActivity = new Intent();
@@ -115,7 +124,8 @@ public class ConfigController extends Activity{
         finish();
     }
 
-    public void listMapsImageClicked(View map_screen){
+    public void listMapsImageClicked(View map_screen) {
+
         Intent listOfHealth = new Intent();
         listOfHealth.setClass(this , ListOfHealthUnitsController.class);
         startActivity(listOfHealth);
@@ -123,11 +133,13 @@ public class ConfigController extends Activity{
     }
 
     public void openConfig(View map_screen){
-        final String MESSAGE = "Está tentando abrir a página atual";
-       Toast.makeText(this , MESSAGE , Toast.LENGTH_SHORT ).show();
+
+        Toast.makeText(this , MESSAGE , Toast.LENGTH_SHORT ).show();
+
     }
 
     public void openMap(View mapScreen){
+
         Intent mapActivity = new Intent();
         mapActivity.setClass(this, MapScreenController.class);
         startActivity(mapActivity);
