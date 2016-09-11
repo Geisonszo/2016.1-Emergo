@@ -1,3 +1,9 @@
+/*****************************
+ * Class name: UserDao (.java)
+ *
+ * Purpose: This class have all the methods needed to form the CRUD (create,change and delete) user.
+ ****************************/
+
 package dao;
 
 import android.content.ContentValues;
@@ -35,10 +41,22 @@ public class UserDao extends SQLiteOpenHelper {
             SEROPOSITIVEUSER + "VARCHAR(8),"+
             OBSERVATIONS + "VARCHAR(442)); ";
 
+    /**
+     * You receive the "context" of the HealthUnitDao class.
+     * @param context
+     */
+
     public UserDao(Context context) {
 
-        super (context, DATABASE_NAME, null, VERSION);
+        super (context,DATABASE_NAME,null,VERSION);
     }
+
+    /**
+     * Method used to get instance of database. If the database where not
+     * created, then the method create a instance.
+     * @param context - Context application
+     * @return UserDao.instance
+     */
 
     public static UserDao getInstance(Context context) {
 
@@ -52,18 +70,43 @@ public class UserDao extends SQLiteOpenHelper {
         return UserDao.instance;
     }
 
+    /**
+     * Create table to user.
+     * @param database
+     */
     @Override
     public void onCreate(SQLiteDatabase database) {
 
         database.execSQL(CREATE_USER);
     }
 
+    /**
+     * This method has the function of an "upgrade" in the database, then first he will end the
+     * table and then will re-creates it.
+     * @param database
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
 
         database.execSQL(DROP_TABLE_USER);
         onCreate(database);
     }
+
+    /**
+     * Enter user data in the "User" table.
+     * @param idUser
+     * @param nameUser
+     * @param birthdayUser
+     * @param typeBloodUser
+     * @param cardiacUser
+     * @param diabeticUser
+     * @param hypertensionUser
+     * @param seropositiveUser
+     * @param observationsUser
+     * @return
+     */
 
     public boolean insertUser(Integer idUser,String nameUser,String birthdayUser,
                               String typeBloodUser,String cardiacUser,String diabeticUser,
@@ -94,6 +137,20 @@ public class UserDao extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Change user data in the "User" table.
+     * @param idUser
+     * @param nameUser
+     * @param birthdayUser
+     * @param typeBloodUser
+     * @param cardiacUser
+     * @param diabeticUser
+     * @param hypertensionUser
+     * @param seropositiveUser
+     * @param observationUser
+     * @return
+     */
+
     public boolean updateUser(Integer idUser,String nameUser,String birthdayUser,
                               String typeBloodUser,String cardiacUser,String diabeticUser,
                               String hypertensionUser,String seropositiveUser,
@@ -117,6 +174,10 @@ public class UserDao extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * Recover registration User data in the "User" table.
+     * @return data User
+     */
     public Cursor getUser() {
 
         SQLiteDatabase database = this.getWritableDatabase();
@@ -125,9 +186,18 @@ public class UserDao extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Integer deleteUser(Integer id) {
+    /**
+     * Delete table User.
+     * @param idUser
+     * @return deleteTableUser
+     */
+    public Integer deleteUser(Integer idUser) {
 
         SQLiteDatabase database = this.getWritableDatabase();
-        return database.delete(USER_TABLE, "[IDUser] = ? ",new String[]{String.valueOf(id)});
+        int deleteTableUser = 0;
+
+        deleteTableUser = database.delete(USER_TABLE, "[IDUser] = ? ",new String[] {
+                                                                        String.valueOf(idUser)});
+        return deleteTableUser;
     }
 }
