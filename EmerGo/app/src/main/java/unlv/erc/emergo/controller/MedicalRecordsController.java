@@ -391,78 +391,80 @@ public class MedicalRecordsController extends Activity {
                                          String cardiacUser,String diabeticUser,
                                          String hypertensionUser,String seropositiveUser,
                                          String observationsUser) {
-        int notifyID = 1;
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
+    final int notifyId = 1;
+    NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
 
-        notification.setContentTitle("Ficha Médica");
-        notification.setContentText("Você tem uma ficha médica!");
-        notification.setTicker("Alerta de Mensagem");
-        notification.setSmallIcon(R.drawable.icon_emergo);
+    notification.setContentTitle("Ficha Médica");
+    notification.setContentText("Você tem uma ficha médica!");
+    notification.setTicker("Alerta de Mensagem");
+    notification.setSmallIcon(R.drawable.icon_emergo);
 
-        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-        String events[] = new String[7];
+    String events[] = new String[7];
 
-        events[0] = new String("Nome: "+nameUser);
-        events[1] = new String("Data de Nascimento: "+birthdayUser);
-        events[2] = new String("Tipo Sanguineo: "+typeBloodUser);
-        events[3] = new String("Cardiaco: "+cardiacUser);
-        events[4] = new String("Diabetico: "+diabeticUser);
-        events[5] = new String("Hipertenso: "+hypertensionUser);
-        events[6] = new String("Soropositivo: "+seropositiveUser);
-        events[6] = new String("Observações Especiais: "+observationsUser);
+    events[0] = new String("Nome: "  + nameUser);
+    events[1] = new String("Data de Nascimento: " + birthdayUser);
+    events[2] = new String("Tipo Sanguineo: " + typeBloodUser);
+    events[3] = new String("Cardiaco: " + cardiacUser);
+    events[4] = new String("Diabetico: " + diabeticUser);
+    events[5] = new String("Hipertenso: " + hypertensionUser);
+    events[6] = new String("Soropositivo: " + seropositiveUser);
+    events[6] = new String("Observações Especiais: " + observationsUser);
 
-        inboxStyle.setBigContentTitle("Ficha Médica");
+    inboxStyle.setBigContentTitle("Ficha Médica");
 
-        for(int aux=0;aux < maximumArray;aux++){
-            inboxStyle.addLine(events[aux]);
-        }
-        notification.setStyle(inboxStyle);
-
-        Intent resultIntent = new Intent(this,MedicalRecordsController.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(MedicalRecordsController.class);
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPedindIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.setContentIntent(resultPedindIntent);
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        notificationManager.notify(notifyID,notification.build());
+    for (int aux = 0;aux < maximumArray;aux++) {
+      inboxStyle.addLine(events[aux]);
     }
+    notification.setStyle(inboxStyle);
 
-    public void goClicked(View map_screen){
-        Toast.makeText(this , "Função não habilitada!" , Toast.LENGTH_SHORT).show();
-        Intent routeActivity = new Intent();
-        routeActivity.setClass(this, RouteActivity.class);
-        startActivity(routeActivity);
-        finish();
-    }
+    Intent resultIntent = new Intent(this,MedicalRecordsController.class);
+    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+    stackBuilder.addParentStack(MedicalRecordsController.class);
+    stackBuilder.addNextIntent(resultIntent);
+    PendingIntent resultPedindIntent = stackBuilder.getPendingIntent(0,
+            PendingIntent.FLAG_UPDATE_CURRENT);
+    notification.setContentIntent(resultPedindIntent);
 
-    public void listMapsImageClicked(View map_screen){
-        Intent listOfHealth = new Intent();
-        listOfHealth.setClass(this , ListOfHealthUnitsController.class);
-        startActivity(listOfHealth);
-        finish();
-    }
+    NotificationManager notificationManager = (NotificationManager)
+            getSystemService(NOTIFICATION_SERVICE);
 
-    public void openConfig(View map_screen){
-        Intent config = new Intent();
-        config.setClass(this , ConfigController.class);
-        startActivity(config);
-        finish();
-    }
+    notificationManager.notify(notifyId,notification.build());
+  }
 
-    public void openMap(View mapScreen){
-        Intent mapActivity = new Intent();
-        mapActivity.setClass(this, MapScreenController.class);
-        startActivity(mapActivity);
-        finish();
-    }
+  public void goClicked(View mapScreen) {
+    Toast.makeText(this , "Função não habilitada!" , Toast.LENGTH_SHORT).show();
+    Intent routeActivity = new Intent();
+    routeActivity.setClass(this, RouteActivity.class);
+    startActivity(routeActivity);
+    finish();
+  }
 
-    public void open_search(View mapScreen){
-        Intent openSearch = new Intent();
-        openSearch.setClass(this , SearchUsController.class);
-        startActivity(openSearch);
-    }
+  public void listMapsImageClicked(View mapScreen) {
+    Intent listOfHealth = new Intent();
+    listOfHealth.setClass(this , ListOfHealthUnitsController.class);
+    startActivity(listOfHealth);
+    finish();
+  }
+
+  public void openConfig(View map_screen) {
+    Intent config = new Intent();
+    config.setClass(this , ConfigController.class);
+    startActivity(config);
+    finish();
+  }
+
+  public void openMap(View mapScreen) {
+    Intent mapActivity = new Intent();
+    mapActivity.setClass(this, MapScreenController.class);
+    startActivity(mapActivity);
+    finish();
+  }
+
+  public void open_search(View mapScreen) {
+    Intent openSearch = new Intent();
+    openSearch.setClass(this , SearchUsController.class);
+    startActivity(openSearch);
+  }
 }
