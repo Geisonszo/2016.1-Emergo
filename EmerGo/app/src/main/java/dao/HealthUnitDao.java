@@ -26,7 +26,7 @@ public class HealthUnitDao {
     private static final String URL_BASE_DB = "https://emergodf.firebaseio.com/";
 
     /**
-     * You receive the "context" of the Health Unit Dao class.
+     * You receive the "context" of the HealthUnitDao class.
      * @param context
      */
     public HealthUnitDao(Context context) {
