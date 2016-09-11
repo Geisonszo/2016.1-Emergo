@@ -65,22 +65,23 @@ public class UserDao extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public boolean insertUser(Integer id,String name,String birthday,String typeBlood,String cardiac,
-                              String diabetic,String hypertension,String seropositive,
-                              String observations) {
+    public boolean insertUser(Integer idUser,String nameUser,String birthdayUser,
+                              String typeBloodUser,String cardiacUser,String diabeticUser,
+                              String hypertensionUser,String seropositiveUser,
+                              String observationsUser) {
 
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(USER_ID, id);
-        contentValues.put(NAMEUSER, name);
-        contentValues.put(BIRTHDAYUSER,birthday);
-        contentValues.put(TYPEBLOODUSER,typeBlood);
-        contentValues.put(CARDIACUSER,cardiac);
-        contentValues.put(DIABETICUSER,diabetic);
-        contentValues.put(HYPERTENSIONUSER,hypertension);
-        contentValues.put(SEROPOSITIVEUSER,seropositive);
-        contentValues.put(OBSERVATIONS,observations);
+        contentValues.put(USER_ID, idUser);
+        contentValues.put(NAMEUSER, nameUser);
+        contentValues.put(BIRTHDAYUSER,birthdayUser);
+        contentValues.put(TYPEBLOODUSER,typeBloodUser);
+        contentValues.put(CARDIACUSER,cardiacUser);
+        contentValues.put(DIABETICUSER,diabeticUser);
+        contentValues.put(HYPERTENSIONUSER,hypertensionUser);
+        contentValues.put(SEROPOSITIVEUSER,seropositiveUser);
+        contentValues.put(OBSERVATIONS,observationsUser);
 
         long result = database.insert(USER_TABLE,null,contentValues);
         database.close();
@@ -88,27 +89,30 @@ public class UserDao extends SQLiteOpenHelper {
 
             return false;
         }else {
+
             return true;
         }
     }
 
-    public boolean updateUser(Integer id,String nameUser,String birthday,String typeBlood,
-                              String cardiac,String diabetic,String hypertension,
-                              String seropositive,String observation) {
+    public boolean updateUser(Integer idUser,String nameUser,String birthdayUser,
+                              String typeBloodUser,String cardiacUser,String diabeticUser,
+                              String hypertensionUser,String seropositiveUser,
+                              String observationUser) {
 
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAMEUSER, nameUser);
-        contentValues.put(BIRTHDAYUSER,birthday);
-        contentValues.put(TYPEBLOODUSER,typeBlood);
-        contentValues.put(CARDIACUSER,cardiac);
-        contentValues.put(DIABETICUSER,diabetic);
-        contentValues.put(HYPERTENSIONUSER,hypertension);
-        contentValues.put(SEROPOSITIVEUSER,seropositive);
-        contentValues.put(OBSERVATIONS,observation);
+        contentValues.put(BIRTHDAYUSER,birthdayUser);
+        contentValues.put(TYPEBLOODUSER,typeBloodUser);
+        contentValues.put(CARDIACUSER,cardiacUser);
+        contentValues.put(DIABETICUSER,diabeticUser);
+        contentValues.put(HYPERTENSIONUSER,hypertensionUser);
+        contentValues.put(SEROPOSITIVEUSER,seropositiveUser);
+        contentValues.put(OBSERVATIONS,observationUser);
 
-        database.update(USER_TABLE, contentValues,"[IDUser] = ? ",new String[]{String.valueOf(id)});
+        database.update(USER_TABLE, contentValues,"[IDUser] = ? ",new String[] {
+                                                                        String.valueOf(idUser)});
         database.close();
         return true;
     }
