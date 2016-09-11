@@ -11,8 +11,8 @@ import unlv.erc.emergo.R;
 
 public class LoadingScreenController extends Activity {
 
-  private static int SPLASH_TIME_OUT = 9000;
-  private ProgressBar spinner;
+  private static int WAITING_TIME = 9000;
+  private ProgressBar spinner ;
 
   protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,7 +33,7 @@ public class LoadingScreenController extends Activity {
             finish();
           }
 
-        }, SPLASH_TIME_OUT);
+        }, WAITING_TIME);
 
   }
 }
