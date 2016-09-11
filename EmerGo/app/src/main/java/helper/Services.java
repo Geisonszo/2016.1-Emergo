@@ -7,6 +7,8 @@
 
 package helper;
 
+import android.app.Activity;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 
 import unlv.erc.emergo.model.HealthUnit;
 
-public class Services {
+public class Services extends Activity {
 
     /**
      * Add "marker" on the map according to the amount of health units registered in the database.
