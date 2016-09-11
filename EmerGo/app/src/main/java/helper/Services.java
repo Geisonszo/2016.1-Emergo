@@ -12,9 +12,7 @@ public class Services {
 
     public void setMarkersOnMap(GoogleMap map,ArrayList<HealthUnit> uSs) {
 
-        int markersQuantity;
-
-        for(markersQuantity = 0; markersQuantity < uSs.size(); markersQuantity++) {
+        for(int markersQuantity = 0; markersQuantity < uSs.size(); markersQuantity++) {
             map.addMarker(new MarkerOptions()
                     .position(new LatLng(uSs.get(markersQuantity).getLatitude()
                             ,uSs.get(markersQuantity).getLongitude()))
