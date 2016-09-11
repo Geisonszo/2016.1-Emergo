@@ -16,171 +16,170 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import dao.UserDao;
+import helper.MaskHelper;
+import unlv.erc.emergo.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import dao.UserDao;
-import helper.MaskHelper;
-import unlv.erc.emergo.R;
-
-
 public class MedicalRecordsController extends Activity {
-    private EditText fullName;
-    private EditText birthday;
-    private EditText observations;
-    private Spinner typeBlood;
-    private Spinner cardiac;
-    private Spinner diabect;
-    private Spinner hypertension;
-    private Spinner seropositive;
-    private Button saveButton;
-    private Button updateButton;
-    private Button deleteButton;
-    private String nameUser;
-    private String birthdayUser;
-    private String typeBloodUser;
-    private String cardiacUser;
-    private String observationsUser;
-    private String diabeticUser;
-    private String hypertensionUser;
-    private String seropositiveUser;
-    private Integer id = 1;
-    UserDao myDatabase;
-    private Cursor result;
-    private final int MAXIMUMARRAY = 7;
 
-    public MedicalRecordsController() {
+  private EditText fullName;
+  private EditText birthday;
+  private EditText observations;
+  private Spinner typeBlood;
+  private Spinner cardiac;
+  private Spinner diabect;
+  private Spinner hypertension;
+  private Spinner seropositive;
+  private Button saveButton;
+  private Button updateButton;
+  private Button deleteButton;
+  private String nameUser;
+  private String birthdayUser;
+  private String typeBloodUser;
+  private String cardiacUser;
+  private String observationsUser;
+  private String diabeticUser;
+  private String hypertensionUser;
+  private String seropositiveUser;
+  private Integer id = 1;
+  UserDao myDatabase;
+  private Cursor result;
+  private final int maximumArray = 7;
 
-    }
+  public MedicalRecordsController() {
 
-    @Override
+  }
+
+  @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.medical_records);
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.medical_records);
 
-        myDatabase = new UserDao(this);
+    myDatabase = new UserDao(this);
 
-        fullName = (EditText) findViewById(R.id.fullNameEditText);
-        birthday = (EditText) findViewById(R.id.birthdayEditText);
-        observations = (EditText) findViewById(R.id.observationsEditText);
-        typeBlood = (Spinner) findViewById(R.id.typeBloodSpinner);
-        birthday.addTextChangedListener(MaskHelper.insert("##/##/####", birthday));
-        cardiac = (Spinner) findViewById(R.id.cardiacSpinner);
-        diabect = (Spinner) findViewById(R.id.diabeticSpinner);
-        hypertension = (Spinner) findViewById(R.id.hipertensionSpinner);
-        seropositive = (Spinner) findViewById(R.id.soropositiveSpinner);
-        saveButton = (Button) findViewById(R.id.saveButton);
-        updateButton = (Button) findViewById(R.id.updateButton);
-        deleteButton = (Button) findViewById(R.id.deleteButton);
+    fullName = (EditText) findViewById(R.id.fullNameEditText);
+    birthday = (EditText) findViewById(R.id.birthdayEditText);
+    observations = (EditText) findViewById(R.id.observationsEditText);
+    typeBlood = (Spinner) findViewById(R.id.typeBloodSpinner);
+    birthday.addTextChangedListener(MaskHelper.insert("##/##/####", birthday));
+    cardiac = (Spinner) findViewById(R.id.cardiacSpinner);
+    diabect = (Spinner) findViewById(R.id.diabeticSpinner);
+    hypertension = (Spinner) findViewById(R.id.hipertensionSpinner);
+    seropositive = (Spinner) findViewById(R.id.soropositiveSpinner);
+    saveButton = (Button) findViewById(R.id.saveButton);
+    updateButton = (Button) findViewById(R.id.updateButton);
+    deleteButton = (Button) findViewById(R.id.deleteButton);
 
-        Cursor result = myDatabase.getUser();
+    Cursor result = myDatabase.getUser();
 
-        if(result.getCount() == 0) {
-            disableOptions(saveButton,updateButton,deleteButton);
-        }else{
-            if(result.moveToFirst()) {
-                fullName.setText(result.getString(1));
-                birthday.setText(result.getString(2));
-                observations.setText(result.getString(8));
-                disableField(saveButton,fullName,birthday,observations,cardiac,diabect,hypertension,
+    if (result.getCount() == 0) {
+      disableOptions(saveButton,updateButton,deleteButton);
+    } else {
+      if (result.moveToFirst()) {
+        fullName.setText(result.getString(1));
+        birthday.setText(result.getString(2));
+        observations.setText(result.getString(8));
+        disableField(saveButton,fullName,birthday,observations,cardiac,diabect,hypertension,
                         seropositive,typeBlood);
-            }
-        }
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(createUser() == false){
-                    saveButton.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            createUser();
-                        }
-                    });
-                }else{
-                    disableButtons(saveButton,updateButton,deleteButton);
-                }
-            }
-        });
-
-        updateButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                cancelNotification();
-                disableJustUpdateButton(fullName, birthday,updateButton,saveButton,observations,
-                        typeBlood,cardiac,diabect,hypertension,seropositive);
-                saveButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        updateUser(id,saveButton,updateButton,deleteButton);
-                        visibleOptions(saveButton,updateButton);
-                    }
-                });
-            }
-        });
-
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                deleteUser(fullName,birthday,observations,saveButton,id,updateButton,deleteButton,
-                        typeBlood,cardiac,diabect,hypertension,seropositive);
-                saveButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        if(createUser() == false){
-                            saveButton.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    createUser();
-                                }
-                            });
-                        }else{
-                            disableButtons(saveButton,updateButton,deleteButton);
-                        }
-                    }
-                });
-            }
-        });
+      }
     }
+    saveButton.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View view) {
+            if (createUser() == false) {
+              saveButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                      createUser();
+                    }
+              });
+            } else {
+              disableButtons(saveButton,updateButton,deleteButton);
+            }
+          }
+        });
+
+    updateButton.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View view) {
+        cancelNotification();
+        disableJustUpdateButton(fullName, birthday,updateButton,saveButton,observations,
+                        typeBlood,cardiac,diabect,hypertension,seropositive);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+          public void onClick(View view) {
+            updateUser(id,saveButton,updateButton,deleteButton);
+            visibleOptions(saveButton,updateButton);
+          }
+        });
+      }
+    });
+
+    deleteButton.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View view) {
+          deleteUser(fullName,birthday,observations,saveButton,id,updateButton,deleteButton,
+                        typeBlood,cardiac,diabect,hypertension,seropositive);
+          saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+              if (createUser() == false) {
+                saveButton.setOnClickListener(new View.OnClickListener() {
+                  public void onClick(View view) {
+                        createUser();
+                  }
+                });
+              } else {
+                    disableButtons(saveButton,updateButton,deleteButton);
+              }
+            }
+          });
+      }
+        });
+  }
 
 
-    private boolean createUser(){
-        boolean sucess = true;
-        boolean valid = false;
+  private boolean createUser() {
+    boolean sucess = true;
+    boolean valid = false;
 
-        if(checksName(fullName.getText().toString()) == false
-                && checkBirthday(birthday.getText().toString()) == false){
+    if (checksName(fullName.getText().toString()) == false
+                && checkBirthday(birthday.getText().toString()) == false) {
 
-            birthdayUser = birthday.getText().toString();
-            observationsUser = observations.getText().toString();
-            nameUser = fullName.getText().toString();
-            typeBloodUser = typeBlood.getSelectedItem().toString();
-            cardiacUser = cardiac.getSelectedItem().toString();
-            diabeticUser = diabect.getSelectedItem().toString();
-            hypertensionUser = diabect.getSelectedItem().toString();
-            seropositiveUser = seropositive.getSelectedItem().toString();
+      birthdayUser = birthday.getText().toString();
+      observationsUser = observations.getText().toString();
+      nameUser = fullName.getText().toString();
+      typeBloodUser = typeBlood.getSelectedItem().toString();
+      cardiacUser = cardiac.getSelectedItem().toString();
+      diabeticUser = diabect.getSelectedItem().toString();
+      hypertensionUser = diabect.getSelectedItem().toString();
+      seropositiveUser = seropositive.getSelectedItem().toString();
 
-            sucess = myDatabase.insertUser(id, nameUser, birthdayUser, typeBloodUser, cardiacUser,
+      sucess = myDatabase.insertUser(id, nameUser, birthdayUser, typeBloodUser, cardiacUser,
                     diabeticUser,hypertensionUser, seropositiveUser,
                     observationsUser);
-            if (sucess == true) {
-                showMessage("Ficha Médica Cadastrada Com Sucesso!");
-                disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
+      if (sucess == true) {
+        showMessage("Ficha Médica Cadastrada Com Sucesso!");
+        disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
                         hypertension,seropositive);
-                disableOptionsUpdate(saveButton,updateButton,deleteButton);
-                medicalRecordsNotification(nameUser,birthdayUser,typeBloodUser,cardiacUser,
+        disableOptionsUpdate(saveButton,updateButton,deleteButton);
+        medicalRecordsNotification(nameUser,birthdayUser,typeBloodUser,cardiacUser,
                                             diabeticUser,hypertensionUser,seropositiveUser,
                                             observationsUser);
-                valid = true;
-            } else {
-                showMessage("Ficha Médica Não Cadastrada! Tente Novamente.");
-                valid = false;
-            }
-        }
-        return valid;
+        valid = true;
+      } else {
+        showMessage("Ficha Médica Não Cadastrada! Tente Novamente.");
+        valid = false;
+      }
     }
+    return valid;
+  }
 
-    private void updateUser(Integer id,Button save,Button update,
-                            Button delete){
+  private void updateUser(Integer id,Button save,Button update,
+                            Button delete) {
 
-        boolean sucess = true;
+    boolean sucess = true;
 
-        if(checksName(fullName.getText().toString()) == false
-                && checkBirthday(birthday.getText().toString()) == false){
+    if (checksName(fullName.getText().toString()) == false
+                && checkBirthday(birthday.getText().toString()) == false) {
 
             nameUser = fullName.getText().toString();
             birthdayUser = birthday.getText().toString();
@@ -409,7 +408,7 @@ public class MedicalRecordsController extends Activity {
 
         inboxStyle.setBigContentTitle("Ficha Médica");
 
-        for(int aux=0;aux<MAXIMUMARRAY;aux++){
+        for(int aux=0;aux < maximumArray;aux++){
             inboxStyle.addLine(events[aux]);
         }
         notification.setStyle(inboxStyle);
