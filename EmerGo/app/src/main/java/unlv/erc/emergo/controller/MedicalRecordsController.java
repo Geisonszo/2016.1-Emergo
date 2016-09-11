@@ -181,99 +181,103 @@ public class MedicalRecordsController extends Activity {
     if (checksName(fullName.getText().toString()) == false
                 && checkBirthday(birthday.getText().toString()) == false) {
 
-            nameUser = fullName.getText().toString();
-            birthdayUser = birthday.getText().toString();
-            observationsUser = observations.getText().toString();
-            nameUser = fullName.getText().toString();
-            typeBloodUser = typeBlood.getSelectedItem().toString();
-            cardiacUser = cardiac.getSelectedItem().toString();
-            diabeticUser = diabect.getSelectedItem().toString();
-            hypertensionUser = diabect.getSelectedItem().toString();
-            seropositiveUser = seropositive.getSelectedItem().toString();
+      nameUser = fullName.getText().toString();
+      birthdayUser = birthday.getText().toString();
+      observationsUser = observations.getText().toString();
+      nameUser = fullName.getText().toString();
+      typeBloodUser = typeBlood.getSelectedItem().toString();
+      cardiacUser = cardiac.getSelectedItem().toString();
+      diabeticUser = diabect.getSelectedItem().toString();
+      hypertensionUser = diabect.getSelectedItem().toString();
+      seropositiveUser = seropositive.getSelectedItem().toString();
 
-            sucess = myDatabase.updateUser(id, nameUser, birthdayUser, typeBloodUser, cardiacUser, diabeticUser,
-                    hypertensionUser, seropositiveUser,observationsUser);
-            if (sucess == true) {
-                showMessage("Alteração Realizada Com Sucesso!");
-                save.setVisibility(View.VISIBLE);
-                disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
-                        hypertension,seropositive);
-                save.setEnabled(false);
-                update.setEnabled(true);
-                delete.setEnabled(true);
-                medicalRecordsNotification(nameUser,birthdayUser,typeBloodUser,cardiacUser,
+      sucess = myDatabase.updateUser(id, nameUser, birthdayUser, typeBloodUser, cardiacUser,
+              diabeticUser, hypertensionUser, seropositiveUser,observationsUser);
+      if (sucess == true) {
+        showMessage("Alteração Realizada Com Sucesso!");
+        save.setVisibility(View.VISIBLE);
+        disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
+                       hypertension,seropositive);
+        save.setEnabled(false);
+        update.setEnabled(true);
+        delete.setEnabled(true);
+        medicalRecordsNotification(nameUser,birthdayUser,typeBloodUser,cardiacUser,
                                             diabeticUser,hypertensionUser,seropositiveUser,
                                             observationsUser);
-            } else {
-                showMessage("Não Foi Possível Fazer A Alteração, Tente Novamente.");
-            }
-        }
+      } else {
+        showMessage("Não Foi Possível Fazer A Alteração, Tente Novamente.");
+      }
     }
-    private void deleteUser(final EditText name, final EditText birthday,final EditText observations,
+  }
+
+  private void deleteUser(final EditText name, final EditText birthday,
+                            final EditText observations,
                             final Button save, final Integer id, final Button update,
                             final Button delete,final Spinner typeBlood,final Spinner cardiac,
-                            final Spinner diabect,final Spinner hypertension,final Spinner seropositive){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                            final Spinner diabect,final Spinner hypertension,
+                            final Spinner seropositive) {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Excluir Ficha Médica?");
-        builder.setMessage("Deseja Mesmo Excluir Esta Ficha Médica?");
-        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-            @Override
+    builder.setTitle("Excluir Ficha Médica?");
+    builder.setMessage("Deseja Mesmo Excluir Esta Ficha Médica?");
+    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+        @Override
             public void onClick(DialogInterface dialog, int which) {
-                myDatabase.deleteUser(id);
-                showMessage("Ficha Médica Excluida Com Sucesso");
-                visibleOptionsUser(save,name,birthday,observations,update,delete,typeBlood,cardiac,
+            myDatabase.deleteUser(id);
+            showMessage("Ficha Médica Excluida Com Sucesso");
+            visibleOptionsUser(save,name,birthday,observations,update,delete,typeBlood,cardiac,
                         hypertension,seropositive,diabect);
-                cancelNotification();
-            }
+            cancelNotification();
+          }
         });
-        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-            @Override
+    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+          @Override
             public void onClick(DialogInterface dialog, int which) {
 
-            }
+          }
         });
-        builder.show();
-    }
-    private void showMessage(String message){
-        Toast.makeText(this,""+message,Toast.LENGTH_LONG).show();
-    }
+    builder.show();
+  }
 
-    private boolean checksName(String nameUser){
-        final int MINIMUM = 3;
-        if(nameUser.isEmpty()){
-            showMessage("Nome Vazio! Informe Seu Nome.");
+  private void showMessage(String message) {
+    Toast.makeText(this,"" + message,Toast.LENGTH_LONG).show();
+  }
+
+  private boolean checksName(String nameUser) {
+    final int minimum = 3;
+    if (nameUser.isEmpty()) {
+      showMessage("Nome Vazio! Informe Seu Nome.");
+      return true;
+    }
+    if (nameUser.trim().length() < minimum) {
+      showMessage("Informe um nome com no mínimo 3 caracteres.");
+      fullName.requestFocus();
+      return true;
+    }
+    return false;
+  }
+
+  private boolean checkBirthday(String birthdayUser) {
+    final int minimumYear = 42;
+
+    if (!birthdayUser.isEmpty() && birthdayUser != null) {
+      try {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
+        Date userDate = format.parse(birthdayUser);
+
+        if (userDate.before(new Date())) {
+          if (userDate.getYear() < minimumYear) {
+            showMessage("Informe um ano superior a 1942.");
             return true;
-        }if(nameUser.trim().length()<MINIMUM){
-            showMessage("Informe um nome com no mínimo 3 caracteres.");
-            fullName.requestFocus();
-            return true;
+          }
+          this.birthdayUser = birthdayUser;
+          return false;
+        } else {
+          showMessage("Ops, essa data é inválida!.");
+          return true;
         }
-        return false;
-    }
-    private boolean checkBirthday(String birthdayUser){
-        final int MINIMUMYEAR = 42;
-
-        if(!birthdayUser.isEmpty() && birthdayUser!=null){
-            try {
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                format.setLenient(false);
-                Date userDate = format.parse(birthdayUser);
-
-                if (userDate.before(new Date())){
-                    if(userDate.getYear() < MINIMUMYEAR){
-                        showMessage("Informe um ano superior a 1942.");
-                        return true;
-                    }
-                    this.birthdayUser = birthdayUser;
-                    return false;
-                }
-
-                else{
-                    showMessage("Ops, essa data é inválida!.");
-                    return true;
-                }
-            }
+      }
             catch (ParseException excecao){
                 showMessage("Data Inválida! Informe uma data inválida,com o dia entre 1 e 31.\n" +
                         "Informe um mês válido entre 1 e 12.\n" +
