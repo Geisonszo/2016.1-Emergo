@@ -277,118 +277,120 @@ public class MedicalRecordsController extends Activity {
           showMessage("Ops, essa data é inválida!.");
           return true;
         }
+      } catch (ParseException excecao) {
+        showMessage("Data Inválida! Informe uma data inválida,com o dia entre 1 e 31.\n"
+                + "Informe um mês válido entre 1 e 12.\n"
+                + "Informe um ano entre 1942 e o ano atual");
+        return true;
       }
-            catch (ParseException excecao){
-                showMessage("Data Inválida! Informe uma data inválida,com o dia entre 1 e 31.\n" +
-                        "Informe um mês válido entre 1 e 12.\n" +
-                        "Informe um ano entre 1942 e o ano atual");
-                return true;
-            }
-        }
-        else{
-            showMessage("Informe a sua data de nascimento.");
-            return true;
-        }
+    } else {
+      showMessage("Informe a sua data de nascimento.");
+      return true;
     }
+  }
 
-    private void visibleOptionsUser(Button save,EditText name,EditText birthday,EditText observations,
-                                    Button update,Button delete,Spinner typeBlood,Spinner cardiac,
-                                    Spinner hypertension,Spinner seropositive,Spinner diabect){
-        save.setVisibility(View.VISIBLE);
-        save.setEnabled(true);
-        name.setText("");
-        birthday.setText("");
-        observations.setText("");
-        diabect.setEnabled(true);
-        name.setEnabled(true);
-        birthday.setEnabled(true);
-        observations.setEnabled(true);
-        typeBlood.setEnabled(true);
-        cardiac.setEnabled(true);
-        hypertension.setEnabled(true);
-        seropositive.setEnabled(true);
-        update.setVisibility(View.INVISIBLE);
-        delete.setVisibility(View.INVISIBLE);
-    }
+  private void visibleOptionsUser(Button save,EditText name,EditText birthday,
+                                    EditText observations,Button update,Button delete,
+                                    Spinner typeBlood,Spinner cardiac,Spinner hypertension,
+                                    Spinner seropositive,Spinner diabect) {
+    save.setVisibility(View.VISIBLE);
+    save.setEnabled(true);
+    name.setText("");
+    birthday.setText("");
+    observations.setText("");
+    diabect.setEnabled(true);
+    name.setEnabled(true);
+    birthday.setEnabled(true);
+    observations.setEnabled(true);
+    typeBlood.setEnabled(true);
+    cardiac.setEnabled(true);
+    hypertension.setEnabled(true);
+    seropositive.setEnabled(true);
+    update.setVisibility(View.INVISIBLE);
+    delete.setVisibility(View.INVISIBLE);
+  }
 
-    private void disableOptions(Button save, Button update,Button delete){
-        save.setVisibility(View.VISIBLE);
-        update.setVisibility(View.INVISIBLE);
-        delete.setVisibility(View.INVISIBLE);
-    }
+  private void disableOptions(Button save, Button update,Button delete) {
+    save.setVisibility(View.VISIBLE);
+    update.setVisibility(View.INVISIBLE);
+    delete.setVisibility(View.INVISIBLE);
+  }
 
-    private void cancelNotification(){
-        NotificationManager notifManager= (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        notifManager.cancel(1);
-    }
+  private void cancelNotification() {
+    NotificationManager notifManager = (NotificationManager) this.getSystemService(Context
+             .NOTIFICATION_SERVICE);
+    notifManager.cancel(1);
+  }
 
-    private void disableField(Button save,EditText name, EditText birthday,EditText observations,
-                              Spinner cardiac,Spinner diabect,Spinner hypertension,Spinner seropositive,
-                              Spinner typeBlood){
-        save.setVisibility(View.INVISIBLE);
-        name.setEnabled(false);
-        birthday.setEnabled(false);
-        observations.setEnabled(false);
-        cardiac.setEnabled(false);
-        typeBlood.setEnabled(false);
-        diabect.setEnabled(false);
-        hypertension.setEnabled(false);
-        seropositive.setEnabled(false);
-    }
+  private void disableField(Button save,EditText name, EditText birthday,EditText observations,
+                              Spinner cardiac,Spinner diabect,Spinner hypertension,
+                              Spinner seropositive,Spinner typeBlood) {
+    save.setVisibility(View.INVISIBLE);
+    name.setEnabled(false);
+    birthday.setEnabled(false);
+    observations.setEnabled(false);
+    cardiac.setEnabled(false);
+    typeBlood.setEnabled(false);
+    diabect.setEnabled(false);
+    hypertension.setEnabled(false);
+    seropositive.setEnabled(false);
+  }
 
-    private void disableOptionsUpdate(Button save,Button update,Button delete){
-        save.setEnabled(false);
-        update.setVisibility(View.VISIBLE);
-        update.setEnabled(true);
-        delete.setVisibility(View.VISIBLE);
-        delete.setEnabled(true);
-    }
+  private void disableOptionsUpdate(Button save,Button update,Button delete) {
+    save.setEnabled(false);
+    update.setVisibility(View.VISIBLE);
+    update.setEnabled(true);
+    delete.setVisibility(View.VISIBLE);
+    delete.setEnabled(true);
+  }
 
-    private void disableButtons(Button save,Button update,Button delete){
-        save.setVisibility(View.INVISIBLE);
-        update.setVisibility(View.VISIBLE);
-        update.setEnabled(true);
-        delete.setVisibility(View.VISIBLE);
-        delete.setEnabled(true);
-    }
+  private void disableButtons(Button save,Button update,Button delete) {
+    save.setVisibility(View.INVISIBLE);
+    update.setVisibility(View.VISIBLE);
+    update.setEnabled(true);
+    delete.setVisibility(View.VISIBLE);
+    delete.setEnabled(true);
+  }
 
-    private void disableJustUpdateButton(EditText name, EditText birthday, Button update, Button save,
+  private void disableJustUpdateButton(EditText name, EditText birthday, Button update, Button save,
                                          EditText observations,Spinner typeBlood,Spinner cardiac,
-                                         Spinner diabect,Spinner hypertension,Spinner seropositive) {
-        name.setEnabled(true);
-        birthday.setEnabled(true);
-        observations.setEnabled(true);
-        update.setVisibility(View.INVISIBLE);
-        save.setVisibility(View.VISIBLE);
-        save.setEnabled(true);
-        typeBlood.setEnabled(true);
-        cardiac.setEnabled(true);
-        diabect.setEnabled(true);
-        hypertension.setEnabled(true);
-        seropositive.setEnabled(true);
-    }
+                                         Spinner diabect,Spinner hypertension,Spinner
+                                                 seropositive) {
+    name.setEnabled(true);
+    birthday.setEnabled(true);
+    observations.setEnabled(true);
+    update.setVisibility(View.INVISIBLE);
+    save.setVisibility(View.VISIBLE);
+    save.setEnabled(true);
+    typeBlood.setEnabled(true);
+    cardiac.setEnabled(true);
+    diabect.setEnabled(true);
+    hypertension.setEnabled(true);
+    seropositive.setEnabled(true);
+  }
 
-    private void visibleOptions(Button save,Button update){
-        update.setVisibility(View.VISIBLE);
-        save.setVisibility(View.INVISIBLE);
-    }
+  private void visibleOptions(Button save,Button update) {
+    update.setVisibility(View.VISIBLE);
+    save.setVisibility(View.INVISIBLE);
+  }
 
-    private void disableOptionsCreateUser(EditText name,EditText birthday,EditText observations,
+  private void disableOptionsCreateUser(EditText name,EditText birthday,EditText observations,
                                           Spinner typeBlood,Spinner cardiac,Spinner diabect,
-                                          Spinner hypertension,Spinner seropositive){
-        name.setEnabled(false);
-        birthday.setEnabled(false);
-        observations.setEnabled(false);
-        typeBlood.setEnabled(false);
-        cardiac.setEnabled(false);
-        diabect.setEnabled(false);
-        hypertension.setEnabled(false);
-        seropositive.setEnabled(false);
-    }
+                                          Spinner hypertension,Spinner seropositive) {
+    name.setEnabled(false);
+    birthday.setEnabled(false);
+    observations.setEnabled(false);
+    typeBlood.setEnabled(false);
+    cardiac.setEnabled(false);
+    diabect.setEnabled(false);
+    hypertension.setEnabled(false);
+    seropositive.setEnabled(false);
+  }
 
-    public void medicalRecordsNotification(String nameUser,String birthdayUser,String typeBloodUser,
-                                           String cardiacUser,String diabeticUser,String hypertensionUser,
-                                           String seropositiveUser,String observationsUser){
+  public void medicalRecordsNotification(String nameUser,String birthdayUser,String typeBloodUser,
+                                         String cardiacUser,String diabeticUser,
+                                         String hypertensionUser,String seropositiveUser,
+                                         String observationsUser) {
         int notifyID = 1;
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
 
