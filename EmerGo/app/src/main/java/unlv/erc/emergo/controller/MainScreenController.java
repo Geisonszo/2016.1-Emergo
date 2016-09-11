@@ -15,9 +15,8 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.orm.SugarContext;
 
-import dao.DataAccessObject;
+import dao.HealthUnitDao;
 import dao.UserDao;
-import helper.Services;
 
 import unlv.erc.emergo.R;
 
@@ -25,7 +24,7 @@ public class MainScreenController extends Activity {
 
   private Button goButton;
   private Button fineButton;
-  private DataAccessObject dataAccessObject = new DataAccessObject(this);
+  private HealthUnitDao dataAccessObject = new HealthUnitDao(this);
   private Cursor result;
   UserDao myDatabase;
 

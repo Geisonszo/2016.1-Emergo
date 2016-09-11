@@ -1,3 +1,9 @@
+/*****************************
+ * Class name: HealthUnitDao (.java)
+ *
+ * Purpose: This class has a method to lower Firebase data and save the data in the database.
+ ****************************/
+
 package dao;
 
 import android.content.Context;
@@ -14,16 +20,24 @@ import java.util.List;
 import unlv.erc.emergo.controller.HealthUnitController;
 import unlv.erc.emergo.model.HealthUnit;
 
-public class DataAccessObject {
+public class HealthUnitDao {
 
     private Context context;
     private static final String URL_BASE_DB = "https://emergodf.firebaseio.com/";
 
-
-    public DataAccessObject(Context context) {
+    /**
+     * You receive the "context" of the Health Unit Dao class.
+     * @param context
+     */
+    public HealthUnitDao(Context context) {
 
         this.context = context;
     }
+
+    /**
+     * Low data from health units and saved in the database. In addition to putting this data in the
+     * arraylist.
+     */
 
     public void setDataOnSugar() {
 
