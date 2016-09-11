@@ -14,8 +14,6 @@ public class UserDao extends SQLiteOpenHelper {
 
     private static final String USER_TABLE = "User";
     private static final String DROP_TABLE_USER = "DROP TABLE IF EXISTS" + USER_TABLE;
-
-    //User data
     private static final String NAMEUSER = "[nameUser]";
     private static final String BIRTHDAYUSER = "[birthdayUser]";
     private static final String TYPEBLOODUSER = "[typeBloodUser]";
@@ -38,13 +36,17 @@ public class UserDao extends SQLiteOpenHelper {
             OBSERVATIONS + "VARCHAR(442)); ";
 
     public UserDao(Context context) {
-        super(context, DATABASE_NAME, null, VERSION);
+
+        super (context, DATABASE_NAME, null, VERSION);
     }
 
-    public static UserDao getInstance(Context context){
-        if(UserDao.instance != null){
+    public static UserDao getInstance(Context context) {
 
-        }else{
+        if (UserDao.instance != null) {
+
+            //Nothing to do.
+        }else {
+
             UserDao.instance = new UserDao(context);
         }
         return UserDao.instance;
@@ -52,20 +54,24 @@ public class UserDao extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
+
         database.execSQL(CREATE_USER);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
+
         database.execSQL(DROP_TABLE_USER);
         onCreate(database);
     }
 
     public boolean insertUser(Integer id,String name,String birthday,String typeBlood,String cardiac,
                               String diabetic,String hypertension,String seropositive,
-                              String observations){
+                              String observations) {
+
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+
         contentValues.put(USER_ID, id);
         contentValues.put(NAMEUSER, name);
         contentValues.put(BIRTHDAYUSER,birthday);
@@ -78,15 +84,20 @@ public class UserDao extends SQLiteOpenHelper {
 
         long result = database.insert(USER_TABLE,null,contentValues);
         database.close();
-        if(result == -1){
+        if (result == -1) {
+
             return false;
         }else {
             return true;
         }
     }
-    public boolean updateUser(Integer id,String nameUser,String birthday,String typeBlood,String cardiac,
-                              String diabetic,String hypertension,String seropositive,String observation) {
+
+    public boolean updateUser(Integer id,String nameUser,String birthday,String typeBlood,
+                              String cardiac,String diabetic,String hypertension,
+                              String seropositive,String observation) {
+
         SQLiteDatabase database = this.getWritableDatabase();
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAMEUSER, nameUser);
         contentValues.put(BIRTHDAYUSER,birthday);
@@ -97,18 +108,22 @@ public class UserDao extends SQLiteOpenHelper {
         contentValues.put(SEROPOSITIVEUSER,seropositive);
         contentValues.put(OBSERVATIONS,observation);
 
-        database.update(USER_TABLE, contentValues, "[IDUser] = ? ",new String[]{String.valueOf(id)});
+        database.update(USER_TABLE, contentValues,"[IDUser] = ? ",new String[]{String.valueOf(id)});
         database.close();
         return true;
     }
-    public Cursor getUser(){
+
+    public Cursor getUser() {
+
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + USER_TABLE,null);
+
         return cursor;
     }
-    public Integer deleteUser(Integer id){
+
+    public Integer deleteUser(Integer id) {
+
         SQLiteDatabase database = this.getWritableDatabase();
         return database.delete(USER_TABLE, "[IDUser] = ? ",new String[]{String.valueOf(id)});
     }
-
 }
