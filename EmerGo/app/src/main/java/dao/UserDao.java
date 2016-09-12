@@ -99,110 +99,112 @@ public class UserDao extends SQLiteOpenHelper {
     onCreate(database);
   }
 
-    /**
-     * Enter user data in the "User" table.
-     * @param idUser - fsdfsdfvs
-     * @param nameUser ersfsfd
-     * @param birthdayUser - sfsdvfv
-     * @param typeBloodUser sfdsdf
-     * @param cardiacUser
-     * @param diabeticUser
-     * @param hypertensionUser
-     * @param seropositiveUser
-     * @param observationsUser
-     * @return
-     */
+  /**
+    * Enter user data in the "User" table.
+    * @param idUser This is a id of user on database.
+    * @param nameUser This is a name of user on database.
+    * @param birthdayUser This a birthday of user.
+    * @param typeBloodUser This a type blood of user on database.
+    * @param cardiacUser Describe is user has cardiac problem on database.
+    * @param diabeticUser Describe is user has diabetic problem on database.
+    * @param hypertensionUser Describe is user has hypertension on database.
+    * @param seropositiveUser Describe is user has seropositive on database.
+    * @param observationsUser Describe observations of user on database.
+    *
+   */
 
-    public boolean insertUser(Integer idUser,String nameUser,String birthdayUser,
-                              String typeBloodUser,String cardiacUser,String diabeticUser,
-                              String hypertensionUser,String seropositiveUser,
-                              String observationsUser) {
+  public boolean insertUser(Integer idUser,String nameUser,String birthdayUser,
+                            String typeBloodUser,String cardiacUser,String diabeticUser,
+                            String hypertensionUser,String seropositiveUser,
+                            String observationsUser) {
 
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+    SQLiteDatabase database = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
 
-        contentValues.put(USER_ID, idUser);
-        contentValues.put(NAMEUSER, nameUser);
-        contentValues.put(BIRTHDAYUSER,birthdayUser);
-        contentValues.put(TYPEBLOODUSER,typeBloodUser);
-        contentValues.put(CARDIACUSER,cardiacUser);
-        contentValues.put(DIABETICUSER,diabeticUser);
-        contentValues.put(HYPERTENSIONUSER,hypertensionUser);
-        contentValues.put(SEROPOSITIVEUSER,seropositiveUser);
-        contentValues.put(OBSERVATIONS,observationsUser);
+    contentValues.put(USER_ID, idUser);
+    contentValues.put(NAMEUSER, nameUser);
+    contentValues.put(BIRTHDAYUSER,birthdayUser);
+    contentValues.put(TYPEBLOODUSER,typeBloodUser);
+    contentValues.put(CARDIACUSER,cardiacUser);
+    contentValues.put(DIABETICUSER,diabeticUser);
+    contentValues.put(HYPERTENSIONUSER,hypertensionUser);
+    contentValues.put(SEROPOSITIVEUSER,seropositiveUser);
+    contentValues.put(OBSERVATIONS,observationsUser);
 
-        long result = database.insert(USER_TABLE,null,contentValues);
-        database.close();
-        if (result == -1) {
+    long result = database.insert(USER_TABLE,null,contentValues);
+    database.close();
+    if (result == -1) {
 
-            return false;
-        }else {
+      return false;
+    } else {
 
-            return true;
-        }
+      return true;
     }
+  }
 
-    /**
-     * Change user data in the "User" table.
-     * @param idUser
-     * @param nameUser
-     * @param birthdayUser
-     * @param typeBloodUser
-     * @param cardiacUser
-     * @param diabeticUser
-     * @param hypertensionUser
-     * @param seropositiveUser
-     * @param observationUser
-     * @return
-     */
+  /**
+    * Change user data in the "User" table.
+    * @param idUser This is a id of user on database.
+    * @param nameUser This is a name of user on database.
+    * @param birthdayUser This a birthday of user.
+    * @param typeBloodUser This a type blood of user on database.
+    * @param cardiacUser Describe is user has cardiac problem on database.
+    * @param diabeticUser Describe is user has diabetic problem on database.
+    * @param hypertensionUser Describe is user has hypertension on database.
+    * @param seropositiveUser Describe is user has seropositive on database.
+    * @param observationsUser Describe observations of user on database.
+    *
+   */
 
-    public boolean updateUser(Integer idUser,String nameUser,String birthdayUser,
-                              String typeBloodUser,String cardiacUser,String diabeticUser,
-                              String hypertensionUser,String seropositiveUser,
-                              String observationUser) {
+  public boolean updateUser(Integer idUser,String nameUser,String birthdayUser,
+                            String typeBloodUser,String cardiacUser,String diabeticUser,
+                            String hypertensionUser,String seropositiveUser,
+                            String observationsUser) {
 
-        SQLiteDatabase database = this.getWritableDatabase();
+    SQLiteDatabase database = this.getWritableDatabase();
+    ContentValues contentValues = new ContentValues();
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(NAMEUSER, nameUser);
-        contentValues.put(BIRTHDAYUSER,birthdayUser);
-        contentValues.put(TYPEBLOODUSER,typeBloodUser);
-        contentValues.put(CARDIACUSER,cardiacUser);
-        contentValues.put(DIABETICUSER,diabeticUser);
-        contentValues.put(HYPERTENSIONUSER,hypertensionUser);
-        contentValues.put(SEROPOSITIVEUSER,seropositiveUser);
-        contentValues.put(OBSERVATIONS,observationUser);
+    contentValues.put(NAMEUSER, nameUser);
+    contentValues.put(BIRTHDAYUSER,birthdayUser);
+    contentValues.put(TYPEBLOODUSER,typeBloodUser);
+    contentValues.put(CARDIACUSER,cardiacUser);
+    contentValues.put(DIABETICUSER,diabeticUser);
+    contentValues.put(HYPERTENSIONUSER,hypertensionUser);
+    contentValues.put(SEROPOSITIVEUSER,seropositiveUser);
+    contentValues.put(OBSERVATIONS,observationsUser);
 
-        database.update(USER_TABLE, contentValues,"[IDUser] = ? ",new String[] {
+    database.update(USER_TABLE, contentValues,"[IDUser] = ? ",new String[] {
                                                                         String.valueOf(idUser)});
-        database.close();
-        return true;
-    }
+    database.close();
+    return true;
+  }
 
-    /**
-     * Recover registration User data in the "User" table.
-     * @return data User
-     */
-    public Cursor getUser() {
+  /**
+    * Recover registration User data in the "User" table.
+    * @return data User
+   */
 
-        SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + USER_TABLE,null);
+  public Cursor getUser() {
 
-        return cursor;
-    }
+    SQLiteDatabase database = this.getWritableDatabase();
+    Cursor cursor = database.rawQuery("SELECT * FROM " + USER_TABLE,null);
 
-    /**
-     * Delete table User.
-     * @param idUser
-     * @return deleteTableUser
-     */
+    return cursor;
+  }
+
+  /**
+    * Delete table User.
+    * @param idUser This is a id of user on database.
+    * @return deleteTableUser
+   */
+
   public Integer deleteUser(Integer idUser) {
 
-        SQLiteDatabase database = this.getWritableDatabase();
-        int deleteTableUser = 0;
+    SQLiteDatabase database = this.getWritableDatabase();
+    int deleteTableUser = 0;
 
-        deleteTableUser = database.delete(USER_TABLE, "[IDUser] = ? ",new String[] {
+    deleteTableUser = database.delete(USER_TABLE, "[IDUser] = ? ",new String[] {
                                                                         String.valueOf(idUser)});
-        return deleteTableUser;
+    return deleteTableUser;
   }
 }

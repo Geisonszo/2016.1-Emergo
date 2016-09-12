@@ -88,7 +88,7 @@ public class MainScreenController extends Activity {
     final NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();
 
-    String events[ ] = new String[7];
+    String events[] = new String[7];
 
     events[0] = new String("Nome: " + resultOfTheUser.getString(1));
     events[1] = new String("Data de Nascimento: " + resultOfTheUser.getString(2));

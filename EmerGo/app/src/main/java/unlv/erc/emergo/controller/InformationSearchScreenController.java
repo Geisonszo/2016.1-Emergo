@@ -19,31 +19,32 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import unlv.erc.emergo.R;
 import unlv.erc.emergo.model.HealthUnit;
+
+import unlv.erc.emergo.R;
 
 public class InformationSearchScreenController extends Activity {
 
-    private List<String> listOfInformations = new ArrayList<String>();
-    private ListView healthUnitInfo;
-    private Intent receive;
-    private Button buttonRoute;
-    private ImageView buttonGo;
-    private int numberUsSelected;
-    private String padding = "";
-    private String titleHealthUnit = "";
-    private String nameHealthUnit = "";
-    private String unitType = "";
-    private String state = "";
-    private String city = "";
-    private String district = "";
-    private String addressNumber = "";
-    private final int LOWERCLOSE = -1;
-    private final int VALUE_DEFAULT_INTENT = 0;
+  private List<String> listOfInformations = new ArrayList<String>();
+  private ListView healthUnitInfo;
+  private Intent receive;
+  private Button buttonRoute;
+  private ImageView buttonGo;
+  private int numberUsSelected;
+  private String padding = "";
+  private String titleHealthUnit = "";
+  private String nameHealthUnit = "";
+  private String unitType = "";
+  private String state = "";
+  private String city = "";
+  private String district = "";
+  private String addressNumber = "";
+  private final int LOWERCLOSE = -1;
+  private final int VALUE_DEFAULT_INTENT = 0;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_us_screen);
