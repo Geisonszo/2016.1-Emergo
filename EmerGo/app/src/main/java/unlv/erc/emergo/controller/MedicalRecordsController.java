@@ -29,14 +29,17 @@ public class MedicalRecordsController extends Activity {
   private EditText fullName;
   private EditText birthday;
   private EditText observations;
+
   private Spinner typeBlood;
   private Spinner cardiac;
   private Spinner diabect;
   private Spinner hypertension;
   private Spinner seropositive;
+
   private Button saveButton;
   private Button updateButton;
   private Button deleteButton;
+
   private String nameUser;
   private String birthdayUser;
   private String typeBloodUser;
@@ -45,9 +48,8 @@ public class MedicalRecordsController extends Activity {
   private String diabeticUser;
   private String hypertensionUser;
   private String seropositiveUser;
-  private Integer id = 1;
+  private Integer identifier = 1;
   UserDao myDatabase;
-  private Cursor result;
   private final int maximumArray = 7;
 
   public MedicalRecordsController() {
@@ -108,7 +110,7 @@ public class MedicalRecordsController extends Activity {
                         typeBlood,cardiac,diabect,hypertension,seropositive);
         saveButton.setOnClickListener(new View.OnClickListener() {
           public void onClick(View view) {
-            updateUser(id,saveButton,updateButton,deleteButton);
+            updateUser(identifier,saveButton,updateButton,deleteButton);
             visibleOptions(saveButton,updateButton);
           }
         });
@@ -117,7 +119,7 @@ public class MedicalRecordsController extends Activity {
 
     deleteButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View view) {
-          deleteUser(fullName,birthday,observations,saveButton,id,updateButton,deleteButton,
+          deleteUser(fullName,birthday,observations,saveButton,identifier,updateButton,deleteButton,
                         typeBlood,cardiac,diabect,hypertension,seropositive);
           saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -153,7 +155,7 @@ public class MedicalRecordsController extends Activity {
       hypertensionUser = diabect.getSelectedItem().toString();
       seropositiveUser = seropositive.getSelectedItem().toString();
 
-      sucess = myDatabase.insertUser(id, nameUser, birthdayUser, typeBloodUser, cardiacUser,
+      sucess = myDatabase.insertUser(identifier, nameUser, birthdayUser, typeBloodUser, cardiacUser,
                     diabeticUser,hypertensionUser, seropositiveUser,
                     observationsUser);
       if (sucess == true) {
@@ -244,12 +246,12 @@ public class MedicalRecordsController extends Activity {
   }
 
   private boolean checksName(String nameUser) {
-    final int minimum = 3;
+    final int minimumSizeName = 3;
     if (nameUser.isEmpty()) {
       showMessage("Nome Vazio! Informe Seu Nome.");
       return true;
     }
-    if (nameUser.trim().length() < minimum) {
+    if (nameUser.trim().length() < minimumSizeName) {
       showMessage("Informe um nome com no mínimo 3 caracteres.");
       fullName.requestFocus();
       return true;
@@ -391,7 +393,7 @@ public class MedicalRecordsController extends Activity {
                                          String cardiacUser,String diabeticUser,
                                          String hypertensionUser,String seropositiveUser,
                                          String observationsUser) {
-    final int notifyId = 1;
+    final int notifyIdentifier = 1;
     NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
 
     notification.setContentTitle("Ficha Médica");
@@ -430,7 +432,7 @@ public class MedicalRecordsController extends Activity {
     NotificationManager notificationManager = (NotificationManager)
             getSystemService(NOTIFICATION_SERVICE);
 
-    notificationManager.notify(notifyId,notification.build());
+    notificationManager.notify(notifyIdentifier,notification.build());
   }
 
   public void goClicked(View mapScreen) {
