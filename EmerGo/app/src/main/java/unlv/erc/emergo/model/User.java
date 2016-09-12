@@ -8,219 +8,220 @@ package unlv.erc.emergo.model;
 
 public class User {
 
-    private String nameUser = "";
-    private String birthdayUser = "";
-    private String typeBloodUser = "";
-    private String cardiacUser = "";
-    private String diabeticUser = "";
-    private String hypertensionUser = "";
-    private String seropositiveUser = "";
-    private String observationsUser = "";
-    private Integer idUser = 0;
+  private String nameUser = "";
+  private String birthdayUser = "";
+  private String typeBloodUser = "";
+  private String cardiacUser = "";
+  private String diabeticUser = "";
+  private String hypertensionUser = "";
+  private String seropositiveUser = "";
+  private String observationsUser = "";
+  private Integer idUser = 0;
 
-    /**
-     * Empty Constructor.
-     */
+  /**
+    * Empty Constructor.
+   */
 
-    public User() {
+  public User() {
 
-    }
+  }
 
-    /**
-     * Constructor of user.
-     *
-     * @param nameUser
-     * @param birthdayUser
-     * @param typeBloodUser
-     * @param cardiacUser
-     * @param diabeticUser
-     * @param hypertensionUser
-     * @param seropositiveUser
-     * @param observationsUser
-     * @param idUser
-     */
+  /**
+    * Constructor of user.
+    *
+    * @param nameUser This is a name of user.
+    * @param birthdayUser This is a birthday of user.
+    * @param typeBloodUser This a type blood of user.
+    * @param cardiacUser Describe is user has cardiac problem.
+    * @param diabeticUser Describe is user has diabetic problem.
+    * @param hypertensionUser Describe is user has hypertension.
+    * @param seropositiveUser Describe is user has seropositive.
+    * @param observationsUser Describe observations of user.
+    * @param idUser This is a id of user.
+   */
 
-    public User(String nameUser, String birthdayUser, String typeBloodUser, String cardiacUser,
-                String diabeticUser, String hypertensionUser, String seropositiveUser,
-                String observationsUser, Integer idUser) {
+  public User(String nameUser, String birthdayUser, String typeBloodUser, String cardiacUser,
+              String diabeticUser, String hypertensionUser, String seropositiveUser,
+              String observationsUser, Integer idUser) {
 
-        setNameUser(nameUser);
-        setBirthdayUser(birthdayUser);
-        setTypeBloodUser(typeBloodUser);
-        setCardiacUser(cardiacUser);
-        setDiabeticUser(diabeticUser);
-        setHypertensionUser(hypertensionUser);
-        setSeropositiveUser(seropositiveUser);
-        setObservationsUser(observationsUser);
-        setIdUser(idUser);
-    }
+    setNameUser(nameUser);
+    setBirthdayUser(birthdayUser);
+    setTypeBloodUser(typeBloodUser);
+    setCardiacUser(cardiacUser);
+    setDiabeticUser(diabeticUser);
+    setHypertensionUser(hypertensionUser);
+    setSeropositiveUser(seropositiveUser);
+    setObservationsUser(observationsUser);
+    setIdUser(idUser);
+  }
 
-    /**
-     * Get the value of attribute observationsUser.
-     *
-     * @return observationsUser:String
-     *
-     */
+  /**
+    * Get the value of attribute observationsUser.
+    *
+    * @return observationsUser:String
+    *
+   */
 
-    public String getObservationsUser() {
+  public String getObservationsUser() {
 
-        return observationsUser;
-    }
+    return observationsUser;
+  }
 
-    /**
-     * Set the value of attribute observationUser.
-     *
-     * @param observationsUser
-     *
-     */
+  /**
+    * Set the value of attribute observationUser.
+    *
+    * @param observationsUser
+    *
+   */
 
-    public void setObservationsUser(String observationsUser) {
+  public void setObservationsUser(String observationsUser) {
 
-        this.observationsUser = observationsUser;
-    }
+    this.observationsUser = observationsUser;
+  }
 
-    /**
-     * Get the value of attribute idUser.
-     *
-     * @return idUser:int
-     *
-     */
+  /**
+    * Get the value of attribute idUser.
+    *
+    * @return idUser:int
+    *
+   */
 
-    public Integer getIdUser() {
+  public Integer getIdUser() {
 
-        return idUser;
-    }
+    return idUser;
+  }
 
-    /**
-     * Set the value of attribute idUser.
-     *
-     * @param idUser
-     *
-     */
+  /**
+    * Set the value of attribute idUser.
+    *
+    * @param idUser
+    *
+   */
 
-    public void setIdUser(Integer idUser) {
+  public void setIdUser(Integer idUser) {
 
-        this.idUser = idUser;
-    }
+    this.idUser = idUser;
+  }
 
-    /**
-     * Get the value of attribute nameUser.
-     *
-     * @return nameUser:String
-     *
-     */
+  /**
+    * Get the value of attribute nameUser.
+    *
+    * @return nameUser:String
+    *
+   */
 
-    public String getNameUser() {
+  public String getNameUser() {
 
-        return nameUser;
-    }
+    return nameUser;
+  }
 
-    /**
-     * Set the value of attribute nameUser.
-     *
-     * @param nameUser
-     *
-     */
+  /**
+    * Set the value of attribute nameUser.
+    *
+    * @param nameUser
+    *
+   */
 
-    public void setNameUser(String nameUser) {
+  public void setNameUser(String nameUser) {
 
-        this.nameUser = nameUser;
-    }
+    this.nameUser = nameUser;
+  }
 
-    /**
-     * Get the value of attribute birthdayUser.
-     *
-     * @return birthdayUser:String
-     *
-     */
+  /**
+    * Get the value of attribute birthdayUser.
+    *
+    * @return birthdayUser:String
+    *
+   */
 
-    public String getBirthdayUser() {
+  public String getBirthdayUser() {
 
-        return birthdayUser;
-    }
+    return birthdayUser;
+  }
 
-    /**
-     * Set the value of attribute birthdayUser.
-     *
-     * @param birthdayUser
-     *
-     */
+  /**
+    * Set the value of attribute birthdayUser.
+    *
+    * @param birthdayUser
+    *
+   */
 
-    public void setBirthdayUser(String birthdayUser) {
+  public void setBirthdayUser(String birthdayUser) {
 
-        this.birthdayUser = birthdayUser;
-    }
+    this.birthdayUser = birthdayUser;
+  }
 
-    /**
-     * Get the value of attribute typeBloodUser.
-     *
-     * @return typebloodUser:String
-     *
-     */
+  /**
+    * Get the value of attribute typeBloodUser.
+    *
+    * @return typebloodUser:String
+    *
+   */
 
-    public String getTypeBloodUser() {
+  public String getTypeBloodUser() {
 
-        return typeBloodUser;
-    }
+    return typeBloodUser;
+  }
 
-    /**
-     * Set the value of attribute typeBloodUser.
-     *
-     * @param typeBloodUser
-     *
-     */
+  /**
+    * Set the value of attribute typeBloodUser.
+    *
+    * @param typeBloodUser
+    *
+   */
 
-    public void setTypeBloodUser(String typeBloodUser) {
+  public void setTypeBloodUser(String typeBloodUser) {
 
-        this.typeBloodUser = typeBloodUser;
-    }
+    this.typeBloodUser = typeBloodUser;
+  }
 
-    /**
-     * Get the value of attribute cardiacUser.
-     *
-     * @return cardiacUser:String
-     *
-     */
+  /**
+    * Get the value of attribute cardiacUser.
+    *
+    * @return cardiacUser:String
+    *
+   */
 
-    public String getCardiacUser() {
+  public String getCardiacUser() {
 
-        return cardiacUser;
-    }
+    return cardiacUser;
+  }
 
-    /**
-     * Set the value of attribute cardiacUser.
-     *
-     * @param cardiacUser
-     *
-     */
+  /**
+    * Set the value of attribute cardiacUser.
+    *
+    * @param cardiacUser
+    *
+   */
 
-    public void setCardiacUser(String cardiacUser) {
-        this.cardiacUser = cardiacUser;
-    }
+  public void setCardiacUser(String cardiacUser) {
 
-    /**
-     * Get the value of attribute diabeticUser.
-     *
-     * @return diabeticUser:String
-     *
-     */
+    this.cardiacUser = cardiacUser;
+  }
 
-    public String getDiabeticUser() {
+  /**
+    * Get the value of attribute diabeticUser.
+    *
+    * @return diabeticUser:String
+    *
+   */
 
-        return diabeticUser;
-    }
+  public String getDiabeticUser() {
 
-    /**
-     * Set the value of attribute diabeticUser.
-     *
-     * @param diabeticUser
-     *
-     */
+    return diabeticUser;
+  }
 
-    public void setDiabeticUser(String diabeticUser) {
+  /**
+    * Set the value of attribute diabeticUser.
+    *
+    * @param diabeticUser
+    *
+   */
 
-        this.diabeticUser = diabeticUser;
-    }
+  public void setDiabeticUser(String diabeticUser) {
+
+     this.diabeticUser = diabeticUser;
+  }
 
     /**
      * Get the value of attribute hypertensionUser.
