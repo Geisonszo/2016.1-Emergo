@@ -25,12 +25,12 @@ public class MainScreenController extends Activity {
   private Button goButton;
   private Button fineButton;
   private HealthUnitDao dataAccessObject = new HealthUnitDao(this);
-  private Cursor result;
+  private Cursor resultOfTheUser;
   UserDao myDatabase;
 
   //Maximum number of rows that the medical records may have.
   private final int maximumArray = 7;
-  private int number = 0;
+  private int clickPosition = 0;
 
   @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,10 @@ public class MainScreenController extends Activity {
     SugarContext.init(this);
     myDatabase = new UserDao(this);
     dataAccessObject.setDataOnSugar();
-    result = myDatabase.getUser();
+    resultOfTheUser = myDatabase.getUser();
 
-    if (result.getCount() == 0) {
-
+    if (resultOfTheUser.getCount() == 0) {
+      //Nothing to do
     } else {
       medicalRecordsNotification();
     }
@@ -73,7 +73,7 @@ public class MainScreenController extends Activity {
 
   private void medicalRecordsNotification() {
 
-    result.moveToFirst();
+    resultOfTheUser.moveToFirst();
     final int notifyId = 1;
     NotificationCompat.Builder notification =
                 new NotificationCompat.Builder(this);
@@ -83,21 +83,21 @@ public class MainScreenController extends Activity {
     notification.setTicker("Alerta de Mensagem");
     notification.setSmallIcon(R.drawable.icon_emergo);
 
-    notification.setNumber(++number);
+    notification.setNumber(++clickPosition);
 
     final NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();
 
     String events[ ] = new String[7];
 
-    events[0] = new String("Nome: " + result.getString(1));
-    events[1] = new String("Data de Nascimento: " + result.getString(2));
-    events[2] = new String("Tipo Sanguineo: " + result.getString(3));
-    events[3] = new String("Cardiaco: " + result.getString(4));
-    events[4] = new String("Diabetico: " + result.getString(5));
-    events[5] = new String("Hipertenso: " + result.getString(6));
-    events[6] = new String("Soropositivo: " + result.getString(7));
-    events[6] = new String("Observações Especiais: " + result.getString(8));
+    events[0] = new String("Nome: " + resultOfTheUser.getString(1));
+    events[1] = new String("Data de Nascimento: " + resultOfTheUser.getString(2));
+    events[2] = new String("Tipo Sanguineo: " + resultOfTheUser.getString(3));
+    events[3] = new String("Cardiaco: " + resultOfTheUser.getString(4));
+    events[4] = new String("Diabetico: " + resultOfTheUser.getString(5));
+    events[5] = new String("Hipertenso: " + resultOfTheUser.getString(6));
+    events[6] = new String("Soropositivo: " + resultOfTheUser.getString(7));
+    events[6] = new String("Observações Especiais: " + resultOfTheUser.getString(8));
 
     inboxStyle.setBigContentTitle("Ficha Médica");
 
