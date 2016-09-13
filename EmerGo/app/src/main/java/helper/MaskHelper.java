@@ -12,78 +12,84 @@ import android.widget.EditText;
 
 public class MaskHelper {
 
-    /**
-     * This function allows the symbols "." , "-", "", "/", "(", ")" May be used when necessary.
-     * @param symbols
-     * @return newSymbold
-     */
+  /**
+    * This function allows the symbols "." , "-", "", "/", "(", ")" May be used when necessary.
+    * @param symbols words
+    * @return newSymbold
+   */
 
-    public static String unmask(String symbols) {
-        String newSymbold = "";
+  public static String unmask(String symbols) {
+    String newSymbold = "";
 
-        newSymbold = symbols.replaceAll("[.]", "").replaceAll("[-]", "")
-                .replaceAll("[/]", "").replaceAll("[(]", "")
-                .replaceAll("[)]", "");
+    newSymbold = symbols.replaceAll("[.]", "").replaceAll("[-]", "")
+                        .replaceAll("[/]", "").replaceAll("[(]", "")
+                        .replaceAll("[)]", "");
 
-        return newSymbold;
-    }
+    return newSymbold;
+  }
 
-    /**
-     * This function uses the "unmask" and when asked will apply the desired mask in the word.
-     * @param mask
-     * @param fieldEditText
-     * @return
-     */
-    public static TextWatcher insert(final String mask, final EditText fieldEditText) {
+  /**
+    * This function uses the "unmask" and when asked will apply the desired mask in the word.
+    * @param mask This mask is gonna be used when is necessary in the word.
+    * @param fieldEditText Field where the word is gonna be stay.
+   */
 
-        return new TextWatcher() {
+  public static TextWatcher insert(final String mask, final EditText fieldEditText) {
 
-            boolean isUpdating = false;
-            String oldString = "";
+    return new TextWatcher() {
 
-            public void onTextChanged(CharSequence word, int start, int before,int count) {
+        boolean isUpdating = false;
+        String oldString = "";
 
-                String newWord = MaskHelper.unmask(word.toString());
-                String mask = "";
+        public void onTextChanged(CharSequence word, int start, int before,int count) {
 
-                if (isUpdating) {
+            String newWord = MaskHelper.unmask(word.toString());
+            String mask = "";
 
-                    oldString = newWord;
-                    isUpdating = false;
-                    return;
-                } else {
-                    //Nothing to do
-                }
+            if (isUpdating) {
 
-                int aux = 0;
-                for (char message : mask.toCharArray()) {
+              oldString = newWord;
+              isUpdating = false;
+              return;
+            } else {
 
-                    if (message != '#' && newWord.length() > oldString.length()) {
-
-                        mask += message;
-                        continue;
-                    } else{
-                        //Nothing to do
-                    }
-                    try {
-
-                        mask += newWord.charAt(aux);
-                    } catch (Exception error) {
-
-                        break;
-                    }
-                    aux++;
-                }
-                isUpdating = true;
-                fieldEditText.setText(mask);
-                fieldEditText.setSelection(mask.length());
+                //Nothing to do
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-            public void afterTextChanged(Editable s) {
+            int aux = 0;
+            for (char message : mask.toCharArray()) {
 
+              if (message != '#' && newWord.length() > oldString.length()) {
+
+                mask += message;
+                continue;
+              } else {
+
+                  /**
+                   * Nothing to do.
+                   */
+              }
+              try {
+
+                mask += newWord.charAt(aux);
+              } catch (Exception error) {
+
+                break;
+              }
+              aux++;
             }
+            isUpdating = true;
+            fieldEditText.setText(mask);
+            fieldEditText.setSelection(mask.length());
+        }
+
+        public void beforeTextChanged(CharSequence sequence,int start,int count,int after) {
+
+        }
+
+        public void afterTextChanged(Editable editable) {
+
+        }
         };
-    }
+  }
 }
