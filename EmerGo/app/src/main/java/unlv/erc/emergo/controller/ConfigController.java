@@ -1,3 +1,9 @@
+/*
+ * Class: ConfigController (.java)
+ *
+ * Porpouse: This class contains methods the related to the configuration screen on EmerGo.
+ */
+
 package unlv.erc.emergo.controller;
 
 import android.app.Activity;
@@ -76,6 +82,11 @@ public class ConfigController extends Activity {
 
     }
 
+    /**
+     * This method create a route screen after GO button is clicked, tracing a route to a
+     * specific health unity.
+     */
+
     public void createRouteScreen() {
         Intent map = new Intent();
         map.setClass(this , RouteActivity.class);
@@ -83,6 +94,10 @@ public class ConfigController extends Activity {
         startActivity(map);
         finish();
     }
+
+    /*
+     * This method launchs the search screen after the search button is clicked.
+     */
 
     public void openSearch (View mapScreen) {
 
@@ -92,6 +107,11 @@ public class ConfigController extends Activity {
         finish();
     }
 
+    /*
+     * This method list all the USs, by proximity of the user location, after the list button
+     * is clicked.
+     */
+
     public void listUs() {
 
         Intent listUs = new Intent();
@@ -100,12 +120,20 @@ public class ConfigController extends Activity {
         finish();
     }
 
+    /*
+     * This method show users medical information, after the medical information button is clicked.
+     */
+
     public void showMedicalRecord() {
 
         Intent medicalRecord = new Intent();
         medicalRecord.setClass(this,MedicalRecordsController.class);
         startActivity(medicalRecord);
     }
+
+    /*
+     * This method show user's emergency contacts, after the emergency contact button is clicked.
+     */
 
     public void acessEmergencyContact() {
 
@@ -114,12 +142,21 @@ public class ConfigController extends Activity {
         startActivity(emergencyContact);
     }
 
+    /*
+     * This method show the info related to EmerGo, after the button about is clicked.
+     */
+
     public void seeInfoAboutApp() {
 
         Intent aboutApp = new Intent();
         aboutApp.setClass(this,AboutApp.class);
         startActivity(aboutApp);
     }
+
+    /*
+     * This method is activated when user clicks in GO button, tracing a route to the closest
+     * health unity.
+     */
 
     public void goClicked(View map_screen) throws IOException, JSONException {
 
@@ -131,6 +168,11 @@ public class ConfigController extends Activity {
         finish();
     }
 
+    /*
+     * This method list all the USs, by proximity of the user location, after the list button
+     * is clicked.
+     */
+
     public void listMapsImageClicked(View map_screen) {
 
         Intent listOfHealth = new Intent();
@@ -139,10 +181,19 @@ public class ConfigController extends Activity {
         finish();
     }
 
+    /*
+     * This method is activated when user is already in the configuration screen, and
+     * try to open it again.
+     */
+
     public void openConfig(View map_screen){
 
         Toast.makeText(this , MESSAGE , Toast.LENGTH_SHORT ).show();
     }
+
+    /*
+     * This method is activated when user clicks in the map button, and open a new map.
+     */
 
     public void openMap(View mapScreen){
 
