@@ -407,6 +407,10 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
   }
 
+  /**
+   * This method shows the medical information about the user.
+   */
+
   public void showInformationUser() {
 
     result.moveToFirst();
@@ -548,6 +552,10 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
   }
 
+  /**
+   * This method sends help SMS to the emergency contact.
+   */
+
   public void sendMessage() {
     Cursor result = emergencyContactDao.getEmergencyContact();
 
@@ -628,6 +636,12 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       Toast.makeText(this,"Permita ter o acesso para te localizar", Toast.LENGTH_SHORT).show();
     }
   }
+
+  /**
+   * This method shows the message dialog.
+   * @param title Title of the message
+   * @param message The message
+   */
 
   public void showMessageDialog(String title,String message) {
 
