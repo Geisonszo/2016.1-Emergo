@@ -46,442 +46,479 @@ public class InformationSearchScreenController extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.information_us_screen);
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.information_us_screen);
 
-        setReceive(getIntent());
-        setNumberUsSelected(receive.getIntExtra("position" , 0));
-        buttonRoute = (Button) findViewById(R.id.botaoRota);
-        buttonRoute.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View viewButtonRoute) {
-                buttonRoute();
-            }
-        });
+    setReceive(getIntent());
+    setNumberUsSelected(receive.getIntExtra("position" , 0));
+    buttonRoute = (Button) findViewById(R.id.botaoRota);
+    buttonRoute.setOnClickListener(new View.OnClickListener() {
+          public void onClick(View viewButtonRoute) {
+            buttonRoute();
+          }
+    });
 
-        buttonGo = (ImageView) findViewById(R.id.buttonGo);
-        buttonGo.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View viewButtonGo) {
-                buttonClickGo();
-            }
-        });
+    buttonGo = (ImageView) findViewById(R.id.buttonGo);
+    buttonGo.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View viewButtonGo) {
+          buttonClickGo();
+        }
+    });
 
-        setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
-        setInformation(HealthUnitController.getClosestsUs().get(numberUsSelected));
-        addInformationToList();
-    }
+    setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
+    setInformation(HealthUnitController.getClosestsUs().get(numberUsSelected));
+    addInformationToList();
+  }
 
-    /**
-     * This function takes the data on the health units saved in the database and through
-     * ArrayLists, each arrow information in place. The data that will be represented are: Name,
-     * type of care,UF,city,neighborhood and zip code.
-     */
+  /**
+    * This function takes the data on the health units saved in the database and through
+    * ArrayLists, each arrow information in place. The data that will be represented are: Name,
+    * type of care,UF,city,neighborhood and zip code.
+    *
+   */
 
-    public void setInformation(HealthUnit healthUnit) {
+  public void setInformation(HealthUnit healthUnit) {
 
-        setPadding("\n");
-        setTitle("        Informações da Unidade de Saúde");
-        setNameHealthUnit("  Nome: " + healthUnit.getNameHospital());
-        setUnitType("  Tipo de atendimento: " + healthUnit.getUnitType());
-        setState("  UF: " + healthUnit.getState());
-        setCity("  Cidade: " + healthUnit.getCity());
-        setDistrict("  Bairro: " + healthUnit.getDistrict());
-        setAddressNumber("  Cep: " + healthUnit.getAddressNumber());
-    }
+    setPadding("\n");
+    setTitle("        Informações da Unidade de Saúde");
+    setNameHealthUnit("  Nome: " + healthUnit.getNameHospital());
+    setUnitType("  Tipo de atendimento: " + healthUnit.getUnitType());
+    setState("  UF: " + healthUnit.getState());
+    setCity("  Cidade: " + healthUnit.getCity());
+    setDistrict("  Bairro: " + healthUnit.getDistrict());
+    setAddressNumber("  Cep: " + healthUnit.getAddressNumber());
+  }
 
-    /**
-     * Takes the data from the database, saved in a arraylist and calls another function, where the
-     * saved data in ArrayLists will be shown in a ArrayAdapter.
-     */
+  /**
+    * Takes the data from the database, saved in a arraylist and calls another function, where the
+    * saved data in ArrayLists will be shown in a ArrayAdapter.
+    *
+   */
 
-    public void  addInformationToList() {
+  public void  addInformationToList() {
 
-        listOfInformations.add(padding);
-        listOfInformations.add(titleHealthUnit);
-        listOfInformations.add(nameHealthUnit);
-        listOfInformations.add(unitType);
-        listOfInformations.add(state);
-        listOfInformations.add(city);
-        listOfInformations.add(district);
-        listOfInformations.add(addressNumber);
-        showInformationOnScreen();
-    }
+    listOfInformations.add(padding);
+    listOfInformations.add(titleHealthUnit);
+    listOfInformations.add(nameHealthUnit);
+    listOfInformations.add(unitType);
+    listOfInformations.add(state);
+    listOfInformations.add(city);
+    listOfInformations.add(district);
+    listOfInformations.add(addressNumber);
+    showInformationOnScreen();
+  }
 
-    /**
-     * Shows the information saved in the arraylist and put in a ArrayAdapter.
-     */
+  /**
+    * Shows the information saved in the arraylist and put in a ArrayAdapter.
+    *
+   */
 
-    public void showInformationOnScreen() {
+  public void showInformationOnScreen() {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter <String> (this ,
+    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                                                                 android.R.layout.simple_list_item_1,
                                                                 listOfInformations);
-        healthUnitInfo.setAdapter(adapter);
-    }
+    healthUnitInfo.setAdapter(adapter);
+  }
 
-    /**
-     * When the "buttonRoute" is pressed, it will exit the current class and opened the activity and
-     * "RouteActivity" class. When RouteActivity is finished, come in method "finish ()" which will
-     * close the activity "RouteActivity".
-     */
+  /**
+    * When the "buttonRoute" is pressed, it will exit the current class and opened the activity and
+    * "RouteActivity" class. When RouteActivity is finished, come in method "finish ()" which will
+    * close the activity "RouteActivity".
+    *
+   */
 
-    public void buttonRoute() {
+  public void buttonRoute() {
 
-        Intent route = new Intent();
+    Intent route = new Intent();
 
-        route.setClass(this , RouteActivity.class);
-        route.putExtra("numeroUs" , receive.getIntExtra("position" , VALUE_DEFAULT_INTENT));
-        startActivity(route);
-        finish();
-    }
+    route.setClass(this , RouteActivity.class);
+    route.putExtra("numeroUs" , receive.getIntExtra("position" , VALUE_DEFAULT_INTENT));
+    startActivity(route);
+    finish();
+  }
 
-    /**
-     * When the "buttonGo" is pressed, it will exit the current class, opened the activity
-     * "RouteActivity," only different from the method of "buttonRoute", will now be chosen the
-     * route nearest the user.When the RouteActivity is finished, come in method "finish ()"
-     * which will close the activity "RouteActivity".
-     */
-    public void buttonClickGo() {
+  /**
+    * When the "buttonGo" is pressed, it will exit the current class, opened the activity
+    * "RouteActivity," only different from the method of "buttonRoute", will now be chosen the
+    * route nearest the user.When the RouteActivity is finished, come in method "finish ()"
+    * which will close the activity "RouteActivity".
+    *
+   */
 
-        final String ROUTETRACED = "Rota mais próxima traçada";
+  public void buttonClickGo() {
 
-        Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
-        Intent routeActivity = new Intent();
-        routeActivity.setClass(this , RouteActivity.class);
-        routeActivity.putExtra("numeroUs" , LOWERCLOSE);
-        startActivity(routeActivity);
-        finish();
-    }
+    final String ROUTETRACED = "Rota mais próxima traçada";
 
-    /**
-     * Exchange of current activity and start activity "SearchController".
-     * @param mapScreen
-     */
+    Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
+    Intent routeActivity = new Intent();
+    routeActivity.setClass(this , RouteActivity.class);
+    routeActivity.putExtra("numeroUs" , LOWERCLOSE);
+    startActivity(routeActivity);
+    finish();
+  }
 
-    public void open_search(View mapScreen) {
+  /**
+    * Exchange of current activity and start activity "SearchController".
+    * @param mapScreen View of mapScree.
+    *
+   */
 
-        Intent openSearch = new Intent();
+  public void open_search(View mapScreen) {
 
-        openSearch.setClass(this , SearchUsController.class);
-        startActivity(openSearch);
-    }
+    Intent openSearch = new Intent();
 
-    /**
-     * Exchange of current activity and start activity "ConfigController".
-     * @param viewConfig
-     */
+    openSearch.setClass(this , SearchUsController.class);
+    startActivity(openSearch);
+  }
 
-    public void openConfig(View viewConfig) {
+  /**
+    * Exchange of current activity and start activity "ConfigController".
+    * @param viewConfig View of config.
+    *
+   */
 
-        Intent config = new Intent();
+  public void openConfig(View viewConfig) {
 
-        config.setClass(this , ConfigController.class);
-        startActivity(config);
-    }
+    Intent config = new Intent();
 
-    /**
-     * Exchange of current activity and start activity "ListOfHealthUnitsController".
-     * @param map_screen
-     */
+    config.setClass(this , ConfigController.class);
+    startActivity(config);
+  }
 
-    public void listMapsImageClicked(View map_screen) {
+  /**
+    * Exchange of current activity and start activity "ListOfHealthUnitsController".
+    * @param mapScreen View of mapScreen.
+   */
 
-        Intent listOfHealth = new Intent();
+  public void listMapsImageClicked(View mapScreen) {
 
-        listOfHealth.setClass(this, ListOfHealthUnitsController.class);
-        startActivity(listOfHealth);
-        finish();
-    }
+    Intent listOfHealth = new Intent();
 
-    /**
-     * Exchange of current activity and start activity "MapScreenController".
-     * @param mapScreen
-     */
+    listOfHealth.setClass(this, ListOfHealthUnitsController.class);
+    startActivity(listOfHealth);
+    finish();
+  }
 
-    public void openMap(View mapScreen) {
+  /**
+    * Exchange of current activity and start activity "MapScreenController".
+    * @param mapScreen View of mapScreen.
+    *
+   */
 
-        Intent mapActivity = new Intent();
+  public void openMap(View mapScreen) {
 
-        mapActivity.setClass(this, MapScreenController.class);
-        startActivity(mapActivity);
-        finish();
-    }
+    Intent mapActivity = new Intent();
 
-    /**
-     * Get the value of attribute listOfInformations.
-     * @return listofInformations: String
-     */
+    mapActivity.setClass(this, MapScreenController.class);
+    startActivity(mapActivity);
+    finish();
+  }
 
-    public List<String> getListOfInformations() {
+  /**
+    * Get the value of attribute listOfInformations.
+    * @return listofInformations: String
+   */
 
-        return listOfInformations;
-    }
+  public List<String> getListOfInformations() {
 
-    /**
-     * Set the value of attribute listOfInformations.
-     * @param listOfInformations
-     */
+    return listOfInformations;
+  }
 
-    public void setListOfInformations(List<String> listOfInformations) {
+  /**
+    * Set the value of attribute listOfInformations.
+    * @param listOfInformations List of Informations about health units.
+    *
+   */
 
-        this.listOfInformations = listOfInformations;
-    }
+  public void setListOfInformations(List<String> listOfInformations) {
 
-    /**
-     * Get the value of attribute healthUnitInfo.
-     * @return healthUnitInfo: ListView
-     */
+    this.listOfInformations = listOfInformations;
+  }
 
-    public ListView getHealthUnitInfo() {
+  /**
+    * Get the value of attribute healthUnitInfo.
+    * @return healthUnitInfo: ListView
+    *
+   */
 
-        return healthUnitInfo;
-    }
+  public ListView getHealthUnitInfo() {
 
-    /**
-     * Set the value of attribute healthUnitInfo.
-     * @param healthUnitInfo
-     */
+    return healthUnitInfo;
+  }
 
-    public void setHealthUnitInfo(ListView healthUnitInfo) {
+  /**
+    * Set the value of attribute healthUnitInfo.
+    * @param healthUnitInfo ListView about health units.
+    *
+   */
 
-        this.healthUnitInfo = healthUnitInfo;
-    }
+  public void setHealthUnitInfo(ListView healthUnitInfo) {
 
-    /**
-     * Get the value of attribute receive.
-     * @return healthUnitInfo: Intent
-     */
+    this.healthUnitInfo = healthUnitInfo;
+  }
 
-    public Intent getReceive() {
+  /**
+    * Get the value of attribute receive.
+    * @return healthUnitInfo: Intent.
+    *
+   */
 
-        return receive;
-    }
+  public Intent getReceive() {
 
-    /**
-     * Set the value of attribute receive.
-     * @param receive
-     */
+    return receive;
+  }
 
-    public void setReceive(Intent receive) {
+  /**
+    * Set the value of attribute receive.
+    * @param receive Intent.
+    *
+   */
 
-        this.receive = receive;
-    }
+  public void setReceive(Intent receive) {
 
-    /**
-     * Get the value of attribute buttonRoute.
-     * @return buttonRoute: Button
-     */
+    this.receive = receive;
+  }
 
-    public Button getButtonRoute() {
+  /**
+    * Get the value of attribute buttonRoute.
+    * @return buttonRoute: ButtonRoute.
+    *
+   */
 
-        return buttonRoute;
-    }
+  public Button getButtonRoute() {
 
-    /**
-     * Set the value of attribute buttonRoute.
-     * @param buttonRoute
-     */
+    return buttonRoute;
+  }
 
-    public void setButtonRoute(Button buttonRoute) {
+  /**
+    * Set the value of attribute buttonRoute.
+    * @param buttonRoute Button route.
+    *
+   */
 
-        this.buttonRoute = buttonRoute;
-    }
+  public void setButtonRoute(Button buttonRoute) {
 
-    /**
-     * Get the value of attribute of image buttonGo.
-     * @return buttonGo: ImageView
-     */
+    this.buttonRoute = buttonRoute;
+  }
 
-    public ImageView getButtonGo() {
+  /**
+    * Get the value of attribute of image buttonGo.
+    * @return buttonGo: ImageView.
+    *
+   */
 
-        return buttonGo;
-    }
+  public ImageView getButtonGo() {
 
-    /**
-     * Set the value of attribute of image buttonGo.
-     * @param buttonGo
-     */
+    return buttonGo;
+  }
 
-    public void setButtonGo(ImageView buttonGo) {
+  /**
+    * Set the value of attribute of image buttonGo.
+    * @param buttonGo Button go.
+    *
+   */
 
-        this.buttonGo = buttonGo;
-    }
+  public void setButtonGo(ImageView buttonGo) {
 
-    /**
-     * Get the value of attribute numberUsSelected.
-     * @return numberUsSelected: int
-     */
+    this.buttonGo = buttonGo;
+  }
 
-    public int getNumberUsSelected() {
+  /**
+    * Get the value of attribute numberUsSelected.
+    * @return numberUsSelected: int.
+    *
+   */
 
-        return numberUsSelected;
-    }
+  public int getNumberUsSelected() {
 
-    /**
-     * Set the value of attribute numberUsSelected.
-     * @param numberUsSelected
-     */
+    return numberUsSelected;
+  }
 
-    public void setNumberUsSelected(int numberUsSelected) {
+  /**
+    * Set the value of attribute numberUsSelected.
+    * @param numberUsSelected int.
+    *
+   */
 
-        this.numberUsSelected = numberUsSelected;
-    }
+  public void setNumberUsSelected(int numberUsSelected) {
 
-    /**
-     * Get the value of attribute padding.
-     * @return padding: String
-     */
+    this.numberUsSelected = numberUsSelected;
+  }
 
-    public String getPadding() {
+  /**
+    * Get the value of attribute padding.
+    * @return padding: String.
+    *
+   */
 
-        return padding;
-    }
+  public String getPadding() {
 
-    /**
-     * Set the value of attribute padding.
-     * @param padding
-     */
+    return padding;
+  }
 
-    public void setPadding(String padding) {
+  /**
+    * Set the value of attribute padding.
+    * @param padding String.
+    *
+   */
 
-        this.padding = padding;
-    }
+  public void setPadding(String padding) {
 
-    /**
-     * Get the value of attribute titleHealthUnit.
-     * @return titleHealthUnit: String
-     */
+    this.padding = padding;
+  }
 
-    public String getTitleHealthUnit() {
+  /**
+    * Get the value of attribute titleHealthUnit.
+    * @return titleHealthUnit: String.
+    *
+   */
 
-        return titleHealthUnit;
-    }
+  public String getTitleHealthUnit() {
 
-    /**
-     * Set the value of attribute titleHealthUnit.
-     * @param titleHealthUnit
-     */
+    return titleHealthUnit;
+  }
 
-    public void setTitleHealthUnit(String titleHealthUnit) {
+  /**
+    * Set the value of attribute titleHealthUnit.
+    * @param titleHealthUnit String.
+    *
+   */
 
-        this.titleHealthUnit = titleHealthUnit;
-    }
+  public void setTitleHealthUnit(String titleHealthUnit) {
 
-    /**
-     * Get the value of attribute nameHealthUnit.
-     * @return nameHealthUnit: String
-     */
+    this.titleHealthUnit = titleHealthUnit;
+  }
 
-    public String getNameHealthUnit() {
-        return nameHealthUnit;
-    }
+  /**
+    * Get the value of attribute nameHealthUnit.
+    * @return nameHealthUnit: String.
+    *
+   */
 
-    /**
-     * Set the value of attribute nameHealthUnit.
-     * @param nameHealthUnit
-     */
+  public String getNameHealthUnit() {
 
-    public void setNameHealthUnit(String nameHealthUnit) {
+    return nameHealthUnit;
+  }
 
-        this.nameHealthUnit = nameHealthUnit;
-    }
+  /**
+    * Set the value of attribute nameHealthUnit.
+    * @param nameHealthUnit String.
+    *
+   */
 
-    /**
-     * Get the value of attribute unitType.
-     * @return unitType: String
-     */
+  public void setNameHealthUnit(String nameHealthUnit) {
 
-    public String getUnitType() {
+    this.nameHealthUnit = nameHealthUnit;
+  }
 
-        return unitType;
-    }
+  /**
+    * Get the value of attribute unitType.
+    * @return unitType: String.
+    *
+   */
 
-    /**
-     * Set the value of attribute unitType.
-     * @param unitType
-     */
+  public String getUnitType() {
 
-    public void setUnitType(String unitType) {
+    return unitType;
+  }
 
-        this.unitType = unitType;
-    }
+  /**
+    * Set the value of attribute unitType.
+    * @param unitType String.
+    *
+   */
 
-    /**
-     * Get the value of attribute state.
-     * @return state: String
-     */
+  public void setUnitType(String unitType) {
 
-    public String getState() {
+    this.unitType = unitType;
+  }
 
-        return state;
-    }
+  /**
+    * Get the value of attribute state.
+    * @return state: String.
+    *
+   */
 
-    /**
-     * Set the value of attribute state.
-     * @param state
-     */
+  public String getState() {
 
-    public void setState(String state) {
+    return state;
+  }
 
-        this.state = state;
-    }
+  /**
+    * Set the value of attribute state.
+    * @param state String.
+    *
+   */
 
-    /**
-     * Get the value of attribute city.
-     * @return city: String
-     */
+  public void setState(String state) {
 
-    public String getCity() {
+    this.state = state;
+  }
 
-        return city;
-    }
+  /**
+    * Get the value of attribute city.
+    * @return city: String.
+    *
+   */
 
-    /**
-     * Set the value of attribute city.
-     * @param city
-     */
+  public String getCity() {
 
-    public void setCity(String city) {
+    return city;
+  }
 
-        this.city = city;
-    }
+  /**
+    * Set the value of attribute city.
+    * @param city String.
+    *
+   */
 
-    /**
-     * Get the value of attribute district.
-     * @return district: String
-     */
+  public void setCity(String city) {
 
-    public String getDistrict() {
+    this.city = city;
+  }
 
-        return district;
-    }
+  /**
+    * Get the value of attribute district.
+    * @return district: String.
+    *
+   */
 
-    /**
-     * Set the value of attribute district.
-     * @param district
-     */
+  public String getDistrict() {
 
-    public void setDistrict(String district) {
+    return district;
+  }
 
-        this.district = district;
-    }
+  /**
+    * Set the value of attribute district.
+    * @param district String.
+    *
+   */
 
-    /**
-     * Get the value of attribute addressNumber.
-     * @return addressNumber: String
-     */
+  public void setDistrict(String district) {
 
-    public String getAddressNumber() {
+    this.district = district;
+  }
 
-        return addressNumber;
-    }
+  /**
+    * Get the value of attribute addressNumber.
+    * @return addressNumber: String.
+    *
+   */
 
-    /**
-     * Set the value of attribute addressNumber.
-     * @param addressNumber
-     */
+  public String getAddressNumber() {
 
-    public void setAddressNumber(String addressNumber) {
+    return addressNumber;
+  }
 
-        this.addressNumber = addressNumber;
-    }
+  /**
+    * Set the value of attribute addressNumber.
+    * @param addressNumber String.
+    *
+   */
+
+  public void setAddressNumber(String addressNumber) {
+
+    this.addressNumber = addressNumber;
+  }
 }
