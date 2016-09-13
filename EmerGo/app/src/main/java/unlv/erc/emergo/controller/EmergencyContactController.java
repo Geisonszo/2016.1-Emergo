@@ -43,8 +43,7 @@ public class EmergencyContactController extends Activity {
     private Integer idSecondContact = 2;
     private Integer idThirdContact = 3;
 
-    EmergencyContactDao emergencyContactDao = new EmergencyContactDao(this);
-
+    EmergencyContactDao emergencyContactDao;
     final String ROUTETRACED = "Rota mais próxima traçada";
 
     public EmergencyContactController(){
@@ -55,6 +54,8 @@ public class EmergencyContactController extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        emergencyContactDao = new EmergencyContactDao(this);
 
         setContentView(R.layout.emergency_contact);
 
