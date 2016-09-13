@@ -8,7 +8,6 @@ package unlv.erc.emergo.controller;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -99,8 +98,7 @@ public class ConfigController extends Activity {
      * This method launchs the search screen after the search button is clicked.
      */
 
-    public void openSearch (View mapScreen) {
-
+    public void openSearch(View mapScreen) {
         Intent openSearch = new Intent();
         openSearch.setClass(this , SearchUsController.class);
         startActivity(openSearch);
@@ -186,7 +184,7 @@ public class ConfigController extends Activity {
      * try to open it again.
      */
 
-    public void openConfig(View map_screen){
+    public void openConfig(View map_screen) {
 
         Toast.makeText(this , MESSAGE , Toast.LENGTH_SHORT ).show();
     }
@@ -195,7 +193,7 @@ public class ConfigController extends Activity {
      * This method is activated when user clicks in the map button, and open a new map.
      */
 
-    public void openMap(View mapScreen){
+    public void openMap(View mapScreen) {
 
         Intent mapActivity = new Intent();
         mapActivity.setClass(this, MapScreenController.class);
