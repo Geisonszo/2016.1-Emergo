@@ -1,3 +1,9 @@
+/*
+ * Class: EmerGoWidgetProvider (.java)
+ *
+ * Purpose: This class is responsible to create an EmerGo widget.
+ */
+
 package unlv.erc.emergo.controller;
 
 import android.app.PendingIntent;
