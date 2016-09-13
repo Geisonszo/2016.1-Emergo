@@ -19,6 +19,18 @@ public class HealthUnit extends SugarRecord {
 
   }
 
+  /**
+   * This methods set the information about the health unit.
+   * @param latitude latitude coordinate of health unit
+   * @param longitude longitude coordinate of health unit
+   * @param nameHospital The name of health unit
+   * @param unitType type of health unit
+   * @param addressNumber Address of health unit
+   * @param district health unit district
+   * @param state health unit state
+   * @param city health unit city
+   */
+
   public HealthUnit(Double latitude, Double longitude, String nameHospital, String unitType,
                       String addressNumber, String district, String state, String city) {
 
