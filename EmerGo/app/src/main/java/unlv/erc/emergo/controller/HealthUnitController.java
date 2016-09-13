@@ -10,8 +10,22 @@ import java.util.ArrayList;
 
 
 public class HealthUnitController {
+
   private static HealthUnitController instance = null;
   static ArrayList<HealthUnit> closestsUs = new ArrayList<HealthUnit>();
+
+  /**
+   * This method create an instance of Health Unit.
+   * @param latitude latitude coordinate of health unit
+   * @param longitude longitude coordinate of health unit
+   * @param nameHospital The name of health unit
+   * @param unityType type of health unit
+   * @param addressNumber Address of health unit
+   * @param district health unit district
+   * @param state health unit state
+   * @param city health unit city
+   * @return healthUnit
+   */
 
   public static HealthUnit createHealthUnit(Double latitude , Double longitude ,
                                               String nameHospital,
@@ -29,15 +43,18 @@ public class HealthUnitController {
   }
 
   public static ArrayList<HealthUnit> getClosestsUs() {
+
     return closestsUs;
   }
 
   public static void setClosestsUs(HealthUnit healthUnit) {
+
     closestsUs.add(healthUnit);
   }
 
   public static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestsUs,
                                                    Location userLocation) {
+
     Location usLocation = new Location("");
 
     for (int aux = 0 ; aux < closestsUs.size() ; aux++) {
@@ -61,6 +78,7 @@ public class HealthUnitController {
         smaller = closestsUs.get(aux).getDistance();
         position = aux;
       } else {
+
         /** nothing to do*/
       }
     }
