@@ -72,6 +72,13 @@ public class HealthUnitController {
     }
   }
 
+  /**
+   * This method select the health unit closest to user.
+   * @param closestsUs Array of heath units
+   * @param location Location of the user
+   * @return position Return the position of the closest health unit
+   */
+
   public static int selectClosestUs(ArrayList<HealthUnit> closestsUs , Location location) {
 
     double smaller = 99999;
