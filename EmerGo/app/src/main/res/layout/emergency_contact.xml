@@ -285,5 +285,5 @@
         android:id="@+id/saveThirdContactButton"
         android:layout_below="@+id/nameThirdContactEditText"
         android:layout_toStartOf="@+id/deleteSecondContactButton" />
-    
+
 </RelativeLayout>
