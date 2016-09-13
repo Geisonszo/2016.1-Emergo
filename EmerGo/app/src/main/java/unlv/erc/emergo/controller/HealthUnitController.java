@@ -52,6 +52,12 @@ public class HealthUnitController {
     closestsUs.add(healthUnit);
   }
 
+  /**
+   * This method calculate the distance between the user and the health unit.
+   * @param closestsUs The health unit closest to user
+   * @param userLocation The location of the user
+   */
+
   public static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestsUs,
                                                    Location userLocation) {
 
