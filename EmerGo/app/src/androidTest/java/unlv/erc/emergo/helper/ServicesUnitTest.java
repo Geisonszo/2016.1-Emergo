@@ -16,22 +16,19 @@ import helper.Services;
 import unlv.erc.emergo.R;
 import unlv.erc.emergo.model.HealthUnit;
 
-/**
- * Created by AndreBedran on 6/21/16.
- */
 public class ServicesUnitTest extends ActivityInstrumentationTestCase2<Services>{
 
 
-    private UiDevice device;
+  private UiDevice device;
 
-    public ServicesUnitTest(Class<Services> activityClass) {
+  public ServicesUnitTest(Class<Services> activityClass) {
         super(activityClass);
     }
 
-    @Before
-    public void setUp() throws Exception{
-        super.setUp();
-        getActivity();
-        device = UiDevice.getInstance(getInstrumentation());
-    }
+  @Before
+  public void setUp() throws Exception{
+    super.setUp();
+    getActivity();
+    device = UiDevice.getInstance(getInstrumentation());
+  }
 }
