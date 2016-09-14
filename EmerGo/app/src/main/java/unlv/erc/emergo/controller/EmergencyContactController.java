@@ -18,13 +18,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import dao.EmergencyContactDao;
+
+import helper.MaskHelper;
+
 import org.json.JSONException;
+
+import unlv.erc.emergo.R;
 
 import java.io.IOException;
 
-import dao.EmergencyContactDao;
-import helper.MaskHelper;
-import unlv.erc.emergo.R;
 
 
 public class EmergencyContactController extends Activity {
@@ -50,7 +53,7 @@ public class EmergencyContactController extends Activity {
     private Integer idSecondContact = 2;
     private Integer idThirdContact = 3;
 
-    EmergencyContactDao emergencyContactDao;
+    private EmergencyContactDao emergencyContactDao;
 
     final String ROUTETRACED = "Rota mais próxima traçada";
 
@@ -80,11 +83,14 @@ public class EmergencyContactController extends Activity {
         nameThirdContact = (EditText) findViewById(R.id.nameThirdContactEditText);
 
         phoneFirstContact = (EditText) findViewById(R.id.phoneEditText);
-        phoneFirstContact.addTextChangedListener(MaskHelper.insert("(###)#####-####", phoneFirstContact));
+        phoneFirstContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
+                                                                    phoneFirstContact));
         phoneSecondContact = (EditText) findViewById(R.id.phoneSecondContactEditText);
-        phoneSecondContact.addTextChangedListener(MaskHelper.insert("(###)#####-####", phoneSecondContact));
+        phoneSecondContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
+                                                                     phoneSecondContact));
         phoneThirdContact = (EditText) findViewById(R.id.phoneThirdContactEditText);
-        phoneThirdContact.addTextChangedListener(MaskHelper.insert("(###)#####-####", phoneThirdContact));
+        phoneThirdContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
+                                                                    phoneThirdContact));
 
         deleteFirstContact = (Button) findViewById(R.id.deleteFirstContactButton);
         deleteSecondContact = (Button) findViewById(R.id.deleteSecondContactButton);
@@ -94,7 +100,7 @@ public class EmergencyContactController extends Activity {
 
         if (result.getCount() == 0) {
 
-            disableOptions(saveFirstContact,updateFirstContact,deleteFirstContact);
+            disableOptionsButSave(saveFirstContact,updateFirstContact,deleteFirstContact);
         } else {
 
             if (result.moveToFirst()) {
@@ -109,7 +115,7 @@ public class EmergencyContactController extends Activity {
 
             public void onClick(View v) {
 
-                if(signInFirstContact() == false){
+                if (!signInFirstContact()) {
 
                     saveFirstContact.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
@@ -117,9 +123,9 @@ public class EmergencyContactController extends Activity {
                             disableField(nameFirstContact,phoneFirstContact);
                         }
                     });
-                }else{
+                } else {
 
-                    disableButtons(saveFirstContact,updateFirstContact,deleteFirstContact);
+                    disableSaveButton(saveFirstContact,updateFirstContact,deleteFirstContact);
                 }
             }
         });
@@ -152,7 +158,7 @@ public class EmergencyContactController extends Activity {
 
                     public void onClick(View v) {
 
-                        if(signInFirstContact() == false) {
+                        if(!signInFirstContact()) {
 
                             saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
@@ -163,19 +169,21 @@ public class EmergencyContactController extends Activity {
                                 }
                             });
                         } else {
-                            disableButtons(saveFirstContact,updateFirstContact,deleteFirstContact);
+
+                            disableSaveButton(saveFirstContact,updateFirstContact,
+                                              deleteFirstContact);
                         }
                     }
                 });
             }
         });
 
-        if(result.getCount() == 0) {
+        if (result.getCount() == 0) {
 
-            disableOptions(saveSecondContact, updateSecondContact,deleteSecondContact);
+            disableOptionsButSave(saveSecondContact, updateSecondContact,deleteSecondContact);
         } else {
 
-            if(result.moveToNext()) {
+            if (result.moveToNext()) {
 
                 nameSecondContact.setText(result.getString(1));
                 phoneSecondContact.setText(result.getString(2));
@@ -186,7 +194,7 @@ public class EmergencyContactController extends Activity {
 
             public void onClick(View v) {
 
-                if(signInSecondContact() == false) {
+                if (!signInSecondContact()) {
 
                     saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
@@ -198,7 +206,7 @@ public class EmergencyContactController extends Activity {
                     });
                 } else {
 
-                    disableButtons(saveSecondContact,updateSecondContact,deleteSecondContact);
+                    disableSaveButton(saveSecondContact,updateSecondContact,deleteSecondContact);
                 }
             }
         });
@@ -232,7 +240,7 @@ public class EmergencyContactController extends Activity {
 
                     public void onClick(View v) {
 
-                        if(signInSecondContact() == false){
+                        if (!signInSecondContact()) {
 
                             saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
@@ -244,19 +252,21 @@ public class EmergencyContactController extends Activity {
                             });
                         } else {
 
-                            disableButtons(saveSecondContact,updateSecondContact,deleteSecondContact);
+                            disableSaveButton(saveSecondContact,updateSecondContact,
+                                              deleteSecondContact);
                         }
                     }
                 });
             }
         });
 
-        if(result.getCount() == 0) {
+        if (result.getCount() == 0) {
 
-            disableOptions(saveThirdContact, updateThirdContact,deleteThirdContact);
+            disableOptionsButSave(saveThirdContact, updateThirdContact,deleteThirdContact);
         } else {
 
-            if(result.moveToNext()) {
+            if (result.moveToNext()) {
+
                 nameThirdContact.setText(result.getString(1));
                 phoneThirdContact.setText(result.getString(2));
                 disableField(saveThirdContact,nameThirdContact,phoneThirdContact);
@@ -266,7 +276,7 @@ public class EmergencyContactController extends Activity {
 
             public void onClick(View v) {
 
-                if(signInthirdContact() == false) {
+                if (!signInthirdContact()) {
 
                     saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
@@ -276,9 +286,9 @@ public class EmergencyContactController extends Activity {
                             disableField(nameThirdContact,phoneThirdContact);
                         }
                     });
-                }else{
+                } else {
 
-                    disableButtons(saveThirdContact,updateThirdContact,deleteThirdContact);
+                    disableSaveButton(saveThirdContact,updateThirdContact,deleteThirdContact);
                 }
             }
         });
@@ -311,7 +321,7 @@ public class EmergencyContactController extends Activity {
 
                     public void onClick(View v) {
 
-                        if(signInthirdContact() == false) {
+                        if (!signInthirdContact()) {
 
                             saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
@@ -323,7 +333,8 @@ public class EmergencyContactController extends Activity {
                             });
                         } else {
 
-                            disableButtons(saveThirdContact,updateThirdContact,deleteThirdContact);
+                            disableSaveButton(saveThirdContact,updateThirdContact,
+                                              deleteThirdContact);
                         }
                     }
                 });
@@ -341,13 +352,14 @@ public class EmergencyContactController extends Activity {
 
         boolean sucess = true;
         boolean valid = false;
-        if(checksName(nameFirstContact.getText().toString()) == false) {
+        if(!checksName(nameFirstContact.getText().toString())) {
 
             nameContact = nameFirstContact.getText().toString();
             phoneContact = phoneFirstContact.getText().toString();
 
-            sucess = emergencyContactDao.insertEmergencyContact(idFirstContact, nameContact, phoneContact);
-            if(sucess == true) {
+            sucess = emergencyContactDao.insertEmergencyContact(idFirstContact, nameContact, 
+                                                                phoneContact);
+            if (sucess) {
 
                 showMessage("Contato de Emergência Cadastrado Com Sucesso!");
                 valid = true;
@@ -373,12 +385,13 @@ public class EmergencyContactController extends Activity {
         boolean sucess = true;
         boolean valid = false;
 
-        if(checksName(nameSecondContact.getText().toString()) == false) {
-            if (checksName(nameSecondContact.getText().toString()) == false) {
+        if (!checksName(nameSecondContact.getText().toString())) {
+            if (!checksName(nameSecondContact.getText().toString())) {
                 nameContact = nameSecondContact.getText().toString();
                 phoneContact = phoneSecondContact.getText().toString();
 
-                sucess = emergencyContactDao.insertEmergencyContact(idSecondContact, nameContact, phoneContact);
+                sucess = emergencyContactDao.insertEmergencyContact(idSecondContact, nameContact,
+                                                                    phoneContact);
                 if (sucess == true) {
                     showMessage("Contato de Emergência Cadastrado Com Sucesso!");
                     valid = true;
@@ -405,15 +418,16 @@ public class EmergencyContactController extends Activity {
         boolean sucess = true;
         boolean valid = false;
 
-        if(checksName(nameThirdContact.getText().toString()) == false) {
+        if (!checksName(nameThirdContact.getText().toString())) {
 
-            if (checksName(nameThirdContact.getText().toString()) == false) {
+            if (!checksName(nameThirdContact.getText().toString())) {
 
                 nameContact = nameThirdContact.getText().toString();
                 phoneContact = phoneThirdContact.getText().toString();
 
-                sucess = emergencyContactDao.insertEmergencyContact(idThirdContact, nameContact, phoneContact);
-                if (sucess == true) {
+                sucess = emergencyContactDao.insertEmergencyContact(idThirdContact, nameContact,
+                                                                    phoneContact);
+                if (sucess) {
 
                     showMessage("Contato de Emergência Cadastrado Com Sucesso!");
                     valid = true;
@@ -446,13 +460,13 @@ public class EmergencyContactController extends Activity {
 
         boolean sucess = true;
 
-        if(checksName(name.getText().toString()) == false) {
+        if (!checksName(name.getText().toString())) {
 
             nameContact = name.getText().toString();
             phoneContact = phone.getText().toString();
 
             sucess = emergencyContactDao.updateEmergencyContact(id,nameContact,phoneContact);
-            if(sucess == true) {
+            if (sucess) {
 
                 showMessage("Contato de Emergência Alterado Com Sucesso!");
                 save.setVisibility(View.VISIBLE);
@@ -526,17 +540,17 @@ public class EmergencyContactController extends Activity {
 
         final int MINIMUM = 3;
 
-        if(nameUser.isEmpty()) {
+        if (nameUser.isEmpty()) {
 
             showMessage("Nome Vazio! Informe Seu Nome.");
             return true;
 
-        } else if(nameUser.trim().length()<MINIMUM) {
+        } else if (nameUser.trim().length()<MINIMUM) {
 
             showMessage("Informe um nome com no mínimo 3 caracteres.");
             return true;
 
-        } else if(nameUser.matches(".*\\d.*")) {
+        } else if (nameUser.matches(".*\\d.*")) {
 
             showMessage("Um nome não pode ter um número!");
             return true;
@@ -552,7 +566,7 @@ public class EmergencyContactController extends Activity {
 
     private void showMessage(String message) {
 
-        Toast.makeText(this,""+message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"" + message,Toast.LENGTH_SHORT).show();
     }
 
     /** CONFUSED METHOD
@@ -564,7 +578,7 @@ public class EmergencyContactController extends Activity {
      * @param delete
      */
 
-    private void disableOptions(Button save, Button update,Button delete) {
+    private void disableOptionsButSave(Button save, Button update, Button delete) {
 
         save.setVisibility(View.VISIBLE);
         update.setVisibility(View.INVISIBLE);
@@ -572,58 +586,8 @@ public class EmergencyContactController extends Activity {
     }
 
     /**
-     * This method is used to disable an emergency contact field.
-     *
-     * @param save
-     * @param name
-     * @param phone
-     */
-
-    private void disableField(Button save,EditText name, EditText phone) {
-
-        save.setVisibility(View.INVISIBLE);
-        name.setEnabled(false);
-        phone.setEnabled(false);
-    }
-
-    /** CONFUSED METHOD
      * This method disable only save button.
      *
-     *
-     * @param save
-     * @param update
-     * @param delete
-     */
-
-    private void disableButtons(Button save,Button update,Button delete) {
-
-        save.setVisibility(View.INVISIBLE);
-        update.setVisibility(View.VISIBLE);
-        update.setEnabled(true);
-        delete.setVisibility(View.VISIBLE);
-        delete.setEnabled(true);
-    }
-
-    /**
-     * This method disable only update button
-     *
-     * @param name
-     * @param phone
-     * @param update
-     * @param save
-     */
-
-    private void disableUpdateButton(EditText name, EditText phone, Button update, Button save) {
-
-        name.setEnabled(true);
-        phone.setEnabled(true);
-        update.setVisibility(View.INVISIBLE);
-        save.setVisibility(View.VISIBLE);
-        save.setEnabled(true);
-    }
-
-    /**
-     * This method disable all save button.
      *
      * @param save
      * @param update
@@ -633,10 +597,29 @@ public class EmergencyContactController extends Activity {
     private void disableSaveButton(Button save, Button update, Button delete) {
 
         save.setEnabled(false);
+        save.setVisibility(View.INVISIBLE);
         update.setVisibility(View.VISIBLE);
         update.setEnabled(true);
         delete.setVisibility(View.VISIBLE);
         delete.setEnabled(true);
+    }
+ 
+    /**
+     * This method disable only update button.
+     *
+     * @param name
+     * @param phone
+     * @param update
+     * @param save
+     */
+
+  private void disableUpdateButton(EditText name, EditText phone, Button update, Button save) {
+
+        name.setEnabled(true);
+        phone.setEnabled(true);
+        update.setVisibility(View.INVISIBLE);
+        save.setVisibility(View.VISIBLE);
+        save.setEnabled(true);
     }
 
     /**
@@ -653,7 +636,7 @@ public class EmergencyContactController extends Activity {
         save.setVisibility(View.INVISIBLE);
     }
 
-    /** Confusing name
+    /**
      * This method is used to disable name and phone field.
      *
      * @param name
@@ -662,6 +645,21 @@ public class EmergencyContactController extends Activity {
 
     private void disableField(EditText name,EditText phone) {
 
+        name.setEnabled(false);
+        phone.setEnabled(false);
+    }
+
+    /**
+     * This method is used to disable an emergency contact field.
+     *
+     * @param save
+     * @param name
+     * @param phone
+     */
+
+    private void disableField(Button save,EditText name, EditText phone) {
+
+        save.setVisibility(View.INVISIBLE);
         name.setEnabled(false);
         phone.setEnabled(false);
     }
@@ -685,7 +683,7 @@ public class EmergencyContactController extends Activity {
      * health unity.
      */
 
-    public void goClicked(View map_screen) throws IOException, JSONException {
+    public void goClicked(View mapScreen) throws IOException, JSONException {
 
         Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
         Intent routeActivity = new Intent();
@@ -700,7 +698,7 @@ public class EmergencyContactController extends Activity {
      * is clicked.
      */
 
-    public void listMapsImageClicked(View map_screen) {
+    public void listMapsImageClicked(View mapScreen) {
 
         Intent listOfHealth = new Intent();
         listOfHealth.setClass(this , ListOfHealthUnitsController.class);
@@ -713,7 +711,7 @@ public class EmergencyContactController extends Activity {
      * try to open it again.
      */
 
-    public void openConfig(View map_screen) {
+    public void openConfig(View mapScreen) {
 
         Intent config = new Intent();
         config.setClass(this, ConfigController.class);
