@@ -19,9 +19,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import unlv.erc.emergo.R;
 import unlv.erc.emergo.model.HealthUnit;
 
-import unlv.erc.emergo.R;
 
 public class InformationSearchScreenController extends Activity {
 
@@ -39,8 +39,8 @@ public class InformationSearchScreenController extends Activity {
   private String city = "";
   private String district = "";
   private String addressNumber = "";
-  private final int LOWERCLOSE = -1;
-  private final int VALUE_DEFAULT_INTENT = 0;
+  private final int lowerClose = -1;
+  private final int valueDefaultIntent = 0;
 
 
   @Override
@@ -133,7 +133,7 @@ public class InformationSearchScreenController extends Activity {
     Intent route = new Intent();
 
     route.setClass(this , RouteActivity.class);
-    route.putExtra("numeroUs" , receive.getIntExtra("position" , VALUE_DEFAULT_INTENT));
+    route.putExtra("numeroUs" , receive.getIntExtra("position" , valueDefaultIntent));
     startActivity(route);
     finish();
   }
@@ -148,12 +148,12 @@ public class InformationSearchScreenController extends Activity {
 
   public void buttonClickGo() {
 
-    final String ROUTETRACED = "Rota mais próxima traçada";
+    final String routeTraced = "Rota mais próxima traçada";
 
-    Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(this , RouteActivity.class);
-    routeActivity.putExtra("numeroUs" , LOWERCLOSE);
+    routeActivity.putExtra("numeroUs" , lowerClose);
     startActivity(routeActivity);
     finish();
   }
