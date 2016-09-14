@@ -1,17 +1,5 @@
 package unlv.erc.emergo.controller;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.view.View;
-import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -24,7 +12,22 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.Toast;
+import helper.Services;
+
 import org.json.JSONException;
+
+import unlv.erc.emergo.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,244 +35,245 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import helper.Services;
-import unlv.erc.emergo.R;
-
 public class MapScreenController extends FragmentActivity implements OnMapReadyCallback ,
         GoogleMap.OnMarkerClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-    final String yourPosition = "Sua posição";
-    private GoogleMap mMap;
-    private Services services = new Services();
-    private Location location;
-    private Location mLastLocation;
-    private GoogleApiClient mGoogleApiClient = null;
+  static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+  final String yourPosition = "Sua posição";
+  private GoogleMap mMap;
+  private Services services = new Services();
+  private Location location;
+  private Location mLastLocation;
+  private GoogleApiClient mGoogleApiClient = null;
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
+  @Override
+  public boolean onMarkerClick(Marker marker) {
 
-        for(int aux = 0 ; aux < HealthUnitController.getClosestsUs().size() ; aux++){
-            if(marker.getTitle().toString().compareTo(HealthUnitController.getClosestsUs().get(aux).getNameHospital()) == 0){
-                Intent information = new Intent();
-                information.setClass(MapScreenController.this , InformationUsScreenController.class);
-                information.putExtra("position" , aux);
-                startActivity(information);
-                finish();
-            }
-        }
-        return false;
-    }
-
-    public void goClicked(View map_screen) throws IOException, JSONException {
-
-        final String ROUTETRACED = "Rota mais próxima traçada";
-
-        Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
-        Intent routeActivity = new Intent();
-        routeActivity.setClass(MapScreenController.this , RouteActivity.class);
-        routeActivity.putExtra("numeroUs" , -1);
-        startActivity(routeActivity);
+    for (int aux = 0 ; aux < HealthUnitController.getClosestsUs().size() ; aux++) {
+      if (marker.getTitle().toString().compareTo(HealthUnitController.getClosestsUs().get(aux)
+                .getNameHospital()) == 0) {
+        Intent information = new Intent();
+        information.setClass(MapScreenController.this , InformationUsScreenController.class);
+        information.putExtra("position" , aux);
+        startActivity(information);
         finish();
+      }
     }
+    return false;
+  }
 
-    public void listMapsImageClicked(View map_screen) {
+  public void goClicked(View map_screen) throws IOException, JSONException {
 
-        Intent listOfHealth = new Intent();
-        listOfHealth.setClass(this, ListOfHealthUnitsController.class);
-        startActivity(listOfHealth);
-    }
+    final String routeTraced = "Rota mais próxima traçada";
 
-    public void open_search(View mapScreen){
+    Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
+    Intent routeActivity = new Intent();
+    routeActivity.setClass(MapScreenController.this , RouteActivity.class);
+    routeActivity.putExtra("numeroUs" , -1);
+    startActivity(routeActivity);
+    finish();
+  }
 
-        Intent openSearch = new Intent();
-        openSearch.setClass(this , SearchUsController.class);
-        startActivity(openSearch);
-    }
+  public void listMapsImageClicked(View map_screen) {
 
-    public void openMap(View mapScreen) {
+    Intent listOfHealth = new Intent();
+    listOfHealth.setClass(this, ListOfHealthUnitsController.class);
+    startActivity(listOfHealth);
+  }
 
-    }
+  public void open_search(View mapScreen) {
 
-    public void openConfig(View map_screen){
+    Intent openSearch = new Intent();
+    openSearch.setClass(this , SearchUsController.class);
+    startActivity(openSearch);
+  }
 
-        Intent config = new Intent();
-        config.setClass(MapScreenController.this , ConfigController.class);
-        startActivity(config);
-    }
+  public void openMap(View mapScreen) {
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+  }
 
-    }
+  public void openConfig(View map_screen) {
 
-    private void messageAboutPermission(Boolean location, Boolean storage) {
+    Intent config = new Intent();
+    config.setClass(MapScreenController.this , ConfigController.class);
+    startActivity(config);
+  }
 
-        if (location && storage) {
+  @Override
+  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-            Toast.makeText(this, "Permissão aprovada", Toast.LENGTH_SHORT).show();
-        } else {
+  }
 
-            Toast.makeText(this,"Permita ter o acesso para te localizar",
+  private void messageAboutPermission(Boolean location, Boolean storage) {
+
+    if (location && storage) {
+
+      Toast.makeText(this, "Permissão aprovada", Toast.LENGTH_SHORT).show();
+    } else {
+
+      Toast.makeText(this,"Permita ter o acesso para te localizar",
                     Toast.LENGTH_SHORT).show();
-        }
     }
+  }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
 
-        setContentView(R.layout.map_screen);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+    super.onCreate(savedInstanceState);
+
+    setContentView(R.layout.map_screen);
+    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        mMap = mapFragment.getMap();
-        mMap.setOnMarkerClickListener(this);
+    mapFragment.getMapAsync(this);
+    mMap = mapFragment.getMap();
+    mMap.setOnMarkerClickListener(this);
 
-        if (mGoogleApiClient == null) {
+    if (mGoogleApiClient == null) {
 
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
+      mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
-        }
+    }
+  }
+
+  protected void onStart() {
+
+    mGoogleApiClient.connect();
+    super.onStart();
+  }
+
+  protected void onStop() {
+
+    mGoogleApiClient.disconnect();
+    super.onStop();
+  }
+
+  @Override
+  public void onConnected(Bundle connectionHint) {
+
+    if (Build.VERSION.SDK_INT >= 23) {
+
+      checkPermissions();
     }
 
-    protected void onStart() {
-
-        mGoogleApiClient.connect();
-        super.onStart();
-    }
-
-    protected void onStop() {
-
-        mGoogleApiClient.disconnect();
-        super.onStop();
-    }
-
-    @Override
-    public void onConnected(Bundle connectionHint) {
-
-        if (Build.VERSION.SDK_INT >= 23) {
-
-            checkPermissions();
-        }
-
-        this.mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+    this.mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
 
-        if (mLastLocation != null) {
+    if (mLastLocation != null) {
 
-            location = mLastLocation;
-            LatLng userLatLng = new LatLng(location.getLatitude() , location.getLongitude());
+      location = mLastLocation;
+      LatLng userLatLng = new LatLng(location.getLatitude() , location.getLongitude());
 
-            focusOnSelfPosition(userLatLng);
-            services.setMarkersOnMap(mMap , HealthUnitController.getClosestsUs());
+      focusOnSelfPosition(userLatLng);
+      services.setMarkersOnMap(mMap , HealthUnitController.getClosestsUs());
 
-        } else {
+    } else {
 
-            Toast.makeText(this, "Não foi possível localizar sua posição",
+      Toast.makeText(this, "Não foi possível localizar sua posição",
                     Toast.LENGTH_SHORT).show();
-            Intent mainScreen = new Intent();
+      Intent mainScreen = new Intent();
 
-            mainScreen.setClass(this, MainScreenController.class);
-            startActivity(mainScreen);
-            finish();
-        }
+      mainScreen.setClass(this, MainScreenController.class);
+      startActivity(mainScreen);
+      finish();
+    }
+  }
+
+  @Override
+  public void onConnectionSuspended(int aux) {
+
+  }
+
+  @Override
+  public void onMapReady(GoogleMap googleMap) {
+
+    if (Build.VERSION.SDK_INT >= 23) {
+
+      checkPermissions();
     }
 
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-        if (Build.VERSION.SDK_INT >= 23) {
-
-            checkPermissions();
-        }
-
-        mMap = googleMap;
-    }
+    mMap = googleMap;
+  }
 
 
-    private void focusOnSelfPosition(LatLng userLatLng) {
+  private void focusOnSelfPosition(LatLng userLatLng) {
 
-        mMap.addMarker(new MarkerOptions().position(userLatLng).title(yourPosition)
+    mMap.addMarker(new MarkerOptions().position(userLatLng).title(yourPosition)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom
-                (new LatLng(userLatLng.latitude, userLatLng.longitude), 13.0f));
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom( new LatLng(userLatLng.latitude,
+            userLatLng.longitude), 13.0f));
+  }
+
+
+  private void checkPermissions() {
+
+    List<String> permissions = new ArrayList<>();
+    String message = "Permissão";
+
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+
+      permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+      message += "\nTer acesso a localização no mapa";
     }
 
+    if (!permissions.isEmpty()) {
 
-    private void checkPermissions() {
+      Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+      String[] params = permissions.toArray(new String[permissions.size()]);
 
-        List<String> permissions = new ArrayList<>();
-        String message = "Permissão";
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED) {
-
-            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-            message += "\nTer acesso a localização no mapa";
-        }
-
-        if (!permissions.isEmpty()) {
-
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            String[] params = permissions.toArray(new String[permissions.size()]);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-                requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
-            }
-        }
+        requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+      }
     }
+  }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+  @Override
+  public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
 
-        switch (requestCode) {
+    switch (requestCode) {
 
-            case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
-                Map<String, Integer> perms = new HashMap<>();
+      case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
+        Map<String, Integer> perms = new HashMap<>();
 
-                perms.put(Manifest.permission.ACCESS_FINE_LOCATION,
+        perms.put(Manifest.permission.ACCESS_FINE_LOCATION,
                         PackageManager.PERMISSION_GRANTED);
 
-                for (int i = 0; i < permissions.length; i++) {
+        for (int i = 0; i < permissions.length; i++) {
 
-                    perms.put(permissions[i], grantResults[i]);
-                }
-
-                Boolean location = false;
-                Boolean storage = false;
-
-                location = perms.get(Manifest.permission.ACCESS_FINE_LOCATION) ==
-                        PackageManager.PERMISSION_GRANTED;
-                try {
-
-                    storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                            PackageManager.PERMISSION_GRANTED;
-                } catch (RuntimeException ex) {
-
-                    Toast.makeText(this , "É necessário ter a permissão" ,
-                            Toast.LENGTH_LONG).show();
-                    Intent main = new Intent();
-                    main.setClass(this , MainScreenController.class);
-                    startActivity(main);
-                    finish();
-                }
-                messageAboutPermission(location, storage);
-            }
-            break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+          perms.put(permissions[i], grantResults[i]);
         }
+
+        Boolean location = false;
+        Boolean storage = false;
+
+        location = perms.get(Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+        try {
+
+          storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED;
+        } catch (RuntimeException ex) {
+
+          Toast.makeText(this , "É necessário ter a permissão" ,
+                          Toast.LENGTH_LONG).show();
+          Intent main = new Intent();
+          main.setClass(this , MainScreenController.class);
+          startActivity(main);
+          finish();
+        }
+        messageAboutPermission(location, storage);
+      }
+          break;
+
+      default:
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+  }
 }
 
