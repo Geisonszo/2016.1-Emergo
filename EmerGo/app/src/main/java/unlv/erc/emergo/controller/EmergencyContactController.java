@@ -678,6 +678,7 @@ public class EmergencyContactController extends Activity {
   /**
    * This method is activated when user clicks in GO button, tracing a route to the closest
    * health unity.
+   * @param mapScreen
    */
 
   public void goClicked(View mapScreen) throws IOException, JSONException {
@@ -693,6 +694,7 @@ public class EmergencyContactController extends Activity {
   /**
    * This method list all the USs, by proximity of the user location, after the list button
    * is clicked.
+   * @param mapScreen
    */
 
   public void listMapsImageClicked(View mapScreen) {
@@ -706,6 +708,7 @@ public class EmergencyContactController extends Activity {
   /**
    * This method is activated when user is already in the configuration screen, and
    * try to open it again.
+   * @param mapScreen
    */
 
   public void openConfig(View mapScreen) {
