@@ -19,26 +19,32 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 
-public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCase2<MedicalRecordsController>{
+public class MedicalRecordsControllerTest extends
+                                        ActivityInstrumentationTestCase2<MedicalRecordsController>{
+
     private UiDevice device;
     private MedicalRecordsController register;
 
     public MedicalRecordsControllerTest() {
+
         super(MedicalRecordsController.class);
     }
 
     @Before
     public void setUp() throws Exception{
+
         super.setUp();
         getActivity();
         device = UiDevice.getInstance(getInstrumentation());
     }
 
     public void testSaveOption(){
+
         onView(withText("Salvar")).perform(click());
     }
 
     public void testSaveSaveOption() throws UiObjectNotFoundException {
+
         onView(withText("Salvar")).perform(click());
         onView(withText("Salvar")).perform(click());
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
@@ -51,24 +57,28 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
         button.click();
     }
 
-    public void testNameIsEmpty(){
+    public void testNameIsEmpty() {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText(""));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.saveButton)).perform(click());
     }
-    public void testNameIsLessThanThree(){
+    public void testNameIsLessThanThree() {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("Mr"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.saveButton)).perform(click());
     }
 
-    public void testNameField(){
+    public void testNameField() {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withText("Salvar")).perform(click());
     }
 
     public void testBirthdayField() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -80,6 +90,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testDateIsEmpty() {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText(""));
@@ -87,7 +98,8 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
         onView(withText("Salvar")).perform(click());
     }
 
-    public void testDateIfYearIsValid(){
+    public void testDateIfYearIsValid() {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1941"));
@@ -96,10 +108,12 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testIfTypeBloodLabelIsCorrect() {
+
         onView(withId(R.id.typeBloodTextView)).check(matches(withText("Tipo Sanguíneo")));
     }
 
     public void testTypeBloodField() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -114,10 +128,12 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testIfCardiacLabelIsCorrect() {
+
         onView(withId(R.id.cardiacTextView)).check(matches(withText("Cardiaco")));
     }
 
     public void testCardiacFieldOptionYes() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -136,6 +152,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
 
 
     public void testCardiacFieldOptionNo() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -153,6 +170,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testCardiacFieldOptionIDontKnow() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -170,10 +188,12 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testIfDiabeticLabelIsCorrect() {
+
         onView(withId(R.id.diabeticTextView)).check(matches(withText("Diabetico")));
     }
 
     public void testDiabeticFieldOptionYes() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -194,6 +214,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testDiabeticFieldOptionNo() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -214,6 +235,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testDiabeticFieldOptionIDontKnow() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -234,10 +256,12 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testIfHypertensionLabelIsCorrect() {
+
         onView(withId(R.id.hipertensionTextView)).check(matches(withText("Hipertenso")));
     }
 
     public void testHypertensionFieldOptionYes() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -261,6 +285,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testHypertensionFieldOptionNo() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -284,6 +309,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testHypertensionFieldOptionIDontKnow() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -307,10 +333,12 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testIfSeropositiveLabelIsCorrect() {
+
         onView(withId(R.id.seropositiveTextView)).check(matches(withText("Soropositivo")));
     }
 
     public void testSeropositiveFieldOptionYes() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -337,6 +365,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testSeropositiveFieldOptionNo() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -363,6 +392,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testSeropositiveFieldOptionIDontKnow() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -389,6 +419,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testObservation() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -408,7 +439,8 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
         onView(withId(R.id.soropositiveSpinner)).perform(click());
         onView(withText("Não")).perform(click());
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.observationsEditText)).perform(typeText("42 = sentido da vida, o universo e tudo mais"));
+        onView(withId(R.id.observationsEditText)).perform(typeText("42 = sentido da vida, " +
+                                                                    "o universo e tudo mais"));
         Espresso.closeSoftKeyboard();
         onView(withText("Salvar")).perform(click());
         onView(withId(R.id.deleteButton)).perform(click());
@@ -417,6 +449,7 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
     }
 
     public void testUpdateUser() throws UiObjectNotFoundException {
+
         onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
@@ -436,7 +469,8 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
         onView(withId(R.id.soropositiveSpinner)).perform(click());
         onView(withText("Não")).perform(click());
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.observationsEditText)).perform(typeText("42 = sentido da vida, o universo e tudo mais"));
+        onView(withId(R.id.observationsEditText)).perform(typeText("42 = sentido da vida, " +
+                                                                        "o universo e tudo mais"));
         Espresso.closeSoftKeyboard();
         onView(withText("Salvar")).perform(click());
         onView(withText("Alterar")).perform(click());
@@ -459,7 +493,8 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
         onView(withId(R.id.soropositiveSpinner)).perform(click());
         onView(withText("Não")).perform(click());
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.observationsEditText)).perform(typeText("42 = sentido da vida, o universo e tudo mais"));
+        onView(withId(R.id.observationsEditText)).perform(typeText("42 = sentido da vida, " +
+                                                                        "o universo e tudo mais"));
         Espresso.closeSoftKeyboard();
         onView(withText("Salvar")).perform(click());
         onView(withId(R.id.deleteButton)).perform(click());
@@ -467,15 +502,18 @@ public class MedicalRecordsControllerTest extends ActivityInstrumentationTestCas
         button.click();
     }
 
-    public void testButtonConfig(){
+    public void testButtonConfig() {
+
         onView(withId(R.id.iconMenu)).perform(click());
     }
 
-    public void testButtonMap(){
+    public void testButtonMap() {
+
         onView(withId(R.id.iconMap)).perform(click());
     }
 
-    public void testGoClicked(){
+    public void testGoClicked() {
+        
         onView(withId(R.id.buttonGo)).perform(click());
     }
 
