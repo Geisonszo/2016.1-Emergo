@@ -26,12 +26,12 @@ public class HealthUnitController {
    */
 
   public static HealthUnit createHealthUnit(Double latitude , Double longitude ,
-                                              String nameHospital,
+                                              String nameHealthUnit,
                                               String unityType, String addressNumber ,
                                               String district,
                                               String state, String city) {
 
-    HealthUnit healthUnit = new HealthUnit(latitude, longitude, nameHospital, unityType,
+    HealthUnit healthUnit = new HealthUnit(latitude, longitude, nameHealthUnit, unityType,
           addressNumber,
           district, state, city );
     return healthUnit;
