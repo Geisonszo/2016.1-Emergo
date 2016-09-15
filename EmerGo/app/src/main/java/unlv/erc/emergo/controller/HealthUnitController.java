@@ -46,7 +46,7 @@ public class HealthUnitController {
     return closestHealthUnit;
   }
 
-  public static void setClosestsUs(HealthUnit healthUnit) {
+  public static void setClosestHealthUnit(HealthUnit healthUnit) {
 
     closestHealthUnit.add(healthUnit);
   }
