@@ -16,8 +16,8 @@ public class HealthUnitController {
    * This method create an instance of Health Unit.
    * @param latitude latitude coordinate of health unit
    * @param longitude longitude coordinate of health unit
-   * @param nameHospital The name of health unit
-   * @param unityType type of health unit
+   * @param name The name of health unit
+   * @param type type of health unit
    * @param addressNumber Address of health unit
    * @param district health unit district
    * @param state health unit state
@@ -26,12 +26,12 @@ public class HealthUnitController {
    */
 
   public static HealthUnit createHealthUnit(Double latitude , Double longitude ,
-                                              String nameHealthUnit,
-                                              String unityType, String addressNumber ,
+                                              String name,
+                                              String type, String addressNumber ,
                                               String district,
                                               String state, String city) {
 
-    HealthUnit healthUnit = new HealthUnit(latitude, longitude, nameHealthUnit, unityType,
+    HealthUnit healthUnit = new HealthUnit(latitude, longitude, name, type,
           addressNumber,
           district, state, city );
     return healthUnit;
@@ -60,13 +60,13 @@ public class HealthUnitController {
   public static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestHealthUnit,
                                                    Location userLocation) {
 
-    Location usLocation = new Location("");
+    Location healthUnitLocation = new Location("");
 
     for (int aux = 0 ; aux < closestHealthUnit.size() ; aux++) {
 
-      usLocation.setLatitude(closestHealthUnit.get(aux).getLatitude());
-      usLocation.setLongitude(closestHealthUnit.get(aux).getLongitude());
-      closestHealthUnit.get(aux).setDistance(userLocation.distanceTo(usLocation) / 1000);
+      healthUnitLocation.setLatitude(closestHealthUnit.get(aux).getLatitude());
+      healthUnitLocation.setLongitude(closestHealthUnit.get(aux).getLongitude());
+      closestHealthUnit.get(aux).setDistance(userLocation.distanceTo(healthUnitLocation) / 1000);
 
     }
   }
@@ -74,7 +74,7 @@ public class HealthUnitController {
   /**
    * This method select the health unit closest to user.
    * @param closestHealthUnit Array of heath units
-   * @param location
+   * @param location the health unity location
    * @return position Return the position of the closest health unit
    */
 
