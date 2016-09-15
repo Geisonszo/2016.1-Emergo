@@ -1,3 +1,10 @@
+/*
+ * Class: EmergencyContactController (.java)
+ *
+ * Porpouse: This class contais the objects and methods related to the user's emergency contacts.
+ */
+
+
 package unlv.erc.emergo.controller;
 
 import android.app.Activity;
@@ -11,576 +18,717 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import dao.EmergencyContactDao;
+
+import helper.MaskHelper;
+
 import org.json.JSONException;
+
+import unlv.erc.emergo.R;
 
 import java.io.IOException;
 
-import dao.EmergencyContactDao;
-import helper.MaskHelper;
-import unlv.erc.emergo.R;
 
 
 public class EmergencyContactController extends Activity {
 
-    private Button saveFirstContact;
-    private Button saveSecondContact;
-    private Button saveThirdContact;
-    private EditText nameFirstContact;
-    private EditText nameSecondContact;
-    private EditText nameThirdContact;
-    private EditText phoneFirstContact;
-    private EditText phoneSecondContact;
-    private EditText phoneThirdContact;
-    private Button deleteFirstContact;
-    private Button deleteSecondContact;
-    private Button deleteThirdContact;
-    private Button updateFirstContact;
-    private Button updateSecondContact;
-    private Button updateThirdContact;
-    private String phoneContact;
-    private String nameContact;
-    private Integer idFirstContact = 1;
-    private Integer idSecondContact = 2;
-    private Integer idThirdContact = 3;
+  private Button saveFirstContact;
+  private Button saveSecondContact;
+  private Button saveThirdContact;
+  private EditText nameFirstContact;
+  private EditText nameSecondContact;
+  private EditText nameThirdContact;
+  private EditText phoneFirstContact;
+  private EditText phoneSecondContact;
+  private EditText phoneThirdContact;
+  private Button deleteFirstContact;
+  private Button deleteSecondContact;
+  private Button deleteThirdContact;
+  private Button updateFirstContact;
+  private Button updateSecondContact;
+  private Button updateThirdContact;
+  private String phoneContact;
+  private String nameContact;
+  private Integer idFirstContact = 1;
+  private Integer idSecondContact = 2;
+  private Integer idThirdContact = 3;
 
-    EmergencyContactDao emergencyContactDao = new EmergencyContactDao(this);
+  private EmergencyContactDao emergencyContactDao;
 
-    final String ROUTETRACED = "Rota mais próxima traçada";
+  final String ROUTETRACED = "Rota mais próxima traçada";
 
-    public EmergencyContactController(){
-        //Empty Constructor.
+  public EmergencyContactController(){
+      //Empty Constructor.
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+
+    super.onCreate(savedInstanceState);
+
+    emergencyContactDao = new EmergencyContactDao(this);
+
+    setContentView(R.layout.emergency_contact);
+
+    saveFirstContact = (Button) findViewById(R.id.saveButtonFirstContact);
+    saveSecondContact = (Button) findViewById(R.id.saveSecondContactButton);
+    saveThirdContact = (Button) findViewById(R.id.saveThirdContactButton);
+
+    updateFirstContact = (Button) findViewById(R.id.updateButtonFirstContact);
+    updateSecondContact = (Button) findViewById(R.id.updateSecondContactButton);
+    updateThirdContact = (Button) findViewById(R.id.updateThirdContactButton);
+
+    nameFirstContact = (EditText) findViewById(R.id.nameFirstContactEditText);
+    nameSecondContact = (EditText) findViewById(R.id.nameSecondContactEditText);
+    nameThirdContact = (EditText) findViewById(R.id.nameThirdContactEditText);
+
+    phoneFirstContact = (EditText) findViewById(R.id.phoneEditText);
+    phoneFirstContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
+                                                                phoneFirstContact));
+    phoneSecondContact = (EditText) findViewById(R.id.phoneSecondContactEditText);
+    phoneSecondContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
+                                                                phoneSecondContact));
+    phoneThirdContact = (EditText) findViewById(R.id.phoneThirdContactEditText);
+    phoneThirdContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
+                                                                phoneThirdContact));
+
+    deleteFirstContact = (Button) findViewById(R.id.deleteFirstContactButton);
+    deleteSecondContact = (Button) findViewById(R.id.deleteSecondContactButton);
+    deleteThirdContact = (Button) findViewById(R.id.deleteThirdContactButton);
+
+    Cursor result = emergencyContactDao.getEmergencyContact();
+
+    if (result.getCount() == 0) {
+
+      disableOptionsButSave(saveFirstContact,updateFirstContact,deleteFirstContact);
+    } else {
+
+      if (result.moveToFirst()) {
+
+        nameFirstContact.setText(result.getString(1));
+        phoneFirstContact.setText(result.getString(2));
+        disableField(saveFirstContact,nameFirstContact,phoneFirstContact);
+      }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
-        super.onCreate(savedInstanceState);
+      public void onClick(View view) {
 
-        setContentView(R.layout.emergency_contact);
+        if (!signInFirstContact()) {
 
-        saveFirstContact = (Button) findViewById(R.id.saveButtonFirstContact);
-        saveSecondContact = (Button) findViewById(R.id.saveSecondContactButton);
-        saveThirdContact = (Button) findViewById(R.id.saveThirdContactButton);
-
-        updateFirstContact = (Button) findViewById(R.id.updateButtonFirstContact);
-        updateSecondContact = (Button) findViewById(R.id.updateSecondContactButton);
-        updateThirdContact = (Button) findViewById(R.id.updateThirdContactButton);
-
-        nameFirstContact = (EditText) findViewById(R.id.nameFirstContactEditText);
-        nameSecondContact = (EditText) findViewById(R.id.nameSecondContactEditText);
-        nameThirdContact = (EditText) findViewById(R.id.nameThirdContactEditText);
-
-        phoneFirstContact = (EditText) findViewById(R.id.phoneEditText);
-        phoneFirstContact.addTextChangedListener(MaskHelper.insert("(###)#####-####", phoneFirstContact));
-        phoneSecondContact = (EditText) findViewById(R.id.phoneSecondContactEditText);
-        phoneSecondContact.addTextChangedListener(MaskHelper.insert("(###)#####-####", phoneSecondContact));
-        phoneThirdContact = (EditText) findViewById(R.id.phoneThirdContactEditText);
-        phoneThirdContact.addTextChangedListener(MaskHelper.insert("(###)#####-####", phoneThirdContact));
-
-        deleteFirstContact = (Button) findViewById(R.id.deleteFirstContactButton);
-        deleteSecondContact = (Button) findViewById(R.id.deleteSecondContactButton);
-        deleteThirdContact = (Button) findViewById(R.id.deleteThirdContactButton);
-
-        Cursor result = emergencyContactDao.getEmergencyContact();
-
-        if (result.getCount() == 0) {
-
-            disableOptions(saveFirstContact,updateFirstContact,deleteFirstContact);
+          saveFirstContact.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+              signInFirstContact();
+              disableField(nameFirstContact,phoneFirstContact);
+            }
+          });
         } else {
 
-            if (result.moveToFirst()) {
-
-                nameFirstContact.setText(result.getString(1));
-                phoneFirstContact.setText(result.getString(2));
-                disableField(saveFirstContact,nameFirstContact,phoneFirstContact);
-            }
+          disableSaveButton(saveFirstContact,updateFirstContact,deleteFirstContact);
         }
+      }
+    });
 
-        saveFirstContact.setOnClickListener(new View.OnClickListener() {
+    updateFirstContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
+      public void onClick(View view) {
 
-                if(signInFirstContact() == false){
+        disableUpdateButton(nameFirstContact, phoneFirstContact, updateFirstContact,
+            saveFirstContact);
+            saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
-                    saveFirstContact.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            signInFirstContact();
-                            disableField(nameFirstContact,phoneFirstContact);
-                        }
-                    });
-                }else{
+              public void onClick(View view) {
+                updateContact(idFirstContact,nameFirstContact,phoneFirstContact,
+                    saveFirstContact,updateFirstContact,deleteFirstContact);
+                setOptionsVisible(saveFirstContact,updateFirstContact);
+              }
+            });
+      }
+    });
 
-                    disableButtons(saveFirstContact,updateFirstContact,deleteFirstContact);
-                }
-            }
-        });
+    deleteFirstContact.setOnClickListener(new View.OnClickListener() {
 
-        updateFirstContact.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View view) {
 
-            public void onClick(View v) {
+        deleteContact(nameFirstContact,phoneFirstContact,saveFirstContact,
+            idFirstContact,updateFirstContact,deleteFirstContact);
+          saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
-                disableJustUpdateButton(nameFirstContact, phoneFirstContact, updateFirstContact,
-                        saveFirstContact);
+            public void onClick(View view) {
+
+              if (!signInFirstContact()) {
+
                 saveFirstContact.setOnClickListener(new View.OnClickListener() {
+                  public void onClick(View view) {
 
-                    public void onClick(View v) {
-                        updateContact(idFirstContact,nameFirstContact,phoneFirstContact,
-                                saveFirstContact,updateFirstContact,deleteFirstContact);
-                        setOptionsVisible(saveFirstContact,updateFirstContact);
-                    }
+                    signInFirstContact();
+                    disableField(nameFirstContact,phoneFirstContact);
+                  }
                 });
+              } else {
+
+                  disableSaveButton(saveFirstContact,updateFirstContact,
+                      deleteFirstContact);
+              }
             }
-        });
+          });
+      }
+    });
 
+    if (result.getCount() == 0) {
 
-        deleteFirstContact.setOnClickListener(new View.OnClickListener() {
+      disableOptionsButSave(saveSecondContact, updateSecondContact,deleteSecondContact);
+    } else {
 
-            public void onClick(View v) {
+      if (result.moveToNext()) {
 
-                deleteContact(nameFirstContact,phoneFirstContact,saveFirstContact,
-                        idFirstContact,updateFirstContact,deleteFirstContact);
-                saveFirstContact.setOnClickListener(new View.OnClickListener() {
+        nameSecondContact.setText(result.getString(1));
+        phoneSecondContact.setText(result.getString(2));
+        disableField(saveSecondContact,nameSecondContact,phoneSecondContact);
+      }
+    }
+    saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
-                    public void onClick(View v) {
+      public void onClick(View view) {
 
-                        if(signInFirstContact() == false) {
+        if (!signInSecondContact()) {
 
-                            saveFirstContact.setOnClickListener(new View.OnClickListener() {
+          saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
-                                public void onClick(View v) {
+            public void onClick(View view) {
 
-                                    signInFirstContact();
-                                    disableField(nameFirstContact,phoneFirstContact);
-                                }
-                            });
-                        } else {
-                            disableButtons(saveFirstContact,updateFirstContact,deleteFirstContact);
-                        }
-                    }
-                });
+              signInSecondContact();
+              disableField(nameSecondContact,phoneSecondContact);
             }
-        });
-
-        if(result.getCount() == 0) {
-
-            disableOptions(saveSecondContact, updateSecondContact,deleteSecondContact);
+          });
         } else {
 
-            if(result.moveToNext()) {
-
-                nameSecondContact.setText(result.getString(1));
-                phoneSecondContact.setText(result.getString(2));
-                disableField(saveSecondContact,nameSecondContact,phoneSecondContact);
-            }
+          disableSaveButton(saveSecondContact,updateSecondContact,deleteSecondContact);
         }
-        saveSecondContact.setOnClickListener(new View.OnClickListener() {
+      }
+    });
 
-            public void onClick(View v) {
+    updateSecondContact.setOnClickListener(new View.OnClickListener() {
 
-                if(signInSecondContact() == false) {
+      public void onClick(View view) {
 
-                    saveSecondContact.setOnClickListener(new View.OnClickListener() {
+        disableUpdateButton(nameSecondContact, phoneSecondContact, updateSecondContact,
+            saveSecondContact);
+          saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
-                        public void onClick(View v) {
+            public void onClick(View view) {
 
-                            signInSecondContact();
-                            disableField(nameSecondContact,phoneSecondContact);
-                        }
-                    });
-                } else {
-
-                    disableButtons(saveSecondContact,updateSecondContact,deleteSecondContact);
-                }
+              updateContact(idSecondContact,nameSecondContact,phoneSecondContact,
+                  saveSecondContact,updateSecondContact,deleteSecondContact);
+                setOptionsVisible(saveSecondContact,updateSecondContact);
             }
-        });
+          });
+      }
+    });
 
-        updateSecondContact.setOnClickListener(new View.OnClickListener() {
+    deleteSecondContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
+      public void onClick(View view) {
 
-                disableJustUpdateButton(nameSecondContact, phoneSecondContact, updateSecondContact,
-                        saveSecondContact);
+        deleteContact(nameSecondContact,phoneSecondContact,saveSecondContact,
+            idSecondContact,updateSecondContact,deleteSecondContact);
+
+          saveSecondContact.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+              if (!signInSecondContact()) {
+
                 saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
-                    public void onClick(View v) {
+                  public void onClick(View view) {
 
-                        updateContact(idSecondContact,nameSecondContact,phoneSecondContact,
-                                saveSecondContact,updateSecondContact,deleteSecondContact);
-                        setOptionsVisible(saveSecondContact,updateSecondContact);
-                    }
+                    signInSecondContact();
+                    disableField(nameSecondContact,phoneSecondContact);
+                  }
                 });
+              } else {
+
+                disableSaveButton(saveSecondContact,updateSecondContact,
+                    deleteSecondContact);
+              }
             }
-        });
+          });
+        }
+      });
 
-        deleteSecondContact.setOnClickListener(new View.OnClickListener() {
+    if (result.getCount() == 0) {
 
-            public void onClick(View v) {
+      disableOptionsButSave(saveThirdContact, updateThirdContact,deleteThirdContact);
+    } else {
 
-                deleteContact(nameSecondContact,phoneSecondContact,saveSecondContact,
-                        idSecondContact,updateSecondContact,deleteSecondContact);
+      if (result.moveToNext()) {
 
-                saveSecondContact.setOnClickListener(new View.OnClickListener() {
+        nameThirdContact.setText(result.getString(1));
+        phoneThirdContact.setText(result.getString(2));
+        disableField(saveThirdContact,nameThirdContact,phoneThirdContact);
+      }
+    }
+    saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
-                    public void onClick(View v) {
+      public void onClick(View view) {
 
-                        if(signInSecondContact() == false){
+        if (!signInthirdContact()) {
 
-                            saveSecondContact.setOnClickListener(new View.OnClickListener() {
+          saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
-                                public void onClick(View v) {
+            public void onClick(View view) {
 
-                                    signInSecondContact();
-                                    disableField(nameSecondContact,phoneSecondContact);
-                                }
-                            });
-                        } else {
-
-                            disableButtons(saveSecondContact,updateSecondContact,deleteSecondContact);
-                        }
-                    }
-                });
+              signInthirdContact();
+              disableField(nameThirdContact,phoneThirdContact);
             }
-        });
-
-        if(result.getCount() == 0) {
-
-            disableOptions(saveThirdContact, updateThirdContact,deleteThirdContact);
+          });
         } else {
 
-            if(result.moveToNext()) {
-                nameThirdContact.setText(result.getString(1));
-                phoneThirdContact.setText(result.getString(2));
-                disableField(saveThirdContact,nameThirdContact,phoneThirdContact);
-            }
+          disableSaveButton(saveThirdContact,updateThirdContact,deleteThirdContact);
         }
-        saveThirdContact.setOnClickListener(new View.OnClickListener() {
+      }
+    });
 
-            public void onClick(View v) {
+    updateThirdContact.setOnClickListener(new View.OnClickListener() {
 
-                if(signInthirdContact() == false) {
+      public void onClick(View view) {
 
-                    saveThirdContact.setOnClickListener(new View.OnClickListener() {
+        disableUpdateButton(nameThirdContact,phoneThirdContact,updateThirdContact,
+            saveThirdContact);
+          saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
-                        public void onClick(View v) {
+            public void onClick(View view) {
 
-                            signInthirdContact();
-                            disableField(nameThirdContact,phoneThirdContact);
-                        }
-                    });
-                }else{
+              updateContact(idThirdContact,nameThirdContact,phoneThirdContact,
+                  saveThirdContact,updateThirdContact,deleteThirdContact);
+                setOptionsVisible(saveThirdContact,updateFirstContact);
 
-                    disableButtons(saveThirdContact,updateThirdContact,deleteThirdContact);
-                }
             }
-        });
+          });
+      }
+    });
 
-        updateThirdContact.setOnClickListener(new View.OnClickListener() {
+    deleteThirdContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
+      public void onClick(View view) {
 
-                disableJustUpdateButton(nameThirdContact,phoneThirdContact,updateThirdContact,
-                        saveThirdContact);
+        deleteContact(nameThirdContact,phoneThirdContact,saveThirdContact,
+            idThirdContact,updateThirdContact,deleteThirdContact);
+          saveThirdContact.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+              if (!signInthirdContact()) {
+
                 saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
-                    public void onClick(View v) {
+                  public void onClick(View view) {
 
-                        updateContact(idThirdContact,nameThirdContact,phoneThirdContact,
-                                saveThirdContact,updateThirdContact,deleteThirdContact);
-                        setOptionsVisible(saveThirdContact,updateFirstContact);
-                    }
+                    signInthirdContact();
+                    disableField(nameThirdContact,phoneThirdContact);
+                  }
                 });
+              } else {
+
+                disableSaveButton(saveThirdContact,updateThirdContact,
+                     deleteThirdContact);
+              }
             }
-        });
-
-        deleteThirdContact.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-
-                deleteContact(nameThirdContact,phoneThirdContact,saveThirdContact,
-                        idThirdContact,updateThirdContact,deleteThirdContact);
-                saveThirdContact.setOnClickListener(new View.OnClickListener() {
-
-                    public void onClick(View v) {
-
-                        if(signInthirdContact() == false) {
-
-                            saveThirdContact.setOnClickListener(new View.OnClickListener() {
-
-                                public void onClick(View v) {
-
-                                    signInthirdContact();
-                                    disableField(nameThirdContact,phoneThirdContact);
-                                }
-                            });
-                        } else {
-
-                            disableButtons(saveThirdContact,updateThirdContact,deleteThirdContact);
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-    private boolean signInFirstContact(){
-        boolean sucess = true;
-        boolean valid = false;
-        if(checksName(nameFirstContact.getText().toString()) == false) {
-
-            nameContact = nameFirstContact.getText().toString();
-            phoneContact = phoneFirstContact.getText().toString();
-
-            sucess = emergencyContactDao.insertEmergencyContact(idFirstContact, nameContact, phoneContact);
-            if(sucess == true) {
-
-                showMessage("Contato de Emergência Cadastrado Com Sucesso!");
-                valid = true;
-                nameFirstContact.setEnabled(false);
-                phoneFirstContact.setEnabled(false);
-                disableOptionsUpdate(saveFirstContact,updateFirstContact,deleteFirstContact);
-            } else {
-
-                showMessage("Contato de Emergência Não Cadastrado! Tente Novamente");
-                valid = false;
-            }
+          });
         }
-        return valid;
+      });
+  }
+
+  /**
+   * This method is used to sign the first contact in the system, returns a bollean that informs
+   * if the sign was sucessfull.
+   * @return valid
+   */
+
+  private boolean signInFirstContact() {
+
+    boolean sucess = true;
+    boolean valid = false;
+    if (!checksName(nameFirstContact.getText().toString())) {
+
+      nameContact = nameFirstContact.getText().toString();
+      phoneContact = phoneFirstContact.getText().toString();
+
+      sucess = emergencyContactDao.insertEmergencyContact(idFirstContact, nameContact,
+                                                                phoneContact);
+      if (sucess) {
+
+        showMessage("Contato de Emergência Cadastrado Com Sucesso!");
+        valid = true;
+        nameFirstContact.setEnabled(false);
+        phoneFirstContact.setEnabled(false);
+        disableSaveButton(saveFirstContact,updateFirstContact,deleteFirstContact);
+      } else {
+
+        showMessage("Contato de Emergência Não Cadastrado! Tente Novamente");
+        valid = false;
+      }
     }
+    return valid;
+  }
 
+  /**
+   * This method is used to sign the second contact in the system, returns a bollean that informs
+   * if the sign was sucessfull.
+   * @return valid
+   */
 
-    private boolean signInSecondContact(){
-        boolean sucess = true;
-        boolean valid = false;
+  private boolean signInSecondContact() {
+    boolean sucess = true;
+    boolean valid = false;
 
-        if(checksName(nameSecondContact.getText().toString()) == false) {
-            if (checksName(nameSecondContact.getText().toString()) == false) {
-                nameContact = nameSecondContact.getText().toString();
-                phoneContact = phoneSecondContact.getText().toString();
-
-                sucess = emergencyContactDao.insertEmergencyContact(idSecondContact, nameContact, phoneContact);
-                if (sucess == true) {
-                    showMessage("Contato de Emergência Cadastrado Com Sucesso!");
-                    valid = true;
-                    nameSecondContact.setEnabled(false);
-                    phoneSecondContact.setEnabled(false);
-                    disableOptionsUpdate(saveSecondContact,updateSecondContact,deleteSecondContact);
-                } else {
-                    showMessage("Contato de Emergência Não Cadastrado! Tente Novamente");
-                    valid = true;
-                }
-            }
+    if (!checksName(nameSecondContact.getText().toString())) {
+      if (!checksName(nameSecondContact.getText().toString())) {
+        nameContact = nameSecondContact.getText().toString();
+        phoneContact = phoneSecondContact.getText().toString();
+        sucess = emergencyContactDao.insertEmergencyContact(idSecondContact, nameContact,
+                                                                    phoneContact);
+        if (sucess == true) {
+          showMessage("Contato de Emergência Cadastrado Com Sucesso!");
+          valid = true;
+          nameSecondContact.setEnabled(false);
+          phoneSecondContact.setEnabled(false);
+          disableSaveButton(saveSecondContact,updateSecondContact,deleteSecondContact);
+        } else {
+          showMessage("Contato de Emergência Não Cadastrado! Tente Novamente");
+          valid = true;
         }
-        return valid;
+      }
     }
+    return valid;
+  }
 
-    private boolean signInthirdContact(){
+  /**
+   * This method is used to sign the third contact in the system, returns a bollean that informs
+   * if the sign was sucessfull.
+   * @return valid
+   */
 
-        boolean sucess = true;
-        boolean valid = false;
+  private boolean signInthirdContact() {
 
-        if(checksName(nameThirdContact.getText().toString()) == false) {
+    boolean sucess = true;
+    boolean valid = false;
 
-            if (checksName(nameThirdContact.getText().toString()) == false) {
+    if (!checksName(nameThirdContact.getText().toString())) {
+      if (!checksName(nameThirdContact.getText().toString())) {
 
-                nameContact = nameThirdContact.getText().toString();
-                phoneContact = phoneThirdContact.getText().toString();
+        nameContact = nameThirdContact.getText().toString();
+        phoneContact = phoneThirdContact.getText().toString();
 
-                sucess = emergencyContactDao.insertEmergencyContact(idThirdContact, nameContact, phoneContact);
-                if (sucess == true) {
+        sucess = emergencyContactDao.insertEmergencyContact(idThirdContact, nameContact,
+                                                                    phoneContact);
+        if (sucess) {
 
-                    showMessage("Contato de Emergência Cadastrado Com Sucesso!");
-                    valid = true;
-                    nameThirdContact.setEnabled(false);
-                    phoneThirdContact.setEnabled(false);
-                    disableOptionsUpdate(saveThirdContact,updateThirdContact,deleteThirdContact);
-                } else {
+          showMessage("Contato de Emergência Cadastrado Com Sucesso!");
+          valid = true;
+          nameThirdContact.setEnabled(false);
+          phoneThirdContact.setEnabled(false);
+          disableSaveButton(saveThirdContact,updateThirdContact,deleteThirdContact);
+        } else {
 
-                    showMessage("Contato de Emergência Não Cadastrado! Tente Novamente");
-                    valid = true;
-                }
-            }
+          showMessage("Contato de Emergência Não Cadastrado! Tente Novamente");
+          valid = true;
         }
-        return valid;
+      }
     }
+    return valid;
+  }
 
-    private void updateContact(Integer id,EditText name,EditText phone,Button save,Button update,
-                               Button delete){
-        boolean sucess = true;
-        if(checksName(name.getText().toString()) == false){
+  /**
+   * This method is used to update any of the three emergency contacts already signed on EmerGo.
+   *
+   * @param id
+   * @param name
+   * @param phone
+   * @param save
+   * @param update
+   * @param delete
+   */
 
-            nameContact = name.getText().toString();
-            phoneContact = phone.getText().toString();
+  private void updateContact(Integer id,EditText name,EditText phone,Button save,Button update,
+                             Button delete) {
 
-            sucess = emergencyContactDao.updateEmergencyContact(id,nameContact,phoneContact);
-            if(sucess == true){
+    boolean sucess = true;
 
-                showMessage("Contato de Emergência Alterado Com Sucesso!");
-                save.setVisibility(View.VISIBLE);
-                save.setEnabled(false);
-                update.setEnabled(true);
-                delete.setEnabled(true);
-            } else {
+    if (!checksName(name.getText().toString())) {
 
-                showMessage("Contato de Emergência Não Alterado! Tente Novamente");
-            }
-        }
-    }
+      nameContact = name.getText().toString();
+      phoneContact = phone.getText().toString();
 
-    private void deleteContact(final EditText nameContact, final EditText phoneContact,
-                               final Button save, final Integer id, final Button update,
-                               final Button delete){
+      sucess = emergencyContactDao.updateEmergencyContact(id,nameContact,phoneContact);
+      if (sucess) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        builder.setTitle("Excluir Contato");
-        builder.setMessage("Deseja Mesmo Excluir Este Contato?");
-
-        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                emergencyContactDao.deleteEmergencyContact(id);
-                showMessage("Contato de Emergência Excluido Com Sucesso");
-                save.setVisibility(View.VISIBLE);
-                save.setEnabled(true);
-                nameContact.setText("");
-                phoneContact.setText("");
-                nameContact.setEnabled(true);
-                phoneContact.setEnabled(true);
-                update.setVisibility(View.INVISIBLE);
-                delete.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.show();
-    }
-
-    private boolean checksName(String nameUser){
-
-        final int MINIMUM = 3;
-
-        if(nameUser.isEmpty()) {
-
-            showMessage("Nome Vazio! Informe Seu Nome.");
-            return true;
-
-        } else if(nameUser.trim().length()<MINIMUM) {
-
-            showMessage("Informe um nome com no mínimo 3 caracteres.");
-            return true;
-
-        } else if(nameUser.matches(".*\\d.*")) {
-
-            showMessage("Um nome não pode ter um número!");
-            return true;
-        }
-
-        return false;
-    }
-
-    private void showMessage(String message){
-
-        Toast.makeText(this,""+message,Toast.LENGTH_SHORT).show();
-    }
-
-    private void disableOptions(Button save, Button update,Button delete){
-
+        showMessage("Contato de Emergência Alterado Com Sucesso!");
         save.setVisibility(View.VISIBLE);
-        update.setVisibility(View.INVISIBLE);
-        delete.setVisibility(View.INVISIBLE);
-    }
-
-    private void disableField(Button save,EditText name, EditText phone){
-
-        save.setVisibility(View.INVISIBLE);
-        name.setEnabled(false);
-        phone.setEnabled(false);
-    }
-    private void disableButtons(Button save,Button update,Button delete){
-
-        save.setVisibility(View.INVISIBLE);
-        update.setVisibility(View.VISIBLE);
+        save.setEnabled(false);
         update.setEnabled(true);
-        delete.setVisibility(View.VISIBLE);
         delete.setEnabled(true);
+      } else {
+
+        showMessage("Contato de Emergência Não Alterado! Tente Novamente");
+      }
     }
+  }
 
-    private void disableJustUpdateButton(EditText name, EditText phone, Button update, Button save) {
+  /**
+   * This method is used to exclude any of the three emergency contacts signed on system.
+   *
+   * @param nameContact
+   * @param phoneContact
+   * @param save
+   * @param id
+   * @param update
+   * @param delete
+   */
 
-        name.setEnabled(true);
-        phone.setEnabled(true);
-        update.setVisibility(View.INVISIBLE);
+  private void deleteContact(final EditText nameContact, final EditText phoneContact,
+                             final Button save, final Integer id, final Button update,
+                             final Button delete) {
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+    builder.setTitle("Excluir Contato");
+    builder.setMessage("Deseja Mesmo Excluir Este Contato?");
+
+    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+
+        emergencyContactDao.deleteEmergencyContact(id);
+        showMessage("Contato de Emergência Excluido Com Sucesso");
         save.setVisibility(View.VISIBLE);
         save.setEnabled(true);
+        nameContact.setText("");
+        phoneContact.setText("");
+        nameContact.setEnabled(true);
+        phoneContact.setEnabled(true);
+        update.setVisibility(View.INVISIBLE);
+        delete.setVisibility(View.INVISIBLE);
+      }
+    });
+
+    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+
+      }
+    });
+    builder.show();
+  }
+
+  /**
+   * This method is used to check if the name informed by the user is valid.
+   * If the name is valid, false is returned.
+   *
+   * @param nameUser
+   * @return boolean
+   */
+
+  private boolean checksName(String nameUser) {
+
+    final int MINIMUM = 3;
+
+    if (nameUser.isEmpty()) {
+
+      showMessage("Nome Vazio! Informe Seu Nome.");
+      return true;
+
+    } else if (nameUser.trim().length() < MINIMUM) {
+
+      showMessage("Informe um nome com no mínimo 3 caracteres.");
+      return true;
+
+    } else if (nameUser.matches(".*\\d.*")) {
+
+      showMessage("Um nome não pode ter um número!");
+      return true;
     }
 
-    private void disableOptionsUpdate(Button save,Button update,Button delete){
+    return false;
+  }
 
-        save.setEnabled(false);
-        update.setVisibility(View.VISIBLE);
-        update.setEnabled(true);
-        delete.setVisibility(View.VISIBLE);
-        delete.setEnabled(true);
-    }
+  /**
+   * This method is used to show a message to the user in the screen.
+   * @param message
+   */
 
-    private void setOptionsVisible(Button save, Button update){
+  private void showMessage(String message) {
 
-        update.setVisibility(View.VISIBLE);
-        save.setVisibility(View.INVISIBLE);
-    }
+    Toast.makeText(this,"" + message,Toast.LENGTH_SHORT).show();
+  }
 
-    private void disableField(EditText name,EditText phone){
+  /**
+   * This method is used to disable save,update and delete buttons on the field of
+   * given emergency contact.
+   *
+   * @param save
+   * @param update
+   * @param delete
+   */
 
-        name.setEnabled(false);
-        phone.setEnabled(false);
-    }
+  private void disableOptionsButSave(Button save, Button update, Button delete) {
 
-    public void open_search(View mapScreen){
+    save.setVisibility(View.VISIBLE);
+    update.setVisibility(View.INVISIBLE);
+    delete.setVisibility(View.INVISIBLE);
+  }
 
-        Intent openSearch = new Intent();
-        openSearch.setClass(this , SearchUsController.class);
-        startActivity(openSearch);
-        finish();
-    }
+  /**
+   * This method disable only save button.
+   *
+   *
+   * @param save
+   * @param update
+   * @param delete
+   */
 
-    public void goClicked(View map_screen) throws IOException, JSONException {
+  private void disableSaveButton(Button save, Button update, Button delete) {
 
-        Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
-        Intent routeActivity = new Intent();
-        routeActivity.setClass(this , RouteActivity.class);
-        routeActivity.putExtra("numeroUs" , -1);
-        startActivity(routeActivity);
-        finish();
-    }
+    save.setEnabled(false);
+    save.setVisibility(View.INVISIBLE);
+    update.setVisibility(View.VISIBLE);
+    update.setEnabled(true);
+    delete.setVisibility(View.VISIBLE);
+    delete.setEnabled(true);
+  }
+ 
+  /**
+   * This method disable only update button.
+   *
+   * @param name
+   * @param phone
+   * @param update
+   * @param save
+   */
 
-    public void listMapsImageClicked(View map_screen){
+  private void disableUpdateButton(EditText name, EditText phone, Button update, Button save) {
 
-        Intent listOfHealth = new Intent();
-        listOfHealth.setClass(this , ListOfHealthUnitsController.class);
-        startActivity(listOfHealth);
-        finish();
-    }
+    name.setEnabled(true);
+    phone.setEnabled(true);
+    update.setVisibility(View.INVISIBLE);
+    save.setVisibility(View.VISIBLE);
+    save.setEnabled(true);
+  }
 
-    public void openConfig(View map_screen) {
+  /**
+   * This method is used after the user is already signed in the system, and user will try to
+   * update it. It only will have the update button visible.
+   *
+   * @param save
+   * @param update
+   */
 
-        Intent config = new Intent();
-        config.setClass(this, ConfigController.class);
-        startActivity(config);
-    }
+  private void setOptionsVisible(Button save, Button update) {
 
-    public void openMap(View mapScreen){
+    update.setVisibility(View.VISIBLE);
+    save.setVisibility(View.INVISIBLE);
+  }
 
-        Intent mapActivity = new Intent();
-        mapActivity.setClass(this, MapScreenController.class);
-        startActivity(mapActivity);
-        finish();
-    }
+  /**
+   * This method is used to disable name and phone field.
+   *
+   * @param name
+   * @param phone
+   */
+
+  private void disableField(EditText name,EditText phone) {
+
+    name.setEnabled(false);
+    phone.setEnabled(false);
+  }
+
+  /**
+   * This method is used to disable an emergency contact field.
+   *
+   * @param save
+   * @param name
+   * @param phone
+   */
+
+  private void disableField(Button save,EditText name, EditText phone) {
+
+    save.setVisibility(View.INVISIBLE);
+    name.setEnabled(false);
+    phone.setEnabled(false);
+  }
+
+  /**
+   * This method is used to open search screen, after clicking the search button.
+   *
+   * @param mapScreen
+   */
+
+  public void openSearch(View mapScreen) {
+
+    Intent openSearch = new Intent();
+    openSearch.setClass(this , SearchUsController.class);
+    startActivity(openSearch);
+    finish();
+  }
+
+  /**
+   * This method is activated when user clicks in GO button, tracing a route to the closest
+   * health unity.
+   * @param mapScreen
+   */
+
+  public void goClicked(View mapScreen) throws IOException, JSONException {
+
+    Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
+    Intent routeActivity = new Intent();
+    routeActivity.setClass(this , RouteActivity.class);
+    routeActivity.putExtra("numeroUs" , -1);
+    startActivity(routeActivity);
+    finish();
+  }
+
+  /**
+   * This method list all the USs, by proximity of the user location, after the list button
+   * is clicked.
+   * @param mapScreen
+   */
+
+  public void listMapsImageClicked(View mapScreen) {
+
+    Intent listOfHealth = new Intent();
+    listOfHealth.setClass(this , ListOfHealthUnitsController.class);
+    startActivity(listOfHealth);
+    finish();
+  }
+
+  /**
+   * This method is activated when user is already in the configuration screen, and
+   * try to open it again.
+   * @param mapScreen
+   */
+
+  public void openConfig(View mapScreen) {
+
+    Intent config = new Intent();
+    config.setClass(this, ConfigController.class);
+    startActivity(config);
+  }
+
+    /**
+     * This method is activated when user clicks in the map button, and open a new map.
+     * @param mapScreen
+     */
+
+  public void openMap(View mapScreen) {
+
+    Intent mapActivity = new Intent();
+    mapActivity.setClass(this, MapScreenController.class);
+    startActivity(mapActivity);
+    finish();
+  }
+
 }

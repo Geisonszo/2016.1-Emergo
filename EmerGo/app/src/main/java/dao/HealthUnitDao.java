@@ -22,76 +22,83 @@ import unlv.erc.emergo.model.HealthUnit;
 
 public class HealthUnitDao {
 
-    private Context context;
-    private static final String URL_BASE_DB = "https://emergodf.firebaseio.com/";
+  private Context context;
+  private static final String URL_BASE_DB = "https://emergodf.firebaseio.com/";
 
-    /**
-     * You receive the "context" of the HealthUnitDao class.
-     * @param context
-     */
-    public HealthUnitDao(Context context) {
+  /**
+    * You receive the "context" of the HealthUnitDao class.
+    * @param context Context.
+    *
+   */
 
-        this.context = context;
-    }
+  public HealthUnitDao(Context context) {
 
-    /**
-     * Low data from health units and saved in the database. In addition to putting this data in the
-     * arraylist.
-     */
+    this.context = context;
+  }
 
-    public void setDataOnSugar() {
+  /**
+    * Low data from health units and saved in the database. In addition to putting this data in the
+    * arraylist.
+    *
+   */
 
-        Firebase ref = new Firebase(URL_BASE_DB);
-        HealthUnit healthUnit = new HealthUnit();
-        List<HealthUnit> list;
-        list = healthUnit.listAll(HealthUnit.class);
+  public void setDataOnSugar() {
 
-        if (list.size() == 0 || list == null ) {
+    Firebase ref = new Firebase(URL_BASE_DB);
+    HealthUnit healthUnit = new HealthUnit();
+    List<HealthUnit> list;
+    list = healthUnit.listAll(HealthUnit.class);
 
-            ref.child("EmerGo").addValueEventListener(new ValueEventListener() {
+    if (list.size() == 0 || list == null ) {
 
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+      ref.child("EmerGo").addValueEventListener(new ValueEventListener() {
 
-                    HealthUnit model;
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+          @Override
+          public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        double latitude = (double) child.child("lat").getValue();
-                        double longitude = (double) child.child("long").getValue();
-                        String nameHospital = child.child("no_fantasia").getValue().toString();
-                        String unitType = child.child("ds_tipo_unidade").getValue().toString();
-                        String addressNumber = child.child("co_cep").getValue().toString();
-                        String district = child.child("no_bairro").getValue().toString();
-                        String state = child.child("uf").getValue().toString();
-                        String city = child.child("municipio").getValue().toString();
+              HealthUnit model;
+              for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-                        if((unitType.contains("HOSPITAL GERAL") || unitType.contains("CENTRO DE SAUDE/UNIDADE BASICA")
-                                || unitType.contains("UNIDADE MOVEL DE NIVEL PRE-HOSPITALAR NA AREA DE URGENCIA") ||
-                                unitType.contains("UNIDADE MOVEL TERRESTRE"))) {
+                double latitude = (double) child.child("lat").getValue();
+                double longitude = (double) child.child("long").getValue();
+                String nameHospital = child.child("no_fantasia").getValue().toString();
+                String unitType = child.child("ds_tipo_unidade").getValue().toString();
+                String addressNumber = child.child("co_cep").getValue().toString();
+                String district = child.child("no_bairro").getValue().toString();
+                String state = child.child("uf").getValue().toString();
+                String city = child.child("municipio").getValue().toString();
 
-                            model = new HealthUnit(latitude,longitude,nameHospital,unitType,
-                                    addressNumber,district,state,city);
-                            model.save();
-                            HealthUnitController.setClosestsUs(model);
-                        }
-                    }
-                    Toast.makeText(context, "Atualize o mapa para carregar mais USs" ,
+                if ((unitType.contains("HOSPITAL GERAL")
+                    || unitType.contains("CENTRO DE SAUDE/UNIDADE BASICA")
+                    || unitType.contains("UNIDADE MOVEL DE NIVEL PRE-HOSPITALAR NA AREA DE "
+                                       + "URGENCIA")
+                    || unitType.contains("UNIDADE MOVEL TERRESTRE"))) {
+
+                  model = new HealthUnit(latitude,longitude,nameHospital,unitType,
+                                           addressNumber,district,state,city);
+                  model.save();
+                  HealthUnitController.setClosestsUs(model);
+                }
+              }
+              Toast.makeText(context, "Atualize o mapa para carregar mais USs" ,
                                     Toast.LENGTH_LONG).show();
-                    Log.i("Database has finished", HealthUnitController.getClosestsUs().size() + "Us");
-                }
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
+              Log.i("Database has finished", HealthUnitController.getClosestsUs().size() + "Us");
+          }
 
-                }
-            });
-        } else {
+          @Override
+          public void onCancelled(FirebaseError firebaseError) {
 
-            for(int aux = 0 ; aux < list.size(); aux++) {
-                HealthUnitController.setClosestsUs(list.get(aux));
-            }
-            //Arrumar log depois, para i
-            Log.d("log123", "preenchida offline");
-            Log.i("Database has finished", HealthUnitController.getClosestsUs().size() + " Us");
-        }
+          }
+      });
+    } else {
+
+      for (int aux = 0 ; aux < list.size(); aux++) {
+
+        HealthUnitController.setClosestsUs(list.get(aux));
+      }
+      //Arrumar log depois, para i
+      Log.d("log123", "preenchida offline");
+      Log.i("Database has finished", HealthUnitController.getClosestsUs().size() + " Us");
     }
+  }
 }
