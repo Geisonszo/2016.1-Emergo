@@ -50,8 +50,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public boolean onMarkerClick(Marker marker) {
 
-    for (int aux = 0 ; aux < HealthUnitController.getClosestsUs().size() ; aux++) {
-      if (marker.getTitle().toString().compareTo(HealthUnitController.getClosestsUs().get(aux)
+    for (int aux = 0 ; aux < HealthUnitController.getClosestHealthUnit().size() ; aux++) {
+      if (marker.getTitle().toString().compareTo(HealthUnitController.getClosestHealthUnit().get(aux)
                 .getNameHospital()) == 0) {
         Intent information = new Intent();
         information.setClass(MapScreenController.this , InformationUsScreenController.class);
@@ -168,7 +168,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
       LatLng userLatLng = new LatLng(location.getLatitude() , location.getLongitude());
 
       focusOnSelfPosition(userLatLng);
-      services.setMarkersOnMap(mMap , HealthUnitController.getClosestsUs());
+      services.setMarkersOnMap(mMap , HealthUnitController.getClosestHealthUnit());
 
     } else {
 

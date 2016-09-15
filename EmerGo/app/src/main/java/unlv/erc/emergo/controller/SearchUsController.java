@@ -125,11 +125,11 @@ public class SearchUsController extends AppCompatActivity implements SearchView
     abc = new ArrayList<>();
     int numberOfUs;
 
-    for (numberOfUs = 0 ; numberOfUs < HealthUnitController.getClosestsUs().size() ;
+    for (numberOfUs = 0 ; numberOfUs < HealthUnitController.getClosestHealthUnit().size() ;
         numberOfUs++) {
       if (closest.get(numberOfUs).getNameHospital().toLowerCase().contains(search)) {
         closestsUs.add(closest.get(numberOfUs ).getNameHospital());
-        abc.add(HealthUnitController.getClosestsUs().get(numberOfUs));
+        abc.add(HealthUnitController.getClosestHealthUnit().get(numberOfUs));
       }
     }
     return closestsUs;
@@ -147,7 +147,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
   @Override
   public boolean onQueryTextChange(String newText) {
 
-    searchUss = getSearchsUs(HealthUnitController.getClosestsUs());
+    searchUss = getSearchsUs(HealthUnitController.getClosestHealthUnit());
 
     setuSsList((ListView) findViewById(R.id.list_of_search_us));
     uSsList.setAdapter(new ArrayAdapter<>(this, R.layout.item, R.id.hospitalUnitText, searchUss));

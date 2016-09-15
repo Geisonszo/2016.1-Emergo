@@ -66,7 +66,7 @@ public class InformationSearchScreenController extends Activity {
     });
 
     setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
-    setInformation(HealthUnitController.getClosestsUs().get(numberUsSelected));
+    setInformation(HealthUnitController.getClosestHealthUnit().get(numberUsSelected));
     addInformationToList();
   }
 

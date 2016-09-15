@@ -129,7 +129,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     getMapFragment();
     Location location = getUserPosition(mLastLocation);
-    HealthUnitController.setDistanceBetweenUserAndUs(HealthUnitController.getClosestsUs(),
+    HealthUnitController.setDistanceBetweenUserAndUs(HealthUnitController.getClosestHealthUnit(),
         location);
     selectIndexOfClosestUs(location);
 
@@ -194,8 +194,8 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   private void getMapData() {
 
     String urlInitial =  getDirectionsUrl(myLocation, new LatLng(HealthUnitController
-        .getClosestsUs()
-        .get(indexOfClosestUs).getLatitude(), HealthUnitController.getClosestsUs()
+        .getClosestHealthUnit()
+        .get(indexOfClosestUs).getLatitude(), HealthUnitController.getClosestHealthUnit()
         .get(indexOfClosestUs).getLongitude()));
     DownloadTask downloadTask = new DownloadTask();
     downloadTask.execute(urlInitial);
@@ -205,7 +205,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     if (indexOfClosestUs == -1) {
 
-      indexOfClosestUs = HealthUnitController.selectClosestUs(HealthUnitController.getClosestsUs(),
+      indexOfClosestUs = HealthUnitController.selectClosestUs(HealthUnitController.getClosestHealthUnit(),
         location);
       cancelCall.setVisibility(View.VISIBLE);
       phone.setVisibility(View.INVISIBLE);
@@ -352,11 +352,11 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   private void setMarkerOfClosestUsOnMap() {
 
-    mMap.addMarker(new MarkerOptions().position(new LatLng(HealthUnitController.getClosestsUs()
-        .get(indexOfClosestUs).getLatitude(), HealthUnitController.getClosestsUs()
-        .get(indexOfClosestUs).getLongitude())).title(HealthUnitController.getClosestsUs()
+    mMap.addMarker(new MarkerOptions().position(new LatLng(HealthUnitController.getClosestHealthUnit()
+        .get(indexOfClosestUs).getLatitude(), HealthUnitController.getClosestHealthUnit()
+        .get(indexOfClosestUs).getLongitude())).title(HealthUnitController.getClosestHealthUnit()
         .get(indexOfClosestUs).getNameHospital() + "").snippet(HealthUnitController
-        .getClosestsUs().get(indexOfClosestUs).getUnitType()));
+        .getClosestHealthUnit().get(indexOfClosestUs).getUnitType()));
   }
 
   private void focusOnYourPosition() {

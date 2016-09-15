@@ -41,7 +41,7 @@ public class HealthUnitController {
 
   }
 
-  public static ArrayList<HealthUnit> getClosestsUs() {
+  public static ArrayList<HealthUnit> getClosestHealthUnit() {
 
     return closestHealthUnit;
   }
@@ -74,10 +74,11 @@ public class HealthUnitController {
   /**
    * This method select the health unit closest to user.
    * @param closestHealthUnit Array of heath units
+   * @param location
    * @return position Return the position of the closest health unit
    */
 
-  public static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit) {
+  public static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit, Location location) {
 
     double smaller = 99999;
     int position = 0;

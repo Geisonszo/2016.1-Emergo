@@ -82,7 +82,7 @@ public class HealthUnitDao {
               }
               Toast.makeText(context, "Atualize o mapa para carregar mais USs" ,
                                     Toast.LENGTH_LONG).show();
-              Log.i("Database has finished", HealthUnitController.getClosestsUs().size() + "Us");
+              Log.i("Database has finished", HealthUnitController.getClosestHealthUnit().size() + "Us");
           }
 
           @Override
@@ -98,7 +98,7 @@ public class HealthUnitDao {
       }
       //Arrumar log depois, para i
       Log.d("log123", "preenchida offline");
-      Log.i("Database has finished", HealthUnitController.getClosestsUs().size() + " Us");
+      Log.i("Database has finished", HealthUnitController.getClosestHealthUnit().size() + " Us");
     }
   }
 }

@@ -33,7 +33,7 @@ public class ListOfHealthUnitsController extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.list_of_health_unit);
 
-    listHealthUnits = get50closestUs(HealthUnitController.getClosestsUs());
+    listHealthUnits = get50closestUs(HealthUnitController.getClosestHealthUnit());
     setuSsList((ListView) findViewById(R.id.list_of_hospitalUnit));
     listHealthUnitsListView.setAdapter(new ArrayAdapter<String>(this, R.layout.item,
                                                         R.id.hospitalUnitText,listHealthUnits));
@@ -76,7 +76,7 @@ public class ListOfHealthUnitsController extends Activity {
 
     List<String> closestsUs = new ArrayList<String>();
     int numberOfUs = 0;
-    for (numberOfUs = 0;numberOfUs < HealthUnitController.getClosestsUs().size();numberOfUs++) {
+    for (numberOfUs = 0;numberOfUs < HealthUnitController.getClosestHealthUnit().size();numberOfUs++) {
 
       closestsUs.add(closest.get(numberOfUs).getNameHospital());
     }
