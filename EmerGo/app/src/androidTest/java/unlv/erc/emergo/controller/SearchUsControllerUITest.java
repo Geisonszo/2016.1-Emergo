@@ -17,7 +17,6 @@ import unlv.erc.emergo.R;
 
 public class SearchUsControllerUITest extends ActivityInstrumentationTestCase2<SearchUsController> {
 
-
   public SearchUsControllerUITest() {
 
     super(SearchUsController.class);
