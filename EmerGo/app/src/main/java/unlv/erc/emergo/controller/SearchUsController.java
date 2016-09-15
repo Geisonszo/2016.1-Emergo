@@ -26,37 +26,40 @@ import java.util.List;
 public class SearchUsController extends AppCompatActivity implements SearchView
     .OnQueryTextListener, View.OnClickListener {
 
-  private SearchView mSearchView;
+  private SearchView mapSearchView;
   private ImageView goButton;
   private ImageView map;
-  private ImageView usList;
-  private List<String> searchUss = new ArrayList<>();
-  private int numberOfUsClicked;
-  private ListView uSsList;
+  private ImageView healthUnitList;
+  private List<String> searchHealthUnit = new ArrayList<>();
+  private int numberOfHealtUnitClicked;
+  private ListView healthUnitsList;
   private CharSequence search;
-  ArrayList<String> closestsUs;
-  ArrayList<HealthUnit> abc;
+  ArrayList<String> closestHealthUnit;
+  ArrayList<HealthUnit> healthUnit;
 
-  public ListView getuSsList() {
+  public ListView getHealtshUnitList() {
 
-    return uSsList;
+    return healthUnitsList;
   }
 
-  public SearchView getmSearchView() {
+  public SearchView getMapSearchView() {
 
-    return mSearchView;
+    return mapSearchView;
   }
 
-  public void setmSearchView(SearchView mSearchView) {
+  public void setMapSearchView(SearchView mapSearchView) {
 
-    this.mSearchView = mSearchView;
+    this.mapSearchView = mapSearchView;
   }
 
-  public void openInformationUsScreen() {
+  /**
+   * This method open the screen with inforamtion about the health unit.
+   */
+  public void openInformationHealthUnitScreen() {
 
     Intent informationScreen = new Intent();
 
-    informationScreen.putExtra("position", numberOfUsClicked);
+    informationScreen.putExtra("position", numberOfHealtUnitClicked);
     informationScreen.setClass(SearchUsController.this, InformationSearchScreenController.class);
     startActivity(informationScreen);
     finish();
@@ -64,34 +67,32 @@ public class SearchUsController extends AppCompatActivity implements SearchView
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
+
     super.onCreateOptionsMenu(menu);
+
     goButton = (ImageView) findViewById(R.id.buttonGo);
     goButton.setOnClickListener(this);
-    usList = (ImageView) findViewById(R.id.iconList);
-    usList.setOnClickListener(this);
+
+    healthUnitList = (ImageView) findViewById(R.id.iconList);
+    healthUnitList.setOnClickListener(this);
+
     map = (ImageView) findViewById(R.id.iconMap);
     map.setOnClickListener(this);
 
-    //Carrega o arquivo de menu.
     MenuInflater inflater = getMenuInflater();
+
     inflater.inflate(R.menu.menu_search, menu);
-
-    //Pega o Componente.
-    mSearchView = (SearchView) menu.findItem(R.id.search)
+    mapSearchView = (SearchView) menu.findItem(R.id.search)
       .getActionView();
-
-    //Define um texto de ajuda:
-    mSearchView.setQueryHint("Busca");
-
-    // exemplos de utilização:
-    mSearchView.setOnQueryTextListener(this);
+    mapSearchView.setQueryHint("Busca");
+    mapSearchView.setOnQueryTextListener(this);
 
     return true;
   }
 
   @Override
-  public void onClick(View v) {
-    if (v.getId() == R.id.buttonGo) {
+  public void onClick(View view) {
+    if (view.getId() == R.id.buttonGo) {
 
       Intent route = new Intent();
 
@@ -99,7 +100,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
       startActivity(route);
       finish();
     }
-    if (v.getId() == R.id.iconMap) {
+    if (view.getId() == R.id.iconMap) {
 
       Intent map = new Intent();
 
@@ -108,7 +109,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
       startActivity(map);
       finish();
     }
-    if (v.getId() == R.id.iconList) {
+    if (view.getId() == R.id.iconList) {
 
       Intent list = new Intent();
 
@@ -118,25 +119,31 @@ public class SearchUsController extends AppCompatActivity implements SearchView
     }
   }
 
-  public ArrayList<String> getSearchsUs(ArrayList<HealthUnit> closest) {
+  /**
+   * This method search the health unit on map.
+   * @param closest the closest health unit
+   * @return the closest health unit
+   */
 
-    search = mSearchView.getQuery();
-    closestsUs = new ArrayList<>();
-    abc = new ArrayList<>();
+  public ArrayList<String> getSearchHealthUnit(ArrayList<HealthUnit> closest) {
+
+    search = mapSearchView.getQuery();
+    closestHealthUnit = new ArrayList<>();
+    healthUnit = new ArrayList<>();
     int numberOfUs;
 
     for (numberOfUs = 0 ; numberOfUs < HealthUnitController.getClosestHealthUnit().size() ;
         numberOfUs++) {
       if (closest.get(numberOfUs).getNameHospital().toLowerCase().contains(search)) {
-        closestsUs.add(closest.get(numberOfUs ).getNameHospital());
-        abc.add(HealthUnitController.getClosestHealthUnit().get(numberOfUs));
+        closestHealthUnit.add(closest.get(numberOfUs ).getNameHospital());
+        healthUnit.add(HealthUnitController.getClosestHealthUnit().get(numberOfUs));
       }
     }
-    return closestsUs;
+    return closestHealthUnit;
   }
 
-  public void setuSsList(ListView uSsList) {
-    this.uSsList = uSsList;
+  public void setHealthUnitsList(ListView healthUnitsList) {
+    this.healthUnitsList = healthUnitsList;
   }
 
   @Override
@@ -147,21 +154,23 @@ public class SearchUsController extends AppCompatActivity implements SearchView
   @Override
   public boolean onQueryTextChange(String newText) {
 
-    searchUss = getSearchsUs(HealthUnitController.getClosestHealthUnit());
+    searchHealthUnit = getSearchHealthUnit(HealthUnitController.getClosestHealthUnit());
 
-    setuSsList((ListView) findViewById(R.id.list_of_search_us));
-    uSsList.setAdapter(new ArrayAdapter<>(this, R.layout.item, R.id.hospitalUnitText, searchUss));
-    uSsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    setHealthUnitsList((ListView) findViewById(R.id.list_of_search_us));
+    healthUnitsList.setAdapter(new ArrayAdapter<>(this, R.layout.item,
+        R.id.hospitalUnitText, searchHealthUnit));
+    healthUnitsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        numberOfUsClicked = parent.getPositionForView(view);
-        openInformationUsScreen();
+        numberOfHealtUnitClicked = parent.getPositionForView(view);
+        openInformationHealthUnitScreen();
       }
     });
     return false;
   }
 
   protected void onCreate(Bundle savedInstanceState) {
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.search_screen);
   }

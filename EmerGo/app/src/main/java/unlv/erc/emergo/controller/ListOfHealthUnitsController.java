@@ -43,7 +43,7 @@ public class ListOfHealthUnitsController extends Activity {
           public void onItemClick(AdapterView<?> parent, View view,int position,long id) {
 
             numberOfUsClicked = parent.getPositionForView(view);
-            openInformationUsScreen();
+            openInformationHealthUnitScreen();
           }
         });
   }
@@ -55,7 +55,7 @@ public class ListOfHealthUnitsController extends Activity {
     *
    */
 
-  public void openInformationUsScreen() {
+  public void openInformationHealthUnitScreen() {
 
     Intent informationScreen = new Intent();
 
