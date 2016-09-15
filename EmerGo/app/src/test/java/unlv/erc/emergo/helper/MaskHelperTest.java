@@ -17,7 +17,7 @@ public class MaskHelperTest  extends TestCase{
 
   MaskHelper maskHelper = new MaskHelper();
 
-  public void testThatStringChanges(){
+  public void testIfStringChanges(){
 
     String name = "jujuba";
     String name1 = name;
