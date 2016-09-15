@@ -28,7 +28,7 @@ public class ConfigController extends Activity {
   private Button medicalRecord;
   private Button aboutApp;
 
-  final String MESSAGE = "Está tentando abrir a página atual";
+  final String ERRORMESSAGE = "Está tentando abrir a página atual";
   final String ROUTETRACED = "Rota mais próxima traçada";
 
   @Override
@@ -45,36 +45,36 @@ public class ConfigController extends Activity {
 
     buttonGo.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                createRouteScreen();
-            }
-        });
+      @Override
+      public void onClick(View view) {
+        createRouteScreen();
+      }
+    });
     iconList.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                listUs();
-            }
-        });
+      @Override
+      public void onClick(View view) {
+        listUs();
+      }
+    });
     medicalRecord.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                showMedicalRecord();
-            }
-        });
+      public void onClick(View view) {
+        showMedicalRecord();
+      }
+    });
     emergencyContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                acessEmergencyContact();
-            }
-        });
+      public void onClick(View view) {
+        acessEmergencyContact();
+      }
+    });
     aboutApp.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                seeInfoAboutApp();
-            }
-        });
+      public void onClick(View view) {
+        seeInfoAboutApp();
+      }
+    });
   }
 
   /**
@@ -103,10 +103,10 @@ public class ConfigController extends Activity {
     finish();
   }
 
-    /**
-     * This method list all the USs, by proximity of the user location, after the list button
-     * is clicked.
-     */
+  /**
+   * This method list all the USs, by proximity of the user location, after the list button
+   * is clicked.
+   */
 
   public void listUs() {
 
@@ -184,7 +184,7 @@ public class ConfigController extends Activity {
 
   public void openConfig(View mapScreen) {
 
-    Toast.makeText(this , MESSAGE , Toast.LENGTH_SHORT ).show();
+    Toast.makeText(this , ERRORMESSAGE , Toast.LENGTH_SHORT ).show();
   }
 
   /**
