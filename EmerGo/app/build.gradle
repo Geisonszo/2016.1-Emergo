@@ -32,6 +32,11 @@ android {
     dexOptions {
         javaMaxHeapSize "4g"
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
@@ -115,4 +120,52 @@ task checkstyle(type: Checkstyle) {
 
 checkstyle {
     toolVersion = 7.1
+}
+
+apply plugin: 'findbugs'
+
+check.dependsOn 'findbugs'
+
+task findbugs(type: FindBugs, dependsOn: assembleDebug) {
+    ignoreFailures = false
+    effort = 'max'
+    reportLevel = 'high'
+    excludeFilter = new File("${project.rootDir}/config/findbugs/findbugs-filter.xml")
+    classes = files("${project.rootDir}/app/build/intermediates/classes")
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        html {
+            destination "$project.buildDir/reports/findbugs/findbugs.html"
+        }
+    }
+
+    classpath = files()
+}
+
+apply plugin: 'pmd'
+
+check.dependsOn 'pmd'
+
+task pmd(type: Pmd) {
+    ignoreFailures = false
+    ruleSetFiles = files("${project.rootDir}/config/pmd/pmd-ruleset.xml")
+    ruleSets = []
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        html {
+            destination "$project.buildDir/reports/pmd/pmd.html"
+        }
+    }
 }
