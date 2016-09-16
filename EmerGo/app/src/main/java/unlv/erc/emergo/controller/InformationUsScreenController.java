@@ -509,6 +509,13 @@ public class InformationUsScreenController extends Activity implements View.OnCl
 
     this.addressNumber = addressNumber;
   }
+
+  public void openConfig(View map_screen) {
+    Intent config = new Intent();
+    config.setClass(this , ConfigController.class);
+    startActivity(config);
+    finish();
+  }
 }
 
 
