@@ -13,11 +13,11 @@ import helper.MaskHelper;
 import unlv.erc.emergo.controller.ConfigController;
 import unlv.erc.emergo.controller.EmergencyContactController;
 
-public class MaskHelperTest  extends TestCase{
+public class MaskHelperTest  extends TestCase {
 
   MaskHelper maskHelper = new MaskHelper();
 
-  public void testIfStringChanges(){
+  public void testIfStringChanges() {
 
     String name = "jujuba";
     String name1 = name;
@@ -26,14 +26,14 @@ public class MaskHelperTest  extends TestCase{
 
   }
 
-  public void testIfDotDisapear(){
+  public void testIfDotDisapear() {
     String string1 = "leo.leo";
     String string2 = "leoleo";
     string1 = maskHelper.unmask(string1);
     assertEquals(string1 , string2);
   }
 
-  public void testIfReturnsVoid(){
+  public void testIfReturnsVoid() {
     boolean passou = true;
     String isVoid = "";
     String symbols = "././";
