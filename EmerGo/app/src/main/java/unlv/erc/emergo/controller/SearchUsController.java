@@ -31,7 +31,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
   private ImageView map;
   private ImageView healthUnitList;
   private List<String> searchHealthUnit = new ArrayList<>();
-  private int numberOfHealtUnitClicked;
+  private int numberOfHealthUnitClicked;
   private ListView healthUnitsList;
   private CharSequence search;
   ArrayList<String> closestHealthUnit;
@@ -59,7 +59,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
 
     Intent informationScreen = new Intent();
 
-    informationScreen.putExtra("position", numberOfHealtUnitClicked);
+    informationScreen.putExtra("position", numberOfHealthUnitClicked);
     informationScreen.setClass(SearchUsController.this, InformationSearchScreenController.class);
     startActivity(informationScreen);
     finish();
@@ -162,7 +162,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
     healthUnitsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        numberOfHealtUnitClicked = parent.getPositionForView(view);
+        numberOfHealthUnitClicked = parent.getPositionForView(view);
         openInformationHealthUnitScreen();
       }
     });

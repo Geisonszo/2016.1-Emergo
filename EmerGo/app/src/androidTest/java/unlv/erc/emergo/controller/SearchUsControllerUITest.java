@@ -45,19 +45,20 @@ public class SearchUsControllerUITest extends ActivityInstrumentationTestCase2<S
   }
 
   public void testIfFieldReceivesText() {
-    onView(withId(R.id.search)).perform(click());
-    View aView = getActivity().getCurrentFocus();
 
-    onView(withId(aView.getId())).perform(typeText("Hos"));
+    onView(withId(R.id.search)).perform(click());
+    View view = getActivity().getCurrentFocus();
+
+    onView(withId(view.getId())).perform(typeText("Hos"));
   }
 
   public void testIfResultsAreShown() {
 
     onView(withId(R.id.search)).perform(click());
 
-    View aView = getActivity().getCurrentFocus();
+    View view = getActivity().getCurrentFocus();
 
-    onView(withId(aView.getId())).perform(typeText("Hos"));
+    onView(withId(view.getId())).perform(typeText("Hos"));
 
     onView(withId(R.id.list_of_search_us)).check(matches(isDisplayed()));
   }

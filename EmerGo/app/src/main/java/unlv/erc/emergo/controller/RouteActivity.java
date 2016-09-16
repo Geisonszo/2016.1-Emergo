@@ -63,7 +63,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
 
-  final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+  static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
   public int indexOfClosestHealthUnit;
   public String samuNumber = "tel:192";
@@ -71,7 +71,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   private Cursor result;
   private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
-  private static int SPLASH_TIME_OUT = 3400;
+  private static final int SPLASH_TIME_OUT = 3400;
   ArrayList<LatLng> pointsOfRoute = new ArrayList<>();
   EmergencyContactDao emergencyContactDao = new EmergencyContactDao(this);
   LatLng userLocation ;
