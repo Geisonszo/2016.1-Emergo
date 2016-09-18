@@ -1,3 +1,9 @@
+/********************
+ * Class name: MedicalRecordsController (.java)
+ *
+ * Purpose: The purpose of this class is to register the medical file of the user.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import android.app.Activity;

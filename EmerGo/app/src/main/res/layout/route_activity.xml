@@ -19,7 +19,6 @@
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignTop="@+id/imageView" />
 
-
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"

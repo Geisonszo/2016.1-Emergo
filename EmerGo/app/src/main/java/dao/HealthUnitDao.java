@@ -77,12 +77,12 @@ public class HealthUnitDao {
                   model = new HealthUnit(latitude,longitude,nameHospital,unitType,
                                            addressNumber,district,state,city);
                   model.save();
-                  HealthUnitController.setClosestsUs(model);
+                  HealthUnitController.setClosestHealthUnit(model);
                 }
               }
               Toast.makeText(context, "Atualize o mapa para carregar mais USs" ,
                                     Toast.LENGTH_LONG).show();
-              Log.i("Database has finished", HealthUnitController.getClosestsUs().size() + "Us");
+              Log.i("Database has finished", HealthUnitController.getClosestHealthUnit().size() + "Us");
           }
 
           @Override
@@ -94,11 +94,11 @@ public class HealthUnitDao {
 
       for (int aux = 0 ; aux < list.size(); aux++) {
 
-        HealthUnitController.setClosestsUs(list.get(aux));
+        HealthUnitController.setClosestHealthUnit(list.get(aux));
       }
       //Arrumar log depois, para i
       Log.d("log123", "preenchida offline");
-      Log.i("Database has finished", HealthUnitController.getClosestsUs().size() + " Us");
+      Log.i("Database has finished", HealthUnitController.getClosestHealthUnit().size() + " Us");
     }
   }
 }

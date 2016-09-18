@@ -63,18 +63,18 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
 
-  final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+  static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
-  public int indexOfClosestUs;
-  public String SAMUNumber = "tel:192";
-  private GoogleMap mMap;
+  public int indexOfClosestHealthUnit;
+  public String samuNumber = "tel:192";
+  private GoogleMap map;
   private Cursor result;
-  private Location mLastLocation;
-  private GoogleApiClient mGoogleApiClient = null;
-  private static int SPLASH_TIME_OUT = 3400;
+  private Location mapLastLocation;
+  private GoogleApiClient mapGoogleApiClient = null;
+  private static final int SPLASH_TIME_OUT = 3400;
   ArrayList<LatLng> pointsOfRoute = new ArrayList<>();
   EmergencyContactDao emergencyContactDao = new EmergencyContactDao(this);
-  LatLng myLocation ;
+  LatLng userLocation ;
   TextView timer;
   ImageView user;
   ImageView cancelCall;
@@ -88,11 +88,13 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.route_activity);
 
-    if (mGoogleApiClient == null) {
-      mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this)
+    if (mapGoogleApiClient == null) {
+
+      mapGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
     } else {
       // nothing to do
@@ -104,12 +106,14 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   protected void onStart() {
-    mGoogleApiClient.connect();
+
+    mapGoogleApiClient.connect();
     super.onStart();
   }
 
   protected void onStop() {
-    mGoogleApiClient.disconnect();
+
+    mapGoogleApiClient.disconnect();
     super.onStop();
   }
 
@@ -117,34 +121,37 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   public void onConnected(Bundle connectionHint) {
 
     if (Build.VERSION.SDK_INT >= 23) {
+
       checkPermissions();
     } else {
+
       // nothing to do
     }
 
-    this.mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+    this.mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
 
     myDatabase = new UserDao(this);
     result = myDatabase.getUser();
 
     getMapFragment();
-    Location location = getUserPosition(mLastLocation);
-    HealthUnitController.setDistanceBetweenUserAndUs(HealthUnitController.getClosestsUs(),
+    Location location = getUserPosition(mapLastLocation);
+    HealthUnitController.setDistanceBetweenUserAndUs(HealthUnitController.getClosestHealthUnit(),
         location);
-    selectIndexOfClosestUs(location);
+    selectindexOfClosestHealthUnit(location);
 
-    myLocation = new LatLng(location.getLatitude() , location.getLongitude());
+    userLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
     setYourPositionOnMap();
     focusOnYourPosition();
-    pointsOfRoute.add(myLocation);
+    pointsOfRoute.add(userLocation);
 
     try {
+
       getMapData();
       setMarkerOfClosestUsOnMap();
     } catch (RuntimeException c) {
 
-      Toast.makeText(this , "Sem internet" , Toast.LENGTH_SHORT).show();
+      Toast.makeText(this, "Sem internet", Toast.LENGTH_SHORT).show();
 
       Intent main = new Intent();
 
@@ -163,50 +170,55 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   public void onMapReady(GoogleMap googleMap) {
 
     if (Build.VERSION.SDK_INT >= 23) {
+
       checkPermissions();
     } else {
+
       // nothing to do
     }
 
-    mMap = googleMap;
+    map = googleMap;
   }
 
 
   @NonNull
-  private Location getUserPosition(Location mLastLocation) {
+  private Location getUserPosition(Location mapLastLocation) {
+
     Location location = new Location("");
-    location.setLatitude(mLastLocation.getLatitude());
-    location.setLongitude(mLastLocation.getLongitude());
+    location.setLatitude(mapLastLocation.getLatitude());
+    location.setLongitude(mapLastLocation.getLongitude());
 
     return location;
   }
 
   private void getExtraIntent() {
+
     intent = getIntent();
-    indexOfClosestUs =  intent.getIntExtra("numeroUs" , 0);
+    indexOfClosestHealthUnit =  intent.getIntExtra("numeroUs" , 0);
   }
 
   private void getMapFragment() {
+
     mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-    mMap = mapFragment.getMap();
+    map = mapFragment.getMap();
   }
 
   private void getMapData() {
 
-    String urlInitial =  getDirectionsUrl(myLocation, new LatLng(HealthUnitController
-        .getClosestsUs()
-        .get(indexOfClosestUs).getLatitude(), HealthUnitController.getClosestsUs()
-        .get(indexOfClosestUs).getLongitude()));
+    String urlInitial =  getDirectionsUrl(userLocation, new LatLng(HealthUnitController
+        .getClosestHealthUnit()
+        .get(indexOfClosestHealthUnit).getLatitude(), HealthUnitController.getClosestHealthUnit()
+        .get(indexOfClosestHealthUnit).getLongitude()));
     DownloadTask downloadTask = new DownloadTask();
     downloadTask.execute(urlInitial);
   }
 
-  private void selectIndexOfClosestUs(Location location) {
+  private void selectindexOfClosestHealthUnit(Location location) {
 
-    if (indexOfClosestUs == -1) {
+    if (indexOfClosestHealthUnit == -1) {
 
-      indexOfClosestUs = HealthUnitController.selectClosestUs(HealthUnitController.getClosestsUs(),
-        location);
+      indexOfClosestHealthUnit = HealthUnitController.selectClosestUs(HealthUnitController
+        .getClosestHealthUnit(), location);
       cancelCall.setVisibility(View.VISIBLE);
       phone.setVisibility(View.INVISIBLE);
       startCountDown();
@@ -219,6 +231,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   private void linkButtonsAndXml() {
+
     buttonGo = (Button) findViewById(R.id.buttonGo);
     buttonGo.setOnClickListener(this);
     userInformation = (ImageView) findViewById(R.id.userInformation);
@@ -232,13 +245,14 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     timer = (TextView) findViewById(R.id.timer);
     user = (ImageView) findViewById(R.id.userInformation);
     user.setOnClickListener(new View.OnClickListener() {
-      public void onClick(View v) {
+      public void onClick(View view) {
         showInformationUser();
       }
     });
   }
 
   private void startCountDown() {
+
     new Handler().postDelayed(new Runnable() {
 
       @Override
@@ -286,30 +300,31 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   private void callSamu() {
+
     Intent callIntent = new Intent(Intent.ACTION_CALL);
-    callIntent.setData(Uri.parse(SAMUNumber));
+    callIntent.setData(Uri.parse(samuNumber));
     startActivity(callIntent);
   }
 
   @Override
-  public void onClick(View v) {
+  public void onClick(View view) {
 
-    if (v.getId() == R.id.buttonGo) {
+    if (view.getId() == R.id.buttonGo) {
       openMap();
     } else {
 
       // nothing to do
     }
 
-    if (v.getId() == R.id.selfLocation) {
+    if (view.getId() == R.id.selfLocation) {
 
-      mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(myLocation.latitude,
-          myLocation.longitude), 13.0f));
+      map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
+          userLocation.longitude), 13.0f));
     } else {
       // nothing to do
     }
 
-    if (v.getId() == R.id.userInformation) {
+    if (view.getId() == R.id.userInformation) {
 
       Intent config = new Intent();
       config.setClass(RouteActivity.this , ConfigController.class);
@@ -319,7 +334,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    if (v.getId() == R.id.cancelarLigacao) {
+    if (view.getId() == R.id.cancelarLigacao) {
 
       cancelCalling();
     } else {
@@ -327,7 +342,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    if (v.getId() == R.id.phone) {
+    if (view.getId() == R.id.phone) {
 
       callSamu();
     } else {
@@ -337,12 +352,14 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   private void cancelCalling() {
+
     canceled = true;
     cancelCall.setVisibility(View.INVISIBLE);
     phone.setVisibility(View.VISIBLE);
   }
 
   private void openMap() {
+
     canceled = true;
     Intent mapScreen = new Intent();
     mapScreen.setClass(RouteActivity.this , MapScreenController.class);
@@ -352,22 +369,24 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   private void setMarkerOfClosestUsOnMap() {
 
-    mMap.addMarker(new MarkerOptions().position(new LatLng(HealthUnitController.getClosestsUs()
-        .get(indexOfClosestUs).getLatitude(), HealthUnitController.getClosestsUs()
-        .get(indexOfClosestUs).getLongitude())).title(HealthUnitController.getClosestsUs()
-        .get(indexOfClosestUs).getNameHospital() + "").snippet(HealthUnitController
-        .getClosestsUs().get(indexOfClosestUs).getUnitType()));
+    map.addMarker(new MarkerOptions().position(new LatLng(HealthUnitController
+        .getClosestHealthUnit().get(indexOfClosestHealthUnit).getLatitude(),
+        HealthUnitController.getClosestHealthUnit()
+        .get(indexOfClosestHealthUnit).getLongitude())).title(HealthUnitController
+        .getClosestHealthUnit().get(indexOfClosestHealthUnit).getNameHospital() + "")
+        .snippet(HealthUnitController.getClosestHealthUnit().get(indexOfClosestHealthUnit)
+          .getUnitType()));
   }
 
   private void focusOnYourPosition() {
-    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(myLocation.latitude,
-        myLocation.longitude), 13.0f));
+    map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
+        userLocation.longitude), 13.0f));
   }
 
   private void setYourPositionOnMap() {
     final String yourPosition = "Sua posição";
 
-    mMap.addMarker(new MarkerOptions().position(myLocation).title(yourPosition)
+    map.addMarker(new MarkerOptions().position(userLocation).title(yourPosition)
         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
   }
 
@@ -386,12 +405,15 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
 
   private class DownloadTask extends AsyncTask<String, Void, String> {
+
     @Override
     protected String doInBackground(String... url) {
       String data = "";
       try {
+
         data = downloadUrl(url[0]);
       } catch (Exception e) {
+
         Log.d("Background Task",e.toString());
       }
 
@@ -400,6 +422,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     @Override
     protected void onPostExecute(String result) {
+
       super.onPostExecute(result);
 
       ParserTask parserTask = new ParserTask();
@@ -432,14 +455,17 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   private String downloadUrl(String strUrl) throws IOException {
-    String data = "";
-    InputStream iStream = null;
-    HttpURLConnection urlConnection = null;
-    try {
-      urlConnection = getHttpURLConnection(strUrl, urlConnection);
-      iStream = urlConnection.getInputStream();
 
-      BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+    String data = "";
+    InputStream inStream = null;
+    HttpURLConnection urlConnection = null;
+
+    try {
+
+      urlConnection = getHttpUrlConnection(strUrl, urlConnection);
+      inStream = urlConnection.getInputStream();
+
+      BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
       StringBuffer sb  = new StringBuffer();
       concatenateBufferRead(br, sb);
 
@@ -450,7 +476,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       Log.d("Error downloading url", e.toString());
     } finally {
 
-      iStream.close();
+      inStream.close();
       urlConnection.disconnect();
     }
 
@@ -458,7 +484,9 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   private void concatenateBufferRead(BufferedReader br, StringBuffer sb) throws IOException {
+
     String line = "";
+
     while ( ( line = br.readLine())  != null) {
 
       sb.append(line);
@@ -466,7 +494,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   @NonNull
-  private HttpURLConnection getHttpURLConnection(String strUrl, HttpURLConnection urlConnection)
+  private HttpURLConnection getHttpUrlConnection(String strUrl, HttpURLConnection urlConnection)
       throws IOException {
 
     URL url = new URL(strUrl);
@@ -480,13 +508,14 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     @Override
     protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
 
-      JSONObject jObject;
+      JSONObject jsonObject;
       List<List<HashMap<String, String>>> routes = null;
       try {
-        jObject = new JSONObject(jsonData[0]);
+
+        jsonObject = new JSONObject(jsonData[0]);
         DirectionsJSONParser parser = new DirectionsJSONParser();
 
-        routes = parser.parse(jObject);
+        routes = parser.parse(jsonObject);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -495,6 +524,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     @Override
     protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+
       ArrayList<LatLng> points = null;
       PolylineOptions lineOptions = null;
 
@@ -520,7 +550,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
         lineOptions.width(7);
         lineOptions.color(Color.BLUE);
       }
-      mMap.addPolyline(lineOptions);
+      map.addPolyline(lineOptions);
     }
   }
 
@@ -597,7 +627,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
         Boolean storage = false;
         location = perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager
             .PERMISSION_GRANTED;
-        storage = getaBooleanPermission(perms, storage);
+        storage = getPermission(perms, storage);
         messageAboutPermission(location, storage);
       }
       break;
@@ -612,7 +642,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   }
 
-  private Boolean getaBooleanPermission(Map<String, Integer> perms, Boolean storage) {
+  private Boolean getPermission(Map<String, Integer> perms, Boolean storage) {
 
     try {
 

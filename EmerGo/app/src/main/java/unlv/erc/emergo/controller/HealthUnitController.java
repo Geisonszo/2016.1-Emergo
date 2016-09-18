@@ -8,18 +8,16 @@ import unlv.erc.emergo.model.HealthUnit;
 import java.util.ArrayList;
 
 
-
 public class HealthUnitController {
 
-  private static HealthUnitController instance = null;
-  static ArrayList<HealthUnit> closestsUs = new ArrayList<HealthUnit>();
+  static ArrayList<HealthUnit> closestHealthUnit = new ArrayList<HealthUnit>();
 
   /**
    * This method create an instance of Health Unit.
    * @param latitude latitude coordinate of health unit
    * @param longitude longitude coordinate of health unit
-   * @param nameHospital The name of health unit
-   * @param unityType type of health unit
+   * @param name The name of health unit
+   * @param type type of health unit
    * @param addressNumber Address of health unit
    * @param district health unit district
    * @param state health unit state
@@ -28,11 +26,12 @@ public class HealthUnitController {
    */
 
   public static HealthUnit createHealthUnit(Double latitude , Double longitude ,
-                                              String nameHospital,
-                                              String unityType , String addressNumber ,
-                                              String district ,
+                                              String name,
+                                              String type, String addressNumber ,
+                                              String district,
                                               String state, String city) {
-    HealthUnit healthUnit = new HealthUnit(latitude, longitude, nameHospital, unityType,
+
+    HealthUnit healthUnit = new HealthUnit(latitude, longitude, name, type,
           addressNumber,
           district, state, city );
     return healthUnit;
@@ -42,53 +41,53 @@ public class HealthUnitController {
 
   }
 
-  public static ArrayList<HealthUnit> getClosestsUs() {
+  public static ArrayList<HealthUnit> getClosestHealthUnit() {
 
-    return closestsUs;
+    return closestHealthUnit;
   }
 
-  public static void setClosestsUs(HealthUnit healthUnit) {
+  public static void setClosestHealthUnit(HealthUnit healthUnit) {
 
-    closestsUs.add(healthUnit);
+    closestHealthUnit.add(healthUnit);
   }
 
   /**
    * This method calculate the distance between the user and the health unit.
-   * @param closestsUs The health unit closest to user
+   * @param closestHealthUnit The health unit closest to user
    * @param userLocation The location of the user
    */
 
-  public static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestsUs,
+  public static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestHealthUnit,
                                                    Location userLocation) {
 
-    Location usLocation = new Location("");
+    Location healthUnitLocation = new Location("");
 
-    for (int aux = 0 ; aux < closestsUs.size() ; aux++) {
+    for (int aux = 0 ; aux < closestHealthUnit.size() ; aux++) {
 
-      usLocation.setLatitude(closestsUs.get(aux).getLatitude());
-      usLocation.setLongitude(closestsUs.get(aux).getLongitude());
-      closestsUs.get(aux).setDistance(userLocation.distanceTo(usLocation) / 1000);
+      healthUnitLocation.setLatitude(closestHealthUnit.get(aux).getLatitude());
+      healthUnitLocation.setLongitude(closestHealthUnit.get(aux).getLongitude());
+      closestHealthUnit.get(aux).setDistance(userLocation.distanceTo(healthUnitLocation) / 1000);
 
     }
   }
 
   /**
    * This method select the health unit closest to user.
-   * @param closestsUs Array of heath units
-   * @param location Location of the user
+   * @param closestHealthUnit Array of heath units
+   * @param location the health unity location
    * @return position Return the position of the closest health unit
    */
 
-  public static int selectClosestUs(ArrayList<HealthUnit> closestsUs , Location location) {
+  public static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit, Location location) {
 
     double smaller = 99999;
     int position = 0;
 
-    for (int aux = 0 ; aux < closestsUs.size() ; aux++) {
+    for (int aux = 0 ; aux < closestHealthUnit.size() ; aux++) {
 
-      if (closestsUs.get(aux).getDistance() < smaller) {
+      if (closestHealthUnit.get(aux).getDistance() < smaller) {
 
-        smaller = closestsUs.get(aux).getDistance();
+        smaller = closestHealthUnit.get(aux).getDistance();
         position = aux;
       } else {
 

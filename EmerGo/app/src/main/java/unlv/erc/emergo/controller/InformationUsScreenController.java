@@ -53,7 +53,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     buttonGo.setOnClickListener(this);
 
     setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
-    setInformation(HealthUnitController.getClosestsUs().get(numberUsSelected));
+    setInformation(HealthUnitController.getClosestHealthUnit().get(numberUsSelected));
     addInformationToList();
   }
 
@@ -508,6 +508,13 @@ public class InformationUsScreenController extends Activity implements View.OnCl
   public void setAddressNumber(String addressNumber) {
 
     this.addressNumber = addressNumber;
+  }
+
+  public void openConfig(View map_screen) {
+    Intent config = new Intent();
+    config.setClass(this , ConfigController.class);
+    startActivity(config);
+    finish();
   }
 }
 
