@@ -1,3 +1,10 @@
+/*
+ * Class: AboutApp (.java)
+ *
+ * Porpouse: This class contais the method related to the info view in the app.
+ */
+
+
 package unlv.erc.emergo.controller;
 
 import android.app.Activity;
