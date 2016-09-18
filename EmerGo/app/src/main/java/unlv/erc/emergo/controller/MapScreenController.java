@@ -1,3 +1,9 @@
+/********************
+ * Class name: MapScreenController (.java)
+ *
+ * Purpose: The purpose of this class is to show the map of the region and its health units.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import com.google.android.gms.common.ConnectionResult;
