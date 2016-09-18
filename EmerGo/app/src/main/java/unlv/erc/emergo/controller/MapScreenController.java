@@ -41,17 +41,18 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   final String yourPosition = "Sua posição";
-  private GoogleMap mMap;
+  private GoogleMap map;
   private Services services = new Services();
   private Location location;
-  private Location mLastLocation;
-  private GoogleApiClient mGoogleApiClient = null;
+  private Location mapLastLocation;
+  private GoogleApiClient mapGoogleApiClient = null;
 
   @Override
   public boolean onMarkerClick(Marker marker) {
 
     for (int aux = 0 ; aux < HealthUnitController.getClosestHealthUnit().size() ; aux++) {
-      if (marker.getTitle().toString().compareTo(HealthUnitController.getClosestHealthUnit().get(aux)
+      if (marker.getTitle().toString().compareTo(HealthUnitController.getClosestHealthUnit()
+              .get(aux)
                 .getNameHospital()) == 0) {
         Intent information = new Intent();
         information.setClass(MapScreenController.this , InformationUsScreenController.class);
@@ -63,7 +64,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     return false;
   }
 
-  public void goClicked(View map_screen) throws IOException, JSONException {
+  public void goClicked(View mapScreen) throws IOException, JSONException {
 
     final String routeTraced = "Rota mais próxima traçada";
 
@@ -75,7 +76,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     finish();
   }
 
-  public void listMapsImageClicked(View map_screen) {
+  public void listMapsImageClicked(View mapscreen) {
 
     Intent listOfHealth = new Intent();
     listOfHealth.setClass(this, ListOfHealthUnitsController.class);
@@ -93,7 +94,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   }
 
-  public void openConfig(View map_screen) {
+  public void openConfig(View mapScreen) {
 
     Intent config = new Intent();
     config.setClass(MapScreenController.this , ConfigController.class);
@@ -126,12 +127,12 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
     mapFragment.getMapAsync(this);
-    mMap = mapFragment.getMap();
-    mMap.setOnMarkerClickListener(this);
+    map = mapFragment.getMap();
+    map.setOnMarkerClickListener(this);
 
-    if (mGoogleApiClient == null) {
+    if (mapGoogleApiClient == null) {
 
-      mGoogleApiClient = new GoogleApiClient.Builder(this)
+      mapGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
@@ -141,13 +142,13 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   protected void onStart() {
 
-    mGoogleApiClient.connect();
+    mapGoogleApiClient.connect();
     super.onStart();
   }
 
   protected void onStop() {
 
-    mGoogleApiClient.disconnect();
+    mapGoogleApiClient.disconnect();
     super.onStop();
   }
 
@@ -159,16 +160,16 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
       checkPermissions();
     }
 
-    this.mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
+    this.mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mapGoogleApiClient);
 
-    if (mLastLocation != null) {
+    if (mapLastLocation != null) {
 
-      location = mLastLocation;
+      location = mapLastLocation;
       LatLng userLatLng = new LatLng(location.getLatitude() , location.getLongitude());
 
       focusOnSelfPosition(userLatLng);
-      services.setMarkersOnMap(mMap , HealthUnitController.getClosestHealthUnit());
+      services.setMarkersOnMap(map , HealthUnitController.getClosestHealthUnit());
 
     } else {
 
@@ -195,15 +196,15 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
       checkPermissions();
     }
 
-    mMap = googleMap;
+    map = googleMap;
   }
 
 
   private void focusOnSelfPosition(LatLng userLatLng) {
 
-    mMap.addMarker(new MarkerOptions().position(userLatLng).title(yourPosition)
+    map.addMarker(new MarkerOptions().position(userLatLng).title(yourPosition)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom( new LatLng(userLatLng.latitude,
+    map.animateCamera(CameraUpdateFactory.newLatLngZoom( new LatLng(userLatLng.latitude,
             userLatLng.longitude), 13.0f));
   }
 
