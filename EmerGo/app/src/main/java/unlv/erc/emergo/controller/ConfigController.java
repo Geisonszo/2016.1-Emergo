@@ -16,9 +16,9 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-import java.io.IOException;
-
 import unlv.erc.emergo.R;
+
+import java.io.IOException;
 
 public class ConfigController extends Activity {
 
@@ -46,32 +46,32 @@ public class ConfigController extends Activity {
     buttonGo.setOnClickListener(new View.OnClickListener() {
 
       @Override
-      public void onClick(View view) {
+      public void onClick(View goView) {
         createRouteScreen();
       }
     });
     iconList.setOnClickListener(new View.OnClickListener() {
 
       @Override
-      public void onClick(View view) {
+      public void onClick(View iconView) {
         listUs();
       }
     });
     medicalRecord.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View medicalRecordView) {
         showMedicalRecord();
       }
     });
     emergencyContact.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View emergencyContactView) {
         acessEmergencyContact();
       }
     });
     aboutApp.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View aboutAppView) {
         seeInfoAboutApp();
       }
     });
@@ -93,7 +93,7 @@ public class ConfigController extends Activity {
 
   /**
    * This method launchs the search screen after the search button is clicked.
-   * @param mapScreen
+   * @param mapScreen actual View object.
    */
 
   public void openSearch(View mapScreen) {
@@ -152,6 +152,8 @@ public class ConfigController extends Activity {
   /**
    * This method is activated when user clicks in GO button, tracing a route to the closest
    * health unity.
+   *
+   * @param mapScreen actual View Object.
    */
 
   public void goClicked(View mapScreen) throws IOException, JSONException {
@@ -167,6 +169,7 @@ public class ConfigController extends Activity {
   /**
    * This method list all the USs, by proximity of the user location, after the list button
    * is clicked.
+   * @param mapScreen actual View Object.
    */
 
   public void listMapsImageClicked(View mapScreen) {
@@ -180,6 +183,7 @@ public class ConfigController extends Activity {
   /**
    * This method is activated when user is already in the configuration screen, and
    * try to open it again.
+   * @param mapScreen actual View Object.
    */
 
   public void openConfig(View mapScreen) {
@@ -189,6 +193,7 @@ public class ConfigController extends Activity {
 
   /**
    * This method is activated when user clicks in the map button, and open a new map.
+   * @param mapScreen actual View Object.
    */
 
   public void openMap(View mapScreen) {
