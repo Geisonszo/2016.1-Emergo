@@ -1,3 +1,9 @@
+/********************
+ * Class name: EmergencyContactDao (.java)
+ *
+ * Purpose: The purpose of this class is to register the emergency contacts in the database .
+ ********************/
+
 package dao;
 
 import android.content.ContentValues;
