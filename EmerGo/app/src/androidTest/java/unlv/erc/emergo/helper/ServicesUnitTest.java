@@ -18,7 +18,6 @@ import unlv.erc.emergo.model.HealthUnit;
 
 public class ServicesUnitTest extends ActivityInstrumentationTestCase2<Services>{
 
-
   private UiDevice device;
 
   public ServicesUnitTest(Class<Services> activityClass) {
