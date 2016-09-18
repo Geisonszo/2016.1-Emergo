@@ -47,8 +47,8 @@ public class EmergencyContactController extends Activity {
   private Button updateFirstContact;
   private Button updateSecondContact;
   private Button updateThirdContact;
-  private String phoneContact;
-  private String nameContact;
+  private String phoneContact = " ";
+  private String nameContact = "";
   private Integer idFirstContact = 1;
   private Integer idSecondContact = 2;
   private Integer idThirdContact = 3;
@@ -113,12 +113,12 @@ public class EmergencyContactController extends Activity {
 
     saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View emergencyContactView) {
 
         if (!signInFirstContact()) {
 
           saveFirstContact.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+            public void onClick(View emergencyContactView) {
               signInFirstContact();
               disableField(nameFirstContact,phoneFirstContact);
             }
@@ -132,13 +132,13 @@ public class EmergencyContactController extends Activity {
 
     updateFirstContact.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View emergencyContactView) {
 
         disableUpdateButton(nameFirstContact, phoneFirstContact, updateFirstContact,
             saveFirstContact);
             saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
-              public void onClick(View view) {
+              public void onClick(View emergencyContactView) {
                 updateContact(idFirstContact,nameFirstContact,phoneFirstContact,
                     saveFirstContact,updateFirstContact,deleteFirstContact);
                 setOptionsVisible(saveFirstContact,updateFirstContact);
@@ -149,18 +149,18 @@ public class EmergencyContactController extends Activity {
 
     deleteFirstContact.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View emergencyContactView) {
 
         deleteContact(nameFirstContact,phoneFirstContact,saveFirstContact,
             idFirstContact,updateFirstContact,deleteFirstContact);
           saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view) {
+            public void onClick(View emergencyContactView) {
 
               if (!signInFirstContact()) {
 
                 saveFirstContact.setOnClickListener(new View.OnClickListener() {
-                  public void onClick(View view) {
+                  public void onClick(View emergencyContactView) {
 
                     signInFirstContact();
                     disableField(nameFirstContact,phoneFirstContact);
@@ -190,13 +190,13 @@ public class EmergencyContactController extends Activity {
     }
     saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View emergencyContactView) {
 
         if (!signInSecondContact()) {
 
           saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view) {
+            public void onClick(View emergencyContactView) {
 
               signInSecondContact();
               disableField(nameSecondContact,phoneSecondContact);
@@ -211,13 +211,13 @@ public class EmergencyContactController extends Activity {
 
     updateSecondContact.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View emergencyContactView) {
 
         disableUpdateButton(nameSecondContact, phoneSecondContact, updateSecondContact,
             saveSecondContact);
           saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view) {
+            public void onClick(View emergencyContactView) {
 
               updateContact(idSecondContact,nameSecondContact,phoneSecondContact,
                   saveSecondContact,updateSecondContact,deleteSecondContact);
@@ -229,20 +229,20 @@ public class EmergencyContactController extends Activity {
 
     deleteSecondContact.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View emergencyContactView) {
 
         deleteContact(nameSecondContact,phoneSecondContact,saveSecondContact,
             idSecondContact,updateSecondContact,deleteSecondContact);
 
           saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view) {
+            public void onClick(View emergencyContactView) {
 
               if (!signInSecondContact()) {
 
                 saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
-                  public void onClick(View view) {
+                  public void onClick(View emergencyContactView) {
 
                     signInSecondContact();
                     disableField(nameSecondContact,phoneSecondContact);
@@ -272,13 +272,13 @@ public class EmergencyContactController extends Activity {
     }
     saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View emergencyContactView) {
 
         if (!signInthirdContact()) {
 
           saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view) {
+            public void onClick(View emergencyContactView) {
 
               signInthirdContact();
               disableField(nameThirdContact,phoneThirdContact);
@@ -293,13 +293,13 @@ public class EmergencyContactController extends Activity {
 
     updateThirdContact.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View emergencyContactView) {
 
         disableUpdateButton(nameThirdContact,phoneThirdContact,updateThirdContact,
             saveThirdContact);
           saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view) {
+            public void onClick(View emergencyContactView) {
 
               updateContact(idThirdContact,nameThirdContact,phoneThirdContact,
                   saveThirdContact,updateThirdContact,deleteThirdContact);
@@ -312,19 +312,19 @@ public class EmergencyContactController extends Activity {
 
     deleteThirdContact.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View view) {
+      public void onClick(View emergencyContactView) {
 
         deleteContact(nameThirdContact,phoneThirdContact,saveThirdContact,
             idThirdContact,updateThirdContact,deleteThirdContact);
           saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view) {
+            public void onClick(View emergencyContactView) {
 
               if (!signInthirdContact()) {
 
                 saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
-                  public void onClick(View view) {
+                  public void onClick(View emergencyContactView) {
 
                     signInthirdContact();
                     disableField(nameThirdContact,phoneThirdContact);
@@ -444,12 +444,12 @@ public class EmergencyContactController extends Activity {
   /**
    * This method is used to update any of the three emergency contacts already signed on EmerGo.
    *
-   * @param id
-   * @param name
-   * @param phone
-   * @param save
-   * @param update
-   * @param delete
+   * @param id id related to the contact
+   * @param name emergency contact name
+   * @param phone emergency contact phone
+   * @param save button save
+   * @param update button update
+   * @param delete button delete
    */
 
   private void updateContact(Integer id,EditText name,EditText phone,Button save,Button update,
@@ -480,12 +480,12 @@ public class EmergencyContactController extends Activity {
   /**
    * This method is used to exclude any of the three emergency contacts signed on system.
    *
-   * @param nameContact
-   * @param phoneContact
-   * @param save
-   * @param id
-   * @param update
-   * @param delete
+   * @param nameContact emergency contact name
+   * @param phoneContact emergency contact phone
+   * @param save button save
+   * @param id emergency contact id
+   * @param update button update
+   * @param delete button delete
    */
 
   private void deleteContact(final EditText nameContact, final EditText phoneContact,
@@ -529,7 +529,7 @@ public class EmergencyContactController extends Activity {
    * This method is used to check if the name informed by the user is valid.
    * If the name is valid, false is returned.
    *
-   * @param nameUser
+   * @param nameUser emergency contact name
    * @return boolean
    */
 
@@ -558,7 +558,7 @@ public class EmergencyContactController extends Activity {
 
   /**
    * This method is used to show a message to the user in the screen.
-   * @param message
+   * @param message message that will be shown to the user.
    */
 
   private void showMessage(String message) {
@@ -570,9 +570,9 @@ public class EmergencyContactController extends Activity {
    * This method is used to disable save,update and delete buttons on the field of
    * given emergency contact.
    *
-   * @param save
-   * @param update
-   * @param delete
+   * @param save button used to save
+   * @param update button used to update
+   * @param delete button used to delete
    */
 
   private void disableOptionsButSave(Button save, Button update, Button delete) {
@@ -586,9 +586,9 @@ public class EmergencyContactController extends Activity {
    * This method disable only save button.
    *
    *
-   * @param save
-   * @param update
-   * @param delete
+   * @param save button used to save
+   * @param update button used to update
+   * @param delete button used to delete
    */
 
   private void disableSaveButton(Button save, Button update, Button delete) {
@@ -604,10 +604,10 @@ public class EmergencyContactController extends Activity {
   /**
    * This method disable only update button.
    *
-   * @param name
-   * @param phone
-   * @param update
-   * @param save
+   * @param name emergency contact name
+   * @param phone emergency contact phone
+   * @param update button used to update
+   * @param save button used to save
    */
 
   private void disableUpdateButton(EditText name, EditText phone, Button update, Button save) {
@@ -623,8 +623,8 @@ public class EmergencyContactController extends Activity {
    * This method is used after the user is already signed in the system, and user will try to
    * update it. It only will have the update button visible.
    *
-   * @param save
-   * @param update
+   * @param save button used to save
+   * @param update button used to update
    */
 
   private void setOptionsVisible(Button save, Button update) {
@@ -636,8 +636,8 @@ public class EmergencyContactController extends Activity {
   /**
    * This method is used to disable name and phone field.
    *
-   * @param name
-   * @param phone
+   * @param name emergency contact name
+   * @param phone emergency contact phone
    */
 
   private void disableField(EditText name,EditText phone) {
@@ -649,9 +649,9 @@ public class EmergencyContactController extends Activity {
   /**
    * This method is used to disable an emergency contact field.
    *
-   * @param save
-   * @param name
-   * @param phone
+   * @param save button used to save
+   * @param name emergency contact name
+   * @param phone emergency contact phone
    */
 
   private void disableField(Button save,EditText name, EditText phone) {
@@ -664,7 +664,7 @@ public class EmergencyContactController extends Activity {
   /**
    * This method is used to open search screen, after clicking the search button.
    *
-   * @param mapScreen
+   * @param mapScreen actual View on app
    */
 
   public void openSearch(View mapScreen) {
@@ -678,7 +678,7 @@ public class EmergencyContactController extends Activity {
   /**
    * This method is activated when user clicks in GO button, tracing a route to the closest
    * health unity.
-   * @param mapScreen
+   * @param mapScreen actual View on app
    */
 
   public void goClicked(View mapScreen) throws IOException, JSONException {
@@ -694,7 +694,7 @@ public class EmergencyContactController extends Activity {
   /**
    * This method list all the USs, by proximity of the user location, after the list button
    * is clicked.
-   * @param mapScreen
+   * @param mapScreen actual View on app
    */
 
   public void listMapsImageClicked(View mapScreen) {
@@ -708,7 +708,7 @@ public class EmergencyContactController extends Activity {
   /**
    * This method is activated when user is already in the configuration screen, and
    * try to open it again.
-   * @param mapScreen
+   * @param mapScreen actual View on app
    */
 
   public void openConfig(View mapScreen) {
@@ -718,10 +718,10 @@ public class EmergencyContactController extends Activity {
     startActivity(config);
   }
 
-    /**
-     * This method is activated when user clicks in the map button, and open a new map.
-     * @param mapScreen
-     */
+  /**
+   * This method is activated when user clicks in the map button, and open a new map.
+   * @param mapScreen actual View on app
+   */
 
   public void openMap(View mapScreen) {
 
