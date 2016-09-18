@@ -1,3 +1,9 @@
+/********************
+ * Class name: MainScreenController (.java)
+ *
+ * Purpose: The purpose of this class is to know the current state of the user.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import android.app.Activity;
