@@ -1,3 +1,9 @@
+/********************
+ * Class name: InformationUsScreenControllerTest (.java)
+ *
+ * Purpose: The purpose of this class is to test the InformationUsScreenController class.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import junit.framework.TestCase;
