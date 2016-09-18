@@ -53,7 +53,9 @@ public class MainScreenController extends Activity {
     }
   }
 
-  public void goClicked(View main_Screen) {
+  /** Method that traces the nearest route and call the Health Unit.
+   */
+  public void goClicked(View mainScreen) {
 
     final String routeTraced = "Rota mais próxima traçada";
     Toast.makeText(MainScreenController.this, routeTraced,
@@ -64,6 +66,8 @@ public class MainScreenController extends Activity {
     startActivity(routeActivity);
   }
 
+  /** Method that goes to the home page.
+   */
   public void okayClicked(View view) {
 
     Intent mapScreen = new Intent();
@@ -88,7 +92,7 @@ public class MainScreenController extends Activity {
     final NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();
 
-    String events[] = new String[7];
+    String events[ ] = new String[7];
 
     events[0] = new String("Nome: " + resultOfTheUser.getString(1));
     events[1] = new String("Data de Nascimento: " + resultOfTheUser.getString(2));
