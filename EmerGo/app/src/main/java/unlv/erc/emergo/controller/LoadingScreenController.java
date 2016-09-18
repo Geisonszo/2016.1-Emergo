@@ -1,3 +1,9 @@
+/********************
+ * Class name: LoadingScreenController (.java)
+ *
+ * Purpose: The purpose of this class is to load some application features.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import android.app.Activity;
