@@ -16,11 +16,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import unlv.erc.emergo.R;
 import unlv.erc.emergo.model.HealthUnit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InformationUsScreenController extends Activity implements View.OnClickListener {
 
@@ -85,6 +85,9 @@ public class InformationUsScreenController extends Activity implements View.OnCl
       route.putExtra("numeroUs" , receive.getIntExtra("position" , 0));
       startActivity(route);
       finish();
+    } else {
+
+      //Nothing to do.
     }
 
     /**
@@ -105,6 +108,9 @@ public class InformationUsScreenController extends Activity implements View.OnCl
       routeActivity.putExtra("numeroUs" , -1);
       startActivity(routeActivity);
       finish();
+    } else {
+
+      //Nothing to do.
     }
   }
 
@@ -153,8 +159,8 @@ public class InformationUsScreenController extends Activity implements View.OnCl
   public void showInformationOnScreen() {
 
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                                                                android.R.layout.simple_list_item_1,
-                                                                listOfInformations);
+            android.R.layout.simple_list_item_1,
+            listOfInformations);
 
     healthUnitInfo.setAdapter(adapter);
   }
@@ -510,7 +516,11 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     this.addressNumber = addressNumber;
   }
 
-  public void openConfig(View map_screen) {
+  /**
+   * Directs you to the Settings screen.
+   * @param mapScreen View.
+   */
+  public void openSettings(View mapScreen) {
     Intent config = new Intent();
     config.setClass(this , ConfigController.class);
     startActivity(config);

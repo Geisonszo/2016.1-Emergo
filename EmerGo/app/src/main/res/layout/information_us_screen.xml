@@ -49,7 +49,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/iconList"
         android:background="@drawable/icon_menu"
-        android:onClick="openConfig" />
+        android:onClick="openSettings" />
 
     <ImageView
         android:layout_width="28dp"
