@@ -16,7 +16,7 @@ import unlv.erc.emergo.R;
 
 public class AboutApp extends Activity {
 
-  //A textview that will show information about the app.
+  //A Textview that will show information about the app.
   private TextView informationAboutApp;
 
   @Override
@@ -28,6 +28,17 @@ public class AboutApp extends Activity {
   }
 
   /*
+    Set informations about app on TextView.
+
+   */
+  private void setInformationAboutApp(String messageAboutApp) {
+
+    Log.i("Log of Information: ","He entered the setInformationAboutApp.");
+    informationAboutApp = (TextView) findViewById(R.id.aboutApp);
+    informationAboutApp.setText(messageAboutApp);
+  }
+
+  /*
     Show message about app.
 
    */
@@ -35,7 +46,6 @@ public class AboutApp extends Activity {
   private String showMessageApp() {
 
     Log.i("Log of Information: ","He entered the showMessage method.");
-
     //String which will be written the information about the app.
     final String messageApp = "\tEmerGo é um aplicativo que oferece a facilidade de "
             + "encontrar Unidades de Saúde mais próximas. Possui MODO EMERGÊNCIA, "
@@ -45,17 +55,5 @@ public class AboutApp extends Activity {
             + "\n\n\tTodas as funcionalidades em suas mãos, em apenas um aplicativo.";
 
     return messageApp;
-  }
-
-  /*
-    Set informations about app on TextView.
-
-   */
-  private void setInformationAboutApp(String messageAboutApp) {
-
-    Log.i("Log of Information: ","He entered the setInformationAboutApp.");
-
-    informationAboutApp = (TextView) findViewById(R.id.aboutApp);
-    informationAboutApp.setText(messageAboutApp);
   }
 }

@@ -9,6 +9,7 @@ package unlv.erc.emergo.controller;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,13 +23,25 @@ import unlv.erc.emergo.R;
 
 public class ConfigController extends Activity {
 
-  private Button emergencyContact;
+  //ImageView for ListOfHealthUnitsController.class
   private ImageView iconList;
+
+  //ImageView for RouteActivity.class
   private ImageView buttonGo;
+
+  //Button for EmergencyContact class
+  private Button emergencyContact;
+
+  //Button for MedicalRecordsController class
   private Button medicalRecord;
+
+  //Button for AboutApp class
   private Button aboutApp;
 
+  //String speaking being clicked the current screen
   final String ERRORMESSAGE = "Está tentando abrir a página atual";
+
+  //String speaking that the route will be drawn to the nearest health unit
   final String ROUTETRACED = "Rota mais próxima traçada";
 
   @Override
@@ -85,6 +98,7 @@ public class ConfigController extends Activity {
 
   private void setImageViewIcons() {
 
+    Log.i("Method setImageViewIcons","Initializing ImageViews");
     iconList = (ImageView) findViewById(R.id.iconList);
     buttonGo = (ImageView) findViewById(R.id.buttonGo);
   }
@@ -95,10 +109,12 @@ public class ConfigController extends Activity {
 
   private void setButtons() {
 
+    Log.i("Method setButtons","Initializing Buttons");
     emergencyContact = (Button) findViewById(R.id.emergencyContact);
     medicalRecord = (Button) findViewById(R.id.medicalRecords);
     aboutApp = (Button) findViewById(R.id.app);
   }
+
   /**
    * This method create a route screen after GO button is clicked, tracing a route to a
    * specific health unity.
