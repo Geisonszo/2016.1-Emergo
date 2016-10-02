@@ -47,9 +47,14 @@ public class AboutApp extends Activity {
     return messageApp;
   }
 
+  /*
+    Set informations about app on TextView.
+
+   */
   private void setInformationAboutApp(String messageAboutApp) {
 
     Log.i("Log of Information: ","He entered the setInformationAboutApp.");
+
     informationAboutApp = (TextView) findViewById(R.id.aboutApp);
     informationAboutApp.setText(messageAboutApp);
   }

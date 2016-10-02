@@ -16,9 +16,9 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-import unlv.erc.emergo.R;
-
 import java.io.IOException;
+
+import unlv.erc.emergo.R;
 
 public class ConfigController extends Activity {
 
@@ -36,47 +36,69 @@ public class ConfigController extends Activity {
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.config);
-    iconList = (ImageView) findViewById(R.id.iconList);
-    buttonGo = (ImageView) findViewById(R.id.buttonGo);
-    emergencyContact = (Button) findViewById(R.id.emergencyContact);
-    medicalRecord = (Button) findViewById(R.id.medicalRecords);
-    aboutApp = (Button) findViewById(R.id.app);
-
+    setImageViewIcons();
+    setButtons();
 
     buttonGo.setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View goView) {
+
         createRouteScreen();
       }
     });
+
     iconList.setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View iconView) {
+
         listUs();
       }
     });
     medicalRecord.setOnClickListener(new View.OnClickListener() {
 
       public void onClick(View medicalRecordView) {
+
         showMedicalRecord();
       }
     });
     emergencyContact.setOnClickListener(new View.OnClickListener() {
 
       public void onClick(View emergencyContactView) {
+
         acessEmergencyContact();
       }
     });
     aboutApp.setOnClickListener(new View.OnClickListener() {
 
       public void onClick(View aboutAppView) {
+
         seeInfoAboutApp();
       }
     });
   }
 
+  /*
+    Set ImageView.
+   */
+
+  private void setImageViewIcons() {
+
+    iconList = (ImageView) findViewById(R.id.iconList);
+    buttonGo = (ImageView) findViewById(R.id.buttonGo);
+  }
+
+  /*
+    Set Buttons.
+   */
+
+  private void setButtons() {
+
+    emergencyContact = (Button) findViewById(R.id.emergencyContact);
+    medicalRecord = (Button) findViewById(R.id.medicalRecords);
+    aboutApp = (Button) findViewById(R.id.app);
+  }
   /**
    * This method create a route screen after GO button is clicked, tracing a route to a
    * specific health unity.
