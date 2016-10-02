@@ -71,8 +71,13 @@ public class EmergencyContactController extends Activity {
   // Constant of minimum length name
   private final int minimum = 3;
   // Constant string about route
-  final String routeTraced = "Rota mais próxima traçada";
-
+  private final String routeTraced = "Rota mais próxima traçada";
+  // Database is empty
+  private final int databaseEmpty = 0;
+  // The second position on database. In second position on database is refer to name of contact
+  private final int nameOnDatabase = 1;
+  // The third position on database. In third position on database is refer to phone of contact
+  private final int phoneOnDatabase = 2;
   private EmergencyContactDao emergencyContactDao;
 
   public EmergencyContactController(){
@@ -117,7 +122,7 @@ public class EmergencyContactController extends Activity {
     Cursor result = emergencyContactDao.getEmergencyContact();
 
     // Verifies that has something registered in the database on the emergencyContact.
-    if (result.getCount() == 0) { // Begin of if
+    if (result.getCount() == databaseEmpty) { // Begin of if
 
       disableOptionsButSave(saveFirstContact,updateFirstContact,deleteFirstContact);
       // End of if
@@ -127,8 +132,8 @@ public class EmergencyContactController extends Activity {
       // phone to first contact.
       if (result.moveToFirst()) { // Begin of if
 
-        nameFirstContact.setText(result.getString(1));
-        phoneFirstContact.setText(result.getString(2));
+        nameFirstContact.setText(result.getString(nameOnDatabase));
+        phoneFirstContact.setText(result.getString(phoneOnDatabase));
         disableField(saveFirstContact,nameFirstContact,phoneFirstContact);
       } // End of if
     } // End of else
@@ -225,7 +230,7 @@ public class EmergencyContactController extends Activity {
     }); // End of deleteFirstContact.setOnClickListener
 
     // Verifies that has something registered in the database on the emergencyContact.
-    if (result.getCount() == 0) { // Begin of if
+    if (result.getCount() == databaseEmpty) { // Begin of if
 
       disableOptionsButSave(saveSecondContact, updateSecondContact,deleteSecondContact);
       // End of if
@@ -237,8 +242,8 @@ public class EmergencyContactController extends Activity {
       // emergencyContact, the "cursor" will moved to next position
       if (result.moveToNext()) { // Begin of if
 
-        nameSecondContact.setText(result.getString(1));
-        phoneSecondContact.setText(result.getString(2));
+        nameSecondContact.setText(result.getString(nameOnDatabase));
+        phoneSecondContact.setText(result.getString(phoneOnDatabase));
         disableField(saveSecondContact,nameSecondContact,phoneSecondContact);
       } // End of if
     } // End of else
@@ -335,7 +340,7 @@ public class EmergencyContactController extends Activity {
       }); // End of deleteSecondContact.setOnClickListener
 
     // Verifies that has something registered in the database on the emergencyContact.
-    if (result.getCount() == 0) { // Begin of if
+    if (result.getCount() == databaseEmpty) { // Begin of if
 
       disableOptionsButSave(saveThirdContact, updateThirdContact,deleteThirdContact);
       // End of if
@@ -347,8 +352,8 @@ public class EmergencyContactController extends Activity {
       // emergencyContact, the "cursor" will moved to next position
       if (result.moveToNext()) { // Begin of if
 
-        nameThirdContact.setText(result.getString(1));
-        phoneThirdContact.setText(result.getString(2));
+        nameThirdContact.setText(result.getString(nameOnDatabase));
+        phoneThirdContact.setText(result.getString(phoneOnDatabase));
         disableField(saveThirdContact,nameThirdContact,phoneThirdContact);
       } // End of if
     } // End of else
