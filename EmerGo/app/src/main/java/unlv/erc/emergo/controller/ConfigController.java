@@ -45,7 +45,7 @@ public class ConfigController extends Activity {
   final String routeTraced = "Rota mais próxima traçada";
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(Bundle savedInstanceState) { //Begin of onCreate
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.config);
@@ -53,52 +53,52 @@ public class ConfigController extends Activity {
     setButtons();
 
     //When buttonGo is clicked will open the method "createRouteScreen".
-    buttonGo.setOnClickListener(new View.OnClickListener() {
+    buttonGo.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
 
       @Override
-      public void onClick(View goView) {
+      public void onClick(View goView) { //Beging on click
 
         createRouteScreen();
-      }
-    });
+      } //End of onClick
+    }); //End of setOnClickListener
 
     //When iconList is clicked will open the method "listUs".
-    iconList.setOnClickListener(new View.OnClickListener() {
+    iconList.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
 
       @Override
-      public void onClick(View iconView) {
+      public void onClick(View iconView) { //Begin of onClick
 
         listUs();
-      }
-    });
+      } //End of onClick
+    }); //End of setOnClickListener
 
     //When medicalRecord is clicked will open the method "showMedicalRecord".
-    medicalRecord.setOnClickListener(new View.OnClickListener() {
+    medicalRecord.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
 
-      public void onClick(View medicalRecordView) {
+      public void onClick(View medicalRecordView) { //Begin of onClick
 
         showMedicalRecord();
-      }
-    });
+      } // End of onClick
+    }); // End of setOnClickListener
 
     //When emergencyContact is clicked will open the method "acessEmergencyContact".
-    emergencyContact.setOnClickListener(new View.OnClickListener() {
+    emergencyContact.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
 
-      public void onClick(View emergencyContactView) {
+      public void onClick(View emergencyContactView) { //Begin of onClick
 
         acessEmergencyContact();
-      }
-    });
+      } //End of onClick
+    }); //End of setOnClickListener
 
     //When aboutApp is clicked will open the method "settInfoAboutApp".
-    aboutApp.setOnClickListener(new View.OnClickListener() {
+    aboutApp.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
 
-      public void onClick(View aboutAppView) {
+      public void onClick(View aboutAppView) { //Begin of onClick
 
         seeInfoAboutApp();
-      }
-    });
-  }
+      } //End of OnClick
+    }); //End of setOnClickListener
+  } //End of onCreate
 
   /*
     Set ImageView.
