@@ -26,31 +26,51 @@ import dao.EmergencyContactDao;
 import helper.MaskHelper;
 import unlv.erc.emergo.R;
 
-
-
 public class EmergencyContactController extends Activity {
 
+  // Button for saveFirstContact
   private Button saveFirstContact;
+  // Button for saveFirstContact
   private Button saveSecondContact;
+  // Button for saveThirdContact
   private Button saveThirdContact;
-  private EditText nameFirstContact;
-  private EditText nameSecondContact;
-  private EditText nameThirdContact;
-  private EditText phoneFirstContact;
-  private EditText phoneSecondContact;
-  private EditText phoneThirdContact;
+  // Button for deleteFirstContact
   private Button deleteFirstContact;
+  // Button for deleteSecondContact
   private Button deleteSecondContact;
+  // Button for deleteThirdContact
   private Button deleteThirdContact;
+  // Button for updateFirstContact
   private Button updateFirstContact;
+  // Button for updateSecondContact
   private Button updateSecondContact;
+  // Button for updateThirdContact
   private Button updateThirdContact;
+  // Field text for nameFirstContact
+  private EditText nameFirstContact;
+  // Field text for nameSecondContact
+  private EditText nameSecondContact;
+  // Field text for nameThirdContact
+  private EditText nameThirdContact;
+  // Field text for phoneFirstContact
+  private EditText phoneFirstContact;
+  // Field text for phoneSecondContact
+  private EditText phoneSecondContact;
+  // Field text for phoneThirdContact
+  private EditText phoneThirdContact;
+  // String of phoneContact
   private String phoneContact = " ";
+  // String of nameContact
   private String nameContact = "";
+  // Id constant of firstContact
   private final int idFirstContact = 1;
+  // Id constant of secondContact
   private final int idSecondContact = 2;
+  // Id constant of thirdContact
   private final int idThirdContact = 3;
+  // Constant of minimum length name
   private final int minimum = 3;
+  // Constant string about route
   final String routeTraced = "Rota mais próxima traçada";
 
   private EmergencyContactDao emergencyContactDao;
@@ -436,7 +456,9 @@ public class EmergencyContactController extends Activity {
 
   private boolean signInFirstContact() {
 
+    // Sucess is true is all informations is correct or false if ate least information not correct
     boolean sucess = true;
+    // Valid is false if sucess is true that is was register first emergency contact
     boolean valid = false;
 
     //Verific is all information is correct
@@ -478,7 +500,9 @@ public class EmergencyContactController extends Activity {
 
   private boolean signInSecondContact() {
 
+    // Sucess is true is all informations is correct or false if ate least information not correct
     boolean sucess = true;
+    // Valid is false if sucess is true that is was register first emergency contact
     boolean valid = false;
 
     //Verific is all information is correct
@@ -526,7 +550,9 @@ public class EmergencyContactController extends Activity {
 
   private boolean signInthirdContact() {
 
+    // Sucess is true is all informations is correct or false if ate least information not correct
     boolean sucess = true;
+    // Valid is false if sucess is true that is was register first emergency contact
     boolean valid = false;
 
     //Verific is all information is correct
@@ -580,6 +606,7 @@ public class EmergencyContactController extends Activity {
   private void updateContact(Integer id,EditText name,EditText phone,Button save,Button update,
                              Button delete) {
 
+    // Sucess is true is all informations is correct or false if ate least information not correct
     boolean sucess = true;
 
     // Verific is all information is correct
@@ -669,26 +696,27 @@ public class EmergencyContactController extends Activity {
 
   private boolean checksName(String nameUser) {
 
+    // Valid is true if at least information not correct
     boolean valid = true;
 
-    //Verific is nameUser is empty
+    // Verific is nameUser is empty
     if (nameUser.isEmpty()) { //Begin of if
 
       showMessage("Nome Vazio! Informe Seu Nome.");
       return valid;
-      //End of if
-      //Verific if length of nameUser is smaller than minimum
-    } else if (nameUser.trim().length() < minimum) { //Begin of else if
+      // End of if
+      // Verific if length of nameUser is smaller than minimum
+    } else if (nameUser.trim().length() < minimum) { // Begin of else if
 
       showMessage("Informe um nome com no mínimo 3 caracteres.");
       return valid;
-      //End of else if
-      //Verific is nameUser is numeric
-    } else if (nameUser.matches(".*\\d.*")) { //Begin of else if
+      // End of else if
+      // Verific is nameUser is numeric
+    } else if (nameUser.matches(".*\\d.*")) { // Begin of else if
 
       showMessage("Um nome não pode ter um número!");
       return valid;
-      //Enf of else if
+      // Enf of else if
     }
     valid = false;
     return valid;
