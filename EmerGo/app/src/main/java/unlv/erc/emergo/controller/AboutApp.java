@@ -9,6 +9,7 @@ package unlv.erc.emergo.controller;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import unlv.erc.emergo.R;
@@ -23,16 +24,32 @@ public class AboutApp extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.about_app);
 
-    //String which will be written the information about the app.
-    String messageAboutApp = "";
+    setInformationAboutApp(showMessageApp());
+  }
 
-    messageAboutApp = "\tEmerGo é um aplicativo que oferece a facilidade de "
+  /*
+    Show message about app.
+
+   */
+
+  private String showMessageApp() {
+
+    Log.i("Log of Information: ","He entered the showMessage method.");
+
+    //String which will be written the information about the app.
+    final String messageApp = "\tEmerGo é um aplicativo que oferece a facilidade de "
             + "encontrar Unidades de Saúde mais próximas. Possui MODO EMERGÊNCIA, "
             + "que traça a rota para uma Unidade de Saúde mais próxima, "
             + "ligar para o SAMU, e envia uma mensagem pré definida com pedido de ajuda para "
             + "os contatos de emergência salvos!"
             + "\n\n\tTodas as funcionalidades em suas mãos, em apenas um aplicativo.";
 
+    return messageApp;
+  }
+
+  private void setInformationAboutApp(String messageAboutApp) {
+
+    Log.i("Log of Information: ","He entered the setInformationAboutApp.");
     informationAboutApp = (TextView) findViewById(R.id.aboutApp);
     informationAboutApp.setText(messageAboutApp);
   }
