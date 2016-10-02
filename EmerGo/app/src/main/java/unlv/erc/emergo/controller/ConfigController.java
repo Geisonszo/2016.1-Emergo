@@ -39,10 +39,10 @@ public class ConfigController extends Activity {
   private Button aboutApp;
 
   //String speaking being clicked the current screen
-  final String ERRORMESSAGE = "Está tentando abrir a página atual";
+  final String errorMessage = "Está tentando abrir a página atual";
 
   //String speaking that the route will be drawn to the nearest health unit
-  final String ROUTETRACED = "Rota mais próxima traçada";
+  final String routeTraced = "Rota mais próxima traçada";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class ConfigController extends Activity {
     setImageViewIcons();
     setButtons();
 
+    //When buttonGo is clicked will open the method "createRouteScreen".
     buttonGo.setOnClickListener(new View.OnClickListener() {
 
       @Override
@@ -61,6 +62,7 @@ public class ConfigController extends Activity {
       }
     });
 
+    //When iconList is clicked will open the method "listUs".
     iconList.setOnClickListener(new View.OnClickListener() {
 
       @Override
@@ -69,6 +71,8 @@ public class ConfigController extends Activity {
         listUs();
       }
     });
+
+    //When medicalRecord is clicked will open the method "showMedicalRecord".
     medicalRecord.setOnClickListener(new View.OnClickListener() {
 
       public void onClick(View medicalRecordView) {
@@ -76,6 +80,8 @@ public class ConfigController extends Activity {
         showMedicalRecord();
       }
     });
+
+    //When emergencyContact is clicked will open the method "acessEmergencyContact".
     emergencyContact.setOnClickListener(new View.OnClickListener() {
 
       public void onClick(View emergencyContactView) {
@@ -83,6 +89,8 @@ public class ConfigController extends Activity {
         acessEmergencyContact();
       }
     });
+
+    //When aboutApp is clicked will open the method "settInfoAboutApp".
     aboutApp.setOnClickListener(new View.OnClickListener() {
 
       public void onClick(View aboutAppView) {
@@ -94,6 +102,7 @@ public class ConfigController extends Activity {
 
   /*
     Set ImageView.
+
    */
 
   private void setImageViewIcons() {
@@ -105,6 +114,7 @@ public class ConfigController extends Activity {
 
   /*
     Set Buttons.
+
    */
 
   private void setButtons() {
@@ -118,6 +128,7 @@ public class ConfigController extends Activity {
   /**
    * This method create a route screen after GO button is clicked, tracing a route to a
    * specific health unity.
+   *
    */
 
   public void createRouteScreen() {
@@ -132,6 +143,7 @@ public class ConfigController extends Activity {
   /**
    * This method launchs the search screen after the search button is clicked.
    * @param mapScreen actual View object.
+   *
    */
 
   public void openSearch(View mapScreen) {
@@ -144,6 +156,7 @@ public class ConfigController extends Activity {
   /**
    * This method list all the USs, by proximity of the user location, after the list button
    * is clicked.
+   *
    */
 
   public void listUs() {
@@ -156,6 +169,7 @@ public class ConfigController extends Activity {
 
   /**
    * This method show users medical information, after the medical information button is clicked.
+   *
    */
 
   public void showMedicalRecord() {
@@ -167,6 +181,7 @@ public class ConfigController extends Activity {
 
   /**
    * This method show user's emergency contacts, after the emergency contact button is clicked.
+   *
    */
 
   public void acessEmergencyContact() {
@@ -178,6 +193,7 @@ public class ConfigController extends Activity {
 
   /**
    * This method show the info related to EmerGo, after the button about is clicked.
+   *
    */
 
   public void seeInfoAboutApp() {
@@ -190,13 +206,13 @@ public class ConfigController extends Activity {
   /**
    * This method is activated when user clicks in GO button, tracing a route to the closest
    * health unity.
-   *
    * @param mapScreen actual View Object.
+   *
    */
 
   public void goClicked(View mapScreen) throws IOException, JSONException {
 
-    Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(ConfigController.this , RouteActivity.class);
     routeActivity.putExtra("numeroUs" , -1);
@@ -208,6 +224,7 @@ public class ConfigController extends Activity {
    * This method list all the USs, by proximity of the user location, after the list button
    * is clicked.
    * @param mapScreen actual View Object.
+   *
    */
 
   public void listMapsImageClicked(View mapScreen) {
@@ -222,16 +239,18 @@ public class ConfigController extends Activity {
    * This method is activated when user is already in the configuration screen, and
    * try to open it again.
    * @param mapScreen actual View Object.
+   *
    */
 
   public void openConfig(View mapScreen) {
 
-    Toast.makeText(this , ERRORMESSAGE , Toast.LENGTH_SHORT ).show();
+    Toast.makeText(this , errorMessage , Toast.LENGTH_SHORT ).show();
   }
 
   /**
    * This method is activated when user clicks in the map button, and open a new map.
    * @param mapScreen actual View Object.
+   *
    */
 
   public void openMap(View mapScreen) {
@@ -241,5 +260,4 @@ public class ConfigController extends Activity {
     startActivity(mapActivity);
     finish();
   }
-
 }
