@@ -56,7 +56,7 @@ public class ConfigController extends Activity {
     buttonGo.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
 
       @Override
-      public void onClick(View goView) { //Beging on click
+      public void onClick(View goView) { //Begin on click
 
         createRouteScreen();
       } //End of onClick
@@ -107,9 +107,10 @@ public class ConfigController extends Activity {
 
   private void setImageViewIcons() {
 
-    Log.i("Method setImageViewIcons","Initializing ImageViews");
+    Log.i("Method setImageViewIcons ","Begin of method");
     iconList = (ImageView) findViewById(R.id.iconList);
     buttonGo = (ImageView) findViewById(R.id.buttonGo);
+    Log.i("Method setImageViewIcons ","End of method");
   }
 
   /*
@@ -119,10 +120,11 @@ public class ConfigController extends Activity {
 
   private void setButtons() {
 
-    Log.i("Method setButtons","Initializing Buttons");
+    Log.i("Method setButtons ","Begin of method");
     emergencyContact = (Button) findViewById(R.id.emergencyContact);
     medicalRecord = (Button) findViewById(R.id.medicalRecords);
     aboutApp = (Button) findViewById(R.id.app);
+    Log.i("Method setButtons ","End of method");
   }
 
   /**
@@ -132,25 +134,15 @@ public class ConfigController extends Activity {
    */
 
   public void createRouteScreen() {
-        
+
+    Log.i("Method createRouteScreen ","Begin of method");
     Intent map = new Intent();
+
     map.setClass(this , RouteActivity.class);
     map.putExtra("numeroUs" , -1);
     startActivity(map);
     finish();
-  }
-
-  /**
-   * This method launchs the search screen after the search button is clicked.
-   * @param mapScreen actual View object.
-   *
-   */
-
-  public void openSearch(View mapScreen) {
-    Intent openSearch = new Intent();
-    openSearch.setClass(this , SearchUsController.class);
-    startActivity(openSearch);
-    finish();
+    Log.i("Method createRouteScreen ","End of method");
   }
 
   /**
@@ -161,10 +153,13 @@ public class ConfigController extends Activity {
 
   public void listUs() {
 
+    Log.i("Method listUs ","Begin of method");
     Intent listUs = new Intent();
+
     listUs.setClass(this , ListOfHealthUnitsController.class);
     startActivity(listUs);
     finish();
+    Log.i("Method listUs ","End of method");
   }
 
   /**
@@ -174,9 +169,13 @@ public class ConfigController extends Activity {
 
   public void showMedicalRecord() {
 
+    Log.i("Method showMedicalRecord ","Begin of method");
     Intent medicalRecord = new Intent();
+
     medicalRecord.setClass(this,MedicalRecordsController.class);
     startActivity(medicalRecord);
+    finish();
+    Log.i("Method showMedicalRecord ","End of method");
   }
 
   /**
@@ -186,9 +185,13 @@ public class ConfigController extends Activity {
 
   public void acessEmergencyContact() {
 
+    Log.i("Method acessEmergencyContact ","Begin of method");
     Intent emergencyContact = new Intent();
+
     emergencyContact.setClass(this,EmergencyContactController.class);
     startActivity(emergencyContact);
+    finish();
+    Log.i("Method acessEmergencyContact ","End of method");
   }
 
   /**
@@ -198,9 +201,13 @@ public class ConfigController extends Activity {
 
   public void seeInfoAboutApp() {
 
+    Log.i("Method seeInforAboutApp ","Begin of method");
     Intent aboutApp = new Intent();
+
     aboutApp.setClass(this,AboutApp.class);
     startActivity(aboutApp);
+    finish();
+    Log.i("Method seeInfoAboutApp ","End of method");
   }
 
   /**
@@ -212,12 +219,15 @@ public class ConfigController extends Activity {
 
   public void goClicked(View mapScreen) throws IOException, JSONException {
 
-    Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
+    Log.i("Method goClicked ","Begin of method");
     Intent routeActivity = new Intent();
+
+    Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
     routeActivity.setClass(ConfigController.this , RouteActivity.class);
     routeActivity.putExtra("numeroUs" , -1);
     startActivity(routeActivity);
     finish();
+    Log.i("Method goClicked ","End of method");
   }
 
   /**
@@ -229,22 +239,27 @@ public class ConfigController extends Activity {
 
   public void listMapsImageClicked(View mapScreen) {
 
+    Log.i("Method listMapsImageClicked ","Begin of method");
     Intent listOfHealth = new Intent();
+
     listOfHealth.setClass(this , ListOfHealthUnitsController.class);
     startActivity(listOfHealth);
     finish();
+    Log.i("Method listMapsImageClicked ","End of method");
   }
 
   /**
    * This method is activated when user is already in the configuration screen, and
-   * try to open it again.
+   * try to open it again.Intent routeActivity = new Intent();
    * @param mapScreen actual View Object.
    *
    */
 
   public void openConfig(View mapScreen) {
 
+    Log.i("Method openConfig ","Begin of method");
     Toast.makeText(this , errorMessage , Toast.LENGTH_SHORT ).show();
+    Log.i("Method openConfig ","End of method");
   }
 
   /**
@@ -255,9 +270,12 @@ public class ConfigController extends Activity {
 
   public void openMap(View mapScreen) {
 
+    Log.i("Method openMap ","Begin of method");
     Intent mapActivity = new Intent();
+
     mapActivity.setClass(this, MapScreenController.class);
     startActivity(mapActivity);
     finish();
+    Log.i("Method openMap ","End of method");
   }
 }
