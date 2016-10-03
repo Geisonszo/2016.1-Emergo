@@ -17,16 +17,16 @@ import android.widget.RemoteViews;
 
 import unlv.erc.emergo.R;
 
-public class EmerGoWidgetProvider extends AppWidgetProvider {
+public class EmerGoWidgetProvider extends AppWidgetProvider { // Begin of EmerGoWidgetProvider
 
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager,
-      int[] appWidgetIds) {
+      int[] appWidgetIds) { // Begin of onUpdate
 
     ComponentName thisWidget = new ComponentName(context, EmerGoWidgetProvider.class);
     int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
-    for (int widgetId : allWidgetIds) {
+    for (int widgetId : allWidgetIds) { // Begin for
 
       Intent intent = new Intent(context, RouteActivity.class);
       intent.putExtra("numeroUs" , -1);
@@ -36,6 +36,6 @@ public class EmerGoWidgetProvider extends AppWidgetProvider {
       views.setOnClickPendingIntent(R.id.update, pendingIntent);
 
       appWidgetManager.updateAppWidget(widgetId, views);
-    }
-  }
-}
+    } // End for
+  } // Begin of onUpdate
+} // End of EmeroWidgetProvider
