@@ -319,7 +319,7 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
               Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
             } // End of onClick
           }); // End of saveSecondContact.setOnClickListener and End of if
-          // If all validation passed will disable some buttons
+        // If all validation passed will disable some buttons
         } else { // Begin of else
 
           disableSaveButton(saveSecondContact,updateSecondContact,deleteSecondContact);
@@ -382,7 +382,7 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
                   Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
                 } // End of onClick
               }); // End of saveSecondContact.setOnClickListener and End of if
-              // If all validation passed will disable some buttons
+            // If all validation passed will disable some buttons
             } else { // Begin of if
 
               disableSaveButton(saveSecondContact,updateSecondContact,
@@ -466,7 +466,7 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
               Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
             } // End of onClick
           }); // End of saveThirdContact.setOnClickListener and End of if
-          // If all validation passed will disable some buttons
+        // If all validation passed will disable some buttons
         } else { // End of if
 
           disableSaveButton(saveThirdContact,updateThirdContact,deleteThirdContact);
