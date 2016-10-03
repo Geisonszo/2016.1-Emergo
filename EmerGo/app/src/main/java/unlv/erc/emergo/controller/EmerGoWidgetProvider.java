@@ -13,6 +13,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import unlv.erc.emergo.R;
@@ -22,11 +23,13 @@ public class EmerGoWidgetProvider extends AppWidgetProvider { // Begin of EmerGo
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager,
       int[] appWidgetIds) { // Begin of onUpdate
+    Log.d("Begin of Method: ","onUpdate");
 
     // Instantiation of class ComponentName
     ComponentName thisWidget = new ComponentName(context, EmerGoWidgetProvider.class);
     // Array of integers widgets
-    int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+    int [] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+    Log.i("Widgets: ","It is being made an instantiation of an array of widgets");
 
     // By clicking a widget will be directed to Router Activity class.
     for (int widgetId : allWidgetIds) { // Begin for
@@ -41,5 +44,6 @@ public class EmerGoWidgetProvider extends AppWidgetProvider { // Begin of EmerGo
 
       appWidgetManager.updateAppWidget(widgetId, views);
     } // End for
+    Log.d("End of Method: ","onUpdate");
   } // Begin of onUpdate
 } // End of EmeroWidgetProvider
