@@ -8,7 +8,9 @@ package unlv.erc.emergo.model;
 
 public class EmergencyContact { // Begin of EmergencyContact class
 
+  // Name contact
   private String name = "";
+  // Phone contact
   private String phone = "";
 
   /**
