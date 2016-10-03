@@ -1,5 +1,12 @@
 package unlv.erc.emergo.controller;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+
 import android.support.test.espresso.Espresso;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
@@ -11,16 +18,11 @@ import org.junit.Before;
 
 import unlv.erc.emergo.R;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+
 
 
 public class MedicalRecordsControllerTest extends
-                                        ActivityInstrumentationTestCase2<MedicalRecordsController>{
+                                        ActivityInstrumentationTestCase2<MedicalRecordsController> {
 
   private UiDevice device;
   private MedicalRecordsController register;
@@ -31,21 +33,21 @@ public class MedicalRecordsControllerTest extends
   }
 
   @Before
-  public void setUp() throws Exception{
+  public void setUp() throws Exception {
 
-      super.setUp();
-      getActivity();
-      device = UiDevice.getInstance(getInstrumentation());
+    super.setUp();
+    getActivity();
+    device = UiDevice.getInstance(getInstrumentation());
   }
 
-  public void testSaveOption(){
+  public void testSaveOption() {
 
-      onView(withText("Salvar")).perform(click());
+    onView(withText("Salvar")).perform(click());
   }
 
   public void testSaveSaveOption() throws UiObjectNotFoundException {
 
-     onView(withText("Salvar")).perform(click());
+    onView(withText("Salvar")).perform(click());
      onView(withText("Salvar")).perform(click());
      onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
      Espresso.closeSoftKeyboard();
@@ -135,10 +137,10 @@ public class MedicalRecordsControllerTest extends
 
   public void testCardiacFieldOptionYes() throws UiObjectNotFoundException {
 
-     onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
-     Espresso.closeSoftKeyboard();
-     onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
-     Espresso.closeSoftKeyboard();
+    onView(withId(R.id.fullNameEditText)).perform(typeText("MrVictor"));
+    Espresso.closeSoftKeyboard();
+    onView(withId(R.id.birthdayEditText)).perform(typeText("09/07/1995"));
+    Espresso.closeSoftKeyboard();
      onView(withId(R.id.typeBloodSpinner)).perform(click());
      onView(withText("AB+")).perform(click());
      Espresso.closeSoftKeyboard();

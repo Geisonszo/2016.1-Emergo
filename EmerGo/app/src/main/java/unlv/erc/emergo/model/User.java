@@ -19,7 +19,7 @@ public class User {
   private Integer idUser = 0;
 
   /**
-    * Empty Constructor.
+   * Empty Constructor.
    */
 
   public User() {
@@ -27,17 +27,17 @@ public class User {
   }
 
   /**
-    * Constructor of user.
-    *
-    * @param nameUser This is a name of user.
-    * @param birthdayUser This is a birthday of user.
-    * @param typeBloodUser This a type blood of user.
-    * @param cardiacUser Describe is user has cardiac problem.
-    * @param diabeticUser Describe is user has diabetic problem.
-    * @param hypertensionUser Describe is user has hypertension.
-    * @param seropositiveUser Describe is user has seropositive.
-    * @param observationsUser Describe observations of user.
-    * @param idUser This is a id of user.
+   * Constructor of user.
+   *
+   * @param nameUser This is a name of user.
+   * @param birthdayUser This is a birthday of user.
+   * @param typeBloodUser This a type blood of user.
+   * @param cardiacUser Describe is user has cardiac problem.
+   * @param diabeticUser Describe is user has diabetic problem.
+   * @param hypertensionUser Describe is user has hypertension.
+   * @param seropositiveUser Describe is user has seropositive.
+   * @param observationsUser Describe observations of user.
+   * @param idUser This is a id of user.
    */
 
   public User(String nameUser, String birthdayUser, String typeBloodUser, String cardiacUser,
@@ -56,11 +56,11 @@ public class User {
   }
 
   /**
-    * Get the value of attribute observationsUser.
-    *
-    * @return observationsUser:String
-    *
-   */
+  * Get the value of attribute observationsUser.
+  *
+  * @return observationsUser:String
+  *
+  */
 
   public String getObservationsUser() {
 
@@ -68,10 +68,10 @@ public class User {
   }
 
   /**
-    * Set the value of attribute observationUser.
-    *
-    * @param observationsUser
-    *
+   * Set the value of attribute observationUser.
+   *
+   * @param observationsUser
+   *
    */
 
   public void setObservationsUser(String observationsUser) {
@@ -80,10 +80,10 @@ public class User {
   }
 
   /**
-    * Get the value of attribute idUser.
-    *
-    * @return idUser:int
-    *
+   * Get the value of attribute idUser.
+   *
+   * @return idUser:int
+   *
    */
 
   public Integer getIdUser() {
@@ -92,10 +92,10 @@ public class User {
   }
 
   /**
-    * Set the value of attribute idUser.
-    *
-    * @param idUser
-    *
+   * Set the value of attribute idUser.
+   *
+   * @param idUser
+   *
    */
 
   public void setIdUser(Integer idUser) {
@@ -104,10 +104,10 @@ public class User {
   }
 
   /**
-    * Get the value of attribute nameUser.
-    *
-    * @return nameUser:String
-    *
+   * Get the value of attribute nameUser.
+   *
+   * @return nameUser:String
+   *
    */
 
   public String getNameUser() {
@@ -116,10 +116,10 @@ public class User {
   }
 
   /**
-    * Set the value of attribute nameUser.
-    *
-    * @param nameUser
-    *
+   * Set the value of attribute nameUser.
+   *
+   * @param nameUser
+   *
    */
 
   public void setNameUser(String nameUser) {
@@ -128,10 +128,10 @@ public class User {
   }
 
   /**
-    * Get the value of attribute birthdayUser.
-    *
-    * @return birthdayUser:String
-    *
+   * Get the value of attribute birthdayUser.
+   *
+   * @return birthdayUser:String
+   *
    */
 
   public String getBirthdayUser() {
@@ -140,10 +140,10 @@ public class User {
   }
 
   /**
-    * Set the value of attribute birthdayUser.
-    *
-    * @param birthdayUser
-    *
+   * Set the value of attribute birthdayUser.
+   *
+   * @param birthdayUser
+   *
    */
 
   public void setBirthdayUser(String birthdayUser) {
@@ -152,10 +152,10 @@ public class User {
   }
 
   /**
-    * Get the value of attribute typeBloodUser.
-    *
-    * @return typebloodUser:String
-    *
+   * Get the value of attribute typeBloodUser.
+   *
+   * @return typebloodUser:String
+   *
    */
 
   public String getTypeBloodUser() {
@@ -164,10 +164,10 @@ public class User {
   }
 
   /**
-    * Set the value of attribute typeBloodUser.
-    *
-    * @param typeBloodUser
-    *
+   * Set the value of attribute typeBloodUser.
+   *
+   * @param typeBloodUser
+   *
    */
 
   public void setTypeBloodUser(String typeBloodUser) {
@@ -220,54 +220,54 @@ public class User {
 
   public void setDiabeticUser(String diabeticUser) {
 
-     this.diabeticUser = diabeticUser;
+    this.diabeticUser = diabeticUser;
   }
 
-    /**
-     * Get the value of attribute hypertensionUser.
-     *
-     * @return hypertensionUser:String
-     *
-     */
+  /**
+   * Get the value of attribute hypertensionUser.
+   *
+   * @return hypertensionUser:String
+   *
+   */
 
-    public String getHypertensionUser() {
+  public String getHypertensionUser() {
 
-        return hypertensionUser;
-    }
+    return hypertensionUser;
+  }
 
-    /**
-     * Set the value of attribute hypertensionUser.
-     *
-     * @param hypertensionUser
-     *
-     */
+  /**
+   * Set the value of attribute hypertensionUser.
+   *
+   * @param hypertensionUser
+   *
+   */
 
-    public void setHypertensionUser(String hypertensionUser) {
+  public void setHypertensionUser(String hypertensionUser) {
 
-        this.hypertensionUser = hypertensionUser;
-    }
+    this.hypertensionUser = hypertensionUser;
+  }
 
-    /**
-     * Get the value of attribute seropositiveUser.
-     *
-     * @return seropositiveUser:String
-     *
-     */
+  /**
+   * Get the value of attribute seropositiveUser.
+   *
+   * @return seropositiveUser:String
+   *
+   */
 
-    public String getSeropositiveUser() {
+  public String getSeropositiveUser() {
 
-        return seropositiveUser;
-    }
+    return seropositiveUser;
+  }
 
-    /**
-     * Set the value of attribute seropositiveUser.
-     *
-     * @param seropositiveUser
-     *
-     */
+  /**
+   * Set the value of attribute seropositiveUser.
+   *
+   * @param seropositiveUser
+   *
+   */
 
-    public void setSeropositiveUser(String seropositiveUser) {
+  public void setSeropositiveUser(String seropositiveUser) {
 
-        this.seropositiveUser = seropositiveUser;
-    }
+    this.seropositiveUser = seropositiveUser;
+  }
 }
