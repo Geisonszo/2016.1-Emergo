@@ -23,12 +23,15 @@ public class EmerGoWidgetProvider extends AppWidgetProvider { // Begin of EmerGo
   public void onUpdate(Context context, AppWidgetManager appWidgetManager,
       int[] appWidgetIds) { // Begin of onUpdate
 
+    // Instantiation of class ComponentName
     ComponentName thisWidget = new ComponentName(context, EmerGoWidgetProvider.class);
+    // Array of integers widgets
     int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
     // By clicking a widget will be directed to Router Activity class.
     for (int widgetId : allWidgetIds) { // Begin for
 
+      // Instantiation of class Intent
       Intent intent = new Intent(context, RouteActivity.class);
       intent.putExtra("numeroUs" , -1);
       PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
