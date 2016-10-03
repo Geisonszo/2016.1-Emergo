@@ -14,37 +14,37 @@ import android.widget.TextView;
 
 import unlv.erc.emergo.R;
 
-public class AboutApp extends Activity {
+public class AboutApp extends Activity { // Begin of AboutApp class
 
   //A Textview that will show information about the app.
   private TextView informationAboutApp;
 
   @Override
-  protected void onCreate(final Bundle savedInstanceState) {
+  protected void onCreate(final Bundle savedInstanceState) { // Begin of onCreate
     super.onCreate(savedInstanceState);
     setContentView(R.layout.about_app);
 
     setInformationAboutApp(showMessageApp());
-  }
+  } // End of onCreate
 
   /*
-    Set informations about app on TextView.
-
+   * Set informations about app on TextView.
+   *
    */
 
-  private void setInformationAboutApp(String messageAboutApp) {
+  private void setInformationAboutApp(String messageAboutApp) { // Begin of setInformationAboutApp
 
     Log.i("Log of Information: ","He entered the setInformationAboutApp.");
     informationAboutApp = (TextView) findViewById(R.id.aboutApp);
     informationAboutApp.setText(messageAboutApp);
-  }
+  } // End of setInformationAboutApp
 
   /*
-    Show message about app.
-
+   * Show message about app.
+   *
    */
 
-  private String showMessageApp() {
+  private String showMessageApp() { // Begin of showMessageApp
 
     Log.i("Log of Information: ","He entered the showMessage method.");
     //String which will be written the information about the app.
@@ -56,5 +56,5 @@ public class AboutApp extends Activity {
             + "\n\n\tTodas as funcionalidades em suas mãos, em apenas um aplicativo.";
 
     return messageApp;
-  }
-}
+  } // End of showMessageApp
+} // End of AboutApp class

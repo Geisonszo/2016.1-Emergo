@@ -27,7 +27,7 @@ import dao.EmergencyContactDao;
 import helper.MaskHelper;
 import unlv.erc.emergo.R;
 
-public class EmergencyContactController extends Activity {
+public class EmergencyContactController extends Activity { // Begin of EmergencyController class
 
   // Button for saveFirstContact
   private Button saveFirstContact;
@@ -84,47 +84,55 @@ public class EmergencyContactController extends Activity {
   // Instantiation of class Cursor
   private Cursor result;
 
-  public EmergencyContactController(){
+  public EmergencyContactController() {
       //Empty Constructor.
   }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    // Begin of onCreate
 
     super.onCreate(savedInstanceState);
-
-    emergencyContactDao = new EmergencyContactDao(this);
-
     setContentView(R.layout.emergency_contact);
 
-    saveFirstContact = (Button) findViewById(R.id.saveButtonFirstContact);
-    saveSecondContact = (Button) findViewById(R.id.saveSecondContactButton);
-    saveThirdContact = (Button) findViewById(R.id.saveThirdContactButton);
-
-    updateFirstContact = (Button) findViewById(R.id.updateButtonFirstContact);
-    updateSecondContact = (Button) findViewById(R.id.updateSecondContactButton);
-    updateThirdContact = (Button) findViewById(R.id.updateThirdContactButton);
-
-    nameFirstContact = (EditText) findViewById(R.id.nameFirstContactEditText);
-    nameSecondContact = (EditText) findViewById(R.id.nameSecondContactEditText);
-    nameThirdContact = (EditText) findViewById(R.id.nameThirdContactEditText);
-
-    phoneFirstContact = (EditText) findViewById(R.id.phoneEditText);
-    phoneFirstContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
-                                                                phoneFirstContact));
-    phoneSecondContact = (EditText) findViewById(R.id.phoneSecondContactEditText);
-    phoneSecondContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
-                                                                phoneSecondContact));
-    phoneThirdContact = (EditText) findViewById(R.id.phoneThirdContactEditText);
-    phoneThirdContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
-                                                                phoneThirdContact));
-
-    deleteFirstContact = (Button) findViewById(R.id.deleteFirstContactButton);
-    deleteSecondContact = (Button) findViewById(R.id.deleteSecondContactButton);
-    deleteThirdContact = (Button) findViewById(R.id.deleteThirdContactButton);
-
+    emergencyContactDao = new EmergencyContactDao(this);
     result = emergencyContactDao.getEmergencyContact();
 
+    setBTFirstContact();
+    logicFirstContact();
+    setBTSecondContact();
+    logicSecondContact();
+    setBTThirdContact();
+    logicThirdContact();
+  } // End of onCreate
+
+  /*
+   * Set informations of bottons and edittext about first emergency contact.
+   *
+   */
+
+  private void setBTFirstContact() { // Begin of setBTFirstContact
+
+    Log.d("Begin of Method: ","setBTFirstContact");
+    saveFirstContact = (Button) findViewById(R.id.saveButtonFirstContact);
+    updateFirstContact = (Button) findViewById(R.id.updateButtonFirstContact);
+    deleteFirstContact = (Button) findViewById(R.id.deleteFirstContactButton);
+
+    nameFirstContact = (EditText) findViewById(R.id.nameFirstContactEditText);
+    phoneFirstContact = (EditText) findViewById(R.id.phoneEditText);
+    phoneFirstContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
+            phoneFirstContact));
+    Log.d("End of Method: ","setBTFirstContact");
+  } // End of setBTFirstContact
+
+  /*
+   * Organize the logic of save,update and delete of first contact.
+   *
+   */
+
+  private void logicFirstContact() { // Begin of logicFirstContact
+
+    Log.d("Begin of Method: ","logicFirstContact");
     // Verifies that has something registered in the database on the emergencyContact.
     if (result.getCount() == databaseEmpty) { // Begin of if
 
@@ -165,7 +173,7 @@ public class EmergencyContactController extends Activity {
               disableField(nameFirstContact,phoneFirstContact);
             } // End of onClick
           }); // End of saveFirstContact.setOnClickListener and End of else
-        // If all validation passed will disable some buttons
+          // If all validation passed will disable some buttons
           Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
         } else { // Begin of else
 
@@ -182,7 +190,7 @@ public class EmergencyContactController extends Activity {
       public void onClick(View emergencyContactView) { // Begin of onClick
 
         disableUpdateButton(nameFirstContact, phoneFirstContact, updateFirstContact,
-            saveFirstContact);
+                saveFirstContact);
 
         saveFirstContact.setOnClickListener(new View.OnClickListener() {
           // Begin of saveFirstContact.setOnClickListener
@@ -206,7 +214,7 @@ public class EmergencyContactController extends Activity {
       public void onClick(View emergencyContactView) { // Begin of onClick
 
         deleteContact(nameFirstContact,phoneFirstContact,saveFirstContact,
-            idFirstContact,updateFirstContact,deleteFirstContact);
+                idFirstContact,updateFirstContact,deleteFirstContact);
         Log.d("Delete contact"," Was delete at informations about first emergency contact");
 
         saveFirstContact.setOnClickListener(new View.OnClickListener() {
@@ -228,8 +236,8 @@ public class EmergencyContactController extends Activity {
                   disableField(nameFirstContact,phoneFirstContact);
                 } // End of onClick
               }); // End of saveFirstContact.setOnClickListener and End of if
-            // If all validation passed will disable some buttons
-            Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
+              // If all validation passed will disable some buttons
+              Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
             } else { // Begin of else
 
               disableSaveButton(saveFirstContact,updateFirstContact,deleteFirstContact);
@@ -238,7 +246,36 @@ public class EmergencyContactController extends Activity {
         }); // End of saveFirstContact.setOnClickListener
       } // End of onClick
     }); // End of deleteFirstContact.setOnClickListener
+    Log.d("End of Method: ","logicFirstContact");
+  } // End of logicFirstContact
 
+  /*
+   * Set informations of bottons and edittext about second emergency contact.
+   *
+   */
+
+  private void setBTSecondContact() { // Begin of setBTSecondContact
+
+    Log.d("Begin of Method: ","setBTSecondContact");
+    saveSecondContact = (Button) findViewById(R.id.saveSecondContactButton);
+    updateSecondContact = (Button) findViewById(R.id.updateSecondContactButton);
+    deleteSecondContact = (Button) findViewById(R.id.deleteSecondContactButton);
+
+    nameSecondContact = (EditText) findViewById(R.id.nameSecondContactEditText);
+    phoneSecondContact = (EditText) findViewById(R.id.phoneSecondContactEditText);
+    phoneSecondContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
+            phoneSecondContact));
+    Log.d("End of Method: ","setBTSecondContact");
+  } // End of setBTSecondContact
+
+  /*
+   * Organize the logic of save,update and delete of second contact.
+   *
+   */
+
+  private void logicSecondContact() { // Begin of logicSecondContact
+
+    Log.d("Begin of Method: ","logicSecondContact");
     // Verifies that has something registered in the database on the emergencyContact.
     if (result.getCount() == databaseEmpty) { // Begin of if
 
@@ -282,7 +319,7 @@ public class EmergencyContactController extends Activity {
               Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
             } // End of onClick
           }); // End of saveSecondContact.setOnClickListener and End of if
-        // If all validation passed will disable some buttons
+          // If all validation passed will disable some buttons
         } else { // Begin of else
 
           disableSaveButton(saveSecondContact,updateSecondContact,deleteSecondContact);
@@ -298,20 +335,20 @@ public class EmergencyContactController extends Activity {
 
         // Disable some buttons and the "alterar" pass to "salvar"
         disableUpdateButton(nameSecondContact, phoneSecondContact, updateSecondContact,
-            saveSecondContact);
+                saveSecondContact);
 
-          saveSecondContact.setOnClickListener(new View.OnClickListener() {
-            // Begin of saveSecondContact.setOnClickListener
+        saveSecondContact.setOnClickListener(new View.OnClickListener() {
+          // Begin of saveSecondContact.setOnClickListener
 
-            // Update the second emergency contact
-            public void onClick(View emergencyContactView) { // Begin of onClick
+          // Update the second emergency contact
+          public void onClick(View emergencyContactView) { // Begin of onClick
 
-              updateContact(idSecondContact,nameSecondContact,phoneSecondContact,
-                  saveSecondContact,updateSecondContact,deleteSecondContact);
-                setOptionsVisible(saveSecondContact,updateSecondContact);
-              Log.d("Update contact"," Was update at informations about second emergency contact");
-            } // End of onClick
-          }); // End of saveSecondContact.setOnClickListener
+            updateContact(idSecondContact,nameSecondContact,phoneSecondContact,
+                    saveSecondContact,updateSecondContact,deleteSecondContact);
+            setOptionsVisible(saveSecondContact,updateSecondContact);
+            Log.d("Update contact"," Was update at informations about second emergency contact");
+          } // End of onClick
+        }); // End of saveSecondContact.setOnClickListener
       } // End of onClick
     }); // End of updateSecondContact.setOnClickListener
 
@@ -322,40 +359,70 @@ public class EmergencyContactController extends Activity {
       public void onClick(View emergencyContactView) { //Begin of onClick
 
         deleteContact(nameSecondContact,phoneSecondContact,saveSecondContact,
-            idSecondContact,updateSecondContact,deleteSecondContact);
+                idSecondContact,updateSecondContact,deleteSecondContact);
         Log.d("Delete contact"," Was delete at informations about third emergency contact");
 
-          saveSecondContact.setOnClickListener(new View.OnClickListener() {
-            // Begin of saveSecondContact.setOnClickListener
+        saveSecondContact.setOnClickListener(new View.OnClickListener() {
+          // Begin of saveSecondContact.setOnClickListener
 
-            public void onClick(View emergencyContactView) { // Begin of onClick
+          public void onClick(View emergencyContactView) { // Begin of onClick
 
-              // For register the third emergency contact will done some validations and if on
-              // validation not passed, will be given a chance to register the emergency contact
-              // again
-              if (!signInSecondContact()) { // Begin of if
+            // For register the third emergency contact will done some validations and if on
+            // validation not passed, will be given a chance to register the emergency contact
+            // again
+            if (!signInSecondContact()) { // Begin of if
 
-                saveSecondContact.setOnClickListener(new View.OnClickListener() {
-                  // Begin of saveSecondContact.setOnClickListener
+              saveSecondContact.setOnClickListener(new View.OnClickListener() {
+                // Begin of saveSecondContact.setOnClickListener
 
-                  public void onClick(View emergencyContactView) { // Begin of onClick
+                public void onClick(View emergencyContactView) { // Begin of onClick
 
-                    signInSecondContact();
-                    disableField(nameSecondContact,phoneSecondContact);
-                    Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
-                  } // End of onClick
-                }); // End of saveSecondContact.setOnClickListener and End of if
+                  signInSecondContact();
+                  disableField(nameSecondContact,phoneSecondContact);
+                  Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
+                } // End of onClick
+              }); // End of saveSecondContact.setOnClickListener and End of if
               // If all validation passed will disable some buttons
-              } else { // Begin of if
+            } else { // Begin of if
 
-                disableSaveButton(saveSecondContact,updateSecondContact,
-                    deleteSecondContact);
-              } // End of else
-            } // End of onClick
-          }); // End of saveSecondContact.setOnClickListener
-        } // End of onClick
-      }); // End of deleteSecondContact.setOnClickListener
+              disableSaveButton(saveSecondContact,updateSecondContact,
+                      deleteSecondContact);
+            } // End of else
+          } // End of onClick
+        }); // End of saveSecondContact.setOnClickListener
+      } // End of onClick
+    }); // End of deleteSecondContact.setOnClickListener
+    Log.d("End of Method: ","logicSecondContact");
+  } // End of logicSecondContact
 
+  /*
+   * Set informations of bottons and edittext about third emergency contact.
+   *
+   */
+
+  private void setBTThirdContact() { // Begin of setBTThirdContact
+
+    Log.d("Begin of Method: ","setBTThirdContact");
+
+    saveThirdContact = (Button) findViewById(R.id.saveThirdContactButton);
+    updateThirdContact = (Button) findViewById(R.id.updateThirdContactButton);
+    deleteThirdContact = (Button) findViewById(R.id.deleteThirdContactButton);
+
+    nameThirdContact = (EditText) findViewById(R.id.nameThirdContactEditText);
+    phoneThirdContact = (EditText) findViewById(R.id.phoneThirdContactEditText);
+    phoneThirdContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
+            phoneThirdContact));
+    Log.d("End of Method: ","setBTThirdContact");
+  } // End of setBTTThirdContact
+
+  /*
+   * Organize the logic of save,update and delete of third contact.
+   *
+   */
+
+  private void logicThirdContact() { // Begin of logicThirdContact
+
+    Log.d("Begin of Method: ","logicThirdContact");
     // Verifies that has something registered in the database on the emergencyContact.
     if (result.getCount() == databaseEmpty) { // Begin of if
 
@@ -399,7 +466,7 @@ public class EmergencyContactController extends Activity {
               Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
             } // End of onClick
           }); // End of saveThirdContact.setOnClickListener and End of if
-        // If all validation passed will disable some buttons
+          // If all validation passed will disable some buttons
         } else { // End of if
 
           disableSaveButton(saveThirdContact,updateThirdContact,deleteThirdContact);
@@ -415,7 +482,7 @@ public class EmergencyContactController extends Activity {
 
         // Disable some buttons and the "alterar" pass to "salvar"
         disableUpdateButton(nameThirdContact,phoneThirdContact,updateThirdContact,
-            saveThirdContact);
+                saveThirdContact);
 
         saveThirdContact.setOnClickListener(new View.OnClickListener() {
           // Begin of saveThirdContact.setOnClickListener
@@ -424,7 +491,7 @@ public class EmergencyContactController extends Activity {
           public void onClick(View emergencyContactView) { // Begin of onClick
 
             updateContact(idThirdContact,nameThirdContact,phoneThirdContact,
-                saveThirdContact,updateThirdContact,deleteThirdContact);
+                    saveThirdContact,updateThirdContact,deleteThirdContact);
             setOptionsVisible(saveThirdContact,updateFirstContact);
             Log.d("Update contact"," Was update at informations about third emergency contact");
           } // End of onClick
@@ -439,40 +506,41 @@ public class EmergencyContactController extends Activity {
       public void onClick(View emergencyContactView) { //Begin of onClick
 
         deleteContact(nameThirdContact,phoneThirdContact,saveThirdContact,
-            idThirdContact,updateThirdContact,deleteThirdContact);
+                idThirdContact,updateThirdContact,deleteThirdContact);
         Log.d("Delete contact"," Was delete at informations about third emergency contact");
 
-          saveThirdContact.setOnClickListener(new View.OnClickListener() {
-            //Begin of saveThirdContact.setOnClickListener
+        saveThirdContact.setOnClickListener(new View.OnClickListener() {
+          //Begin of saveThirdContact.setOnClickListener
 
-            public void onClick(View emergencyContactView) { //Begin of onClick
+          public void onClick(View emergencyContactView) { //Begin of onClick
 
-              // For register the third emergency contact will done some validations and if on
-              // validation not passed, will be given a chance to register the emergency contact
-              // again
-              if (!signInthirdContact()) {
+            // For register the third emergency contact will done some validations and if on
+            // validation not passed, will be given a chance to register the emergency contact
+            // again
+            if (!signInthirdContact()) {
 
-                saveThirdContact.setOnClickListener(new View.OnClickListener() {
-                  // Begin of saveThirdContact.setOnClickListener
+              saveThirdContact.setOnClickListener(new View.OnClickListener() {
+                // Begin of saveThirdContact.setOnClickListener
 
-                  public void onClick(View emergencyContactView) { // Begin of onClick
+                public void onClick(View emergencyContactView) { // Begin of onClick
 
-                    signInthirdContact();
-                    disableField(nameThirdContact,phoneThirdContact);
-                  } // End of onClick
-                }); // End of saveThirdContact.setOnClickListener and End of if
+                  signInthirdContact();
+                  disableField(nameThirdContact,phoneThirdContact);
+                } // End of onClick
+              }); // End of saveThirdContact.setOnClickListener and End of if
               // If all validation passed will disable some buttons
               Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
-              } else { // Begin of else
+            } else { // Begin of else
 
-                disableSaveButton(saveThirdContact,updateThirdContact,
-                     deleteThirdContact);
-              } // End of else
-            } // End of onClick
-          }); // End of saveThirdContact.setOnClickListener
-        } // End of onClick
-      }); // End of deleteThirdContact.setOnClickListener
-  } // End of onCreate
+              disableSaveButton(saveThirdContact,updateThirdContact,
+                      deleteThirdContact);
+            } // End of else
+          } // End of onClick
+        }); // End of saveThirdContact.setOnClickListener
+      } // End of onClick
+    }); // End of deleteThirdContact.setOnClickListener
+    Log.d("End of Method: ","logicThirdContact");
+  } // End of logicThirdContact
 
   /*
    * This method is used to sign the first contact in the system, returns a bollean that informs
@@ -481,7 +549,7 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  private boolean signInFirstContact() {
+  private boolean signInFirstContact() { // Begin of signInFirstContact
 
     Log.d("Begin method: ","signInFirstContact");
     // Sucess is true is all informations is correct or false if ate least information not correct
@@ -522,7 +590,7 @@ public class EmergencyContactController extends Activity {
     } // End of else
     Log.d("End of Method: ","signInFirstContact");
     return valid;
-  }
+  } // End of signInFirstContact
 
   /*
    * This method is used to sign the second contact in the system, returns a bollean that informs
@@ -531,7 +599,7 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  private boolean signInSecondContact() {
+  private boolean signInSecondContact() { // Begin of signInSecondContact
 
     Log.d("Begin method: ","signInSecondContact");
     // Sucess is true is all informations is correct or false if ate least information not correct
@@ -579,8 +647,7 @@ public class EmergencyContactController extends Activity {
     } //End of else
     Log.d("End of Method: ","signInSecondContact");
     return valid;
-
-  }
+  } // End of signInSecondContact
 
   /*
    * This method is used to sign the third contact in the system, returns a bollean that informs
@@ -589,7 +656,7 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  private boolean signInthirdContact() {
+  private boolean signInthirdContact() { // Begin of signInThirdContact
 
     Log.d("Begin of Method: ","signInSecondContact");
     // Sucess is true is all informations is correct or false if ate least information not correct
@@ -637,7 +704,7 @@ public class EmergencyContactController extends Activity {
     } //End of else
     Log.d("End of Method: ","signInThirdContact");
     return valid;
-  }
+  } // End of signInThirdContact
 
   /*
    * This method is used to update any of the three emergency contacts already signed on EmerGo.
@@ -651,7 +718,7 @@ public class EmergencyContactController extends Activity {
    */
 
   private void updateContact(Integer id,EditText name,EditText phone,Button save,Button update,
-                             Button delete) {
+                             Button delete) { // Begin of updateContact
 
     Log.d("Begin of Method: ","updateContact");
     // Sucess is true is all informations is correct or false if ate least information not correct
@@ -687,7 +754,7 @@ public class EmergencyContactController extends Activity {
       //Nothing to do
     } //End of else
     Log.d("End of Method:","updateContact");
-  }
+  } // End of updateContact
 
   /*
    * This method is used to exclude any of the three emergency contacts signed on system.
@@ -702,7 +769,7 @@ public class EmergencyContactController extends Activity {
 
   private void deleteContact(final EditText nameContact, final EditText phoneContact,
                              final Button save, final Integer id, final Button update,
-                             final Button delete) {
+                             final Button delete) { // Begin of deleteContact
 
     Log.d("Begin of Method: ","updateContact");
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -739,7 +806,7 @@ public class EmergencyContactController extends Activity {
       } //End of onClick
     }); //End of builder.setNegativeButton
     builder.show();
-  }
+  } // End of deleteContact
 
   /*
    * This method is used to check if the name informed by the user is valid.
@@ -749,8 +816,9 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  private boolean checksName(String nameUser) {
+  private boolean checksName(String nameUser) { // Begin of checksName
 
+    Log.d("Begin of Method: ","checksName");
     // Valid is true if at least information not correct
     boolean valid = true;
 
@@ -773,9 +841,10 @@ public class EmergencyContactController extends Activity {
       return valid;
       // Enf of else if
     }
+    Log.d("End of Method: ","checksName");
     valid = false;
     return valid;
-  }
+  } // End of checksName
 
   /*
    * This method is used to show a message to the user in the screen.
@@ -783,10 +852,10 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  private void showMessage(String message) {
+  private void showMessage(String message) { // Begin of showMessage
 
     Toast.makeText(this,"" + message,Toast.LENGTH_SHORT).show();
-  }
+  } // End of showMessage
 
   /*
    * This method is used to disable save,update and delete buttons on the field of
@@ -798,11 +867,12 @@ public class EmergencyContactController extends Activity {
    */
 
   private void disableOptionsButSave(Button save, Button update, Button delete) {
+    // Begin of disableOptionsButSave
 
     save.setVisibility(View.VISIBLE);
     update.setVisibility(View.INVISIBLE);
     delete.setVisibility(View.INVISIBLE);
-  }
+  } // End of disableOptionsButSave
 
   /*
    * This method disable only save button.
@@ -813,6 +883,7 @@ public class EmergencyContactController extends Activity {
    */
 
   private void disableSaveButton(Button save, Button update, Button delete) {
+    // Begin of disableSaveButton
 
     save.setEnabled(false);
     save.setVisibility(View.INVISIBLE);
@@ -820,7 +891,7 @@ public class EmergencyContactController extends Activity {
     update.setEnabled(true);
     delete.setVisibility(View.VISIBLE);
     delete.setEnabled(true);
-  }
+  } // End of disableSaveButton
  
   /*
    * This method disable only update button.
@@ -832,13 +903,14 @@ public class EmergencyContactController extends Activity {
    */
 
   private void disableUpdateButton(EditText name, EditText phone, Button update, Button save) {
+    // Begin of disableUpdateButton
 
     name.setEnabled(true);
     phone.setEnabled(true);
     update.setVisibility(View.INVISIBLE);
     save.setVisibility(View.VISIBLE);
     save.setEnabled(true);
-  }
+  } // End of disableUpdateButton
 
   /*
    * This method is used after the user is already signed in the system, and user will try to
@@ -848,11 +920,11 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  private void setOptionsVisible(Button save, Button update) {
+  private void setOptionsVisible(Button save, Button update) { // Begin of setOptionsVisible
 
     update.setVisibility(View.VISIBLE);
     save.setVisibility(View.INVISIBLE);
-  }
+  } // End of setOptionsVisible
 
   /*
    * This method is used to disable name and phone field.
@@ -861,11 +933,11 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  private void disableField(EditText name,EditText phone) {
+  private void disableField(EditText name,EditText phone) { // Begin of disableField
 
     name.setEnabled(false);
     phone.setEnabled(false);
-  }
+  } // End of disableField
 
   /*
    * This method is used to disable an emergency contact field.
@@ -875,20 +947,21 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  private void disableField(Button save,EditText name, EditText phone) {
+  private void disableField(Button save,EditText name, EditText phone) { // Begin of disableField
 
     save.setVisibility(View.INVISIBLE);
     name.setEnabled(false);
     phone.setEnabled(false);
-  }
+  } // End of disableField
 
   /**
    * This method is activated when user clicks in GO button, tracing a route to the closest
    * health unity.
    * @param mapScreen actual View on app
+   *
    */
 
-  public void goClicked(View mapScreen) throws IOException, JSONException {
+  public void goClicked(View mapScreen) throws IOException, JSONException { // Begin of goClicked
 
     Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
@@ -896,45 +969,48 @@ public class EmergencyContactController extends Activity {
     routeActivity.putExtra("numeroUs" , -1);
     startActivity(routeActivity);
     finish();
-  }
+  } // End of goClicked
 
   /**
    * This method list all the USs, by proximity of the user location, after the list button
    * is clicked.
    * @param mapScreen actual View on app
+   *
    */
 
-  public void listMapsImageClicked(View mapScreen) {
+  public void listMapsImageClicked(View mapScreen) { // Begin of listMapsImageClicked
 
     Intent listOfHealth = new Intent();
     listOfHealth.setClass(this , ListOfHealthUnitsController.class);
     startActivity(listOfHealth);
     finish();
-  }
+  } // End of listMapsImageClicked
 
   /**
    * This method is activated when user is already in the configuration screen, and
    * try to open it again.
    * @param mapScreen actual View on app
+   *
    */
 
-  public void openConfig(View mapScreen) {
+  public void openConfig(View mapScreen) { // Begin of openConfig
 
     Intent config = new Intent();
     config.setClass(this, ConfigController.class);
     startActivity(config);
-  }
+  } // End of openConfig
 
   /**
    * This method is activated when user clicks in the map button, and open a new map.
    * @param mapScreen actual View on app
+   *
    */
 
-  public void openMap(View mapScreen) {
+  public void openMap(View mapScreen) { // Begin of openMap
 
     Intent mapActivity = new Intent();
     mapActivity.setClass(this, MapScreenController.class);
     startActivity(mapActivity);
     finish();
-  }
-}
+  } // End of openMap
+} // End of EmergencyContactController class
