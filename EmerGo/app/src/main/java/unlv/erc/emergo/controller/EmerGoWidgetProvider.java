@@ -26,6 +26,7 @@ public class EmerGoWidgetProvider extends AppWidgetProvider { // Begin of EmerGo
     ComponentName thisWidget = new ComponentName(context, EmerGoWidgetProvider.class);
     int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
+    // By clicking a widget will be directed to Router Activity class.
     for (int widgetId : allWidgetIds) { // Begin for
 
       Intent intent = new Intent(context, RouteActivity.class);
