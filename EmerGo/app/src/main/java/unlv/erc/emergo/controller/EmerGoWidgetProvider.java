@@ -30,14 +30,20 @@ public class EmerGoWidgetProvider extends AppWidgetProvider { // Begin of EmerGo
     // Array of integers widgets
     int [] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
     Log.i("Widgets: ","It is being made an instantiation of an array of widgets");
+    // Private request code for the sender
+    final int requestCode = 0 ;
+    // Code of flags that will be used
+    final int flag = 0;
+    // The integer data value
+    final int value = -1;
 
-    // By clicking a widget will be directed to Router Activity class.
+    // By clicking a widget will be directed to Router Activity class
     for (int widgetId : allWidgetIds) { // Begin for
 
       // Instantiation of class Intent
       Intent intent = new Intent(context, RouteActivity.class);
-      intent.putExtra("numeroUs" , -1);
-      PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+      intent.putExtra("numeroUs" , value);
+      PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, flag);
 
       RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
       views.setOnClickPendingIntent(R.id.update, pendingIntent);
