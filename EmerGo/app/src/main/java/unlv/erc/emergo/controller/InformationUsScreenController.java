@@ -46,7 +46,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     setContentView(R.layout.information_us_screen);
 
     setReceive(getIntent());
-    setNumberUsSelected(receive.getIntExtra("position" , 0));
+    SearchHelthUnitSelected(receive.getIntExtra("position" , 0));
     buttonRoute = (Button) findViewById(R.id.botaoRota);
     buttonRoute.setOnClickListener(this);
     buttonGo = (ImageView) findViewById(R.id.buttonGo);
@@ -335,7 +335,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     * @param numberHealthUnitSelected int.
    */
 
-  public void setNumberUsSelected(int numberHealthUnitSelected) {
+  public void SearchHelthUnitSelected(int numberHealthUnitSelected) {
 
     this.numberHealthUnitSelected = numberHealthUnitSelected;
   }

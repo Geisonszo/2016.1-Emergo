@@ -49,7 +49,7 @@ public class InformationSearchScreenController extends Activity {
     setContentView(R.layout.information_us_screen);
 
     setReceive(getIntent());
-    setNumberUsSelected(receive.getIntExtra("position" , 0));
+    SearchHelthUnitSelected(receive.getIntExtra("position" , 0));
     buttonRoute = (Button) findViewById(R.id.botaoRota);
     buttonRoute.setOnClickListener(new View.OnClickListener() {
           public void onClick(View viewButtonRoute) {
@@ -340,7 +340,7 @@ public class InformationSearchScreenController extends Activity {
     *
    */
 
-  public void setNumberUsSelected(int numberHealthUnitSelected) {
+  public void SearchHelthUnitSelected(int numberHealthUnitSelected) {
 
     this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
