@@ -29,7 +29,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
   private Button buttonRoute;
   private ImageView buttonGo;
   private Intent receive;
-  private int numberUsSelected = 0;
+  private int numberHealthUnitSelected = 0;
   private String padding = "";
   private String titleHealthUnit = "";
   private String nameHealthUnit = "";
@@ -53,7 +53,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     buttonGo.setOnClickListener(this);
 
     setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
-    setInformation(HealthUnitController.getClosestHealthUnit().get(numberUsSelected));
+    setInformation(HealthUnitController.getClosestHealthUnit().get(numberHealthUnitSelected));
     addInformationToList();
   }
 
@@ -320,24 +320,24 @@ public class InformationUsScreenController extends Activity implements View.OnCl
   }
 
   /**
-    * Get the value of attribute numberUsSelected.
-    * @return numberUsSelected: int.
+    * Get the value of attribute numberHealthUnitSelected.
+    * @return numberHealthUnitSelected: int.
     *
    */
 
   public int getNumberUsSelected() {
 
-    return numberUsSelected;
+    return numberHealthUnitSelected;
   }
 
   /**
-    * Set the value of attribute numberUsSelected.
-    * @param numberUsSelected int.
+    * Set the value of attribute numberHealthUnitSelected.
+    * @param numberHealthUnitSelected int.
    */
 
-  public void setNumberUsSelected(int numberUsSelected) {
+  public void setNumberUsSelected(int numberHealthUnitSelected) {
 
-    this.numberUsSelected = numberUsSelected;
+    this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
 
   /**
