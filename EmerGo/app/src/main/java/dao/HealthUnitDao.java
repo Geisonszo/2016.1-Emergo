@@ -15,10 +15,10 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import java.util.List;
-
 import unlv.erc.emergo.controller.HealthUnitController;
 import unlv.erc.emergo.model.HealthUnit;
+
+import java.util.List;
 
 public class HealthUnitDao {
 
@@ -82,7 +82,8 @@ public class HealthUnitDao {
               }
               Toast.makeText(context, "Atualize o mapa para carregar mais USs" ,
                                     Toast.LENGTH_LONG).show();
-              Log.i("Database has finished", HealthUnitController.getClosestHealthUnit().size() + "Us");
+              Log.i("Database has finished", HealthUnitController.getClosestHealthUnit()
+                  .size() + "Us");
           }
 
           @Override

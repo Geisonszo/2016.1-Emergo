@@ -61,7 +61,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
               .get(aux)
                 .getNameHospital()) == 0) {
         Intent information = new Intent();
-        information.setClass(MapScreenController.this , InformationUsScreenController.class);
+        information.setClass(MapScreenController.this , InformationHealthUnitScreenController.class);
         information.putExtra("position" , aux);
         startActivity(information);
         finish();

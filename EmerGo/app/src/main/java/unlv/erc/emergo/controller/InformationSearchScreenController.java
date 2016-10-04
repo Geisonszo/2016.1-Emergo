@@ -41,7 +41,6 @@ public class InformationSearchScreenController extends Activity {
   private final int lowerClose = -1;
   private final int valueDefaultIntent = 0;
 
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 
@@ -104,6 +103,7 @@ public class InformationSearchScreenController extends Activity {
     listOfInformations.add(city);
     listOfInformations.add(district);
     listOfInformations.add(addressNumber);
+
     showInformationOnScreen();
   }
 
@@ -115,8 +115,8 @@ public class InformationSearchScreenController extends Activity {
   public void showInformationOnScreen() {
 
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                                                                android.R.layout.simple_list_item_1,
-                                                                listOfInformations);
+        android.R.layout.simple_list_item_1, listOfInformations);
+
     healthUnitInfo.setAdapter(adapter);
   }
 

@@ -15,11 +15,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import unlv.erc.emergo.R;
 import unlv.erc.emergo.model.HealthUnit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListOfHealthUnitsController extends Activity {
 
@@ -61,7 +61,7 @@ public class ListOfHealthUnitsController extends Activity {
 
     informationScreen.putExtra("position", numberOfUsClicked);
     informationScreen.setClass(ListOfHealthUnitsController.this,
-                                InformationUsScreenController.class);
+                                InformationHealthUnitScreenController.class);
     startActivity(informationScreen);
     finish();
   }
@@ -76,7 +76,8 @@ public class ListOfHealthUnitsController extends Activity {
 
     List<String> closestsUs = new ArrayList<String>();
     int numberOfUs = 0;
-    for (numberOfUs = 0;numberOfUs < HealthUnitController.getClosestHealthUnit().size();numberOfUs++) {
+    for (numberOfUs = 0;numberOfUs < HealthUnitController.getClosestHealthUnit()
+        .size(); numberOfUs++) {
 
       closestsUs.add(closest.get(numberOfUs).getNameHospital());
     }

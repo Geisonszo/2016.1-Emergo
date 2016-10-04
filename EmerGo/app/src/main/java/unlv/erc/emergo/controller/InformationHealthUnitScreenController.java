@@ -1,5 +1,5 @@
 /************************
- * Class name: InformationUsScreenController (.java)
+ * Class name: InformationHealthUnitScreenController (.java)
  *
  * Purpose: The purpose of this class is to show the information of the healthunits.
  ************************/
@@ -22,7 +22,8 @@ import unlv.erc.emergo.model.HealthUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InformationUsScreenController extends Activity implements View.OnClickListener {
+public class InformationHealthUnitScreenController extends Activity
+    implements View.OnClickListener {
 
   private List<String> listOfInformations = new ArrayList<String>();
   private ListView healthUnitInfo;
@@ -81,7 +82,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
 
       Intent route = new Intent();
 
-      route.setClass(InformationUsScreenController.this , RouteActivity.class);
+      route.setClass(InformationHealthUnitScreenController.this , RouteActivity.class);
       route.putExtra("numeroUs" , receive.getIntExtra("position" , 0));
       startActivity(route);
       finish();
@@ -104,7 +105,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
       Intent routeActivity = new Intent();
 
       Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
-      routeActivity.setClass(InformationUsScreenController.this , RouteActivity.class);
+      routeActivity.setClass(InformationHealthUnitScreenController.this , RouteActivity.class);
       routeActivity.putExtra("numeroUs" , -1);
       startActivity(routeActivity);
       finish();
