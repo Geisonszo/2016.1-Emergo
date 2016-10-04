@@ -62,19 +62,19 @@ public class HealthUnitDao {
                 double latitude = (double) child.child("lat").getValue();
                 double longitude = (double) child.child("long").getValue();
                 String nameHospital = child.child("no_fantasia").getValue().toString();
-                String unitType = child.child("ds_tipo_unidade").getValue().toString();
+                String healthUnitType = child.child("ds_tipo_unidade").getValue().toString();
                 String addressNumber = child.child("co_cep").getValue().toString();
                 String district = child.child("no_bairro").getValue().toString();
                 String state = child.child("uf").getValue().toString();
                 String city = child.child("municipio").getValue().toString();
 
-                if ((unitType.contains("HOSPITAL GERAL")
-                    || unitType.contains("CENTRO DE SAUDE/UNIDADE BASICA")
-                    || unitType.contains("UNIDADE MOVEL DE NIVEL PRE-HOSPITALAR NA AREA DE "
+                if ((healthUnitType.contains("HOSPITAL GERAL")
+                    || healthUnitType.contains("CENTRO DE SAUDE/UNIDADE BASICA")
+                    || healthUnitType.contains("UNIDADE MOVEL DE NIVEL PRE-HOSPITALAR NA AREA DE "
                                        + "URGENCIA")
-                    || unitType.contains("UNIDADE MOVEL TERRESTRE"))) {
+                    || healthUnitType.contains("UNIDADE MOVEL TERRESTRE"))) {
 
-                  model = new HealthUnit(latitude,longitude,nameHospital,unitType,
+                  model = new HealthUnit(latitude,longitude,nameHospital,healthUnitType,
                                            addressNumber,district,state,city);
                   model.save();
                   HealthUnitController.setClosestHealthUnit(model);

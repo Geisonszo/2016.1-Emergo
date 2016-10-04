@@ -24,9 +24,9 @@ public class HealthUnitTest extends TestCase {
   }
 
   public void testGetUnitTypeHealthUnit() {
-    String unitType = "Posto de Saude";
+    String healthUnitType = "Posto de Saude";
     healthUnit.setUnitType("Posto de Saude");
-    assertEquals(unitType, healthUnit.getUnitType());
+    assertEquals(healthUnitType, healthUnit.getUnitType());
   }
 
   public void testSetAddressNumberHealthUnit() {

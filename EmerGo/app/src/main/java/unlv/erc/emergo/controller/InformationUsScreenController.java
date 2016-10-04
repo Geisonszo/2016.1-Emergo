@@ -33,7 +33,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
   private String padding = "";
   private String titleHealthUnit = "";
   private String nameHealthUnit = "";
-  private String unitType = "";
+  private String healthUnitType = "";
   private String state = "";
   private String city = "";
   private String district = "";
@@ -143,7 +143,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     listOfInformations.add(padding);
     listOfInformations.add(titleHealthUnit);
     listOfInformations.add(nameHealthUnit);
-    listOfInformations.add(unitType);
+    listOfInformations.add(healthUnitType);
     listOfInformations.add(state);
     listOfInformations.add(city);
     listOfInformations.add(district);
@@ -407,25 +407,25 @@ public class InformationUsScreenController extends Activity implements View.OnCl
   }
 
   /**
-    * Get the value of attribute unitType.
-    * @return unitType: String.
+    * Get the value of attribute healthUnitType.
+    * @return healthUnitType: String.
     *
    */
 
   public String getUnitType() {
 
-    return unitType;
+    return healthUnitType;
   }
 
   /**
-    * Set the value of attribute unitType.
-    * @param unitType String.
+    * Set the value of attribute healthUnitType.
+    * @param healthUnitType String.
     *
    */
 
-  public void setUnitType(String unitType) {
+  public void setUnitType(String healthUnitType) {
 
-    this.unitType = unitType;
+    this.healthUnitType = healthUnitType;
   }
 
   /**

@@ -7,15 +7,15 @@
 
 package helper;
 
-import android.app.Activity;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
+import android.app.Activity;
 
 import unlv.erc.emergo.model.HealthUnit;
+
+import java.util.ArrayList;
 
 public class Services extends Activity {
 
