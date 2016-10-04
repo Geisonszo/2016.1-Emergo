@@ -148,7 +148,7 @@ public class ListOfHealthUnitsController extends Activity {
     *
    */
 
-  public void open_search(View mapScreen) {
+  public void openSearch(View mapScreen) {
 
     Intent openSearch = new Intent();
 

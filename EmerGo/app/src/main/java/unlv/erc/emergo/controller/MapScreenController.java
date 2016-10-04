@@ -89,7 +89,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     startActivity(listOfHealth);
   }
 
-  public void open_search(View mapScreen) {
+  public void openSearch(View mapScreen) {
 
     Intent openSearch = new Intent();
     openSearch.setClass(this , SearchUsController.class);

@@ -163,7 +163,7 @@ public class InformationSearchScreenController extends Activity {
     *
    */
 
-  public void open_search(View mapScreen) {
+  public void openSearch(View mapScreen) {
 
     Intent openSearch = new Intent();
 
