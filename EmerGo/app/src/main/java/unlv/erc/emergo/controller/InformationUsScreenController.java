@@ -175,7 +175,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
 
     Intent openSearch = new Intent();
 
-    openSearch.setClass(this,SearchUsController.class);
+    openSearch.setClass(this,SearchHealthUnitController.class);
     startActivity(openSearch);
   }
 

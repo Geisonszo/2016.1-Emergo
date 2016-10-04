@@ -1,17 +1,14 @@
 package unlv.erc.emergo.controller;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -23,7 +20,7 @@ import java.util.List;
 
 
 
-public class SearchUsController extends AppCompatActivity implements SearchView
+public class SearchHealthUnitController extends AppCompatActivity implements SearchView
     .OnQueryTextListener, View.OnClickListener {
 
   private SearchView mapSearchView;
@@ -60,7 +57,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
     Intent informationScreen = new Intent();
 
     informationScreen.putExtra("position", numberOfHealthUnitClicked);
-    informationScreen.setClass(SearchUsController.this, InformationSearchScreenController.class);
+    informationScreen.setClass(SearchHealthUnitController.this, InformationSearchScreenController.class);
     startActivity(informationScreen);
     finish();
   }
@@ -96,7 +93,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
 
       Intent route = new Intent();
 
-      route.setClass(SearchUsController.this, RouteActivity.class);
+      route.setClass(SearchHealthUnitController.this, RouteActivity.class);
       startActivity(route);
       finish();
     }
@@ -104,7 +101,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
 
       Intent map = new Intent();
 
-      map.setClass(SearchUsController.this, MapScreenController.class);
+      map.setClass(SearchHealthUnitController.this, MapScreenController.class);
       map.putExtra("numeroUs" , -1);
       startActivity(map);
       finish();
@@ -113,7 +110,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
 
       Intent list = new Intent();
 
-      list.setClass(SearchUsController.this, ListOfHealthUnitsController.class);
+      list.setClass(SearchHealthUnitController.this, ListOfHealthUnitsController.class);
       startActivity(list);
       finish();
     }
