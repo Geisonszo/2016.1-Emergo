@@ -16,12 +16,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import unlv.erc.emergo.R;
 import unlv.erc.emergo.model.HealthUnit;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class InformationSearchScreenController extends Activity {
 
