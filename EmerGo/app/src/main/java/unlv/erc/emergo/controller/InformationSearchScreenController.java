@@ -1,6 +1,6 @@
 /************************
  * Class name: InformationSearchScreenController (.java)
- *
+ * <p>
  * Purpose: The purpose of this class is to show the information of the healthunits.
  ************************/
 
@@ -39,7 +39,7 @@ public class InformationSearchScreenController extends Activity {
   private String district = "";
   private String addressNumber = "";
   private final int lowerClose = -1;
-  private final int valueDefaultIntent = 0;
+  private static final int valueDefaultIntent = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -48,19 +48,23 @@ public class InformationSearchScreenController extends Activity {
     setContentView(R.layout.information_us_screen);
 
     setReceive(getIntent());
-    SearchHelthUnitSelected(receive.getIntExtra("position" , 0));
+    SearchHelthUnitSelected(receive.getIntExtra("position", 0));
     buttonRoute = (Button) findViewById(R.id.botaoRota);
     buttonRoute.setOnClickListener(new View.OnClickListener() {
-          public void onClick(View viewButtonRoute) {
-            buttonRoute();
-          }
+
+      public void onClick(View viewButtonRoute) {
+
+        buttonRoute();
+      }
     });
 
     buttonGo = (ImageView) findViewById(R.id.buttonGo);
     buttonGo.setOnClickListener(new View.OnClickListener() {
-        public void onClick(View viewButtonGo) {
-          buttonClickGo();
-        }
+
+      public void onClick(View viewButtonGo) {
+
+        buttonClickGo();
+      }
     });
 
     setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
@@ -69,10 +73,10 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * This function takes the data on the health units saved in the database and through
-    * ArrayLists, each arrow information in place. The data that will be represented are: Name,
-    * type of care,UF,city,neighborhood and zip code.
-    *
+   * This function takes the data on the health units saved in the database and through
+   * ArrayLists, each arrow information in place. The data that will be represented are: Name,
+   * type of care,UF,city,neighborhood and zip code.
+   *
    */
 
   public void setInformation(HealthUnit healthUnit) {
@@ -88,12 +92,12 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Takes the data from the database, saved in a arraylist and calls another function, where the
-    * saved data in ArrayLists will be shown in a ArrayAdapter.
-    *
+   * Takes the data from the database, saved in a arraylist and calls another function, where the
+   * saved data in ArrayLists will be shown in a ArrayAdapter.
+   *
    */
 
-  public void  addInformationToList() {
+  public void addInformationToList() {
 
     listOfInformations.add(padding);
     listOfInformations.add(titleHealthUnit);
@@ -108,8 +112,8 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Shows the information saved in the arraylist and put in a ArrayAdapter.
-    *
+   * Shows the information saved in the arraylist and put in a ArrayAdapter.
+   *
    */
 
   public void showInformationOnScreen() {
@@ -121,73 +125,73 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * When the "buttonRoute" is pressed, it will exit the current class and opened the activity and
-    * "RouteActivity" class. When RouteActivity is finished, come in method "finish ()" which will
-    * close the activity "RouteActivity".
-    *
+   * When the "buttonRoute" is pressed, it will exit the current class and opened the activity and
+   * "RouteActivity" class. When RouteActivity is finished, come in method "finish ()" which will
+   * close the activity "RouteActivity".
+   *
    */
 
   public void buttonRoute() {
 
     Intent route = new Intent();
 
-    route.setClass(this , RouteActivity.class);
-    route.putExtra("numeroUs" , receive.getIntExtra("position" , valueDefaultIntent));
+    route.setClass(this, RouteActivity.class);
+    route.putExtra("numeroUs", receive.getIntExtra("position", valueDefaultIntent));
     startActivity(route);
     finish();
   }
 
   /**
-    * When the "buttonGo" is pressed, it will exit the current class, opened the activity
-    * "RouteActivity," only different from the method of "buttonRoute", will now be chosen the
-    * route nearest the user.When the RouteActivity is finished, come in method "finish ()"
-    * which will close the activity "RouteActivity".
-    *
+   * When the "buttonGo" is pressed, it will exit the current class, opened the activity
+   * "RouteActivity," only different from the method of "buttonRoute", will now be chosen the
+   * route nearest the user.When the RouteActivity is finished, come in method "finish ()"
+   * which will close the activity "RouteActivity".
+   *
    */
 
   public void buttonClickGo() {
 
-    final String routeTraced = "Rota mais próxima traçada";
+    String routeTraced = "Rota mais próxima traçada";
 
-    Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, routeTraced, Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
-    routeActivity.setClass(this , RouteActivity.class);
-    routeActivity.putExtra("numeroUs" , lowerClose);
+    routeActivity.setClass(this, RouteActivity.class);
+    routeActivity.putExtra("numeroUs", lowerClose);
     startActivity(routeActivity);
     finish();
   }
 
   /**
-    * Exchange of current activity and start activity "SearchController".
-    * @param mapScreen View of mapScree.
-    *
+   * Exchange of current activity and start activity "SearchController".
+   * @param mapScreen View of mapScree.
+   *
    */
 
   public void openSearch(View mapScreen) {
 
     Intent openSearch = new Intent();
 
-    openSearch.setClass(this , SearchHealthUnitController.class);
+    openSearch.setClass(this, SearchHealthUnitController.class);
     startActivity(openSearch);
   }
 
   /**
-    * Exchange of current activity and start activity "ConfigController".
-    * @param viewConfig View of config.
-    *
+   * Exchange of current activity and start activity "ConfigController".
+   * @param viewConfig View of config.
+   *
    */
 
   public void openConfig(View viewConfig) {
 
     Intent config = new Intent();
 
-    config.setClass(this , ConfigController.class);
+    config.setClass(this, ConfigController.class);
     startActivity(config);
   }
 
   /**
-    * Exchange of current activity and start activity "ListOfHealthUnitsController".
-    * @param mapScreen View of mapScreen.
+   * Exchange of current activity and start activity "ListOfHealthUnitsController".
+   * @param mapScreen View of mapScreen.
    */
 
   public void listMapsImageClicked(View mapScreen) {
@@ -200,9 +204,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Exchange of current activity and start activity "MapScreenController".
-    * @param mapScreen View of mapScreen.
-    *
+   * Exchange of current activity and start activity "MapScreenController".
+   * @param mapScreen View of mapScreen.
+   *
    */
 
   public void openMap(View mapScreen) {
@@ -215,8 +219,8 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute listOfInformations.
-    * @return listofInformations: String
+   * Get the value of attribute listOfInformations.
+   * @return listofInformations: String
    */
 
   public List<String> getListOfInformations() {
@@ -225,9 +229,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute listOfInformations.
-    * @param listOfInformations List of Informations about health units.
-    *
+   * Set the value of attribute listOfInformations.
+   * @param listOfInformations List of Informations about health units.
+   *
    */
 
   public void setListOfInformations(List<String> listOfInformations) {
@@ -236,9 +240,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute healthUnitInfo.
-    * @return healthUnitInfo: ListView
-    *
+   * Get the value of attribute healthUnitInfo.
+   * @return healthUnitInfo: ListView
+   *
    */
 
   public ListView getHealthUnitInfo() {
@@ -247,9 +251,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute healthUnitInfo.
-    * @param healthUnitInfo ListView about health units.
-    *
+   * Set the value of attribute healthUnitInfo.
+   * @param healthUnitInfo ListView about health units.
+   *
    */
 
   public void setHealthUnitInfo(ListView healthUnitInfo) {
@@ -258,9 +262,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute receive.
-    * @return healthUnitInfo: Intent.
-    *
+   * Get the value of attribute receive.
+   * @return healthUnitInfo: Intent.
+   *
    */
 
   public Intent getReceive() {
@@ -269,9 +273,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute receive.
-    * @param receive Intent.
-    *
+   * Set the value of attribute receive.
+   * @param receive Intent.
+   *
    */
 
   public void setReceive(Intent receive) {
@@ -280,9 +284,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute buttonRoute.
-    * @return buttonRoute: ButtonRoute.
-    *
+   * Get the value of attribute buttonRoute.
+   * @return buttonRoute: ButtonRoute.
+   *
    */
 
   public Button getButtonRoute() {
@@ -291,9 +295,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute buttonRoute.
-    * @param buttonRoute Button route.
-    *
+   * Set the value of attribute buttonRoute.
+   * @param buttonRoute Button route.
+   *
    */
 
   public void setButtonRoute(Button buttonRoute) {
@@ -302,9 +306,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute of image buttonGo.
-    * @return buttonGo: ImageView.
-    *
+   * Get the value of attribute of image buttonGo.
+   * @return buttonGo: ImageView.
+   *
    */
 
   public ImageView getButtonGo() {
@@ -313,9 +317,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute of image buttonGo.
-    * @param buttonGo Button go.
-    *
+   * Set the value of attribute of image buttonGo.
+   * @param buttonGo Button go.
+   *
    */
 
   public void setButtonGo(ImageView buttonGo) {
@@ -324,9 +328,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute numberHealthUnitSelected.
-    * @return numberHealthUnitSelected: int.
-    *
+   * Get the value of attribute numberHealthUnitSelected.
+   * @return numberHealthUnitSelected: int.
+   *
    */
 
   public int getNumberUsSelected() {
@@ -335,9 +339,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute numberHealthUnitSelected.
-    * @param numberHealthUnitSelected int.
-    *
+   * Set the value of attribute numberHealthUnitSelected.
+   * @param numberHealthUnitSelected int.
+   *
    */
 
   public void SearchHelthUnitSelected(int numberHealthUnitSelected) {
@@ -346,9 +350,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute padding.
-    * @return padding: String.
-    *
+   * Get the value of attribute padding.
+   * @return padding: String.
+   *
    */
 
   public String getPadding() {
@@ -357,9 +361,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute padding.
-    * @param padding String.
-    *
+   * Set the value of attribute padding.
+   * @param padding String.
+   *
    */
 
   public void setPadding(String padding) {
@@ -368,9 +372,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute titleHealthUnit.
-    * @return titleHealthUnit: String.
-    *
+   * Get the value of attribute titleHealthUnit.
+   * @return titleHealthUnit: String.
+   *
    */
 
   public String getTitleHealthUnit() {
@@ -379,9 +383,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute titleHealthUnit.
-    * @param titleHealthUnit String.
-    *
+   * Set the value of attribute titleHealthUnit.
+   * @param titleHealthUnit String.
+   *
    */
 
   public void setTitleHealthUnit(String titleHealthUnit) {
@@ -390,9 +394,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute nameHealthUnit.
-    * @return nameHealthUnit: String.
-    *
+   * Get the value of attribute nameHealthUnit.
+   * @return nameHealthUnit: String.
+   *
    */
 
   public String getNameHealthUnit() {
@@ -401,9 +405,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute nameHealthUnit.
-    * @param nameHealthUnit String.
-    *
+   * Set the value of attribute nameHealthUnit.
+   * @param nameHealthUnit String.
+   *
    */
 
   public void setNameHealthUnit(String nameHealthUnit) {
@@ -412,9 +416,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute healthUnitType.
-    * @return healthUnitType: String.
-    *
+   * Get the value of attribute healthUnitType.
+   * @return healthUnitType: String.
+   *
    */
 
   public String getUnitType() {
@@ -423,9 +427,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute healthUnitType.
-    * @param healthUnitType String.
-    *
+   * Set the value of attribute healthUnitType.
+   * @param healthUnitType String.
+   *
    */
 
   public void setUnitType(String healthUnitType) {
@@ -434,9 +438,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute state.
-    * @return state: String.
-    *
+   * Get the value of attribute state.
+   * @return state: String.
+   *
    */
 
   public String getState() {
@@ -445,9 +449,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute state.
-    * @param state String.
-    *
+   * Set the value of attribute state.
+   * @param state String.
+   *
    */
 
   public void setState(String state) {
@@ -456,9 +460,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute city.
-    * @return city: String.
-    *
+   * Get the value of attribute city.
+   * @return city: String.
+   *
    */
 
   public String getCity() {
@@ -467,9 +471,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute city.
-    * @param city String.
-    *
+   * Set the value of attribute city.
+   * @param city String.
+   *
    */
 
   public void setCity(String city) {
@@ -478,9 +482,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute district.
-    * @return district: String.
-    *
+   * Get the value of attribute district.
+   * @return district: String.
+   *
    */
 
   public String getDistrict() {
@@ -489,9 +493,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute district.
-    * @param district String.
-    *
+   * Set the value of attribute district.
+   * @param district String.
+   *
    */
 
   public void setDistrict(String district) {
@@ -500,9 +504,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Get the value of attribute addressNumber.
-    * @return addressNumber: String.
-    *
+   * Get the value of attribute addressNumber.
+   * @return addressNumber: String.
+   *
    */
 
   public String getAddressNumber() {
@@ -511,9 +515,9 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-    * Set the value of attribute addressNumber.
-    * @param addressNumber String.
-    *
+   * Set the value of attribute addressNumber.
+   * @param addressNumber String.
+   *
    */
 
   public void setAddressNumber(String addressNumber) {
