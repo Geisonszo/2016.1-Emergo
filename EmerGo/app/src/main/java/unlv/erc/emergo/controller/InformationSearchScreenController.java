@@ -38,8 +38,8 @@ public class InformationSearchScreenController extends Activity {
   private String city = "";
   private String district = "";
   private String addressNumber = "";
-  private final int lowerClose = -1;
-  private static final int valueDefaultIntent = 0;
+  private static final int LOWER_CLOSE = -1;
+  private static final int VALUE_DEFAULT_INTENT = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +136,7 @@ public class InformationSearchScreenController extends Activity {
     Intent route = new Intent();
 
     route.setClass(this, RouteActivity.class);
-    route.putExtra("numeroUs", receive.getIntExtra("position", valueDefaultIntent));
+    route.putExtra("numeroUs", receive.getIntExtra("position", VALUE_DEFAULT_INTENT));
     startActivity(route);
     finish();
   }
@@ -156,7 +156,7 @@ public class InformationSearchScreenController extends Activity {
     Toast.makeText(this, routeTraced, Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(this, RouteActivity.class);
-    routeActivity.putExtra("numeroUs", lowerClose);
+    routeActivity.putExtra("numeroUs", LOWER_CLOSE);
     startActivity(routeActivity);
     finish();
   }
