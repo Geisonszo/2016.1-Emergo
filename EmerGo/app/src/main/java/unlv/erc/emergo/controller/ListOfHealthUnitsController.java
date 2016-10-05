@@ -23,6 +23,8 @@ import java.util.List;
 
 public class ListOfHealthUnitsController extends Activity {
 
+
+  static final String ROUTETRACED = "Rota mais próxima traçada";
   private List<String> listHealthUnits = new ArrayList<>();
   private ListView listHealthUnitsListView;
   private int numberOfUsClicked = 0;
@@ -104,7 +106,7 @@ public class ListOfHealthUnitsController extends Activity {
 
   public void goClicked(View mapScreen) {
 
-    final String ROUTETRACED = "Rota mais próxima traçada";
+
     Intent routeActivity = new Intent();
 
     Toast.makeText(this, ROUTETRACED, Toast.LENGTH_SHORT).show();
