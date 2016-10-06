@@ -37,7 +37,7 @@ public class ListOfHealthUnitsController extends Activity {
 
   private List<String> listHealthUnits = new ArrayList<>();
   private ListView listHealthUnitsListView;
-  private int numberOfUsClicked = 0;
+  private int numberOfHealthUnitsClicked = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class ListOfHealthUnitsController extends Activity {
           @Override
           public void onItemClick(AdapterView<?> parent, View view,int position,long id) {
 
-            numberOfUsClicked = parent.getPositionForView(view);
+            numberOfHealthUnitsClicked = parent.getPositionForView(view);
             openInformationHealthUnitScreen();
           }
         });
@@ -71,7 +71,7 @@ public class ListOfHealthUnitsController extends Activity {
 
     Intent informationScreen = new Intent();
 
-    informationScreen.putExtra(POSITION, numberOfUsClicked);
+    informationScreen.putExtra(POSITION, numberOfHealthUnitsClicked);
     informationScreen.setClass(ListOfHealthUnitsController.this,
                                 InformationHealthUnitScreenController.class);
     startActivity(informationScreen);
@@ -86,20 +86,20 @@ public class ListOfHealthUnitsController extends Activity {
 
   public List<String> get50closestUs(ArrayList<HealthUnit> closest) {
 
-    List<String> closestsUs = new ArrayList<String>();
+    List<String> closestHealthUnits = new ArrayList<String>();
 
     /**
-     * Get the name of all the closest health units.
+     * Set the array closestHealthUnits with the name of all the closest health units.
      *
      */
 
-    int numberOfUs = 0;
-    for (numberOfUs = 0;numberOfUs < HealthUnitController.getClosestHealthUnit()
-        .size(); numberOfUs++) {
+    int numberOfHealthUnits = 0;
+    for (numberOfHealthUnits = 0;numberOfHealthUnits < HealthUnitController.getClosestHealthUnit()
+        .size(); numberOfHealthUnits++) {
 
-      closestsUs.add(closest.get(numberOfUs).getNameHospital());
+      closestHealthUnits.add(closest.get(numberOfHealthUnits).getNameHospital());
     }
-    return closestsUs;
+    return closestHealthUnits;
   }
 
   /**
