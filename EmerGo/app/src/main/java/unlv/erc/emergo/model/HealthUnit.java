@@ -10,16 +10,16 @@ import com.orm.SugarRecord;
 
 public class HealthUnit extends SugarRecord {
 
-  private Double latitude;
-  private Double longitude;
-  private String nameHospital;
-  private String healthUnitType;
-  private String addressNumber;
-  private String district;
-  private String state;
-  private String city;
-  private Float distance;
-  private Integer id;
+  private Double latitude = 0.0;
+  private Double longitude = 0.0;
+  private String nameHospital = "";
+  private String healthUnitType = "";
+  private String addressNumber = "";
+  private String district = "";
+  private String state = "";
+  private String city = "";
+  private Float distance = 0f;
+  private Integer id = 0;
 
   public HealthUnit(){
 
