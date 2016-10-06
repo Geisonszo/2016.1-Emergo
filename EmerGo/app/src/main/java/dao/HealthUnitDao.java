@@ -93,6 +93,9 @@ public class HealthUnitDao {
       });
     } else {
 
+      /**
+       * Set the array closestHealthUnits.
+       */
       for (int aux = 0 ; aux < list.size(); aux++) {
 
         HealthUnitController.setClosestHealthUnit(list.get(aux));
