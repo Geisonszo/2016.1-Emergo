@@ -88,6 +88,11 @@ public class ListOfHealthUnitsController extends Activity {
 
     List<String> closestsUs = new ArrayList<String>();
 
+    /**
+     * Get the name of all the closest health units.
+     *
+     */
+
     int numberOfUs = 0;
     for (numberOfUs = 0;numberOfUs < HealthUnitController.getClosestHealthUnit()
         .size(); numberOfUs++) {
