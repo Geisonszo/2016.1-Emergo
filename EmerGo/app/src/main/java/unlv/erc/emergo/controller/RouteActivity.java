@@ -1,9 +1,3 @@
-/********************
- * Class name: RouteActivity (.java)
- *
- * Purpose: The purpose of this class is show the route to the heath unit on the map.
- ********************/
-
 package unlv.erc.emergo.controller;
 
 import com.google.android.gms.common.ConnectionResult;
