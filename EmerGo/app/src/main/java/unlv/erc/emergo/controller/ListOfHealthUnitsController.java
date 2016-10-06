@@ -24,7 +24,10 @@ import java.util.List;
 public class ListOfHealthUnitsController extends Activity {
 
 
-  static final String ROUTETRACED = "Rota mais próxima traçada";
+  private static final String ROUTE_TRACED = "Rota mais próxima traçada";
+  private static final int VALUE_LOWER_CLOSE = -1;
+  private static final String POSITION = "position";
+  private static final String NUMBER_HEALTH_UNIT = "numeroUs";
   private List<String> listHealthUnits = new ArrayList<>();
   private ListView listHealthUnitsListView;
   private int numberOfUsClicked = 0;
@@ -61,7 +64,7 @@ public class ListOfHealthUnitsController extends Activity {
 
     Intent informationScreen = new Intent();
 
-    informationScreen.putExtra("position", numberOfUsClicked);
+    informationScreen.putExtra(POSITION, numberOfUsClicked);
     informationScreen.setClass(ListOfHealthUnitsController.this,
                                 InformationHealthUnitScreenController.class);
     startActivity(informationScreen);
@@ -77,6 +80,7 @@ public class ListOfHealthUnitsController extends Activity {
   public List<String> get50closestUs(ArrayList<HealthUnit> closest) {
 
     List<String> closestsUs = new ArrayList<String>();
+
     int numberOfUs = 0;
     for (numberOfUs = 0;numberOfUs < HealthUnitController.getClosestHealthUnit()
         .size(); numberOfUs++) {
@@ -109,9 +113,9 @@ public class ListOfHealthUnitsController extends Activity {
 
     Intent routeActivity = new Intent();
 
-    Toast.makeText(this, ROUTETRACED, Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
     routeActivity.setClass(ListOfHealthUnitsController.this, RouteActivity.class);
-    routeActivity.putExtra("numeroUs", -1);
+    routeActivity.putExtra(NUMBER_HEALTH_UNIT, VALUE_LOWER_CLOSE);
     startActivity(routeActivity);
     finish();
   }

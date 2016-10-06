@@ -24,6 +24,10 @@ import java.util.List;
 
 public class InformationSearchScreenController extends Activity {
 
+  private static final int CLOSEST = -1;
+  private static final int RETURN_NOT_FOUND = 0;
+  private static final String ITEM_NAME = "position";
+  private static final String NUMBER_HEALTH_UNIT = "numeroUs";
   private List<String> listOfInformations = new ArrayList<String>();
   private ListView healthUnitInfo;
   private Intent receive;
@@ -38,8 +42,6 @@ public class InformationSearchScreenController extends Activity {
   private String city = "";
   private String district = "";
   private String addressNumber = "";
-  private static final int LOWER_CLOSE = -1;
-  private static final int VALUE_DEFAULT_INTENT = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class InformationSearchScreenController extends Activity {
     setContentView(R.layout.information_us_screen);
 
     setReceive(getIntent());
-    SearchHelthUnitSelected(receive.getIntExtra("position", 0));
+    SearchHelthUnitSelected(receive.getIntExtra(ITEM_NAME, RETURN_NOT_FOUND));
     buttonRoute = (Button) findViewById(R.id.botaoRota);
     buttonRoute.setOnClickListener(new View.OnClickListener() {
 
@@ -136,7 +138,7 @@ public class InformationSearchScreenController extends Activity {
     Intent route = new Intent();
 
     route.setClass(this, RouteActivity.class);
-    route.putExtra("numeroUs", receive.getIntExtra("position", VALUE_DEFAULT_INTENT));
+    route.putExtra(NUMBER_HEALTH_UNIT, receive.getIntExtra(ITEM_NAME, RETURN_NOT_FOUND));
     startActivity(route);
     finish();
   }
@@ -156,7 +158,7 @@ public class InformationSearchScreenController extends Activity {
     Toast.makeText(this, routeTraced, Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(this, RouteActivity.class);
-    routeActivity.putExtra("numeroUs", LOWER_CLOSE);
+    routeActivity.putExtra(NUMBER_HEALTH_UNIT, CLOSEST);
     startActivity(routeActivity);
     finish();
   }
