@@ -25,6 +25,10 @@ import java.util.List;
 public class InformationHealthUnitScreenController extends Activity
     implements View.OnClickListener {
 
+  private static final int RETURN_NOT_FOUND = 0;
+  private static final int VALUE_LOWER_CLOSE = -1;
+  private static final String POSITION = "position";
+  private static final String NUMBER_HEALTH_UNIT = "numeroUs";
   private List<String> listOfInformations = new ArrayList<String>();
   private ListView healthUnitInfo;
   private Button buttonRoute;
@@ -47,7 +51,7 @@ public class InformationHealthUnitScreenController extends Activity
     setContentView(R.layout.information_us_screen);
 
     setReceive(getIntent());
-    SearchHelthUnitSelected(receive.getIntExtra("position" , 0));
+    SearchHelthUnitSelected(receive.getIntExtra(POSITION , RETURN_NOT_FOUND));
     buttonRoute = (Button) findViewById(R.id.botaoRota);
     buttonRoute.setOnClickListener(this);
     buttonGo = (ImageView) findViewById(R.id.buttonGo);
@@ -83,7 +87,7 @@ public class InformationHealthUnitScreenController extends Activity
       Intent route = new Intent();
 
       route.setClass(InformationHealthUnitScreenController.this , RouteActivity.class);
-      route.putExtra("numeroUs" , receive.getIntExtra("position" , 0));
+      route.putExtra(NUMBER_HEALTH_UNIT , receive.getIntExtra(POSITION , RETURN_NOT_FOUND));
       startActivity(route);
       finish();
     } else {
@@ -101,12 +105,12 @@ public class InformationHealthUnitScreenController extends Activity
 
     if (viewOnClick.getId() == R.id.buttonGo) {
 
-      final String routeTraced = "Rota mais próxima traçada";
+      String routeTraced = "Rota mais próxima traçada";
       Intent routeActivity = new Intent();
 
       Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
       routeActivity.setClass(InformationHealthUnitScreenController.this , RouteActivity.class);
-      routeActivity.putExtra("numeroUs" , -1);
+      routeActivity.putExtra(NUMBER_HEALTH_UNIT , VALUE_LOWER_CLOSE);
       startActivity(routeActivity);
       finish();
     } else {
