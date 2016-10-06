@@ -25,9 +25,16 @@ public class ListOfHealthUnitsController extends Activity {
 
 
   private static final String ROUTE_TRACED = "Rota mais próxima traçada";
+
+  // The Bundle data value of numeroUs .
   private static final int VALUE_LOWER_CLOSE = -1;
+
+  // The name of the extra data.
   private static final String POSITION = "position";
+
+  // The Bundle data value.
   private static final String NUMBER_HEALTH_UNIT = "numeroUs";
+
   private List<String> listHealthUnits = new ArrayList<>();
   private ListView listHealthUnitsListView;
   private int numberOfUsClicked = 0;
