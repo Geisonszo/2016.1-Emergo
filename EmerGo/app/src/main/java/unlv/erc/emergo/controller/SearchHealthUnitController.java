@@ -1,3 +1,9 @@
+/********************
+ * Class name: MapScreenController (.java)
+ *
+ * Purpose: The purpose of this class is to search the closest health units.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import android.content.Intent;
