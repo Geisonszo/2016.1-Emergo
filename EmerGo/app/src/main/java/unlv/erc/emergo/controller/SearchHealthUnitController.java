@@ -1,5 +1,5 @@
 /********************
- * Class name: MapScreenController (.java)
+ * Class name: SearchHealthUnitController (.java)
  *
  * Purpose: The purpose of this class is to search the closest health units.
  ********************/
