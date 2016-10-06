@@ -1,3 +1,9 @@
+/*****************************
+ * Class name: HealthUnit (.java)
+ *
+ * Purpose: Represent the data from a health units's.
+ ****************************/
+
 package unlv.erc.emergo.model;
 
 import com.orm.SugarRecord;
