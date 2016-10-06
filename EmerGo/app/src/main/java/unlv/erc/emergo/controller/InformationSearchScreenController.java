@@ -24,10 +24,18 @@ import java.util.List;
 
 public class InformationSearchScreenController extends Activity {
 
+  // The Bundle data value of numeroUs.
   private static final int VALUE_LOWER_CLOSE = -1;
+
+  // The value to be returned if no value of the desired type is stored with the given name.
   private static final int RETURN_NOT_FOUND = 0;
+
+  // The name of the desired item.
   private static final String POSITION = "position";
+
+  // The Bundle data value.
   private static final String NUMBER_HEALTH_UNIT = "numeroUs";
+
   private List<String> listOfInformations = new ArrayList<String>();
   private ListView healthUnitInfo;
   private Intent receive;
