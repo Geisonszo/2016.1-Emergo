@@ -56,7 +56,12 @@ public class HealthUnitDao {
           @Override
           public void onDataChange(DataSnapshot dataSnapshot) {
 
-              HealthUnit model;
+
+            /**
+             * Set database with data from health units.
+             */
+
+            HealthUnit model;
               for (DataSnapshot child : dataSnapshot.getChildren()) {
 
                 double latitude = (double) child.child("lat").getValue();
