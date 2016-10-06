@@ -46,14 +46,14 @@ public class MedicalRecordsController extends Activity {
   private Button updateButton;
   private Button deleteButton;
 
-  private String nameUser;
-  private String birthdayUser;
-  private String typeBloodUser;
-  private String cardiacUser;
-  private String observationsUser;
-  private String diabeticUser;
-  private String hypertensionUser;
-  private String seropositiveUser;
+  private String nameUser = "";
+  private String birthdayUser = "";
+  private String typeBloodUser = "";
+  private String cardiacUser = "";
+  private String observationsUser = "";
+  private String diabeticUser = "";
+  private String hypertensionUser = "";
+  private String seropositiveUser = "";
   private Integer identifier = 1;
   UserDao myDatabase;
   private final int maximumArray = 7;
