@@ -15,8 +15,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class UserDao extends SQLiteOpenHelper {
 
   private static final String DATABASE_NAME = "MedicalRecords";
-  private static final int VERSION = 42;
-  private static UserDao instance = null;
   private static final String USER_TABLE = "User";
   private static final String DROP_TABLE_USER = "DROP TABLE IF EXISTS" + USER_TABLE;
   private static final String NAME_USER = "[nameUser]";
@@ -28,6 +26,8 @@ public class UserDao extends SQLiteOpenHelper {
   private static final String SEROPOSITIVE_USER = "[seropositiveUser]";
   private static final String OBSERVATIONS = "[observationsUser]";
   private static final String USER_ID = "[IDUser]";
+  private static UserDao instance = null;
+  private static final int VERSION = 42;
 
   private static final String CREATE_USER = "CREATE TABLE IF NOT EXISTS " + USER_TABLE + " ("
           + USER_ID + "INTEGER PRIMARY KEY,"
