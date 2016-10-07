@@ -60,7 +60,7 @@
         android:layout_alignTop = "@+id/iconMenu"
         android:layout_alignStart = "@+id/iconList"
         android:clickable = "true"
-        android:onClick = "open_search"
+        android:onClick = "openSearch"
         android:cropToPadding = "false" />
 
 

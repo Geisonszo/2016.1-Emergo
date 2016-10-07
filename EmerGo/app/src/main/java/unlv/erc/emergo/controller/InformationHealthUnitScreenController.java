@@ -1,5 +1,5 @@
 /************************
- * Class name: InformationUsScreenController (.java)
+ * Class name: InformationHealthUnitScreenController (.java)
  *
  * Purpose: The purpose of this class is to show the information of the healthunits.
  ************************/
@@ -16,24 +16,37 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import unlv.erc.emergo.R;
 import unlv.erc.emergo.model.HealthUnit;
 
-public class InformationUsScreenController extends Activity implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class InformationHealthUnitScreenController extends Activity
+    implements View.OnClickListener {
+
+  // The value to be returned if no value of the desired type is stored with the given name.
+  private static final int RETURN_NOT_FOUND = 0;
+
+  // The Bundle data value of numeroUs .
+  private static final int VALUE_LOWER_CLOSE = -1;
+
+  // The name of the desired item.
+  private static final String POSITION = "position";
+
+  // The Bundle data value.
+  private static final String NUMBER_HEALTH_UNIT = "numeroUs";
 
   private List<String> listOfInformations = new ArrayList<String>();
   private ListView healthUnitInfo;
   private Button buttonRoute;
   private ImageView buttonGo;
   private Intent receive;
-  private int numberUsSelected = 0;
+  private int numberHealthUnitSelected = 0;
   private String padding = "";
   private String titleHealthUnit = "";
   private String nameHealthUnit = "";
-  private String unitType = "";
+  private String healthUnitType = "";
   private String state = "";
   private String city = "";
   private String district = "";
@@ -46,14 +59,14 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     setContentView(R.layout.information_us_screen);
 
     setReceive(getIntent());
-    setNumberUsSelected(receive.getIntExtra("position" , 0));
+    SearchHelthUnitSelected(receive.getIntExtra(POSITION , RETURN_NOT_FOUND));
     buttonRoute = (Button) findViewById(R.id.botaoRota);
     buttonRoute.setOnClickListener(this);
     buttonGo = (ImageView) findViewById(R.id.buttonGo);
     buttonGo.setOnClickListener(this);
 
     setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
-    setInformation(HealthUnitController.getClosestHealthUnit().get(numberUsSelected));
+    setInformation(HealthUnitController.getClosestHealthUnit().get(numberHealthUnitSelected));
     addInformationToList();
   }
 
@@ -81,10 +94,13 @@ public class InformationUsScreenController extends Activity implements View.OnCl
 
       Intent route = new Intent();
 
-      route.setClass(InformationUsScreenController.this , RouteActivity.class);
-      route.putExtra("numeroUs" , receive.getIntExtra("position" , 0));
+      route.setClass(InformationHealthUnitScreenController.this , RouteActivity.class);
+      route.putExtra(NUMBER_HEALTH_UNIT , receive.getIntExtra(POSITION , RETURN_NOT_FOUND));
       startActivity(route);
       finish();
+    } else {
+
+      //Nothing to do.
     }
 
     /**
@@ -97,14 +113,17 @@ public class InformationUsScreenController extends Activity implements View.OnCl
 
     if (viewOnClick.getId() == R.id.buttonGo) {
 
-      final String routeTraced = "Rota mais próxima traçada";
+      String routeTraced = "Rota mais próxima traçada";
       Intent routeActivity = new Intent();
 
       Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
-      routeActivity.setClass(InformationUsScreenController.this , RouteActivity.class);
-      routeActivity.putExtra("numeroUs" , -1);
+      routeActivity.setClass(InformationHealthUnitScreenController.this , RouteActivity.class);
+      routeActivity.putExtra(NUMBER_HEALTH_UNIT , VALUE_LOWER_CLOSE);
       startActivity(routeActivity);
       finish();
+    } else {
+
+      //Nothing to do.
     }
   }
 
@@ -137,7 +156,7 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     listOfInformations.add(padding);
     listOfInformations.add(titleHealthUnit);
     listOfInformations.add(nameHealthUnit);
-    listOfInformations.add(unitType);
+    listOfInformations.add(healthUnitType);
     listOfInformations.add(state);
     listOfInformations.add(city);
     listOfInformations.add(district);
@@ -153,8 +172,8 @@ public class InformationUsScreenController extends Activity implements View.OnCl
   public void showInformationOnScreen() {
 
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                                                                android.R.layout.simple_list_item_1,
-                                                                listOfInformations);
+            android.R.layout.simple_list_item_1,
+            listOfInformations);
 
     healthUnitInfo.setAdapter(adapter);
   }
@@ -165,11 +184,11 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     *
    */
 
-  public void open_search(View mapScreen) {
+  public void openSearch(View mapScreen) {
 
     Intent openSearch = new Intent();
 
-    openSearch.setClass(this,SearchUsController.class);
+    openSearch.setClass(this,SearchHealthUnitController.class);
     startActivity(openSearch);
   }
 
@@ -314,24 +333,24 @@ public class InformationUsScreenController extends Activity implements View.OnCl
   }
 
   /**
-    * Get the value of attribute numberUsSelected.
-    * @return numberUsSelected: int.
+    * Get the value of attribute numberHealthUnitSelected.
+    * @return numberHealthUnitSelected: int.
     *
    */
 
   public int getNumberUsSelected() {
 
-    return numberUsSelected;
+    return numberHealthUnitSelected;
   }
 
   /**
-    * Set the value of attribute numberUsSelected.
-    * @param numberUsSelected int.
+    * Set the value of attribute numberHealthUnitSelected.
+    * @param numberHealthUnitSelected int.
    */
 
-  public void setNumberUsSelected(int numberUsSelected) {
+  public void SearchHelthUnitSelected(int numberHealthUnitSelected) {
 
-    this.numberUsSelected = numberUsSelected;
+    this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
 
   /**
@@ -401,25 +420,25 @@ public class InformationUsScreenController extends Activity implements View.OnCl
   }
 
   /**
-    * Get the value of attribute unitType.
-    * @return unitType: String.
+    * Get the value of attribute healthUnitType.
+    * @return healthUnitType: String.
     *
    */
 
   public String getUnitType() {
 
-    return unitType;
+    return healthUnitType;
   }
 
   /**
-    * Set the value of attribute unitType.
-    * @param unitType String.
+    * Set the value of attribute healthUnitType.
+    * @param healthUnitType String.
     *
    */
 
-  public void setUnitType(String unitType) {
+  public void setUnitType(String healthUnitType) {
 
-    this.unitType = unitType;
+    this.healthUnitType = healthUnitType;
   }
 
   /**
@@ -510,7 +529,11 @@ public class InformationUsScreenController extends Activity implements View.OnCl
     this.addressNumber = addressNumber;
   }
 
-  public void openConfig(View map_screen) {
+  /**
+   * Directs you to the Settings screen.
+   * @param mapScreen View.
+   */
+  public void openSettings(View mapScreen) {
     Intent config = new Intent();
     config.setClass(this , ConfigController.class);
     startActivity(config);

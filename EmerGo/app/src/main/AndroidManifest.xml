@@ -101,7 +101,7 @@
 
         <activity
             android:windowSoftInputMode="adjustNothing|adjustPan"
-            android:name=".controller.SearchUsController" >
+            android:name=".controller.SearchHealthUnitController" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

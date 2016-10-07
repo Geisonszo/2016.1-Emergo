@@ -19,9 +19,10 @@ public class MaskHelper {
    */
 
   public static String unmask(String symbols) {
-    String newSymbold = "";
 
-    newSymbold = symbols.replaceAll("[.]", "").replaceAll("[-]", "")
+    //String newSymbold = "";
+
+    String newSymbold = symbols.replaceAll("[.]", "").replaceAll("[-]", "")
                         .replaceAll("[/]", "").replaceAll("[(]", "")
                         .replaceAll("[)]", "");
 

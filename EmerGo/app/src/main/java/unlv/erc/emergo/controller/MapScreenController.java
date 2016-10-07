@@ -61,7 +61,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
               .get(aux)
                 .getNameHospital()) == 0) {
         Intent information = new Intent();
-        information.setClass(MapScreenController.this , InformationUsScreenController.class);
+        information.setClass(MapScreenController.this , InformationHealthUnitScreenController.class);
         information.putExtra("position" , aux);
         startActivity(information);
         finish();
@@ -89,10 +89,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     startActivity(listOfHealth);
   }
 
-  public void open_search(View mapScreen) {
+  public void openSearch(View mapScreen) {
 
     Intent openSearch = new Intent();
-    openSearch.setClass(this , SearchUsController.class);
+    openSearch.setClass(this , SearchHealthUnitController.class);
     startActivity(openSearch);
   }
 

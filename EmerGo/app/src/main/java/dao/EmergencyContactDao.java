@@ -38,11 +38,13 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
   }
 
   public static EmergencyContactDao getInstance(Context context) {
-    if (EmergencyContactDao.instance != null) {
-        //Nothing to do.
 
-    } else  {
+    if (EmergencyContactDao.instance == null) {
+
       EmergencyContactDao.instance = new EmergencyContactDao(context);
+    } else  {
+
+      // Nothing to do.
     }
     return EmergencyContactDao.instance;
   }
@@ -59,6 +61,7 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
   }
 
   public boolean insertEmergencyContact(Integer id,String nameContact,String phone) {
+
     SQLiteDatabase database = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put(CONTACT_ID, id);
@@ -68,24 +71,27 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
     long result = database.insert(EmergencyContact_TABLE,null,contentValues);
     database.close();
     if (result == -1) {
+
       return false;
     } else {
+
       return true;
     }
   }
 
   public boolean updateEmergencyContact(Integer id,String nameContact,String phone) {
+
     SQLiteDatabase database = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
     contentValues.put(NAMECONTACT, nameContact);
     contentValues.put(PHONECONTACT,phone);
-
     database.update(EmergencyContact_TABLE, contentValues, "[IDContact] = " + id,null);
     database.close();
     return true;
   }
 
   public Cursor getEmergencyContact() {
+
     SQLiteDatabase database = this.getWritableDatabase();
     Cursor cursor = database.rawQuery("SELECT * FROM " + EmergencyContact_TABLE,null);
 
@@ -93,6 +99,7 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
   }
 
   public Integer deleteEmergencyContact(Integer id) {
+
     SQLiteDatabase database = this.getWritableDatabase();
     return database.delete(EmergencyContact_TABLE, "[IDContact] = " + id,null);
   }

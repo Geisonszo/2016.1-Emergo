@@ -1,3 +1,9 @@
+/********************
+ * Class name: RouteActivity (.java)
+ *
+ * Purpose: The purpose of this class is show the route to the heath unit on the map.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -65,7 +71,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
-  public int indexOfClosestHealthUnit;
+  public int indexOfClosestHealthUnit = 0;
   public String samuNumber = "tel:192";
   private GoogleMap map;
   private Cursor result;

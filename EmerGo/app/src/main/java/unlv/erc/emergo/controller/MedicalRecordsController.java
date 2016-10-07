@@ -46,14 +46,14 @@ public class MedicalRecordsController extends Activity {
   private Button updateButton;
   private Button deleteButton;
 
-  private String nameUser;
-  private String birthdayUser;
-  private String typeBloodUser;
-  private String cardiacUser;
-  private String observationsUser;
-  private String diabeticUser;
-  private String hypertensionUser;
-  private String seropositiveUser;
+  private String nameUser = "";
+  private String birthdayUser = "";
+  private String typeBloodUser = "";
+  private String cardiacUser = "";
+  private String observationsUser = "";
+  private String diabeticUser = "";
+  private String hypertensionUser = "";
+  private String seropositiveUser = "";
   private Integer identifier = 1;
   UserDao myDatabase;
   private final int maximumArray = 7;
@@ -470,9 +470,9 @@ public class MedicalRecordsController extends Activity {
     finish();
   }
 
-  public void open_search(View mapScreen) {
+  public void openSearch(View mapScreen) {
     Intent openSearch = new Intent();
-    openSearch.setClass(this , SearchUsController.class);
+    openSearch.setClass(this , SearchHealthUnitController.class);
     startActivity(openSearch);
   }
 }

@@ -9,27 +9,52 @@ package unlv.erc.emergo.controller;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import unlv.erc.emergo.R;
 
-public class AboutApp extends Activity {
+public class AboutApp extends Activity { // Begin of AboutApp class
 
+  //A Textview that will show information about the app.
   private TextView informationAboutApp;
 
   @Override
-  protected void onCreate(final Bundle savedInstanceState) {
+  protected void onCreate(final Bundle savedInstanceState) { // Begin of onCreate
     super.onCreate(savedInstanceState);
     setContentView(R.layout.about_app);
 
-    String messageAboutApp = "\tEmerGo é um aplicativo que oferece a facilidade de "
-                           + "encontrar Unidades de Saúde mais próximas. Possui MODO EMERGÊNCIA, "
-                           + "que traça a rota para uma Unidade de Saúde mais próxima, "
+    setInformationAboutApp(showMessageApp());
+  } // End of onCreate
+
+  /*
+   * Set informations about app on TextView.
+   *
+   */
+
+  private void setInformationAboutApp(String messageAboutApp) { // Begin of setInformationAboutApp
+
+    Log.i("Log of Information: ","He entered the setInformationAboutApp.");
+    informationAboutApp = (TextView) findViewById(R.id.aboutApp);
+    informationAboutApp.setText(messageAboutApp);
+  } // End of setInformationAboutApp
+
+  /*
+   * Show message about app.
+   *
+   */
+
+  private String showMessageApp() { // Begin of showMessageApp
+
+    Log.i("Log of Information: ","He entered the showMessage method.");
+    //String which will be written the information about the app.
+    final String messageApp = "\tEmerGo é um aplicativo que oferece a facilidade de "
+            + "encontrar Unidades de Saúde mais próximas. Possui MODO EMERGÊNCIA, "
+            + "que traça a rota para uma Unidade de Saúde mais próxima, "
             + "ligar para o SAMU, e envia uma mensagem pré definida com pedido de ajuda para "
             + "os contatos de emergência salvos!"
             + "\n\n\tTodas as funcionalidades em suas mãos, em apenas um aplicativo.";
 
-    informationAboutApp = (TextView) findViewById(R.id.aboutApp);
-    informationAboutApp.setText(messageAboutApp);
-  }
-}
+    return messageApp;
+  } // End of showMessageApp
+} // End of AboutApp class

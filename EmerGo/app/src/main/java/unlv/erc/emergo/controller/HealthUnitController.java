@@ -1,3 +1,9 @@
+/*
+ * Class: HealthUnitController (.java)
+ *
+ * Porpouse: The purpose of this class is select and set the distance between user and heath units.
+ */
+
 package unlv.erc.emergo.controller;
 
 import android.content.Context;

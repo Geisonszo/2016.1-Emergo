@@ -49,7 +49,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/iconList"
         android:background="@drawable/icon_menu"
-        android:onClick="openConfig" />
+        android:onClick="openSettings" />
 
     <ImageView
         android:layout_width="28dp"
@@ -57,7 +57,7 @@
         android:id="@+id/iconSearch"
         android:background="@drawable/icon_search"
         android:layout_alignTop="@+id/iconMenu"
-        android:onClick="open_search"
+        android:onClick="openSearch"
         android:layout_alignStart="@+id/iconList"
         android:clickable="true" />
 

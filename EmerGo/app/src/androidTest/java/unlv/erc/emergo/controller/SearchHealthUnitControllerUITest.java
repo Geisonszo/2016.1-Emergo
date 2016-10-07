@@ -15,11 +15,11 @@ import org.junit.Before;
 
 import unlv.erc.emergo.R;
 
-public class SearchUsControllerUITest extends ActivityInstrumentationTestCase2<SearchUsController> {
+public class SearchHealthUnitControllerUITest extends ActivityInstrumentationTestCase2<SearchHealthUnitController> {
 
-  public SearchUsControllerUITest() {
+  public SearchHealthUnitControllerUITest() {
 
-    super(SearchUsController.class);
+    super(SearchHealthUnitController.class);
   }
 
   @Before

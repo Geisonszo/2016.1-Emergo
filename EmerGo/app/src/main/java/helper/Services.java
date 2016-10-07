@@ -7,33 +7,34 @@
 
 package helper;
 
-import android.app.Activity;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
+import android.app.Activity;
 
 import unlv.erc.emergo.model.HealthUnit;
+
+import java.util.ArrayList;
 
 public class Services extends Activity {
 
   /**
     * Add "marker" on the map according to the amount of health units registered in the database.
     * @param map GoogleMap.
-    * @param uss ArrayList.
+    * @param healthUnits ArrayList.
     *
    */
 
-  public void setMarkersOnMap(GoogleMap map,ArrayList<HealthUnit> uss) {
+  public void setMarkersOnMap(GoogleMap map, ArrayList<HealthUnit> healthUnits) {
 
-    for (int markersQuantity = 0; markersQuantity < uss.size(); markersQuantity++) {
+    for (int markersQuantity = 0; markersQuantity < healthUnits.size(); markersQuantity++) {
+
       map.addMarker(new MarkerOptions()
-                    .position(new LatLng(uss.get(markersQuantity).getLatitude(),
-                                         uss.get(markersQuantity).getLongitude()))
-                    .title(uss.get(markersQuantity).getNameHospital() + "")
-                    .snippet(uss.get(markersQuantity).getUnitType()));
+                    .position(new LatLng(healthUnits.get(markersQuantity).getLatitude(),
+                                         healthUnits.get(markersQuantity).getLongitude()))
+                    .title(healthUnits.get(markersQuantity).getNameHospital() + "")
+                    .snippet(healthUnits.get(markersQuantity).getUnitType()));
     }
   }
 }

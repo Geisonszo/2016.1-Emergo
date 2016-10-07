@@ -220,54 +220,54 @@ public class User {
 
   public void setDiabeticUser(String diabeticUser) {
 
-     this.diabeticUser = diabeticUser;
+    this.diabeticUser = diabeticUser;
   }
 
-    /**
-     * Get the value of attribute hypertensionUser.
-     *
-     * @return hypertensionUser:String
-     *
-     */
+  /**
+   * Get the value of attribute hypertensionUser.
+   *
+   * @return hypertensionUser:String
+   *
+   */
 
-    public String getHypertensionUser() {
+  public String getHypertensionUser() {
 
-        return hypertensionUser;
-    }
+    return hypertensionUser;
+  }
 
-    /**
-     * Set the value of attribute hypertensionUser.
-     *
-     * @param hypertensionUser
-     *
-     */
+  /**
+   * Set the value of attribute hypertensionUser.
+   *
+   * @param hypertensionUser
+   *
+   */
 
-    public void setHypertensionUser(String hypertensionUser) {
+  public void setHypertensionUser(String hypertensionUser) {
 
-        this.hypertensionUser = hypertensionUser;
-    }
+    this.hypertensionUser = hypertensionUser;
+  }
 
-    /**
-     * Get the value of attribute seropositiveUser.
-     *
-     * @return seropositiveUser:String
-     *
-     */
+  /**
+   * Get the value of attribute seropositiveUser.
+   *
+   * @return seropositiveUser:String
+   *
+   */
 
-    public String getSeropositiveUser() {
+  public String getSeropositiveUser() {
 
-        return seropositiveUser;
-    }
+    return seropositiveUser;
+  }
 
-    /**
-     * Set the value of attribute seropositiveUser.
-     *
-     * @param seropositiveUser
-     *
-     */
+  /**
+   * Set the value of attribute seropositiveUser.
+   *
+   * @param seropositiveUser
+   *
+   */
 
-    public void setSeropositiveUser(String seropositiveUser) {
+  public void setSeropositiveUser(String seropositiveUser) {
 
-        this.seropositiveUser = seropositiveUser;
-    }
+    this.seropositiveUser = seropositiveUser;
+  }
 }
