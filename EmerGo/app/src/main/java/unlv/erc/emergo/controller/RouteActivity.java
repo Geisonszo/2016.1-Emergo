@@ -72,8 +72,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
   public int indexOfClosestHealthUnit = 0;
-  public String samuNumber = "tel:192";
-  private GoogleMap map;
+  public String samuNumber = "tel:192"; // Actual number of public service SAMU
   private Cursor result;
   private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
@@ -136,11 +135,13 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     this.mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
 
+    //Getting user data from DB
     myDatabase = new UserDao(this);
     result = myDatabase.getUser();
 
     getMapFragment();
     Location location = getUserPosition(mapLastLocation);
+
     HealthUnitController.setDistanceBetweenUserAndUs(HealthUnitController.getClosestHealthUnit(),
         location);
     selectindexOfClosestHealthUnit(location);
