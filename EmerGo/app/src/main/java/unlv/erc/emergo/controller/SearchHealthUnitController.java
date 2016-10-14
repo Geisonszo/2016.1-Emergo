@@ -34,7 +34,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   private ImageView map;
   private ImageView healthUnitList;
   private List<String> searchHealthUnit = new ArrayList<>();
-  private int numberOfHealthUnitClicked = 0;
+  private int numberOfHealthUnitClicked = 0; //Index responsable for future searching methods
   private ListView healthUnitsList;
   private CharSequence search;
   ArrayList<String> closestHealthUnit;
