@@ -344,7 +344,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    if (view.getId() == R.id.cancelarLigacao) {
+    if (view.getId() == R.id.cancelCall) {
 
       cancelCalling();
     } else {
