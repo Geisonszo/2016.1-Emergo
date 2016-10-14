@@ -71,7 +71,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
-  public int indexOfClosestHealthUnit = 0;
+  public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
   public String samuNumber = "tel:192"; // Actual number of public service SAMU
   private Cursor result;
   private Location mapLastLocation;
@@ -316,6 +316,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   @Override
   public void onClick(View view) {
 
+    //Open emergency mode
     if (view.getId() == R.id.buttonGo) {
       openMap();
     } else {
@@ -323,6 +324,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
+    //Open map on user location
     if (view.getId() == R.id.selfLocation) {
 
       map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
@@ -331,6 +333,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
+    //Open user info
     if (view.getId() == R.id.userInformation) {
 
       Intent config = new Intent();
@@ -349,6 +352,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
+    //Call samu method
     if (view.getId() == R.id.phone) {
 
       callSamu();
