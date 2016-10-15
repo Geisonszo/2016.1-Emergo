@@ -33,10 +33,8 @@ public class MainScreenController extends Activity {
   private HealthUnitDao dataAccessObject = new HealthUnitDao(this);
   private Cursor resultOfTheUser;
   UserDao myDatabase;
-
-  //Maximum number of rows that the medical records may have.
-  private final int maximumArray = 7;
-  private int clickPosition = 0;
+  private final int maximumArray = 7;  //Maximum number of rows that the medical records may have.
+  private int clickPosition = 0;  //Initial position of the user click on the notification screen.
 
   @Override
     protected void onCreate(Bundle savedInstanceState) {
