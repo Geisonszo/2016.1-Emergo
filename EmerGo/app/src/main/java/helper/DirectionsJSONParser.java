@@ -8,13 +8,13 @@ package helper;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class DirectionsJSONParser {
 
@@ -22,6 +22,7 @@ public class DirectionsJSONParser {
    * This method parses the JSON Objects to an list os Objects
    * @param jObject JSON Objects
    */
+
   public List<List<HashMap<String,String>>> parse(JSONObject jObject) {
 
     List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String,String>>>() ;

@@ -79,4 +79,4 @@ public class EmergencyContact { // Begin of EmergencyContact class
 
     this.phone = phone;
   } // End of setPhone
-}
+} // End of EmergencyContact class
