@@ -45,10 +45,13 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         GoogleMap.OnMarkerClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
+  //Code of Google services that makes the request of several permissions.
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   final String yourPosition = "Sua posição";
-  private GoogleMap map;
   private Services services = new Services();
+
+  //Google Maps API.
+  private GoogleMap map;
   private Location location;
   private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
