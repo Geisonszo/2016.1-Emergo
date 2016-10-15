@@ -17,8 +17,8 @@ import unlv.erc.emergo.R;
 
 public class LoadingScreenController extends Activity {
 
-  private static int WAITING_TIME = 9000;
-  private ProgressBar spinner ;
+  private static int WAITING_TIME = 9000; //Time in milliseconds the duration of the spinner.
+  private ProgressBar spinner ; //Graphic feature representing the page load.
 
   protected void onCreate(Bundle savedInstanceState) {
 
