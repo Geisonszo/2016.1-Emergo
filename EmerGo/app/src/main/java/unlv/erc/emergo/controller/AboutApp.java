@@ -36,6 +36,7 @@ public class AboutApp extends Activity {
   private void setInformationAboutApp(String messageAboutApp) {
 
     assert messageAboutApp != null : "messageAboutApp";
+
     Log.d("Log of Information: ","He entered the setInformationAboutApp.");
     informationAboutApp = (TextView) findViewById(R.id.aboutApp);
     informationAboutApp.setText(messageAboutApp);
@@ -50,6 +51,7 @@ public class AboutApp extends Activity {
 
     Log.d("Log of Information: ","He entered the showMessage method.");
     //String which will be written the information about the app.
+
     final String messageApp = "\tEmerGo é um aplicativo que oferece a facilidade de "
             + "encontrar Unidades de Saúde mais próximas. Possui MODO EMERGÊNCIA, "
             + "que traça a rota para uma Unidade de Saúde mais próxima, "

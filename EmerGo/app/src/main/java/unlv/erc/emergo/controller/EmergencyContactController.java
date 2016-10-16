@@ -31,7 +31,7 @@ public class EmergencyContactController extends Activity {
 
   // Button for saveFirstContact
   private Button saveFirstContact;
-  // Button for saveFirstContact
+  // Button for saveSecondContact
   private Button saveSecondContact;
   // Button for saveThirdContact
   private Button saveThirdContact;

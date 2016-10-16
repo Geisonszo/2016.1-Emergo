@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import unlv.erc.emergo.R;
 
-public class ConfigController extends Activity { // Begin of ConfigController class
+public class ConfigController extends Activity {
 
   // ImageView for ListOfHealthUnitsController.class
   private ImageView iconList;
@@ -33,10 +33,6 @@ public class ConfigController extends Activity { // Begin of ConfigController cl
   private Button medicalRecord;
   // Button for AboutApp class
   private Button aboutApp;
-  // String speaking being clicked the current screen
-  final String errorMessage = "Está tentando abrir a página atual";
-  // String speaking that the route will be drawn to the nearest health unit
-  final String routeTraced = "Rota mais próxima traçada";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -209,6 +205,9 @@ public class ConfigController extends Activity { // Begin of ConfigController cl
 
     assert mapScreen != null : "mapScreen can't be null";
 
+    // String speaking that the route will be drawn to the nearest health unit
+    final String routeTraced = "Rota mais próxima traçada";
+
     Log.d("Begin of method: ","Method goClicked ");
     Intent routeActivity = new Intent();
 
@@ -250,6 +249,9 @@ public class ConfigController extends Activity { // Begin of ConfigController cl
   public void openConfig(View openConfig) {
 
     assert openConfig != null : "openConfig can't be null";
+
+    // String speaking being clicked the current screen
+    final String errorMessage = "Está tentando abrir a página atual";
 
     Log.d("Method openConfig ","Begin of method");
     Toast.makeText(this , errorMessage , Toast.LENGTH_SHORT ).show();
