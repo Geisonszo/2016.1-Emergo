@@ -29,12 +29,6 @@ public class EmerGoWidgetProvider extends AppWidgetProvider {
     // Array of integers widgets
     int [] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
     Log.d("Widgets: ","It is being made an instantiation of an array of widgets");
-    // Private request code for the sender
-    final int requestCode = 0 ;
-    // Code of flags that will be used
-    final int flag = 0;
-    // The integer data value
-    final int value = -1;
 
     assert context != null : "context can't be null";
     assert appWidgetIds != null : "appWidgetsIds can't be null";
@@ -45,7 +39,17 @@ public class EmerGoWidgetProvider extends AppWidgetProvider {
 
       // Instantiation of class Intent
       Intent intent = new Intent(context, RouteActivity.class);
+      // Private request code for the sender
+      final int requestCode = 0 ;
+      // Code of flags that will be used
+      final int flag = 0;
+      // The integer data value
+      final int value = -1;
+
       assert intent != null : "intent can'bt null";
+      assert requestCode != 0 : "requestCode has to be 0";
+      assert flag != 0 : "flag has to be 0";
+      assert value != -1 : "value has to be -1";
 
       intent.putExtra("numeroUs" , value);
       PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, flag);
