@@ -16,9 +16,6 @@ import unlv.erc.emergo.R;
 
 public class AboutApp extends Activity {
 
-  //A Textview that will show information about the app.
-  private TextView informationAboutApp;
-
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -32,6 +29,9 @@ public class AboutApp extends Activity {
    * @param messageAboutApp
    *
    */
+
+  //A Textview that will show information about the app.
+  private TextView informationAboutApp;
 
   private void setInformationAboutApp(String messageAboutApp) {
 
