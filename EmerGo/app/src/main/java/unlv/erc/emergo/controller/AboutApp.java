@@ -59,6 +59,7 @@ public class AboutApp extends Activity {
             + "os contatos de emergência salvos!"
             + "\n\n\tTodas as funcionalidades em suas mãos, em apenas um aplicativo.";
 
+    Log.e("Log the return of messageApp","" + messageApp);
     return messageApp;
   }
 }
