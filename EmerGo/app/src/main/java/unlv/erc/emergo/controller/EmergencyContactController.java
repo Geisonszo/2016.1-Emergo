@@ -69,10 +69,6 @@ public class EmergencyContactController extends Activity {
   private static final int IDSECONDCONTACT = 2;
   // Id constant of thirdContact
   private static final int IDTHIRDCONTACT = 3;
-  // Constant of minimum length name
-  private static final int MINIMUM = 3;
-  // Constant string about route
-  private static final String ROUTETRACED = "Rota mais próxima traçada";
   // Database is empty
   private static final int DATABASEEMPTY = 0;
   // The second position on database. In second position on database is refer to name of contact
@@ -587,9 +583,10 @@ public class EmergencyContactController extends Activity {
     Log.d("Begin method: ","signInSecondContact");
     // Sucess is true is all informations is correct or false if ate least information not correct
     boolean sucess = true;
-    assert sucess != true : "sucess can't be false";
     // Valid is false if sucess is true that is was register first emergency contact
     boolean valid = false;
+
+    assert sucess != true : "sucess can't be false";
     assert valid != false : "valid can't be true";
 
     //Verific is all information is correct
@@ -703,6 +700,13 @@ public class EmergencyContactController extends Activity {
   private void updateContact(Integer id,EditText name,EditText phone,Button save,Button update,
                              Button delete) {
 
+    Log.d("Begin of Method: ","updateContact");
+
+    // Constant of minimum length name
+    final int MINIMUM = 3;
+    // Sucess is true is all informations is correct or false if ate least information not correct
+    boolean sucess = true;
+
     assert id < IDFIRSTCONTACT && id > IDTHIRDCONTACT: "id can't be lower than idFirstContact and "
                                                       + "bigger than idThirdContact";
     assert name != null : "the name can't be null";
@@ -711,10 +715,6 @@ public class EmergencyContactController extends Activity {
     assert save != null : "the save can't be null";
     assert update != null : "the update can't be null";
     assert delete != null : "the delete can't be null";
-
-    Log.d("Begin of Method: ","updateContact");
-    // Sucess is true is all informations is correct or false if ate least information not correct
-    boolean sucess = true;
     assert sucess != true : "sucess can't be false";
 
     // Verific is all information is correct
@@ -816,12 +816,15 @@ public class EmergencyContactController extends Activity {
 
   private boolean checksName(String nameUser) {
 
+    // Constant of minimum length name
+    final int MINIMUM = 3;
+    // Valid is true if at least information not correct
+    boolean valid = true;
+
+    assert valid != true : "valid can't be false";
     assert nameUser != null : "nameUser can't be null";
 
     Log.d("Begin of Method: ","checksName");
-    // Valid is true if at least information not correct
-    boolean valid = true;
-    assert valid != true : "valid can't be false";
 
     if (nameUser.isEmpty()) {
 
@@ -980,6 +983,9 @@ public class EmergencyContactController extends Activity {
   public void goClicked(View goClicked) throws IOException, JSONException {
 
     assert goClicked != null : "goClicked can't be null";
+    // Constant string about route
+    final String ROUTETRACED = "Rota mais próxima traçada";
+
     Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(this , RouteActivity.class);
