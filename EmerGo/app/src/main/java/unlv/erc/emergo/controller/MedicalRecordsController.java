@@ -54,9 +54,33 @@ public class MedicalRecordsController extends Activity {
   private String diabeticUser = "";
   private String hypertensionUser = "";
   private String seropositiveUser = "";
+
+  private static final String TITLE_MESSAGE = "Ficha Médica";
+  private static final String TEXT_MESSAGE = "Você tem uma ficha médica!";
+  private static final String ALERT_MESSAGE = "Alerta de Mensagem";
+  private static final String FUNCTION_NOT_ENABLE_MESSAGE = "Função não habilitada!";
+  private static final String EMPTY_NAME_MESSAGE = "Nome Vazio! Informe Seu Nome.";
+  private static final String LITTLE_NAME_MESSAGE = "Informe um nome com no mínimo 3 caracteres.";
+  private static final String YEAR_OLD_MESSAGE = "Informe um ano superior a 1942.";
+  private static final String INVALID_YEAR_MESSAGE = "Ops, essa data é inválida!.";
+  private static final String INVALID_DATE_MESSAGE = "Data Inválida! Informe uma data inválida," +
+          "com o dia entre 1 e 31.\n";
+  private static final String REQUEST_MONTH_MESSAGE = "Informe um mês válido entre 1 e 12.\n";
+  private static final String REQUEST_YEAR_MESSAGE = "Informe um ano entre 1942 e o ano atual";
+  private static final String BIRTH_DATE_MESSAGE = "Informe a sua data de nascimento.";
+  private static final String CHANGE_MESSAGE = "Alteração Realizada Com Sucesso!";
+  private static final String CHANGE_NOT_DONE = "Não Foi Possível Fazer A Alteração, Tente " +
+          "Novamente.";
+  private static final String REQUEST_OF_EXCLUSION = "Deseja Mesmo Excluir Esta Ficha Médica?";
+  private static final String TITLE_REQUEST_OF_EXCLUSION = "Deseja Mesmo Excluir Esta Ficha " +
+          "Médica?";
+  private static final String EXCLUSION_MESSAGE = "Ficha Médica Excluida Com Sucesso";
+  private static final String MEDICAL_FORM_REGISTERED = "Ficha Médica Cadastrada Com Sucesso!";
+  private static final String MEDICAL_FORM_NOT_REGISTERED = "Ficha Médica Não Cadastrada! Tente " +
+          "Novamente.";
   private Integer identifier = 1;
   UserDao myDatabase;
-  private final int maximumArray = 7;
+  private static final int MAXIMUM_ARRAY = 7;
 
   public MedicalRecordsController() {
 
@@ -165,7 +189,7 @@ public class MedicalRecordsController extends Activity {
                     diabeticUser,hypertensionUser, seropositiveUser,
                     observationsUser);
       if (sucess == true) {
-        showMessage("Ficha Médica Cadastrada Com Sucesso!");
+        showMessage(MEDICAL_FORM_REGISTERED);
         disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
                         hypertension,seropositive);
         disableOptionsUpdate(saveButton,updateButton,deleteButton);
@@ -174,7 +198,7 @@ public class MedicalRecordsController extends Activity {
                                             observationsUser);
         valid = true;
       } else {
-        showMessage("Ficha Médica Não Cadastrada! Tente Novamente.");
+        showMessage(MEDICAL_FORM_NOT_REGISTERED);
         valid = false;
       }
     }
@@ -202,7 +226,7 @@ public class MedicalRecordsController extends Activity {
       sucess = myDatabase.updateUser(id, nameUser, birthdayUser, typeBloodUser, cardiacUser,
               diabeticUser, hypertensionUser, seropositiveUser,observationsUser);
       if (sucess == true) {
-        showMessage("Alteração Realizada Com Sucesso!");
+        showMessage(CHANGE_MESSAGE);
         save.setVisibility(View.VISIBLE);
         disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
                        hypertension,seropositive);
@@ -213,7 +237,7 @@ public class MedicalRecordsController extends Activity {
                                             diabeticUser,hypertensionUser,seropositiveUser,
                                             observationsUser);
       } else {
-        showMessage("Não Foi Possível Fazer A Alteração, Tente Novamente.");
+        showMessage(CHANGE_NOT_DONE);
       }
     }
   }
@@ -226,13 +250,13 @@ public class MedicalRecordsController extends Activity {
                             final Spinner seropositive) {
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-    builder.setTitle("Excluir Ficha Médica?");
-    builder.setMessage("Deseja Mesmo Excluir Esta Ficha Médica?");
+    builder.setTitle(REQUEST_OF_EXCLUSION);
+    builder.setMessage(TITLE_REQUEST_OF_EXCLUSION);
     builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
         @Override
             public void onClick(DialogInterface dialog, int which) {
             myDatabase.deleteUser(id);
-            showMessage("Ficha Médica Excluida Com Sucesso");
+            showMessage(EXCLUSION_MESSAGE);
             visibleOptionsUser(save,name,birthday,observations,update,delete,typeBlood,cardiac,
                         hypertension,seropositive,diabect);
             cancelNotification();
@@ -254,11 +278,11 @@ public class MedicalRecordsController extends Activity {
   private boolean checksName(String nameUser) {
     final int minimumSizeName = 3;
     if (nameUser.isEmpty()) {
-      showMessage("Nome Vazio! Informe Seu Nome.");
+      showMessage(EMPTY_NAME_MESSAGE);
       return true;
     }
     if (nameUser.trim().length() < minimumSizeName) {
-      showMessage("Informe um nome com no mínimo 3 caracteres.");
+      showMessage(LITTLE_NAME_MESSAGE);
       fullName.requestFocus();
       return true;
     }
@@ -276,23 +300,21 @@ public class MedicalRecordsController extends Activity {
 
         if (userDate.before(new Date())) {
           if (userDate.getYear() < minimumYear) {
-            showMessage("Informe um ano superior a 1942.");
+            showMessage(YEAR_OLD_MESSAGE);
             return true;
           }
           this.birthdayUser = birthdayUser;
           return false;
         } else {
-          showMessage("Ops, essa data é inválida!.");
+          showMessage(INVALID_YEAR_MESSAGE);
           return true;
         }
       } catch (ParseException excecao) {
-        showMessage("Data Inválida! Informe uma data inválida,com o dia entre 1 e 31.\n"
-                + "Informe um mês válido entre 1 e 12.\n"
-                + "Informe um ano entre 1942 e o ano atual");
+        showMessage(INVALID_DATE_MESSAGE + REQUEST_MONTH_MESSAGE + REQUEST_YEAR_MESSAGE);
         return true;
       }
     } else {
-      showMessage("Informe a sua data de nascimento.");
+      showMessage(BIRTH_DATE_MESSAGE);
       return true;
     }
   }
@@ -402,14 +424,14 @@ public class MedicalRecordsController extends Activity {
     final int notifyIdentifier = 1;
     NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
 
-    notification.setContentTitle("Ficha Médica");
-    notification.setContentText("Você tem uma ficha médica!");
-    notification.setTicker("Alerta de Mensagem");
+    notification.setContentTitle(TITLE_MESSAGE);
+    notification.setContentText(TEXT_MESSAGE);
+    notification.setTicker(ALERT_MESSAGE);
     notification.setSmallIcon(R.drawable.icon_emergo);
 
     NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-    String events[] = new String[7];
+    String events[] = new String[MAXIMUM_ARRAY];
 
     events[0] = new String("Nome: "  + nameUser);
     events[1] = new String("Data de Nascimento: " + birthdayUser);
@@ -420,9 +442,9 @@ public class MedicalRecordsController extends Activity {
     events[6] = new String("Soropositivo: " + seropositiveUser);
     events[6] = new String("Observações Especiais: " + observationsUser);
 
-    inboxStyle.setBigContentTitle("Ficha Médica");
+    inboxStyle.setBigContentTitle(TITLE_MESSAGE);
 
-    for (int aux = 0;aux < maximumArray;aux++) {
+    for (int aux = 0;aux < MAXIMUM_ARRAY;aux++) {
       inboxStyle.addLine(events[aux]);
     }
     notification.setStyle(inboxStyle);
@@ -442,7 +464,7 @@ public class MedicalRecordsController extends Activity {
   }
 
   public void goClicked(View mapScreen) {
-    Toast.makeText(this , "Função não habilitada!" , Toast.LENGTH_SHORT).show();
+    Toast.makeText(this , FUNCTION_NOT_ENABLE_MESSAGE , Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(this, RouteActivity.class);
     startActivity(routeActivity);
