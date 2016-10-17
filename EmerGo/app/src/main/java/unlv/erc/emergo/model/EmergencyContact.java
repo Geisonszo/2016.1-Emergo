@@ -8,11 +8,6 @@ package unlv.erc.emergo.model;
 
 public class EmergencyContact { 
 
-  // nameContact contact
-  private String nameContact = "";
-  // Phone contact
-  private String phone = "";
-
   /**
    * Empty constructor.
    *
@@ -23,13 +18,16 @@ public class EmergencyContact {
     // Nothing to do
   } 
 
-
   /**
    * Emergency contact constructor.
    * @param nameContact nameContact of user
    * @param phone phone of user
    *
    */
+  // nameContact contact
+  private String nameContact = "";
+  // Phone contact
+  private String phone = "";
 
   public EmergencyContact(String nameContact, String phone) { 
     
