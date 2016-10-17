@@ -147,7 +147,7 @@ public class EmergencyContactController extends Activity {
       public void onClick(View emergencyContactView) {
 
         // Register the first emergency contact
-        if (!signInFirstContact()) {
+        if (signInFirstContact() == false) {
 
           saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
@@ -208,7 +208,7 @@ public class EmergencyContactController extends Activity {
             // For register the first emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            if (!signInFirstContact()) {
+            if (signInFirstContact() == false) {
 
               saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
@@ -283,7 +283,7 @@ public class EmergencyContactController extends Activity {
       public void onClick(View emergencyContactView) {
 
         // Register the second emergency contact
-        if (!signInSecondContact()) {
+        if (signInSecondContact() == false) {
 
           saveSecondContact.setOnClickListener(new View.OnClickListener() {
 
@@ -344,7 +344,7 @@ public class EmergencyContactController extends Activity {
             // For register the third emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            if (!signInSecondContact()) {
+            if (signInSecondContact() == false) {
 
               saveSecondContact.setOnClickListener(new View.OnClickListener() {
                 // Begin of saveSecondContact.setOnClickListener
@@ -422,7 +422,7 @@ public class EmergencyContactController extends Activity {
       public void onClick(View emergencyContactView) {
 
         // Register the third emergency contact
-        if (!signInthirdContact()) {
+        if (signInthirdContact() == false) {
 
           saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
@@ -483,7 +483,7 @@ public class EmergencyContactController extends Activity {
             // For register the third emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            if (!signInthirdContact()) {
+            if (signInthirdContact() == false) {
 
               saveThirdContact.setOnClickListener(new View.OnClickListener() {
 
@@ -530,7 +530,7 @@ public class EmergencyContactController extends Activity {
     assert valid != true : "valid can't be false";
 
     //Verific is all information is correct
-    if (!checksName(nameFirstContact.getText().toString())) { // Begin of if
+    if (checksName(nameFirstContact.getText().toString()) == false) {
 
       nameContact = nameFirstContact.getText().toString();
       Log.d("Nome do Contato: ",nameContact);
@@ -540,7 +540,7 @@ public class EmergencyContactController extends Activity {
       sucess = emergencyContactDao.insertEmergencyContact(IDFIRSTCONTACT, nameContact,
                                                                 phoneContact);
       // If all the information is correct, it will be saved in the database
-      if (sucess) {
+      if (sucess == true) {
 
         showMessage("Contato de Emergência Cadastrado Com Sucesso!");
         valid = true;
@@ -586,10 +586,10 @@ public class EmergencyContactController extends Activity {
     assert valid != true : "valid can't be false";
 
     //Verific is all information is correct
-    if (!checksName(nameSecondContact.getText().toString())) {
+    if (checksName(nameSecondContact.getText().toString()) == false) {
 
       //Verific is all information is correct
-      if (!checksName(nameSecondContact.getText().toString())) {
+      if (checksName(nameSecondContact.getText().toString()) == false) {
 
         nameContact = nameSecondContact.getText().toString();
         Log.d("Nome do Contato: ",nameContact);
@@ -599,7 +599,7 @@ public class EmergencyContactController extends Activity {
         sucess = emergencyContactDao.insertEmergencyContact(IDSECONDCONTACT, nameContact,
                                                                     phoneContact);
         // If all the information is correct, it will be saved in the database
-        if (sucess) {
+        if (sucess == true) {
 
           showMessage("Contato de Emergência Cadastrado Com Sucesso!");
           valid = true;
@@ -649,10 +649,10 @@ public class EmergencyContactController extends Activity {
     assert valid != true : "valid can't be false";
 
     //Verific is all information is correct
-    if (!checksName(nameThirdContact.getText().toString())) {
+    if (checksName(nameThirdContact.getText().toString()) == false) {
 
       //Verific is all information is correct
-      if (!checksName(nameThirdContact.getText().toString())) {
+      if (checksName(nameThirdContact.getText().toString()) == false) {
 
         nameContact = nameSecondContact.getText().toString();
         Log.d("Nome do Contato: ",nameContact);
@@ -662,7 +662,7 @@ public class EmergencyContactController extends Activity {
         sucess = emergencyContactDao.insertEmergencyContact(IDTHIRDCONTACT, nameContact,
                                                                     phoneContact);
         // If all the information is correct, it will be saved in the database
-        if (sucess) {
+        if (sucess == true) {
 
           showMessage("Contato de Emergência Cadastrado Com Sucesso!");
           valid = true;
@@ -727,7 +727,7 @@ public class EmergencyContactController extends Activity {
     assert valid != true : "valid can't be false";
 
     // Verific is all information is correct
-    if (!checksName(name.getText().toString())) {
+    if (checksName(name.getText().toString()) == false) {
 
       nameContact = nameSecondContact.getText().toString();
       Log.d("Nome do Contato: ",nameContact);
@@ -736,7 +736,7 @@ public class EmergencyContactController extends Activity {
 
       sucess = emergencyContactDao.updateEmergencyContact(id,nameContact,phoneContact);
       // If all the information is correct, it will be changed and saved in the database
-      if (sucess) {
+      if (sucess == true) {
 
         showMessage("Contato de Emergência Alterado Com Sucesso!");
         save.setVisibility(View.VISIBLE);
