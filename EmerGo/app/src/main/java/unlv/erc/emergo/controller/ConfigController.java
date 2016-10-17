@@ -91,11 +91,19 @@ public class ConfigController extends Activity {
 
         Intent map = new Intent();
 
-        map.setClass(ConfigController.this , RouteActivity.class);
-        map.putExtra("numeroUs" , -1);
-        startActivity(map);
-        finish();
-      } //End of onClick
+        assert map != null : "map can't be null";
+
+        if (map != null) {
+
+          map.setClass(ConfigController.this, RouteActivity.class);
+          map.putExtra("numeroUs", -1);
+          startActivity(map);
+          finish();
+        } else {
+
+          // Nothing to do
+        }
+      }
     });
     Log.d("End of method: ","Method createRouteScreen ");
   }
@@ -110,17 +118,25 @@ public class ConfigController extends Activity {
 
     Log.d("Begin of method: ","Method listUs ");
     //When iconList is clicked will open the method "listUs".
-    iconList.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
+    iconList.setOnClickListener(new View.OnClickListener() {
 
       @Override
       public void onClick(View iconView) {
 
         Intent listUs = new Intent();
 
-        listUs.setClass(ConfigController.this , ListOfHealthUnitsController.class);
-        startActivity(listUs);
-        finish();
-      } //End of onClick
+        assert listUs != null : "listUs can't be null";
+
+        if (listUs != null) {
+
+          listUs.setClass(ConfigController.this, ListOfHealthUnitsController.class);
+          startActivity(listUs);
+          finish();
+        } else {
+
+          // Nothing to do
+        }
+      }
     });
     Log.d("End of method: ","Method listUs ");
   }
@@ -140,9 +156,17 @@ public class ConfigController extends Activity {
 
         Intent medicalRecord = new Intent();
 
-        medicalRecord.setClass(ConfigController.this,MedicalRecordsController.class);
-        startActivity(medicalRecord);
-        finish();
+        assert medicalRecord != null : "medicalRecord can't be null";
+
+        if (medicalRecord != null) {
+
+          medicalRecord.setClass(ConfigController.this, MedicalRecordsController.class);
+          startActivity(medicalRecord);
+          finish();
+        } else {
+
+          // Nothing to do
+        }
       } // End of onClick
     });
     Log.d("End of method: ","Method showMedicalRecord");
@@ -163,9 +187,16 @@ public class ConfigController extends Activity {
 
         Intent emergencyContact = new Intent();
 
-        emergencyContact.setClass(ConfigController.this,EmergencyContactController.class);
-        startActivity(emergencyContact);
-        finish();
+        assert emergencyContact != null : "emergencyContact can't be null";
+
+        if (emergencyContact != null) {
+          emergencyContact.setClass(ConfigController.this, EmergencyContactController.class);
+          startActivity(emergencyContact);
+          finish();
+        } else {
+
+          // Nothing to do
+        }
       } //End of onClick
     });
     Log.d("End of method: ","Method acessEmergencyContact ");
@@ -180,16 +211,23 @@ public class ConfigController extends Activity {
 
     Log.d("Begin of method: ","Method seeInforAboutApp ");
     //When aboutApp is clicked will open the method "settInfoAboutApp".
-    aboutApp.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
+    aboutApp.setOnClickListener(new View.OnClickListener() {
 
       public void onClick(View aboutAppView) {
 
         Intent aboutApp = new Intent();
 
-        aboutApp.setClass(ConfigController.this,AboutApp.class);
-        startActivity(aboutApp);
-        finish();
-      } //End of OnClick
+        assert aboutApp != null : "aboutApp";
+
+        if (aboutApp != null) {
+          aboutApp.setClass(ConfigController.this, AboutApp.class);
+          startActivity(aboutApp);
+          finish();
+        } else {
+
+          // Nothing to do
+        }
+      }
     });
     Log.d("End of method: ","Method seeInfoAboutApp ");
   }
@@ -203,19 +241,26 @@ public class ConfigController extends Activity {
 
   public void goClicked(View mapScreen) throws IOException, JSONException {
 
-    assert mapScreen != null : "mapScreen can't be null";
-
+    Log.d("Begin of method: ","Method goClicked ");
     // String speaking that the route will be drawn to the nearest health unit
     final String routeTraced = "Rota mais próxima traçada";
-
-    Log.d("Begin of method: ","Method goClicked ");
     Intent routeActivity = new Intent();
 
+    assert mapScreen != null : "mapScreen can't be null";
+    assert routeActivity != null : "routeActivity can't be null";
+    assert routeTraced != null : "routeTraced can't be null";
+
     Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
-    routeActivity.setClass(ConfigController.this , RouteActivity.class);
-    routeActivity.putExtra("numeroUs" , -1);
-    startActivity(routeActivity);
-    finish();
+
+    if (routeActivity != null) {
+      routeActivity.setClass(ConfigController.this, RouteActivity.class);
+      routeActivity.putExtra("numeroUs", -1);
+      startActivity(routeActivity);
+      finish();
+    } else {
+
+      // Nothing to do
+    }
     Log.d("End of method: ","Method goClicked ");
   }
 
@@ -228,14 +273,21 @@ public class ConfigController extends Activity {
 
   public void listMapsImageClicked(View mapScreen) {
 
-    assert mapScreen != null : "mapScreen can't be null";
-
     Log.d("Begin of method: ","Method listMapsImageClicked ");
     Intent listOfHealth = new Intent();
 
-    listOfHealth.setClass(this , ListOfHealthUnitsController.class);
-    startActivity(listOfHealth);
-    finish();
+    assert mapScreen != null : "mapScreen can't be null";
+    assert listOfHealth != null : "listOfHealth can't be null";
+
+    if (listOfHealth != null) {
+
+      listOfHealth.setClass(this, ListOfHealthUnitsController.class);
+      startActivity(listOfHealth);
+      finish();
+    } else {
+
+      // Nothing to do
+    }
     Log.d("End of method: ","Method listMapsImageClicked ");
   }
 
@@ -248,12 +300,12 @@ public class ConfigController extends Activity {
 
   public void openConfig(View openConfig) {
 
-    assert openConfig != null : "openConfig can't be null";
-
+    Log.d("Method openConfig ","Begin of method");
     // String speaking being clicked the current screen
     final String errorMessage = "Está tentando abrir a página atual";
 
-    Log.d("Method openConfig ","Begin of method");
+    assert openConfig != null : "openConfig can't be null";
+
     Toast.makeText(this , errorMessage , Toast.LENGTH_SHORT ).show();
     Log.d("Method openConfig ","End of method");
   }
@@ -266,14 +318,20 @@ public class ConfigController extends Activity {
 
   public void openMap(View openMap) {
 
-    assert openMap != null : "openMap can't be null";
-
     Log.d("Begin of method: ","Method openMap ");
     Intent mapActivity = new Intent();
 
-    mapActivity.setClass(this, MapScreenController.class);
-    startActivity(mapActivity);
-    finish();
+    assert mapActivity != null : "mapActivity can'be null";
+    assert openMap != null : "openMap can't be null";
+
+    if (mapActivity != null) {
+      mapActivity.setClass(this, MapScreenController.class);
+      startActivity(mapActivity);
+      finish();
+    } else {
+
+      // Nothing to do
+    }
     Log.d("End of method: ","Method openMap ");
   }
 }
