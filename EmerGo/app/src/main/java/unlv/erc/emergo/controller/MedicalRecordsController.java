@@ -168,6 +168,9 @@ public class MedicalRecordsController extends Activity {
         });
   }
 
+  /**
+   * This method aims to create a user's medical records.
+   */
   private boolean createUser() {
     boolean sucess = true;
     boolean valid = false;
@@ -204,6 +207,14 @@ public class MedicalRecordsController extends Activity {
     return valid;
   }
 
+  /**
+   * This method aims to upgrade the registered user data.
+   *
+   * @param id number that identifies the user.
+   * @param save button that saves the information.
+   * @param update button that updates the information.
+   * @param delete button that deletes the information.
+   */
   private void updateUser(Integer id,Button save,Button update,
                             Button delete) {
 
@@ -241,6 +252,22 @@ public class MedicalRecordsController extends Activity {
     }
   }
 
+  /**
+   * This method aims to make the exclusion of registered user data.
+   *
+   * @param name username.
+   * @param birthday user birthday.
+   * @param observations additional observations of the user.
+   * @param save button that saves the information.
+   * @param id number that identifies the user.
+   * @param update button that updates the information.
+   * @param delete button that deletes the information.
+   * @param typeBlood type blood user.
+   * @param cardiac field that checks if user have heart problems.
+   * @param diabect field that checks if user have diabetes.
+   * @param hypertension field that checks if the user has high blood pressure problems.
+   * @param seropositive field that checks if the user is HIV positive.
+   */
   private void deleteUser(final EditText name, final EditText birthday,
                             final EditText observations,
                             final Button save, final Integer id, final Button update,
@@ -288,6 +315,11 @@ public class MedicalRecordsController extends Activity {
     return false;
   }
 
+  /**
+   * This method aims to make verification of the user's birth date.
+   *
+   * @param birthdayUser user birthday.
+   */
   private boolean checkBirthday(String birthdayUser) {
     final int minimumYear = 42;
 
@@ -318,6 +350,21 @@ public class MedicalRecordsController extends Activity {
     }
   }
 
+  /**
+   * This method aims to let the fields visible to the user.
+   *
+   * @param save button that saves the information.
+   * @param name username.
+   * @param birthday user birthday.
+   * @param observations additional observations of the user.
+   * @param update button that updates the information.
+   * @param delete button that deletes the information.
+   * @param typeBlood type blood user.
+   * @param cardiac field that checks if user have heart problems.
+   * @param hypertension field that checks if the user has high blood pressure problems.
+   * @param seropositive field that checks if the user is HIV positive.
+   * @param diabect field that checks if user have diabetes.
+   */
   private void visibleOptionsUser(Button save,EditText name,EditText birthday,
                                     EditText observations,Button update,Button delete,
                                     Spinner typeBlood,Spinner cardiac,Spinner hypertension,
