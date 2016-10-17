@@ -18,24 +18,31 @@ public class EmergencyContact {
     // Nothing to do
   } 
 
+  // nameContact contact
+  private String nameContact = "";
+  // Phone contact
+  private String phone = "";
+
   /**
    * Emergency contact constructor.
    * @param nameContact nameContact of user
    * @param phone phone of user
    *
    */
-  // nameContact contact
-  private String nameContact = "";
-  // Phone contact
-  private String phone = "";
 
-  public EmergencyContact(String nameContact, String phone) { 
+  public EmergencyContact(String nameContact, String phone) {
     
     assert nameContact != null : "nameContact can't be null";
     assert phone != null : "phone can't be null";
-    
-    setnameContact(nameContact);
-    setPhone(phone);
+
+    if (nameContact != null && phone != null) {
+
+      setnameContact(nameContact);
+      setPhone(phone);
+    } else {
+
+      // Nothing to do
+    }
   } 
 
   /**
@@ -59,7 +66,13 @@ public class EmergencyContact {
 
     assert nameContact != null : "nameContact can't be null";
 
-    this.nameContact = nameContact;
+    if (nameContact != null) {
+
+      this.nameContact = nameContact;
+    } else {
+
+      // Nothing to do
+    }
   } 
 
   /**
@@ -83,6 +96,12 @@ public class EmergencyContact {
 
     assert phone != null : "phone can't be null";
 
-    this.phone = phone;
+    if (phone != null) {
+
+      this.phone = phone;
+    } else {
+
+      // Nothing to do
+    }
   } 
 } 
