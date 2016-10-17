@@ -339,18 +339,41 @@ public class MedicalRecordsController extends Activity {
     delete.setVisibility(View.INVISIBLE);
   }
 
+  /**
+   * This method aims to let the disabled buttons to the user.
+   *
+   * @param save button that saves the information.
+   * @param update button that updates the information.
+   * @param delete button that deletes the information.
+   */
   private void disableOptions(Button save, Button update,Button delete) {
     save.setVisibility(View.VISIBLE);
     update.setVisibility(View.INVISIBLE);
     delete.setVisibility(View.INVISIBLE);
   }
 
+  /**
+   * This method aims to cancel the notification on the user's mobile phone.
+   */
   private void cancelNotification() {
     NotificationManager notifManager = (NotificationManager) this.getSystemService(Context
              .NOTIFICATION_SERVICE);
     notifManager.cancel(1);
   }
 
+  /**
+   * This method aims to make all writing fields inaccessible to the user.
+   *
+   * @param save button that saves the information.
+   * @param name username.
+   * @param birthday user birthday.
+   * @param observations additional observations of the user.
+   * @param cardiac field that checks if user have heart problems.
+   * @param diabect field that checks if user have diabetes.
+   * @param hypertension field that checks if the user has high blood pressure problems.
+   * @param seropositive field that checks if the user is HIV positive.
+   * @param typeBlood type blood user.
+   */
   private void disableField(Button save,EditText name, EditText birthday,EditText observations,
                               Spinner cardiac,Spinner diabect,Spinner hypertension,
                               Spinner seropositive,Spinner typeBlood) {
@@ -365,6 +388,13 @@ public class MedicalRecordsController extends Activity {
     seropositive.setEnabled(false);
   }
 
+  /**
+   * This method aims to disable the refresh button.
+   *
+   * @param save button that saves the information.
+   * @param update button that updates the information.
+   * @param delete button that deletes the information.
+   */
   private void disableOptionsUpdate(Button save,Button update,Button delete) {
     save.setEnabled(false);
     update.setVisibility(View.VISIBLE);
@@ -373,6 +403,13 @@ public class MedicalRecordsController extends Activity {
     delete.setEnabled(true);
   }
 
+  /**
+   * This method aims to make all screen buttons invisible to the user.
+   *
+   * @param save button that saves the information.
+   * @param update button that updates the information.
+   * @param delete button that deletes the information.
+   */
   private void disableButtons(Button save,Button update,Button delete) {
     save.setVisibility(View.INVISIBLE);
     update.setVisibility(View.VISIBLE);
@@ -381,6 +418,20 @@ public class MedicalRecordsController extends Activity {
     delete.setEnabled(true);
   }
 
+  /**
+   * This method aims to make all fields visible to the user unless the refresh button.
+   *
+   * @param name username.
+   * @param birthday user birthday.
+   * @param update button that updates the information.
+   * @param save button that saves the information.
+   * @param observations additional observations of the user.
+   * @param typeBlood type blood user.
+   * @param cardiac field that checks if user have heart problems.
+   * @param diabect field that checks if user have diabetes.
+   * @param hypertension field that checks if the user has high blood pressure problems.
+   * @param seropositive field that checks if the user is HIV positive.
+   */
   private void disableJustUpdateButton(EditText name, EditText birthday, Button update, Button save,
                                          EditText observations,Spinner typeBlood,Spinner cardiac,
                                          Spinner diabect,Spinner hypertension,Spinner
@@ -398,11 +449,29 @@ public class MedicalRecordsController extends Activity {
     seropositive.setEnabled(true);
   }
 
+  /**
+   * Este método tem como objetivo deixar os botões de salvar e atualizar visíveis ao usuário.
+   *
+   * @param save button that saves the information.
+   * @param update button that updates the information.
+   */
   private void visibleOptions(Button save,Button update) {
     update.setVisibility(View.VISIBLE);
     save.setVisibility(View.INVISIBLE);
   }
 
+  /**
+   *
+   *
+   * @param name username.
+   * @param birthday user birthday.
+   * @param observations additional observations of the user.
+   * @param typeBlood type blood user.
+   * @param cardiac field that checks if user have heart problems.
+   * @param diabect field that checks if user have diabetes.
+   * @param hypertension field that checks if the user has high blood pressure problems.
+   * @param seropositive field that checks if the user is HIV positive.
+   */
   private void disableOptionsCreateUser(EditText name,EditText birthday,EditText observations,
                                           Spinner typeBlood,Spinner cardiac,Spinner diabect,
                                           Spinner hypertension,Spinner seropositive) {
@@ -416,6 +485,18 @@ public class MedicalRecordsController extends Activity {
     seropositive.setEnabled(false);
   }
 
+  /**
+   * This method aims to show the user their medical records in the phone notification bar.
+   *
+   * @param nameUser username.
+   * @param birthdayUser user birthday.
+   * @param typeBloodUser type blood user.
+   * @param cardiacUser check if user have heart problems.
+   * @param diabeticUser check if user have diabetes.
+   * @param hypertensionUser check if the user has high blood pressure problems.
+   * @param seropositiveUser check if the user is HIV positive.
+   * @param observationsUser additional observations of the user.
+   */
   public void medicalRecordsNotification(String nameUser,String birthdayUser,String typeBloodUser,
                                          String cardiacUser,String diabeticUser,
                                          String hypertensionUser,String seropositiveUser,
@@ -462,6 +543,12 @@ public class MedicalRecordsController extends Activity {
     notificationManager.notify(notifyIdentifier,notification.build());
   }
 
+  /**
+   * This method aims to direct the user to the page that forwards to the nearest health unit and
+   *  call the SAMU.
+   *
+   * @param mapScreen go to RouteActivity class.
+   */
   public void goClicked(View mapScreen) {
     Toast.makeText(this , FUNCTION_NOT_ENABLE_MESSAGE , Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
@@ -470,6 +557,11 @@ public class MedicalRecordsController extends Activity {
     finish();
   }
 
+  /**
+   * This method aims to direct the user to the page with the Health Units list.
+   *
+   * @param mapScreen go to ListOfHealthUnitsController class.
+   */
   public void listMapsImageClicked(View mapScreen) {
     Intent listOfHealth = new Intent();
     listOfHealth.setClass(this , ListOfHealthUnitsController.class);
@@ -477,13 +569,23 @@ public class MedicalRecordsController extends Activity {
     finish();
   }
 
-  public void openConfig(View map_screen) {
+  /**
+   * This method aims to direct the user to the settings page.
+   *
+   * @param config go to ConfigController class.
+   */
+  public void openConfig(View config) {
     Intent configuration = new Intent();
     configuration.setClass(this , ConfigController.class);
     startActivity(configuration);
     finish();
   }
 
+  /**
+   * This method aims to direct the user to the map page.
+   *
+   * @param mapScreen go to MapScreenController class.
+   */
   public void openMap(View mapScreen) {
     Intent mapActivity = new Intent();
     mapActivity.setClass(this, MapScreenController.class);
@@ -491,7 +593,12 @@ public class MedicalRecordsController extends Activity {
     finish();
   }
 
-  public void openSearch(View mapScreen) {
+  /**
+   * This method aims to direct the page to search Health Units.
+   *
+   * @param search go to SearchHealthUnitController class.
+   */
+  public void openSearch(View search) {
     Intent openSearch = new Intent();
     openSearch.setClass(this , SearchHealthUnitController.class);
     startActivity(openSearch);
