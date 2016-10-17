@@ -28,6 +28,7 @@ public class LoadingScreenController extends Activity {
     spinner = (ProgressBar)findViewById(R.id.progressBar);
     spinner.setVisibility(View.VISIBLE);
 
+    // Needed to leave the graphic moving to the described time.
     new Handler().postDelayed(new Runnable() {
 
       @Override
