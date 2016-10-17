@@ -168,7 +168,6 @@ public class MedicalRecordsController extends Activity {
         });
   }
 
-
   private boolean createUser() {
     boolean sucess = true;
     boolean valid = false;
@@ -309,7 +308,7 @@ public class MedicalRecordsController extends Activity {
           showMessage(INVALID_YEAR_MESSAGE);
           return true;
         }
-      } catch (ParseException excecao) {
+      } catch (ParseException exception) {
         showMessage(INVALID_DATE_MESSAGE + REQUEST_MONTH_MESSAGE + REQUEST_YEAR_MESSAGE);
         return true;
       }
@@ -479,9 +478,9 @@ public class MedicalRecordsController extends Activity {
   }
 
   public void openConfig(View map_screen) {
-    Intent config = new Intent();
-    config.setClass(this , ConfigController.class);
-    startActivity(config);
+    Intent configuration = new Intent();
+    configuration.setClass(this , ConfigController.class);
+    startActivity(configuration);
     finish();
   }
 

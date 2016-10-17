@@ -71,7 +71,6 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
     long result = database.insert(EmergencyContact_TABLE,null,contentValues);
     database.close();
     if (result == -1) {
-
       return false;
     } else {
 
