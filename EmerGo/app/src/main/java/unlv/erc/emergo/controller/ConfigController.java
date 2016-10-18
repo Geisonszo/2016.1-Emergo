@@ -74,13 +74,13 @@ public class ConfigController extends Activity {
     Log.d("Method setButtons ","End of method");
   }
 
-  /**
+  /*
    * This method create a route screen after GO button is clicked, tracing a route to a
    * specific health unity.
    *
    */
 
-  public void createRouteScreen() {
+  private void createRouteScreen() {
 
     Log.d("Begin of method: ","Method createRouteScreen ");
     //When buttonGo is clicked will open the method "createRouteScreen".
@@ -108,13 +108,13 @@ public class ConfigController extends Activity {
     Log.d("End of method: ","Method createRouteScreen ");
   }
 
-  /**
+  /*
    * This method list all the USs, by proximity of the user location, after the list button
    * is clicked.
    *
    */
 
-  public void listUs() {
+  private void listUs() {
 
     Log.d("Begin of method: ","Method listUs ");
     //When iconList is clicked will open the method "listUs".
@@ -146,7 +146,7 @@ public class ConfigController extends Activity {
    *
    */
 
-  public void showMedicalRecord() {
+  private void showMedicalRecord() {
 
     Log.d("Begin of method: ","Method showMedicalRecord");
     //When medicalRecord is clicked will open the method "showMedicalRecord".
@@ -177,7 +177,7 @@ public class ConfigController extends Activity {
    *
    */
 
-  public void acessEmergencyContact() {
+  private void acessEmergencyContact() {
 
     Log.d("Begin of method: ","Method acessEmergencyContact");
     //When emergencyContact is clicked will open the method "acessEmergencyContact".
@@ -207,7 +207,7 @@ public class ConfigController extends Activity {
    *
    */
 
-  public void seeInfoAboutApp() {
+  private void seeInfoAboutApp() {
 
     Log.d("Begin of method: ","Method seeInforAboutApp ");
     //When aboutApp is clicked will open the method "settInfoAboutApp".
