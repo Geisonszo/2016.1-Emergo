@@ -15,30 +15,29 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class UserDao extends SQLiteOpenHelper {
 
   private static final String DATABASE_NAME = "MedicalRecords";
-  private static final int VERSION = 42;
-  private static UserDao instance = null;
-
   private static final String USER_TABLE = "User";
   private static final String DROP_TABLE_USER = "DROP TABLE IF EXISTS" + USER_TABLE;
-  private static final String NAMEUSER = "[nameUser]";
-  private static final String BIRTHDAYUSER = "[birthdayUser]";
-  private static final String TYPEBLOODUSER = "[typeBloodUser]";
-  private static final String CARDIACUSER = "[cardiacUser]";
-  private static final String DIABETICUSER = "[diabeticUser]";
-  private static final String HYPERTENSIONUSER = "[hipertensionUser]";
-  private static final String SEROPOSITIVEUSER = "[seropositiveUser]";
+  private static final String NAME_USER = "[nameUser]";
+  private static final String BIRTHDAY_USER = "[birthdayUser]";
+  private static final String TYPE_BLOOD_USER = "[typeBloodUser]";
+  private static final String CARDIAC_USER = "[cardiacUser]";
+  private static final String DIABETIC_USER = "[diabeticUser]";
+  private static final String HYPERTENSION_USER = "[hipertensionUser]";
+  private static final String SEROPOSITIVE_USER = "[seropositiveUser]";
   private static final String OBSERVATIONS = "[observationsUser]";
   private static final String USER_ID = "[IDUser]";
+  private static UserDao instance = null;
+  private static final int VERSION = 42;
 
   private static final String CREATE_USER = "CREATE TABLE IF NOT EXISTS " + USER_TABLE + " ("
           + USER_ID + "INTEGER PRIMARY KEY,"
-          + NAMEUSER + " VARCHAR(42), "
-          + BIRTHDAYUSER + " VARCHAR(10), "
-          + TYPEBLOODUSER + " VARCHAR(8), "
-          + CARDIACUSER + " VARCHAR(8), "
-          + DIABETICUSER + " VARCHAR(8), "
-          + HYPERTENSIONUSER + "VARCHAR(8),"
-          + SEROPOSITIVEUSER + "VARCHAR(8),"
+          + NAME_USER + " VARCHAR(42), "
+          + BIRTHDAY_USER + " VARCHAR(10), "
+          + TYPE_BLOOD_USER + " VARCHAR(8), "
+          + CARDIAC_USER + " VARCHAR(8), "
+          + DIABETIC_USER + " VARCHAR(8), "
+          + HYPERTENSION_USER + "VARCHAR(8),"
+          + SEROPOSITIVE_USER + "VARCHAR(8),"
           + OBSERVATIONS + "VARCHAR(442)); ";
 
   /**
@@ -122,17 +121,18 @@ public class UserDao extends SQLiteOpenHelper {
     ContentValues contentValues = new ContentValues();
 
     contentValues.put(USER_ID, idUser);
-    contentValues.put(NAMEUSER, nameUser);
-    contentValues.put(BIRTHDAYUSER,birthdayUser);
-    contentValues.put(TYPEBLOODUSER,typeBloodUser);
-    contentValues.put(CARDIACUSER,cardiacUser);
-    contentValues.put(DIABETICUSER,diabeticUser);
-    contentValues.put(HYPERTENSIONUSER,hypertensionUser);
-    contentValues.put(SEROPOSITIVEUSER,seropositiveUser);
+    contentValues.put(NAME_USER, nameUser);
+    contentValues.put(BIRTHDAY_USER,birthdayUser);
+    contentValues.put(TYPE_BLOOD_USER,typeBloodUser);
+    contentValues.put(CARDIAC_USER,cardiacUser);
+    contentValues.put(DIABETIC_USER,diabeticUser);
+    contentValues.put(HYPERTENSION_USER,hypertensionUser);
+    contentValues.put(SEROPOSITIVE_USER,seropositiveUser);
     contentValues.put(OBSERVATIONS,observationsUser);
 
     long result = database.insert(USER_TABLE,null,contentValues);
     database.close();
+    
     if (result == -1) {
 
       return false;
@@ -164,13 +164,13 @@ public class UserDao extends SQLiteOpenHelper {
     SQLiteDatabase database = this.getWritableDatabase();
     ContentValues contentValues = new ContentValues();
 
-    contentValues.put(NAMEUSER, nameUser);
-    contentValues.put(BIRTHDAYUSER,birthdayUser);
-    contentValues.put(TYPEBLOODUSER,typeBloodUser);
-    contentValues.put(CARDIACUSER,cardiacUser);
-    contentValues.put(DIABETICUSER,diabeticUser);
-    contentValues.put(HYPERTENSIONUSER,hypertensionUser);
-    contentValues.put(SEROPOSITIVEUSER,seropositiveUser);
+    contentValues.put(NAME_USER, nameUser);
+    contentValues.put(BIRTHDAY_USER,birthdayUser);
+    contentValues.put(TYPE_BLOOD_USER,typeBloodUser);
+    contentValues.put(CARDIAC_USER,cardiacUser);
+    contentValues.put(DIABETIC_USER,diabeticUser);
+    contentValues.put(HYPERTENSION_USER,hypertensionUser);
+    contentValues.put(SEROPOSITIVE_USER,seropositiveUser);
     contentValues.put(OBSERVATIONS,observationsUser);
 
     database.update(USER_TABLE, contentValues,"[IDUser] = ? ",new String[] {

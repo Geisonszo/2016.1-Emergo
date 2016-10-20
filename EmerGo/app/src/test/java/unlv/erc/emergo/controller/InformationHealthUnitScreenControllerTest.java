@@ -1,3 +1,9 @@
+/********************
+ * Class name: InformationHealthUnitScreenControllerTest (.java)
+ *
+ * Purpose: The purpose of this class is to test the InformationHealthUnitScreenController class.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import junit.framework.TestCase;
@@ -6,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class InformationUsScreenControllerTest extends TestCase {
+public class InformationHealthUnitScreenControllerTest extends TestCase {
 
   List<String> listOfInformations = new ArrayList<String>();
-  InformationUsScreenController info = new InformationUsScreenController();
+  InformationHealthUnitScreenController info = new InformationHealthUnitScreenController();
 
   public void testIfListAddTitle () {
     boolean result = true;

@@ -1,3 +1,9 @@
+/********************
+ * Class name: RouteActivity (.java)
+ *
+ * Purpose: The purpose of this class is show the route to the heath unit on the map.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -65,9 +71,8 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
-  public int indexOfClosestHealthUnit;
-  public String samuNumber = "tel:192";
-  private GoogleMap map;
+  public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
+  public String samuNumber = "tel:192"; // Actual number of public service SAMU
   private Cursor result;
   private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
@@ -135,6 +140,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     getMapFragment();
     Location location = getUserPosition(mapLastLocation);
+
     HealthUnitController.setDistanceBetweenUserAndUs(HealthUnitController.getClosestHealthUnit(),
         location);
     selectindexOfClosestHealthUnit(location);
@@ -307,16 +313,18 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   @Override
-  public void onClick(View view) {
+  public void onClick(View routeActivity) {
 
-    if (view.getId() == R.id.buttonGo) {
+    //Open emergency mode
+    if (routeActivity.getId() == R.id.buttonGo) {
       openMap();
     } else {
 
       // nothing to do
     }
 
-    if (view.getId() == R.id.selfLocation) {
+    //Open map on user location
+    if (routeActivity.getId() == R.id.selfLocation) {
 
       map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
           userLocation.longitude), 13.0f));
@@ -324,7 +332,8 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    if (view.getId() == R.id.userInformation) {
+    //Open user info
+    if (routeActivity.getId() == R.id.userInformation) {
 
       Intent config = new Intent();
       config.setClass(RouteActivity.this , ConfigController.class);
@@ -334,7 +343,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    if (view.getId() == R.id.cancelarLigacao) {
+    if (view.getId() == R.id.cancelCall) {
 
       cancelCalling();
     } else {
@@ -342,7 +351,8 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    if (view.getId() == R.id.phone) {
+    //Call samu method
+    if (routeActivity.getId() == R.id.phone) {
 
       callSamu();
     } else {

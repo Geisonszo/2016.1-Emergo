@@ -1,72 +1,107 @@
 /**
- * Class name: EmergencyContact.java
+ * Class nameContact: EmergencyContact.java
  *
  * Purpouse: represent the data from an emergency contact signed in the Emergo.
  */
 
 package unlv.erc.emergo.model;
 
-public class EmergencyContact {
-
-  private String name;
-  private String phone;
-
+public class EmergencyContact { 
 
   /**
    * Empty constructor.
+   *
    */
-  public EmergencyContact() {
 
-  }
+  public EmergencyContact() { 
 
+    // Nothing to do
+  } 
+
+  // nameContact contact
+  private String nameContact = "";
+  // Phone contact
+  private String phone = "";
 
   /**
    * Emergency contact constructor.
-   * @param name
-   * @param phone
+   * @param nameContact nameContact of user
+   * @param phone phone of user
+   *
    */
-  public EmergencyContact(String name, String phone) {
-    setName(name);
-    setPhone(phone);
-  }
+
+  public EmergencyContact(String nameContact, String phone) {
+    
+    assert nameContact != null : "nameContact can't be null";
+    assert phone != null : "phone can't be null";
+
+    if (nameContact != null && phone != null) {
+
+      setnameContact(nameContact);
+      setPhone(phone);
+    } else {
+
+      // Nothing to do
+    }
+  } 
 
   /**
-   * Get the name of this emergency contact instance.
+   * Get the nameContact of this emergency contact instance.
+   * @return nameContact;
    *
-   * @return name;
    */
-  public String getName() {
 
-    return name;
-  }
+  public String getnameContact() { 
+
+    return nameContact;
+  } 
 
   /**
-   * Set the received name as name of this emergency contact instance.
+   * Set the received nameContact as nameContact of this emergency contact instance.
+   * @param nameContact String nameContact
    *
-   * @param name
    */
-  public void setName(String name) {
 
-    this.name = name;
-  }
+  public void setnameContact(String nameContact) { 
+
+    assert nameContact != null : "nameContact can't be null";
+
+    if (nameContact != null) {
+
+      this.nameContact = nameContact;
+    } else {
+
+      // Nothing to do
+    }
+  } 
 
   /**
    * Get the phone of this emergency contact instance.
-   *
    * @return phone;
+   *
    */
-  public String getPhone() {
+
+  public String getPhone() { 
 
     return phone;
-  }
+  } 
 
-   /**
-    * Set the received phone as phone of this emergency contact instance.
-    *
-    * @param phone
-    */
-  public void setPhone(String phone) {
+  /**
+   * Set the received phone as phone of this emergency contact instance.
+   * @param phone String phone
+   *
+   */
 
-    this.phone = phone;
-  }
-}
+  public void setPhone(String phone) { 
+
+    assert phone != null : "phone can't be null";
+
+    if (phone != null) {
+
+      this.phone = phone;
+    } else {
+
+      // Nothing to do
+    }
+  } 
+} 

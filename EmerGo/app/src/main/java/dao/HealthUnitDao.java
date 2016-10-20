@@ -15,10 +15,10 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import java.util.List;
-
 import unlv.erc.emergo.controller.HealthUnitController;
 import unlv.erc.emergo.model.HealthUnit;
+
+import java.util.List;
 
 public class HealthUnitDao {
 
@@ -56,25 +56,30 @@ public class HealthUnitDao {
           @Override
           public void onDataChange(DataSnapshot dataSnapshot) {
 
-              HealthUnit model;
+
+            /**
+             * Set database with data from health units.
+             */
+
+            HealthUnit model;
               for (DataSnapshot child : dataSnapshot.getChildren()) {
 
                 double latitude = (double) child.child("lat").getValue();
                 double longitude = (double) child.child("long").getValue();
                 String nameHospital = child.child("no_fantasia").getValue().toString();
-                String unitType = child.child("ds_tipo_unidade").getValue().toString();
+                String healthUnitType = child.child("ds_tipo_unidade").getValue().toString();
                 String addressNumber = child.child("co_cep").getValue().toString();
                 String district = child.child("no_bairro").getValue().toString();
                 String state = child.child("uf").getValue().toString();
                 String city = child.child("municipio").getValue().toString();
 
-                if ((unitType.contains("HOSPITAL GERAL")
-                    || unitType.contains("CENTRO DE SAUDE/UNIDADE BASICA")
-                    || unitType.contains("UNIDADE MOVEL DE NIVEL PRE-HOSPITALAR NA AREA DE "
+                if ((healthUnitType.contains("HOSPITAL GERAL")
+                    || healthUnitType.contains("CENTRO DE SAUDE/UNIDADE BASICA")
+                    || healthUnitType.contains("UNIDADE MOVEL DE NIVEL PRE-HOSPITALAR NA AREA DE "
                                        + "URGENCIA")
-                    || unitType.contains("UNIDADE MOVEL TERRESTRE"))) {
+                    || healthUnitType.contains("UNIDADE MOVEL TERRESTRE"))) {
 
-                  model = new HealthUnit(latitude,longitude,nameHospital,unitType,
+                  model = new HealthUnit(latitude,longitude,nameHospital,healthUnitType,
                                            addressNumber,district,state,city);
                   model.save();
                   HealthUnitController.setClosestHealthUnit(model);
@@ -82,7 +87,8 @@ public class HealthUnitDao {
               }
               Toast.makeText(context, "Atualize o mapa para carregar mais USs" ,
                                     Toast.LENGTH_LONG).show();
-              Log.i("Database has finished", HealthUnitController.getClosestHealthUnit().size() + "Us");
+              Log.i("Database has finished", HealthUnitController.getClosestHealthUnit()
+                  .size() + "Us");
           }
 
           @Override
@@ -92,6 +98,9 @@ public class HealthUnitDao {
       });
     } else {
 
+      /**
+       * Set the array closestHealthUnits.
+       */
       for (int aux = 0 ; aux < list.size(); aux++) {
 
         HealthUnitController.setClosestHealthUnit(list.get(aux));

@@ -15,17 +15,29 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import unlv.erc.emergo.R;
 import unlv.erc.emergo.model.HealthUnit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListOfHealthUnitsController extends Activity {
+
+
+  private static final String ROUTE_TRACED = "Rota mais próxima traçada";
+
+  // The Bundle data value of numeroUs .
+  private static final int VALUE_LOWER_CLOSE = -1;
+
+  // The name of the extra data.
+  private static final String POSITION = "position";
+
+  // The Bundle data value.
+  private static final String NUMBER_HEALTH_UNIT = "numeroUs";
 
   private List<String> listHealthUnits = new ArrayList<>();
   private ListView listHealthUnitsListView;
-  private int numberOfUsClicked = 0;
+  private int numberOfHealthUnitsClicked = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +54,7 @@ public class ListOfHealthUnitsController extends Activity {
           @Override
           public void onItemClick(AdapterView<?> parent, View view,int position,long id) {
 
-            numberOfUsClicked = parent.getPositionForView(view);
+            numberOfHealthUnitsClicked = parent.getPositionForView(view);
             openInformationHealthUnitScreen();
           }
         });
@@ -59,9 +71,9 @@ public class ListOfHealthUnitsController extends Activity {
 
     Intent informationScreen = new Intent();
 
-    informationScreen.putExtra("position", numberOfUsClicked);
+    informationScreen.putExtra(POSITION, numberOfHealthUnitsClicked);
     informationScreen.setClass(ListOfHealthUnitsController.this,
-                                InformationUsScreenController.class);
+                                InformationHealthUnitScreenController.class);
     startActivity(informationScreen);
     finish();
   }
@@ -74,13 +86,20 @@ public class ListOfHealthUnitsController extends Activity {
 
   public List<String> get50closestUs(ArrayList<HealthUnit> closest) {
 
-    List<String> closestsUs = new ArrayList<String>();
-    int numberOfUs = 0;
-    for (numberOfUs = 0;numberOfUs < HealthUnitController.getClosestHealthUnit().size();numberOfUs++) {
+    List<String> closestHealthUnits = new ArrayList<String>();
 
-      closestsUs.add(closest.get(numberOfUs).getNameHospital());
+    /**
+     * Set the array closestHealthUnits with the name of all the closest health units.
+     *
+     */
+
+    int numberOfHealthUnits = 0;
+    for (numberOfHealthUnits = 0;numberOfHealthUnits < HealthUnitController.getClosestHealthUnit()
+        .size(); numberOfHealthUnits++) {
+
+      closestHealthUnits.add(closest.get(numberOfHealthUnits).getNameHospital());
     }
-    return closestsUs;
+    return closestHealthUnits;
   }
 
   /**
@@ -103,12 +122,12 @@ public class ListOfHealthUnitsController extends Activity {
 
   public void goClicked(View mapScreen) {
 
-    final String ROUTETRACED = "Rota mais próxima traçada";
+
     Intent routeActivity = new Intent();
 
-    Toast.makeText(this, ROUTETRACED, Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
     routeActivity.setClass(ListOfHealthUnitsController.this, RouteActivity.class);
-    routeActivity.putExtra("numeroUs", -1);
+    routeActivity.putExtra(NUMBER_HEALTH_UNIT, VALUE_LOWER_CLOSE);
     startActivity(routeActivity);
     finish();
   }
@@ -148,11 +167,11 @@ public class ListOfHealthUnitsController extends Activity {
     *
    */
 
-  public void open_search(View mapScreen) {
+  public void openSearch(View mapScreen) {
 
     Intent openSearch = new Intent();
 
-    openSearch.setClass(this, SearchUsController.class);
+    openSearch.setClass(this, SearchHealthUnitController.class);
     startActivity(openSearch);
     finish();
   }

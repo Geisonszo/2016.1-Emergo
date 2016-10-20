@@ -1,3 +1,9 @@
+/********************
+ * Class name: MainScreenController (.java)
+ *
+ * Purpose: The purpose of this class is to know the current state of the user.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import android.app.Activity;
@@ -27,10 +33,14 @@ public class MainScreenController extends Activity {
   private HealthUnitDao dataAccessObject = new HealthUnitDao(this);
   private Cursor resultOfTheUser;
   UserDao myDatabase;
-
-  //Maximum number of rows that the medical records may have.
-  private final int maximumArray = 7;
-  private int clickPosition = 0;
+  private static final int MAXIMUM_ARRAY= 7;  //Maximum number of rows that the medical records may
+  // have.
+  private int clickPosition = 0;  //Initial position of the user click on the notification screen.
+  private static final String TITLE_MESSAGE = "Ficha Médica";
+  private static final String TEXT_MESSAGE = "Você tem uma ficha médica!";
+  private static final String ALERT_MESSAGE = "Alerta de Mensagem";
+  private static final String ROUTE_TRACED = "Rota mais próxima traçada";
+  private static final String INFORMATION_MESSAGE = "numeroUs";
 
   @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,24 +56,29 @@ public class MainScreenController extends Activity {
     dataAccessObject.setDataOnSugar();
     resultOfTheUser = myDatabase.getUser();
 
-    if (resultOfTheUser.getCount() == 0) {
-      //Nothing to do
-    } else {
+    if (resultOfTheUser.getCount() != 0) {
       medicalRecordsNotification();
+    } else {
+      //Nothing to do
     }
   }
 
-  public void goClicked(View main_Screen) {
+  /**
+   * Method that traces the nearest route and call the Health Unit.
+   */
+  public void goClicked(View mainScreen) {
 
-    final String routeTraced = "Rota mais próxima traçada";
-    Toast.makeText(MainScreenController.this, routeTraced,
+    Toast.makeText(MainScreenController.this, ROUTE_TRACED,
                 Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(MainScreenController.this, RouteActivity.class);
-    routeActivity.putExtra("numeroUs", -1);
+    routeActivity.putExtra(INFORMATION_MESSAGE, -1);
     startActivity(routeActivity);
   }
 
+  /**
+   * Method that goes to the home page.
+   */
   public void okayClicked(View view) {
 
     Intent mapScreen = new Intent();
@@ -71,6 +86,9 @@ public class MainScreenController extends Activity {
     startActivity(mapScreen);
   }
 
+  /*
+   * Method that sets up the medical records in the status bar.
+   */
   private void medicalRecordsNotification() {
 
     resultOfTheUser.moveToFirst();
@@ -78,9 +96,9 @@ public class MainScreenController extends Activity {
     NotificationCompat.Builder notification =
                 new NotificationCompat.Builder(this);
 
-    notification.setContentTitle("Ficha Médica");
-    notification.setContentText("Você tem uma ficha médica!");
-    notification.setTicker("Alerta de Mensagem");
+    notification.setContentTitle(TITLE_MESSAGE);
+    notification.setContentText(TEXT_MESSAGE);
+    notification.setTicker(ALERT_MESSAGE);
     notification.setSmallIcon(R.drawable.icon_emergo);
 
     notification.setNumber(++clickPosition);
@@ -88,7 +106,7 @@ public class MainScreenController extends Activity {
     final NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();
 
-    String events[] = new String[7];
+    String events[ ] = new String[7];
 
     events[0] = new String("Nome: " + resultOfTheUser.getString(1));
     events[1] = new String("Data de Nascimento: " + resultOfTheUser.getString(2));
@@ -99,9 +117,9 @@ public class MainScreenController extends Activity {
     events[6] = new String("Soropositivo: " + resultOfTheUser.getString(7));
     events[6] = new String("Observações Especiais: " + resultOfTheUser.getString(8));
 
-    inboxStyle.setBigContentTitle("Ficha Médica");
+    inboxStyle.setBigContentTitle(TITLE_MESSAGE);
 
-    for (int aux = 0;aux < maximumArray;aux++) {
+    for (int aux = 0;aux < MAXIMUM_ARRAY;aux++) {
       inboxStyle.addLine(events[aux]);
     }
 

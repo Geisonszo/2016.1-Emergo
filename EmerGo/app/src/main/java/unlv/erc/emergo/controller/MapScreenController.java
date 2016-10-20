@@ -1,3 +1,9 @@
+/********************
+ * Class name: MapScreenController (.java)
+ *
+ * Purpose: The purpose of this class is to show the map of the region and its health units.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -39,23 +45,36 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         GoogleMap.OnMarkerClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-  static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+  //Code of Google services that makes the request of several permissions.
+  private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+  private static final int FINAL_VERSION_SDK = 23;
   final String yourPosition = "Sua posição";
-  private GoogleMap mMap;
   private Services services = new Services();
+  private static final String INFORMATION_MESSAGE = "numeroUs";
+  private static final String ROUTE_TRACED = "Rota mais próxima traçada";
+  private static final String POSITION_MESSAGE = "Posição";
+  private static final String PERMISION_APPROVED_MESSAGE = "Permissão aprovada";
+  private static final String REQUEST_PERMISION_MESSAGE = "Permita ter o acesso para te localizar";
+  private static final String PERMISION_MESSAGE = "É necessário ter a permissão";
+  private static final String POSITION_NOT_LOCATED_MESSAGE = "Não foi possível localizar sua " +
+          "posição";
+
+  //Google Maps API.
+  private GoogleMap map;
   private Location location;
-  private Location mLastLocation;
-  private GoogleApiClient mGoogleApiClient = null;
+  private Location mapLastLocation;
+  private GoogleApiClient mapGoogleApiClient = null;
 
   @Override
   public boolean onMarkerClick(Marker marker) {
 
     for (int aux = 0 ; aux < HealthUnitController.getClosestHealthUnit().size() ; aux++) {
-      if (marker.getTitle().toString().compareTo(HealthUnitController.getClosestHealthUnit().get(aux)
+      if (marker.getTitle().toString().compareTo(HealthUnitController.getClosestHealthUnit()
+              .get(aux)
                 .getNameHospital()) == 0) {
         Intent information = new Intent();
-        information.setClass(MapScreenController.this , InformationUsScreenController.class);
-        information.putExtra("position" , aux);
+        information.setClass(MapScreenController.this , InformationHealthUnitScreenController.class);
+        information.putExtra(POSITION_MESSAGE, aux);
         startActivity(information);
         finish();
       }
@@ -63,29 +82,27 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     return false;
   }
 
-  public void goClicked(View map_screen) throws IOException, JSONException {
+  public void goClicked(View mapScreen) throws IOException, JSONException {
 
-    final String routeTraced = "Rota mais próxima traçada";
-
-    Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(MapScreenController.this , RouteActivity.class);
-    routeActivity.putExtra("numeroUs" , -1);
+    routeActivity.putExtra(INFORMATION_MESSAGE , -1);
     startActivity(routeActivity);
     finish();
   }
 
-  public void listMapsImageClicked(View map_screen) {
+  public void listMapsImageClicked(View mapscreen) {
 
     Intent listOfHealth = new Intent();
     listOfHealth.setClass(this, ListOfHealthUnitsController.class);
     startActivity(listOfHealth);
   }
 
-  public void open_search(View mapScreen) {
+  public void openSearch(View mapScreen) {
 
     Intent openSearch = new Intent();
-    openSearch.setClass(this , SearchUsController.class);
+    openSearch.setClass(this , SearchHealthUnitController.class);
     startActivity(openSearch);
   }
 
@@ -93,7 +110,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   }
 
-  public void openConfig(View map_screen) {
+  public void openConfig(View mapScreen) {
 
     Intent config = new Intent();
     config.setClass(MapScreenController.this , ConfigController.class);
@@ -109,11 +126,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
     if (location && storage) {
 
-      Toast.makeText(this, "Permissão aprovada", Toast.LENGTH_SHORT).show();
+      Toast.makeText(this, PERMISION_APPROVED_MESSAGE, Toast.LENGTH_SHORT).show();
     } else {
 
-      Toast.makeText(this,"Permita ter o acesso para te localizar",
-                    Toast.LENGTH_SHORT).show();
+      Toast.makeText(this,REQUEST_PERMISION_MESSAGE, Toast.LENGTH_SHORT).show();
     }
   }
 
@@ -126,12 +142,12 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
     mapFragment.getMapAsync(this);
-    mMap = mapFragment.getMap();
-    mMap.setOnMarkerClickListener(this);
+    map = mapFragment.getMap();
+    map.setOnMarkerClickListener(this);
 
-    if (mGoogleApiClient == null) {
+    if (mapGoogleApiClient == null) {
 
-      mGoogleApiClient = new GoogleApiClient.Builder(this)
+      mapGoogleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
@@ -141,39 +157,38 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   protected void onStart() {
 
-    mGoogleApiClient.connect();
+    mapGoogleApiClient.connect();
     super.onStart();
   }
 
   protected void onStop() {
 
-    mGoogleApiClient.disconnect();
+    mapGoogleApiClient.disconnect();
     super.onStop();
   }
 
   @Override
   public void onConnected(Bundle connectionHint) {
 
-    if (Build.VERSION.SDK_INT >= 23) {
+    if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
     }
 
-    this.mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
+    this.mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mapGoogleApiClient);
 
-    if (mLastLocation != null) {
+    if (mapLastLocation != null) {
 
-      location = mLastLocation;
+      location = mapLastLocation;
       LatLng userLatLng = new LatLng(location.getLatitude() , location.getLongitude());
 
       focusOnSelfPosition(userLatLng);
-      services.setMarkersOnMap(mMap , HealthUnitController.getClosestHealthUnit());
+      services.setMarkersOnMap(map , HealthUnitController.getClosestHealthUnit());
 
     } else {
 
-      Toast.makeText(this, "Não foi possível localizar sua posição",
-                    Toast.LENGTH_SHORT).show();
+      Toast.makeText(this, POSITION_NOT_LOCATED_MESSAGE, Toast.LENGTH_SHORT).show();
       Intent mainScreen = new Intent();
 
       mainScreen.setClass(this, MainScreenController.class);
@@ -190,20 +205,20 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public void onMapReady(GoogleMap googleMap) {
 
-    if (Build.VERSION.SDK_INT >= 23) {
+    if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
     }
 
-    mMap = googleMap;
+    map = googleMap;
   }
 
 
   private void focusOnSelfPosition(LatLng userLatLng) {
 
-    mMap.addMarker(new MarkerOptions().position(userLatLng).title(yourPosition)
+    map.addMarker(new MarkerOptions().position(userLatLng).title(yourPosition)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom( new LatLng(userLatLng.latitude,
+    map.animateCamera(CameraUpdateFactory.newLatLngZoom( new LatLng(userLatLng.latitude,
             userLatLng.longitude), 13.0f));
   }
 
@@ -260,8 +275,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
                         == PackageManager.PERMISSION_GRANTED;
         } catch (RuntimeException ex) {
 
-          Toast.makeText(this , "É necessário ter a permissão" ,
-                          Toast.LENGTH_LONG).show();
+          Toast.makeText(this , PERMISION_MESSAGE, Toast.LENGTH_LONG).show();
           Intent main = new Intent();
           main.setClass(this , MainScreenController.class);
           startActivity(main);

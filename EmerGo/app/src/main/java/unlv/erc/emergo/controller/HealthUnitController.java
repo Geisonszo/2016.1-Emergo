@@ -1,3 +1,9 @@
+/*
+ * Class: HealthUnitController (.java)
+ *
+ * Porpouse: The purpose of this class is select and set the distance between user and heath units.
+ */
+
 package unlv.erc.emergo.controller;
 
 import android.content.Context;
@@ -57,7 +63,7 @@ public class HealthUnitController {
    * @param userLocation The location of the user
    */
 
-  public static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestHealthUnit,
+  protected static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestHealthUnit,
                                                    Location userLocation) {
 
     Location healthUnitLocation = new Location("");
@@ -78,7 +84,7 @@ public class HealthUnitController {
    * @return position Return the position of the closest health unit
    */
 
-  public static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit, Location location) {
+  protected static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit, Location location) {
 
     double smaller = 99999;
     int position = 0;

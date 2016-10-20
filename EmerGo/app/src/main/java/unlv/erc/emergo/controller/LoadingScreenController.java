@@ -1,3 +1,9 @@
+/********************
+ * Class name: LoadingScreenController (.java)
+ *
+ * Purpose: The purpose of this class is to load some application features.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import android.app.Activity;
@@ -11,8 +17,8 @@ import unlv.erc.emergo.R;
 
 public class LoadingScreenController extends Activity {
 
-  private static int WAITING_TIME = 9000;
-  private ProgressBar spinner ;
+  private static int WAITING_TIME = 9000; //Time in milliseconds the duration of the spinner.
+  private ProgressBar spinner ; //Graphic feature representing the page load.
 
   protected void onCreate(Bundle savedInstanceState) {
 
@@ -22,6 +28,7 @@ public class LoadingScreenController extends Activity {
     spinner = (ProgressBar)findViewById(R.id.progressBar);
     spinner.setVisibility(View.VISIBLE);
 
+    // Needed to leave the graphic moving to the described time.
     new Handler().postDelayed(new Runnable() {
 
       @Override

@@ -1,19 +1,24 @@
+/*****************************
+ * Class name: HealthUnit (.java)
+ *
+ * Purpose: Represent the data from a health units's.
+ ****************************/
+
 package unlv.erc.emergo.model;
 
 import com.orm.SugarRecord;
 
 public class HealthUnit extends SugarRecord {
 
-  private Double latitude;
-  private Double longitude;
-  private String nameHospital;
-  private String unitType;
-  private String addressNumber;
-  private String district;
-  private String state;
-  private String city;
-  private Float distance;
-  private Integer id;
+  private Double latitude = 0.0;
+  private Double longitude = 0.0;
+  private String nameHospital = "";
+  private String healthUnitType = "";
+  private String addressNumber = "";
+  private String district = "";
+  private String state = "";
+  private String city = "";
+  private Float distance = 0f;
 
   public HealthUnit(){
 
@@ -24,20 +29,20 @@ public class HealthUnit extends SugarRecord {
    * @param latitude latitude coordinate of health unit
    * @param longitude longitude coordinate of health unit
    * @param nameHospital The name of health unit
-   * @param unitType type of health unit
+   * @param healthUnitType type of health unit
    * @param addressNumber Address of health unit
    * @param district health unit district
    * @param state health unit state
    * @param city health unit city
    */
 
-  public HealthUnit(Double latitude, Double longitude, String nameHospital, String unitType,
+  public HealthUnit(Double latitude, Double longitude, String nameHospital, String healthUnitType,
                       String addressNumber, String district, String state, String city) {
 
     setLatitude(latitude);
     setLongitude(longitude);
     setNameHospital(nameHospital);
-    setUnitType(unitType);
+    setUnitType(healthUnitType);
     setAddressNumber(addressNumber);
     setDistrict(district);
     setState(state);
@@ -69,11 +74,11 @@ public class HealthUnit extends SugarRecord {
   }
 
   public String getUnitType() {
-    return unitType;
+    return healthUnitType;
   }
 
-  public void setUnitType(String unitType) {
-    this.unitType = unitType;
+  public void setUnitType(String healthUnitType) {
+    this.healthUnitType = healthUnitType;
   }
 
   public String getAddressNumber() {

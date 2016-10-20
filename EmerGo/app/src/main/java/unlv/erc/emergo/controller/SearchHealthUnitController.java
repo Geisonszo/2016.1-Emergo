@@ -1,17 +1,20 @@
+/********************
+ * Class name: SearchHealthUnitController (.java)
+ *
+ * Purpose: The purpose of this class is to search the closest health units.
+ ********************/
+
 package unlv.erc.emergo.controller;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -23,7 +26,7 @@ import java.util.List;
 
 
 
-public class SearchUsController extends AppCompatActivity implements SearchView
+public class SearchHealthUnitController extends AppCompatActivity implements SearchView
     .OnQueryTextListener, View.OnClickListener {
 
   private SearchView mapSearchView;
@@ -31,7 +34,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
   private ImageView map;
   private ImageView healthUnitList;
   private List<String> searchHealthUnit = new ArrayList<>();
-  private int numberOfHealthUnitClicked;
+  private int numberOfHealthUnitClicked = 0; //Index responsable for future searching methods
   private ListView healthUnitsList;
   private CharSequence search;
   ArrayList<String> closestHealthUnit;
@@ -60,7 +63,7 @@ public class SearchUsController extends AppCompatActivity implements SearchView
     Intent informationScreen = new Intent();
 
     informationScreen.putExtra("position", numberOfHealthUnitClicked);
-    informationScreen.setClass(SearchUsController.this, InformationSearchScreenController.class);
+    informationScreen.setClass(SearchHealthUnitController.this, InformationSearchScreenController.class);
     startActivity(informationScreen);
     finish();
   }
@@ -91,41 +94,41 @@ public class SearchUsController extends AppCompatActivity implements SearchView
   }
 
   @Override
-  public void onClick(View view) {
-    if (view.getId() == R.id.buttonGo) {
+  public void onClick(View searchView) {
+    if (searchView.getId() == R.id.buttonGo) {
 
       Intent route = new Intent();
 
-      route.setClass(SearchUsController.this, RouteActivity.class);
+      route.setClass(SearchHealthUnitController.this, RouteActivity.class);
       startActivity(route);
       finish();
     }
-    if (view.getId() == R.id.iconMap) {
+    if (searchView.getId() == R.id.iconMap) {
 
       Intent map = new Intent();
 
-      map.setClass(SearchUsController.this, MapScreenController.class);
+      map.setClass(SearchHealthUnitController.this, MapScreenController.class);
       map.putExtra("numeroUs" , -1);
       startActivity(map);
       finish();
     }
-    if (view.getId() == R.id.iconList) {
+    if (searchView.getId() == R.id.iconList) {
 
       Intent list = new Intent();
 
-      list.setClass(SearchUsController.this, ListOfHealthUnitsController.class);
+      list.setClass(SearchHealthUnitController.this, ListOfHealthUnitsController.class);
       startActivity(list);
       finish();
     }
   }
 
-  /**
+  /*
    * This method search the health unit on map.
    * @param closest the closest health unit
    * @return the closest health unit
    */
 
-  public ArrayList<String> getSearchHealthUnit(ArrayList<HealthUnit> closest) {
+  private ArrayList<String> getSearchHealthUnit(ArrayList<HealthUnit> closest) {
 
     search = mapSearchView.getQuery();
     closestHealthUnit = new ArrayList<>();
