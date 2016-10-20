@@ -135,7 +135,6 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     this.mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
 
-    //Getting user data from DB
     myDatabase = new UserDao(this);
     result = myDatabase.getUser();
 
@@ -314,10 +313,10 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   @Override
-  public void onClick(View view) {
+  public void onClick(View routeActivity) {
 
     //Open emergency mode
-    if (view.getId() == R.id.buttonGo) {
+    if (routeActivity.getId() == R.id.buttonGo) {
       openMap();
     } else {
 
@@ -325,7 +324,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
 
     //Open map on user location
-    if (view.getId() == R.id.selfLocation) {
+    if (routeActivity.getId() == R.id.selfLocation) {
 
       map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
           userLocation.longitude), 13.0f));
@@ -334,7 +333,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
 
     //Open user info
-    if (view.getId() == R.id.userInformation) {
+    if (routeActivity.getId() == R.id.userInformation) {
 
       Intent config = new Intent();
       config.setClass(RouteActivity.this , ConfigController.class);
@@ -353,7 +352,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
 
     //Call samu method
-    if (view.getId() == R.id.phone) {
+    if (routeActivity.getId() == R.id.phone) {
 
       callSamu();
     } else {
