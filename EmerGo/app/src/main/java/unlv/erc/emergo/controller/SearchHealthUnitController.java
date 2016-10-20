@@ -122,13 +122,13 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
     }
   }
 
-  /**
+  /*
    * This method search the health unit on map.
    * @param closest the closest health unit
    * @return the closest health unit
    */
 
-  public ArrayList<String> getSearchHealthUnit(ArrayList<HealthUnit> closest) {
+  private ArrayList<String> getSearchHealthUnit(ArrayList<HealthUnit> closest) {
 
     search = mapSearchView.getQuery();
     closestHealthUnit = new ArrayList<>();
