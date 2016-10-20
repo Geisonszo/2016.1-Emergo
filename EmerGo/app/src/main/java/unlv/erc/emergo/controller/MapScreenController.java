@@ -45,10 +45,22 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         GoogleMap.OnMarkerClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-  static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+  //Code of Google services that makes the request of several permissions.
+  private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+  private static final int FINAL_VERSION_SDK = 23;
   final String yourPosition = "Sua posição";
-  private GoogleMap map;
   private Services services = new Services();
+  private static final String INFORMATION_MESSAGE = "numeroUs";
+  private static final String ROUTE_TRACED = "Rota mais próxima traçada";
+  private static final String POSITION_MESSAGE = "Posição";
+  private static final String PERMISION_APPROVED_MESSAGE = "Permissão aprovada";
+  private static final String REQUEST_PERMISION_MESSAGE = "Permita ter o acesso para te localizar";
+  private static final String PERMISION_MESSAGE = "É necessário ter a permissão";
+  private static final String POSITION_NOT_LOCATED_MESSAGE = "Não foi possível localizar sua " +
+          "posição";
+
+  //Google Maps API.
+  private GoogleMap map;
   private Location location;
   private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
@@ -62,7 +74,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
                 .getNameHospital()) == 0) {
         Intent information = new Intent();
         information.setClass(MapScreenController.this , InformationHealthUnitScreenController.class);
-        information.putExtra("position" , aux);
+        information.putExtra(POSITION_MESSAGE, aux);
         startActivity(information);
         finish();
       }
@@ -72,12 +84,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   public void goClicked(View mapScreen) throws IOException, JSONException {
 
-    final String routeTraced = "Rota mais próxima traçada";
-
-    Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(MapScreenController.this , RouteActivity.class);
-    routeActivity.putExtra("numeroUs" , -1);
+    routeActivity.putExtra(INFORMATION_MESSAGE , -1);
     startActivity(routeActivity);
     finish();
   }
@@ -116,11 +126,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
     if (location && storage) {
 
-      Toast.makeText(this, "Permissão aprovada", Toast.LENGTH_SHORT).show();
+      Toast.makeText(this, PERMISION_APPROVED_MESSAGE, Toast.LENGTH_SHORT).show();
     } else {
 
-      Toast.makeText(this,"Permita ter o acesso para te localizar",
-                    Toast.LENGTH_SHORT).show();
+      Toast.makeText(this,REQUEST_PERMISION_MESSAGE, Toast.LENGTH_SHORT).show();
     }
   }
 
@@ -161,7 +170,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public void onConnected(Bundle connectionHint) {
 
-    if (Build.VERSION.SDK_INT >= 23) {
+    if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
     }
@@ -179,8 +188,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
     } else {
 
-      Toast.makeText(this, "Não foi possível localizar sua posição",
-                    Toast.LENGTH_SHORT).show();
+      Toast.makeText(this, POSITION_NOT_LOCATED_MESSAGE, Toast.LENGTH_SHORT).show();
       Intent mainScreen = new Intent();
 
       mainScreen.setClass(this, MainScreenController.class);
@@ -197,7 +205,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public void onMapReady(GoogleMap googleMap) {
 
-    if (Build.VERSION.SDK_INT >= 23) {
+    if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
     }
@@ -267,8 +275,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
                         == PackageManager.PERMISSION_GRANTED;
         } catch (RuntimeException ex) {
 
-          Toast.makeText(this , "É necessário ter a permissão" ,
-                          Toast.LENGTH_LONG).show();
+          Toast.makeText(this , PERMISION_MESSAGE, Toast.LENGTH_LONG).show();
           Intent main = new Intent();
           main.setClass(this , MainScreenController.class);
           startActivity(main);

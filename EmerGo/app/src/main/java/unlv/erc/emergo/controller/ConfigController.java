@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import unlv.erc.emergo.R;
 
-public class ConfigController extends Activity { // Begin of ConfigController class
+public class ConfigController extends Activity {
 
   // ImageView for ListOfHealthUnitsController.class
   private ImageView iconList;
@@ -33,13 +33,9 @@ public class ConfigController extends Activity { // Begin of ConfigController cl
   private Button medicalRecord;
   // Button for AboutApp class
   private Button aboutApp;
-  // String speaking being clicked the current screen
-  final String errorMessage = "Está tentando abrir a página atual";
-  // String speaking that the route will be drawn to the nearest health unit
-  final String routeTraced = "Rota mais próxima traçada";
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) { // Begin of onCreate
+  protected void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.config);
@@ -49,222 +45,293 @@ public class ConfigController extends Activity { // Begin of ConfigController cl
     listUs();
     showMedicalRecord();
     acessEmergencyContact();
-  } // End of onCreate
+  }
 
   /*
    * Set ImageView.
    *
    */
 
-  private void setImageViewIcons() { // Begin of setImageViewIcons
+  private void setImageViewIcons() {
 
-    Log.i("Begin of method: ","setImageViewIcons");
+    Log.d("Begin of method: ","setImageViewIcons");
     iconList = (ImageView) findViewById(R.id.iconList);
     buttonGo = (ImageView) findViewById(R.id.buttonGo);
-    Log.i("End of method: ","Method setImageViewIcons ");
-  } // Enf of setImageViewIcons
+    Log.d("End of method: ","Method setImageViewIcons ");
+  }
 
   /*
    * Set Buttons.
    *
    */
 
-  private void setButtons() { // Begin of setButtons
+  private void setButtons() {
 
-    Log.i("Method setButtons ","Begin of method");
+    Log.d("Method setButtons ","Begin of method");
     emergencyContact = (Button) findViewById(R.id.emergencyContact);
     medicalRecord = (Button) findViewById(R.id.medicalRecords);
     aboutApp = (Button) findViewById(R.id.app);
-    Log.i("Method setButtons ","End of method");
-  } // End of setButtons
+    Log.d("Method setButtons ","End of method");
+  }
 
-  /**
+  /*
    * This method create a route screen after GO button is clicked, tracing a route to a
    * specific health unity.
    *
    */
 
-  public void createRouteScreen() { // Begin of createRouteScreen
+  private void createRouteScreen() {
 
-    Log.i("Begin of method: ","Method createRouteScreen ");
+    Log.d("Begin of method: ","Method createRouteScreen ");
     //When buttonGo is clicked will open the method "createRouteScreen".
     buttonGo.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
 
       @Override
-      public void onClick(View goView) { //Begin on click
+      public void onClick(View goView) {
 
         Intent map = new Intent();
 
-        map.setClass(ConfigController.this , RouteActivity.class);
-        map.putExtra("numeroUs" , -1);
-        startActivity(map);
-        finish();
-      } //End of onClick
-    }); //End of setOnClickListener
-    Log.i("End of method: ","Method createRouteScreen ");
-  } // End of createRouteScreen
+        assert map != null : "map can't be null";
 
-  /**
+        if (map != null) {
+
+          map.setClass(ConfigController.this, RouteActivity.class);
+          map.putExtra("numeroUs", -1);
+          startActivity(map);
+          finish();
+        } else {
+
+          // Nothing to do
+        }
+      }
+    });
+    Log.d("End of method: ","Method createRouteScreen ");
+  }
+
+  /*
    * This method list all the USs, by proximity of the user location, after the list button
    * is clicked.
    *
    */
 
-  public void listUs() { // Begin of listUs
+  private void listUs() {
 
-    Log.i("Begin of method: ","Method listUs ");
+    Log.d("Begin of method: ","Method listUs ");
     //When iconList is clicked will open the method "listUs".
-    iconList.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
+    iconList.setOnClickListener(new View.OnClickListener() {
 
       @Override
-      public void onClick(View iconView) { //Begin of onClick
+      public void onClick(View iconView) {
 
         Intent listUs = new Intent();
 
-        listUs.setClass(ConfigController.this , ListOfHealthUnitsController.class);
-        startActivity(listUs);
-        finish();
-      } //End of onClick
-    }); //End of setOnClickListener
-    Log.i("End of method: ","Method listUs ");
-  } // End of listUs
+        assert listUs != null : "listUs can't be null";
+
+        if (listUs != null) {
+
+          listUs.setClass(ConfigController.this, ListOfHealthUnitsController.class);
+          startActivity(listUs);
+          finish();
+        } else {
+
+          // Nothing to do
+        }
+      }
+    });
+    Log.d("End of method: ","Method listUs ");
+  }
 
   /**
    * This method show users medical information, after the medical information button is clicked.
    *
    */
 
-  public void showMedicalRecord() { // Begin of showMedicalRecord
+  private void showMedicalRecord() {
 
-    Log.i("Begin of method: ","Method showMedicalRecord");
+    Log.d("Begin of method: ","Method showMedicalRecord");
     //When medicalRecord is clicked will open the method "showMedicalRecord".
     medicalRecord.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
 
-      public void onClick(View medicalRecordView) { //Begin of onClick
+      public void onClick(View medicalRecordView) {
 
         Intent medicalRecord = new Intent();
 
-        medicalRecord.setClass(ConfigController.this,MedicalRecordsController.class);
-        startActivity(medicalRecord);
-        finish();
+        assert medicalRecord != null : "medicalRecord can't be null";
+
+        if (medicalRecord != null) {
+
+          medicalRecord.setClass(ConfigController.this, MedicalRecordsController.class);
+          startActivity(medicalRecord);
+          finish();
+        } else {
+
+          // Nothing to do
+        }
       } // End of onClick
-    }); // End of setOnClickListener
-    Log.i("End of method: ","Method showMedicalRecord");
-  } // End of showMessageRecord
+    });
+    Log.d("End of method: ","Method showMedicalRecord");
+  }
 
   /**
    * This method show user's emergency contacts, after the emergency contact button is clicked.
    *
    */
 
-  public void acessEmergencyContact() { // Begin of acessEmergencyContact
+  private void acessEmergencyContact() {
 
+    Log.d("Begin of method: ","Method acessEmergencyContact");
     //When emergencyContact is clicked will open the method "acessEmergencyContact".
     emergencyContact.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
 
-      public void onClick(View emergencyContactView) { //Begin of onClick
+      public void onClick(View emergencyContactView) {
 
         Intent emergencyContact = new Intent();
 
-        emergencyContact.setClass(ConfigController.this,EmergencyContactController.class);
-        startActivity(emergencyContact);
-        finish();
-      } //End of onClick
-    }); //End of setOnClickListener
-    Log.i("Begin of method: ","Method acessEmergencyContact");
+        assert emergencyContact != null : "emergencyContact can't be null";
 
-    Log.i("End of method: ","Method acessEmergencyContact ");
-  } // End of acessEmergencyContact
+        if (emergencyContact != null) {
+          emergencyContact.setClass(ConfigController.this, EmergencyContactController.class);
+          startActivity(emergencyContact);
+          finish();
+        } else {
+
+          // Nothing to do
+        }
+      } //End of onClick
+    });
+    Log.d("End of method: ","Method acessEmergencyContact ");
+  }
 
   /**
    * This method show the info related to EmerGo, after the button about is clicked.
    *
    */
 
-  public void seeInfoAboutApp() { // Begin of seeInfoAboutApp
+  private void seeInfoAboutApp() {
 
-    Log.i("Begin of method: ","Method seeInforAboutApp ");
+    Log.d("Begin of method: ","Method seeInforAboutApp ");
     //When aboutApp is clicked will open the method "settInfoAboutApp".
-    aboutApp.setOnClickListener(new View.OnClickListener() { //Begin of setOnClickListener
+    aboutApp.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View aboutAppView) { //Begin of onClick
+      public void onClick(View aboutAppView) {
 
         Intent aboutApp = new Intent();
 
-        aboutApp.setClass(ConfigController.this,AboutApp.class);
-        startActivity(aboutApp);
-        finish();
-      } //End of OnClick
-    }); //End of setOnClickListener
-    Log.i("End of method: ","Method seeInfoAboutApp ");
-  } // End of seeInfoAboutApp
+        assert aboutApp != null : "aboutApp";
+
+        if (aboutApp != null) {
+          aboutApp.setClass(ConfigController.this, AboutApp.class);
+          startActivity(aboutApp);
+          finish();
+        } else {
+
+          // Nothing to do
+        }
+      }
+    });
+    Log.d("End of method: ","Method seeInfoAboutApp ");
+  }
 
   /**
    * This method is activated when user clicks in GO button, tracing a route to the closest
    * health unity.
-   * @param mapScreen actual View Object.
+   * @param mapScreen go to routeActivity class.
    *
    */
 
-  public void goClicked(View mapScreen) throws IOException, JSONException { // Begin of goClicked
+  public void goClicked(View mapScreen) throws IOException, JSONException {
 
-    Log.i("Begin of method: ","Method goClicked ");
+    Log.d("Begin of method: ","Method goClicked ");
+    // String speaking that the route will be drawn to the nearest health unit
+    final String routeTraced = "Rota mais próxima traçada";
     Intent routeActivity = new Intent();
 
+    assert mapScreen != null : "mapScreen can't be null";
+    assert routeActivity != null : "routeActivity can't be null";
+    assert routeTraced != null : "routeTraced can't be null";
+
     Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
-    routeActivity.setClass(ConfigController.this , RouteActivity.class);
-    routeActivity.putExtra("numeroUs" , -1);
-    startActivity(routeActivity);
-    finish();
-    Log.i("End of method: ","Method goClicked ");
-  } // End of goClicked
+
+    if (routeActivity != null) {
+      routeActivity.setClass(ConfigController.this, RouteActivity.class);
+      routeActivity.putExtra("numeroUs", -1);
+      startActivity(routeActivity);
+      finish();
+    } else {
+
+      // Nothing to do
+    }
+    Log.d("End of method: ","Method goClicked ");
+  }
 
   /**
    * This method list all the USs, by proximity of the user location, after the list button
    * is clicked.
-   * @param mapScreen actual View Object.
+   * @param mapScreen go to ListOfHeatlthUnitsController class.
    *
    */
 
-  public void listMapsImageClicked(View mapScreen) { // Begin of litsMapsImageClicked
+  public void listMapsImageClicked(View mapScreen) {
 
-    Log.i("Begin of method: ","Method listMapsImageClicked ");
+    Log.d("Begin of method: ","Method listMapsImageClicked ");
     Intent listOfHealth = new Intent();
 
-    listOfHealth.setClass(this , ListOfHealthUnitsController.class);
-    startActivity(listOfHealth);
-    finish();
-    Log.i("End of method: ","Method listMapsImageClicked ");
-  } // End of listMapsIMageClicked
+    assert mapScreen != null : "mapScreen can't be null";
+    assert listOfHealth != null : "listOfHealth can't be null";
+
+    if (listOfHealth != null) {
+
+      listOfHealth.setClass(this, ListOfHealthUnitsController.class);
+      startActivity(listOfHealth);
+      finish();
+    } else {
+
+      // Nothing to do
+    }
+    Log.d("End of method: ","Method listMapsImageClicked ");
+  }
 
   /**
    * This method is activated when user is already in the configuration screen, and
    * try to open it again.Intent routeActivity = new Intent();
-   * @param mapScreen actual View Object.
+   * @param openConfig actual View Object.
    *
    */
 
-  public void openConfig(View mapScreen) { // Begin of openConfig
+  public void openConfig(View openConfig) {
 
-    Log.i("Method openConfig ","Begin of method");
+    Log.d("Method openConfig ","Begin of method");
+    // String speaking being clicked the current screen
+    final String errorMessage = "Está tentando abrir a página atual";
+
+    assert openConfig != null : "openConfig can't be null";
+
     Toast.makeText(this , errorMessage , Toast.LENGTH_SHORT ).show();
-    Log.i("Method openConfig ","End of method");
-  } // End of openConfig
+    Log.d("Method openConfig ","End of method");
+  }
 
   /**
    * This method is activated when user clicks in the map button, and open a new map.
-   * @param mapScreen actual View Object.
+   * @param openMap go to MapScreenController class.
    *
    */
 
-  public void openMap(View mapScreen) { // Begin of openMap
+  public void openMap(View openMap) {
 
-    Log.i("Begin of method: ","Method openMap ");
+    Log.d("Begin of method: ","Method openMap ");
     Intent mapActivity = new Intent();
 
-    mapActivity.setClass(this, MapScreenController.class);
-    startActivity(mapActivity);
-    finish();
-    Log.i("End of method: ","Method openMap ");
-  } // End of openMap
-} // End of ConfigController class
+    assert mapActivity != null : "mapActivity can'be null";
+    assert openMap != null : "openMap can't be null";
+
+    if (mapActivity != null) {
+      mapActivity.setClass(this, MapScreenController.class);
+      startActivity(mapActivity);
+      finish();
+    } else {
+
+      // Nothing to do
+    }
+    Log.d("End of method: ","Method openMap ");
+  }
+}

@@ -27,11 +27,11 @@ import dao.EmergencyContactDao;
 import helper.MaskHelper;
 import unlv.erc.emergo.R;
 
-public class EmergencyContactController extends Activity { // Begin of EmergencyController class
+public class EmergencyContactController extends Activity {
 
   // Button for saveFirstContact
   private Button saveFirstContact;
-  // Button for saveFirstContact
+  // Button for saveSecondContact
   private Button saveSecondContact;
   // Button for saveThirdContact
   private Button saveThirdContact;
@@ -59,26 +59,18 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
   private EditText phoneSecondContact;
   // Field text for phoneThirdContact
   private EditText phoneThirdContact;
-  // String of phoneContact
-  private String phoneContact = " ";
-  // String of nameContact
-  private String nameContact = "";
   // Id constant of firstContact
-  private final int idFirstContact = 1;
+  private static final int IDFIRSTCONTACT = 1;
   // Id constant of secondContact
-  private final int idSecondContact = 2;
+  private static final int IDSECONDCONTACT = 2;
   // Id constant of thirdContact
-  private final int idThirdContact = 3;
-  // Constant of minimum length name
-  private final int minimum = 3;
-  // Constant string about route
-  private final String routeTraced = "Rota mais próxima traçada";
+  private static final int IDTHIRDCONTACT = 3;
   // Database is empty
-  private final int databaseEmpty = 0;
+  private static final int DATABASEEMPTY = 0;
   // The second position on database. In second position on database is refer to name of contact
-  private final int nameOnDatabase = 1;
+  private static final int NAMEONDATABASE = 1;
   // The third position on database. In third position on database is refer to phone of contact
-  private final int phoneOnDatabase = 2;
+  private static final int PHONEONDATABASE = 2;
   // Instantiation of class EmergencyContactDao
   private EmergencyContactDao emergencyContactDao;
   // Instantiation of class Cursor
@@ -90,7 +82,6 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    // Begin of onCreate
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.emergency_contact);
@@ -104,14 +95,14 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
     logicSecondContact();
     setBTThirdContact();
     logicThirdContact();
-  } // End of onCreate
+  }
 
   /*
    * Set informations of bottons and edittext about first emergency contact.
    *
    */
 
-  private void setBTFirstContact() { // Begin of setBTFirstContact
+  private void setBTFirstContact() {
 
     Log.d("Begin of Method: ","setBTFirstContact");
     saveFirstContact = (Button) findViewById(R.id.saveButtonFirstContact);
@@ -123,138 +114,129 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
     phoneFirstContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
             phoneFirstContact));
     Log.d("End of Method: ","setBTFirstContact");
-  } // End of setBTFirstContact
+  }
 
   /*
    * Organize the logic of save,update and delete of first contact.
    *
    */
 
-  private void logicFirstContact() { // Begin of logicFirstContact
+  private void logicFirstContact() {
 
     Log.d("Begin of Method: ","logicFirstContact");
     // Verifies that has something registered in the database on the emergencyContact.
-    if (result.getCount() == databaseEmpty) { // Begin of if
+    if (result.getCount() == DATABASEEMPTY) {
 
       disableOptionsButSave(saveFirstContact,updateFirstContact,deleteFirstContact);
-      Log.i("Database is Empty.","");
-      // End of if
-    } else { //Begin of else
+      Log.e("Database is Empty.","");
+    } else {
 
       // If you have something in the emergencyContact database will be shown in the field name,
       // phone to first contact.
-      if (result.moveToFirst()) { // Begin of if
+      if (result.moveToFirst()) {
 
-        nameFirstContact.setText(result.getString(nameOnDatabase));
-        phoneFirstContact.setText(result.getString(phoneOnDatabase));
+        nameFirstContact.setText(result.getString(NAMEONDATABASE));
+        phoneFirstContact.setText(result.getString(PHONEONDATABASE));
         disableField(saveFirstContact,nameFirstContact,phoneFirstContact);
-        Log.i("Database not is empty","In database have at least an emergency contact");
-      } // End of if
-    } // End of else
+        Log.e("Database not is empty","In database have at least an emergency contact");
+      }
+    }
 
     saveFirstContact.setOnClickListener(new View.OnClickListener() {
-      // Begin of saveFirstContact.setOnClickListener
 
-      // When the button saveFirstContact is clicked will be the method signInFirstContact
-      public void onClick(View emergencyContactView) { // Begin of onClick
+      public void onClick(View emergencyContactView) {
 
         // Register the first emergency contact
-        if (!signInFirstContact()) { // Begin of if
+        if (signInFirstContact() == false) {
 
           saveFirstContact.setOnClickListener(new View.OnClickListener() {
-            // Begin of saveFirstContact.setOnClickListener
 
             // For register the first emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            public void onClick(View emergencyContactView) { //Begin of onClick
+            public void onClick(View emergencyContactView) {
 
               signInFirstContact();
               disableField(nameFirstContact,phoneFirstContact);
-            } // End of onClick
-          }); // End of saveFirstContact.setOnClickListener and End of else
+            }
+          });
           // If all validation passed will disable some buttons
-          Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
-        } else { // Begin of else
+          Log.e("Emergency Contact save!"," Not have problem for save emergency contact");
+        } else {
 
           disableSaveButton(saveFirstContact,updateFirstContact,deleteFirstContact);
-          Log.d("Nothing to do"," Already had one emergency contact in that first position");
-        } // End of else
-      } // End of onClick
-    }); // End of saveFirstContact.setOnClickListener
+          Log.e("Nothing to do"," Already had one emergency contact in that first position");
+        }
+      }
+    });
 
     updateFirstContact.setOnClickListener(new View.OnClickListener() {
-      // Begin of updateFirstContact.setOnClickListener
 
       // Disable some buttons and the "alterar" pass to "salvar"
-      public void onClick(View emergencyContactView) { // Begin of onClick
+      public void onClick(View emergencyContactView) {
 
         disableUpdateButton(nameFirstContact, phoneFirstContact, updateFirstContact,
                 saveFirstContact);
 
         saveFirstContact.setOnClickListener(new View.OnClickListener() {
-          // Begin of saveFirstContact.setOnClickListener
 
           // Update the first emergency contact
-          public void onClick(View emergencyContactView) { // Begin of onClick
+          public void onClick(View emergencyContactView) {
 
-            updateContact(idFirstContact,nameFirstContact,phoneFirstContact,
+            updateContact(IDFIRSTCONTACT,nameFirstContact,phoneFirstContact,
                     saveFirstContact,updateFirstContact,deleteFirstContact);
             setOptionsVisible(saveFirstContact,updateFirstContact);
-            Log.d("Update contact"," Was update at informations about first emergency contact");
-          } // End of onClick
-        }); // End of saveFirstContact.setOnClickListener
-      } // End of onClick
-    }); // End of updateFirstContact.setOnClickListener
+            Log.e("Update contact"," Was update at informations about first emergency contact");
+          }
+        });
+      }
+    });
 
     deleteFirstContact.setOnClickListener(new View.OnClickListener() {
-      // Begin of deleteFirstContact.setOnClickListener
 
       // Delete first emergency contact
-      public void onClick(View emergencyContactView) { // Begin of onClick
+      public void onClick(View emergencyContactView) {
 
         deleteContact(nameFirstContact,phoneFirstContact,saveFirstContact,
-                idFirstContact,updateFirstContact,deleteFirstContact);
-        Log.d("Delete contact"," Was delete at informations about first emergency contact");
+                IDFIRSTCONTACT,updateFirstContact,deleteFirstContact);
+        Log.e("Delete contact"," Was delete at informations about first emergency contact");
 
         saveFirstContact.setOnClickListener(new View.OnClickListener() {
-          // Begin of saveFirstContact.setOnClickListener
 
-          public void onClick(View emergencyContactView) { // Begin of onClick
+          public void onClick(View emergencyContactView) {
 
             // For register the first emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            if (!signInFirstContact()) { //Begin of if
+            if (signInFirstContact() == false) {
 
               saveFirstContact.setOnClickListener(new View.OnClickListener() {
-                // Begin of saveFirstContact.setOnClickListener
 
-                public void onClick(View emergencyContactView) { // Begin of onClick
+                public void onClick(View emergencyContactView) {
 
                   signInFirstContact();
                   disableField(nameFirstContact,phoneFirstContact);
-                } // End of onClick
-              }); // End of saveFirstContact.setOnClickListener and End of if
+                }
+              });
               // If all validation passed will disable some buttons
-              Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
+              Log.e("Emergency Contact save!"," Not have problem for save emergency contact");
             } else { // Begin of else
 
               disableSaveButton(saveFirstContact,updateFirstContact,deleteFirstContact);
-            } // End of else
-          } // End of onClick
-        }); // End of saveFirstContact.setOnClickListener
-      } // End of onClick
-    }); // End of deleteFirstContact.setOnClickListener
+            }
+          }
+        });
+      }
+    });
     Log.d("End of Method: ","logicFirstContact");
-  } // End of logicFirstContact
+  }
 
   /*
    * Set informations of bottons and edittext about second emergency contact.
    *
    */
 
-  private void setBTSecondContact() { // Begin of setBTSecondContact
+  private void setBTSecondContact() {
 
     Log.d("Begin of Method: ","setBTSecondContact");
     saveSecondContact = (Button) findViewById(R.id.saveSecondContactButton);
@@ -266,144 +248,135 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
     phoneSecondContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
             phoneSecondContact));
     Log.d("End of Method: ","setBTSecondContact");
-  } // End of setBTSecondContact
+  }
 
   /*
    * Organize the logic of save,update and delete of second contact.
    *
    */
 
-  private void logicSecondContact() { // Begin of logicSecondContact
+  private void logicSecondContact() {
 
     Log.d("Begin of Method: ","logicSecondContact");
     // Verifies that has something registered in the database on the emergencyContact.
-    if (result.getCount() == databaseEmpty) { // Begin of if
+    if (result.getCount() == DATABASEEMPTY) {
 
       disableOptionsButSave(saveSecondContact, updateSecondContact,deleteSecondContact);
-      Log.i("Database is Empty.","");
-      // End of if
+      Log.e("Database is Empty.","");
       // If you have something in the emergencyContact database will be shown in the field name,
       // phone to second contact.
-    } else { // Begin of else
+    } else {
 
       // Move the "cursor" to next position. If has something on first position of table
       // emergencyContact, the "cursor" will moved to next position
-      if (result.moveToNext()) { // Begin of if
+      if (result.moveToNext()) {
 
-        nameSecondContact.setText(result.getString(nameOnDatabase));
-        phoneSecondContact.setText(result.getString(phoneOnDatabase));
+        nameSecondContact.setText(result.getString(NAMEONDATABASE));
+        phoneSecondContact.setText(result.getString(PHONEONDATABASE));
         disableField(saveSecondContact,nameSecondContact,phoneSecondContact);
-        Log.i("Database not is empty","In database have at least an emergency contact");
-      } // End of if
-    } // End of else
+        Log.e("Database not is empty","In database have at least an emergency contact");
+      }
+    }
 
     saveSecondContact.setOnClickListener(new View.OnClickListener() {
-      // Begin of saveSecondContact.setOnCLickListener
 
-      // When the button saveFirstContact is clicked will be the method signInSecondContact
-      public void onClick(View emergencyContactView) { // Begin of onClick
+      public void onClick(View emergencyContactView) {
 
         // Register the second emergency contact
-        if (!signInSecondContact()) { // Begin of if
+        if (signInSecondContact() == false) {
 
           saveSecondContact.setOnClickListener(new View.OnClickListener() {
-            // Begin of saveSecondContact.setOnClickListener
 
             // For register the second emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            public void onClick(View emergencyContactView) { // Begin of onClick
+            public void onClick(View emergencyContactView) {
 
               signInSecondContact();
               disableField(nameSecondContact,phoneSecondContact);
-              Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
-            } // End of onClick
-          }); // End of saveSecondContact.setOnClickListener and End of if
+              Log.e("Emergency Contact save!"," Not have problem for save emergency contact");
+            }
+          });
         // If all validation passed will disable some buttons
-        } else { // Begin of else
+        } else {
 
           disableSaveButton(saveSecondContact,updateSecondContact,deleteSecondContact);
-          Log.d("Nothing to do"," Already had one emergency contact in that second position");
-        } // End of else
-      } // End of onClick
-    }); // End of saveSecondContact.setOnClickListener
+          Log.e("Nothing to do"," Already had one emergency contact in that second position");
+        }
+      }
+    });
 
     updateSecondContact.setOnClickListener(new View.OnClickListener() {
-      // Begin of updateSecondContact.setOnClickListener
 
-      public void onClick(View emergencyContactView) { // Begin of onClick
+      public void onClick(View emergencyContactView) {
 
         // Disable some buttons and the "alterar" pass to "salvar"
         disableUpdateButton(nameSecondContact, phoneSecondContact, updateSecondContact,
                 saveSecondContact);
 
         saveSecondContact.setOnClickListener(new View.OnClickListener() {
-          // Begin of saveSecondContact.setOnClickListener
 
           // Update the second emergency contact
-          public void onClick(View emergencyContactView) { // Begin of onClick
+          public void onClick(View emergencyContactView) {
 
-            updateContact(idSecondContact,nameSecondContact,phoneSecondContact,
+            updateContact(IDSECONDCONTACT,nameSecondContact,phoneSecondContact,
                     saveSecondContact,updateSecondContact,deleteSecondContact);
             setOptionsVisible(saveSecondContact,updateSecondContact);
-            Log.d("Update contact"," Was update at informations about second emergency contact");
-          } // End of onClick
-        }); // End of saveSecondContact.setOnClickListener
-      } // End of onClick
-    }); // End of updateSecondContact.setOnClickListener
+            Log.e("Update contact"," Was update at informations about second emergency contact");
+          }
+        });
+      }
+    });
 
     deleteSecondContact.setOnClickListener(new View.OnClickListener() {
-      // Begin of deleteSecondContact.setOnClickListener
 
       // Delete second emergency contact
-      public void onClick(View emergencyContactView) { //Begin of onClick
+      public void onClick(View emergencyContactView) {
 
         deleteContact(nameSecondContact,phoneSecondContact,saveSecondContact,
-                idSecondContact,updateSecondContact,deleteSecondContact);
-        Log.d("Delete contact"," Was delete at informations about third emergency contact");
+                IDSECONDCONTACT,updateSecondContact,deleteSecondContact);
+        Log.e("Delete contact"," Was delete at informations about third emergency contact");
 
         saveSecondContact.setOnClickListener(new View.OnClickListener() {
-          // Begin of saveSecondContact.setOnClickListener
 
-          public void onClick(View emergencyContactView) { // Begin of onClick
+          public void onClick(View emergencyContactView) {
 
             // For register the third emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            if (!signInSecondContact()) { // Begin of if
+            if (signInSecondContact() == false) {
 
               saveSecondContact.setOnClickListener(new View.OnClickListener() {
                 // Begin of saveSecondContact.setOnClickListener
 
-                public void onClick(View emergencyContactView) { // Begin of onClick
+                public void onClick(View emergencyContactView) {
 
                   signInSecondContact();
                   disableField(nameSecondContact,phoneSecondContact);
-                  Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
+                  Log.e("Emergency Contact save!"," Not have problem for save emergency contact");
                 } // End of onClick
-              }); // End of saveSecondContact.setOnClickListener and End of if
+              });
             // If all validation passed will disable some buttons
-            } else { // Begin of if
+            } else {
 
               disableSaveButton(saveSecondContact,updateSecondContact,
                       deleteSecondContact);
-            } // End of else
-          } // End of onClick
-        }); // End of saveSecondContact.setOnClickListener
-      } // End of onClick
-    }); // End of deleteSecondContact.setOnClickListener
+            }
+          }
+        });
+      }
+    });
     Log.d("End of Method: ","logicSecondContact");
-  } // End of logicSecondContact
+  }
 
   /*
    * Set informations of bottons and edittext about third emergency contact.
    *
    */
 
-  private void setBTThirdContact() { // Begin of setBTThirdContact
+  private void setBTThirdContact() {
 
     Log.d("Begin of Method: ","setBTThirdContact");
-
     saveThirdContact = (Button) findViewById(R.id.saveThirdContactButton);
     updateThirdContact = (Button) findViewById(R.id.updateThirdContactButton);
     deleteThirdContact = (Button) findViewById(R.id.deleteThirdContactButton);
@@ -413,134 +386,126 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
     phoneThirdContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
             phoneThirdContact));
     Log.d("End of Method: ","setBTThirdContact");
-  } // End of setBTTThirdContact
+  }
 
   /*
    * Organize the logic of save,update and delete of third contact.
    *
    */
 
-  private void logicThirdContact() { // Begin of logicThirdContact
+  private void logicThirdContact() {
 
     Log.d("Begin of Method: ","logicThirdContact");
     // Verifies that has something registered in the database on the emergencyContact.
-    if (result.getCount() == databaseEmpty) { // Begin of if
+    if (result.getCount() == DATABASEEMPTY) {
 
       disableOptionsButSave(saveThirdContact, updateThirdContact,deleteThirdContact);
-      Log.i("Database is Empty.","");
-      // End of if
+      Log.e("Database is Empty.","");
       // If you have something in the emergencyContact database will be shown in the field name,
       // phone to third contact.
-    } else { // Begin of else
+    } else {
 
       // Move the "cursor" to next position. If has something on second position of table
       // emergencyContact, the "cursor" will moved to next position
-      if (result.moveToNext()) { // Begin of if
+      if (result.moveToNext()) {
 
-        nameThirdContact.setText(result.getString(nameOnDatabase));
-        phoneThirdContact.setText(result.getString(phoneOnDatabase));
+        nameThirdContact.setText(result.getString(NAMEONDATABASE));
+        phoneThirdContact.setText(result.getString(PHONEONDATABASE));
         disableField(saveThirdContact,nameThirdContact,phoneThirdContact);
-        Log.i("Database not is empty","In database have at least an emergency contact");
-      } // End of if
-    } // End of else
+        Log.e("Database not is empty","In database have at least an emergency contact");
+      }
+    }
 
     saveThirdContact.setOnClickListener(new View.OnClickListener() {
-      // Begin of saveThirdContact.setOnClickListener
 
       // When the button saveFirstContact is clicked will be the method signInThirdContact
-      public void onClick(View emergencyContactView) { // Begin of onClick
+      public void onClick(View emergencyContactView) {
 
         // Register the third emergency contact
-        if (!signInthirdContact()) { // Begin of if
+        if (signInthirdContact() == false) {
 
           saveThirdContact.setOnClickListener(new View.OnClickListener() {
-            // Begin of saveThirdContact.setOnClickListener
 
             // For register the third emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            public void onClick(View emergencyContactView) { // Begin of onClick
+            public void onClick(View emergencyContactView) {
 
               signInthirdContact();
               disableField(nameThirdContact,phoneThirdContact);
-              Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
-            } // End of onClick
-          }); // End of saveThirdContact.setOnClickListener and End of if
+              Log.e("Emergency Contact save!"," Not have problem for save emergency contact");
+            }
+          });
         // If all validation passed will disable some buttons
-        } else { // End of if
+        } else {
 
           disableSaveButton(saveThirdContact,updateThirdContact,deleteThirdContact);
-          Log.d("Nothing to do"," Already had one emergency contact in that third position");
-        } // End of else
-      } // End of onClick
-    }); // End of saveThirdContact.setOnClickListener
+          Log.e("Nothing to do"," Already had one emergency contact in that third position");
+        }
+      }
+    });
 
     updateThirdContact.setOnClickListener(new View.OnClickListener() {
-      // Begin of updateThirdContact.setOnClickListener
 
-      public void onClick(View emergencyContactView) { // Begin of onClick
+      public void onClick(View emergencyContactView) {
 
         // Disable some buttons and the "alterar" pass to "salvar"
         disableUpdateButton(nameThirdContact,phoneThirdContact,updateThirdContact,
                 saveThirdContact);
 
         saveThirdContact.setOnClickListener(new View.OnClickListener() {
-          // Begin of saveThirdContact.setOnClickListener
 
           // Update the third emergency contact
-          public void onClick(View emergencyContactView) { // Begin of onClick
+          public void onClick(View emergencyContactView) {
 
-            updateContact(idThirdContact,nameThirdContact,phoneThirdContact,
+            updateContact(IDTHIRDCONTACT,nameThirdContact,phoneThirdContact,
                     saveThirdContact,updateThirdContact,deleteThirdContact);
             setOptionsVisible(saveThirdContact,updateFirstContact);
-            Log.d("Update contact"," Was update at informations about third emergency contact");
-          } // End of onClick
-        }); // End of saveThirdContact.setOnClickListener
-      } // End of onClick
-    }); // End of updateThirdContact.setOnClickListener
+            Log.e("Update contact"," Was update at informations about third emergency contact");
+          }
+        });
+      }
+    });
 
     deleteThirdContact.setOnClickListener(new View.OnClickListener() {
-      // Begin of deleteThirdContact.setOnClickListener
 
       // Delete third emergency contact
-      public void onClick(View emergencyContactView) { //Begin of onClick
+      public void onClick(View emergencyContactView) {
 
         deleteContact(nameThirdContact,phoneThirdContact,saveThirdContact,
-                idThirdContact,updateThirdContact,deleteThirdContact);
-        Log.d("Delete contact"," Was delete at informations about third emergency contact");
+                IDTHIRDCONTACT,updateThirdContact,deleteThirdContact);
+        Log.e("Delete contact"," Was delete at informations about third emergency contact");
 
         saveThirdContact.setOnClickListener(new View.OnClickListener() {
-          //Begin of saveThirdContact.setOnClickListener
 
-          public void onClick(View emergencyContactView) { //Begin of onClick
+          public void onClick(View emergencyContactView) {
 
             // For register the third emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            if (!signInthirdContact()) {
+            if (signInthirdContact() == false) {
 
               saveThirdContact.setOnClickListener(new View.OnClickListener() {
-                // Begin of saveThirdContact.setOnClickListener
 
-                public void onClick(View emergencyContactView) { // Begin of onClick
+                public void onClick(View emergencyContactView) {
 
                   signInthirdContact();
                   disableField(nameThirdContact,phoneThirdContact);
-                } // End of onClick
-              }); // End of saveThirdContact.setOnClickListener and End of if
+                }
+              });
               // If all validation passed will disable some buttons
-              Log.d("Emergency Contact save!"," Not have problem for save emergency contact");
-            } else { // Begin of else
+              Log.e("Emergency Contact save!"," Not have problem for save emergency contact");
+            } else {
 
               disableSaveButton(saveThirdContact,updateThirdContact,
                       deleteThirdContact);
-            } // End of else
-          } // End of onClick
-        }); // End of saveThirdContact.setOnClickListener
-      } // End of onClick
-    }); // End of deleteThirdContact.setOnClickListener
-    Log.d("End of Method: ","logicThirdContact");
-  } // End of logicThirdContact
+            }
+          }
+        });
+      }
+    });
+    Log.e("End of Method: ","logicThirdContact");
+  }
 
   /*
    * This method is used to sign the first contact in the system, returns a bollean that informs
@@ -549,48 +514,54 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    *
    */
 
-  private boolean signInFirstContact() { // Begin of signInFirstContact
+  private boolean signInFirstContact() {
 
     Log.d("Begin method: ","signInFirstContact");
+    // String of phoneContact
+    String phoneContact = "";
+    // String of nameContact
+    String nameContact = "";
     // Sucess is true is all informations is correct or false if ate least information not correct
     boolean sucess = true;
     // Valid is false if sucess is true that is was register first emergency contact
-    boolean valid = false;
+    boolean valid = true;
+
+    assert sucess != true : "sucess can't be false";
+    assert valid != true : "valid can't be false";
 
     //Verific is all information is correct
-    if (!checksName(nameFirstContact.getText().toString())) { // Begin of if
+    if (checksName(nameFirstContact.getText().toString()) == false) {
 
       nameContact = nameFirstContact.getText().toString();
-      Log.i("Nome do Contato: ",nameContact);
+      Log.d("Nome do Contato: ",nameContact);
       phoneContact = phoneFirstContact.getText().toString();
-      Log.i("Telefone do Contato: ",phoneContact);
+      Log.d("Telefone do Contato: ",phoneContact);
 
-      sucess = emergencyContactDao.insertEmergencyContact(idFirstContact, nameContact,
+      sucess = emergencyContactDao.insertEmergencyContact(IDFIRSTCONTACT, nameContact,
                                                                 phoneContact);
       // If all the information is correct, it will be saved in the database
-      if (sucess) { //Begin of if
+      if (sucess == true) {
 
         showMessage("Contato de Emergência Cadastrado Com Sucesso!");
         valid = true;
         nameFirstContact.setEnabled(false);
         phoneFirstContact.setEnabled(false);
         disableSaveButton(saveFirstContact,updateFirstContact,deleteFirstContact);
-        // End of if
-        // If not possible save the first emergency contact
-        Log.d("Usuário Cadastrado","O primeiro contato de emergência foi cadastrado com sucesso");
-      } else { // Begin of else
+        Log.e("Usuário Cadastrado","O primeiro contato de emergência foi cadastrado com sucesso");
+      } else {
 
         showMessage("Contato de Emergência Não Cadastrado! Tente Novamente");
         valid = false;
-        Log.d("Usuário Não Cadastrado","O primeiro contato de emergência não foi cadastrado");
-      } // End of else and End of if
+        Log.e("Usuário Não Cadastrado","O primeiro contato de emergência não foi cadastrado");
+      }
     } else {
 
       // Nothing to do
-    } // End of else
+    }
+    Log.e("The return must be true.","The return is: " + valid);
     Log.d("End of Method: ","signInFirstContact");
     return valid;
-  } // End of signInFirstContact
+  }
 
   /*
    * This method is used to sign the second contact in the system, returns a bollean that informs
@@ -599,55 +570,61 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    *
    */
 
-  private boolean signInSecondContact() { // Begin of signInSecondContact
+  private boolean signInSecondContact() {
 
     Log.d("Begin method: ","signInSecondContact");
+    // String of phoneContact
+    String phoneContact = "";
+    // String of nameContact
+    String nameContact = "";
     // Sucess is true is all informations is correct or false if ate least information not correct
     boolean sucess = true;
     // Valid is false if sucess is true that is was register first emergency contact
-    boolean valid = false;
+    boolean valid = true;
+
+    assert sucess != true : "sucess can't be false";
+    assert valid != true : "valid can't be false";
 
     //Verific is all information is correct
-    if (!checksName(nameSecondContact.getText().toString())) { // Begin of if
+    if (checksName(nameSecondContact.getText().toString()) == false) {
 
       //Verific is all information is correct
-      if (!checksName(nameSecondContact.getText().toString())) { //Begin of if
+      if (checksName(nameSecondContact.getText().toString()) == false) {
 
         nameContact = nameSecondContact.getText().toString();
-        Log.i("Nome do Contato: ",nameContact);
+        Log.d("Nome do Contato: ",nameContact);
         phoneContact = phoneSecondContact.getText().toString();
-        Log.i("Telefone do Contato: ",phoneContact);
+        Log.d("Telefone do Contato: ",phoneContact);
 
-        sucess = emergencyContactDao.insertEmergencyContact(idSecondContact, nameContact,
+        sucess = emergencyContactDao.insertEmergencyContact(IDSECONDCONTACT, nameContact,
                                                                     phoneContact);
         // If all the information is correct, it will be saved in the database
-        if (sucess) { // Begin of if
+        if (sucess == true) {
 
           showMessage("Contato de Emergência Cadastrado Com Sucesso!");
           valid = true;
           nameSecondContact.setEnabled(false);
           phoneSecondContact.setEnabled(false);
           disableSaveButton(saveSecondContact,updateSecondContact,deleteSecondContact);
-          // End of if
-          // If not possible save the second emergency contact
-          Log.d("Usuário Cadastrado!"," O segundo contato de emergência foi cadastrado");
-        } else { //Begin of else
+          Log.e("Usuário Cadastrado!"," O segundo contato de emergência foi cadastrado");
+        } else {
 
           showMessage("Contato de Emergência Não Cadastrado! Tente Novamente");
-          valid = true;
-          Log.d("Usuário Cadastrado!", "O segundo contato de emergência não foi cadastrado");
-        } // End of else and End of if
-      } else { // Begin of else
+          Log.e("Usuário Não Cadastrado!", "O segundo contato de emergência não foi cadastrado");
+          valid = false;
+        }
+      } else {
 
         //Nothing to do
-      } //End of else and End of if
-    } else { //Begin of else
+      }
+    } else {
 
       //Nothing to do
-    } //End of else
+    }
+    Log.e("The return must be true.","The return is: " + valid);
     Log.d("End of Method: ","signInSecondContact");
     return valid;
-  } // End of signInSecondContact
+  }
 
   /*
    * This method is used to sign the third contact in the system, returns a bollean that informs
@@ -656,55 +633,61 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    *
    */
 
-  private boolean signInthirdContact() { // Begin of signInThirdContact
+  private boolean signInthirdContact() {
 
     Log.d("Begin of Method: ","signInSecondContact");
+    // String of phoneContact
+    String phoneContact = "";
+    // String of nameContact
+    String nameContact = "";
     // Sucess is true is all informations is correct or false if ate least information not correct
     boolean sucess = true;
     // Valid is false if sucess is true that is was register first emergency contact
-    boolean valid = false;
+    boolean valid = true;
+
+    assert sucess != true : "sucess can't be false";
+    assert valid != true : "valid can't be false";
 
     //Verific is all information is correct
-    if (!checksName(nameThirdContact.getText().toString())) { //Begin of if
+    if (checksName(nameThirdContact.getText().toString()) == false) {
 
       //Verific is all information is correct
-      if (!checksName(nameThirdContact.getText().toString())) { //Begin of if
+      if (checksName(nameThirdContact.getText().toString()) == false) {
 
         nameContact = nameSecondContact.getText().toString();
-        Log.i("Nome do Contato: ",nameContact);
+        Log.d("Nome do Contato: ",nameContact);
         phoneContact = phoneSecondContact.getText().toString();
-        Log.i("Telefone do Contato: ",phoneContact);
+        Log.d("Telefone do Contato: ",phoneContact);
 
-        sucess = emergencyContactDao.insertEmergencyContact(idThirdContact, nameContact,
+        sucess = emergencyContactDao.insertEmergencyContact(IDTHIRDCONTACT, nameContact,
                                                                     phoneContact);
         // If all the information is correct, it will be saved in the database
-        if (sucess) { //Begin of if
+        if (sucess == true) {
 
           showMessage("Contato de Emergência Cadastrado Com Sucesso!");
           valid = true;
           nameThirdContact.setEnabled(false);
           phoneThirdContact.setEnabled(false);
           disableSaveButton(saveThirdContact,updateThirdContact,deleteThirdContact);
-          //End of if
-          // If not possible save the third emergency contact
-          Log.d("Usuário Cadastrado!"," O terceiro contato de emergência foi cadastrado");
-        } else { //Begin of else
+          Log.e("Usuário Cadastrado!"," O terceiro contato de emergência foi cadastrado");
+        } else {
 
           showMessage("Contato de Emergência Não Cadastrado! Tente Novamente");
-          valid = true;
-          Log.d("Usuário Não Cadastrado!"," O terceiro contato de emergência não foi cadastrado");
-        } //End of else and End of if
-      } else { //Begin of else
+          valid = false;
+          Log.e("Usuário Não Cadastrado!"," O terceiro contato de emergência não foi cadastrado");
+        }
+      } else {
 
         //Nothing to do
-      } //End of else
-    } else { //Begin of else
+      }
+    } else {
 
       //Nothing to do
-    } //End of else
+    }
+    Log.e("The return must be true.","The return is: " + valid);
     Log.d("End of Method: ","signInThirdContact");
     return valid;
-  } // End of signInThirdContact
+  }
 
   /*
    * This method is used to update any of the three emergency contacts already signed on EmerGo.
@@ -717,44 +700,65 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    *
    */
 
-  private void updateContact(Integer id,EditText name,EditText phone,Button save,Button update,
-                             Button delete) { // Begin of updateContact
+  private boolean updateContact(Integer id,EditText name,EditText phone,Button save,Button update,
+                             Button delete) {
 
     Log.d("Begin of Method: ","updateContact");
+    // String of phoneContact
+    String phoneContact = "";
+    // String of nameContact
+    String nameContact = "";
+    // Constant of minimum length name
+    final int MINIMUM = 3;
     // Sucess is true is all informations is correct or false if ate least information not correct
     boolean sucess = true;
+    // Valid is false if sucess is true that is was register first emergency contact
+    boolean valid = true;
+
+    assert id < IDFIRSTCONTACT && id > IDTHIRDCONTACT: "id can't be lower than idFirstContact and "
+                                                      + "bigger than idThirdContact";
+    assert name != null : "the name can't be null";
+    assert name.getText().length() > MINIMUM;
+    assert phone != null : "the phone can't be null";
+    assert save != null : "the save can't be null";
+    assert update != null : "the update can't be null";
+    assert delete != null : "the delete can't be null";
+    assert sucess != true : "sucess can't be false";
+    assert valid != true : "valid can't be false";
 
     // Verific is all information is correct
-    if (!checksName(name.getText().toString())) { //Begin of if
+    if (checksName(name.getText().toString()) == false) {
 
       nameContact = nameSecondContact.getText().toString();
-      Log.i("Nome do Contato: ",nameContact);
+      Log.d("Nome do Contato: ",nameContact);
       phoneContact = phoneSecondContact.getText().toString();
-      Log.i("Telefone do Contato: ",phoneContact);
+      Log.d("Telefone do Contato: ",phoneContact);
 
       sucess = emergencyContactDao.updateEmergencyContact(id,nameContact,phoneContact);
       // If all the information is correct, it will be changed and saved in the database
-      if (sucess) { //Begin of if
+      if (sucess == true) {
 
         showMessage("Contato de Emergência Alterado Com Sucesso!");
         save.setVisibility(View.VISIBLE);
         save.setEnabled(false);
         update.setEnabled(true);
         delete.setEnabled(true);
-        //End of if
-        //If not possible change informations about emergency contact
-        Log.d("Usuário Alterado"," O Contato de emergência foi alterado com sucesso");
+        valid = true;
+        Log.e("Usuário Alterado"," O Contato de emergência foi alterado com sucesso");
       } else { //Begin of else
 
         showMessage("Contato de Emergência Não Alterado! Tente Novamente");
-        Log.d("Usuário Não Alterado","O Contato de emergência não alterado com sucesso");
+        Log.e("Usuário Não Alterado","O Contato de emergência não alterado com sucesso");
+        valid = false;
       }
-    } else { //Begin of else
+    } else {
 
       //Nothing to do
-    } //End of else
+    }
+    Log.e("The return must be true.","The return is: " + valid);
     Log.d("End of Method:","updateContact");
-  } // End of updateContact
+    return valid;
+  }
 
   /*
    * This method is used to exclude any of the three emergency contacts signed on system.
@@ -769,7 +773,14 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
 
   private void deleteContact(final EditText nameContact, final EditText phoneContact,
                              final Button save, final Integer id, final Button update,
-                             final Button delete) { // Begin of deleteContact
+                             final Button delete) {
+
+    assert nameContact != null : "nameContact can't be null";
+    assert phoneContact != null : "phoneContact can't be null";
+    assert save != null : "save can't be null";
+    assert id != null : "id can't be null";
+    assert update != null : "update can't be null";
+    assert delete != null : "delete can't be null";
 
     Log.d("Begin of Method: ","updateContact");
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -778,10 +789,9 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
     builder.setMessage("Deseja Mesmo Excluir Este Contato?");
 
     builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-      //Begin of builder.setPositiveButton
 
       @Override
-      public void onClick(DialogInterface dialog, int which) { //Begin of onClick
+      public void onClick(DialogInterface dialog, int which) {
 
         emergencyContactDao.deleteEmergencyContact(id);
         showMessage("Contato de Emergência Excluido Com Sucesso");
@@ -793,20 +803,20 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
         phoneContact.setEnabled(true);
         update.setVisibility(View.INVISIBLE);
         delete.setVisibility(View.INVISIBLE);
-        Log.d("Contato Excluido"," O contato de emergência foi excluido com sucesso");
-      } //End of onClick
-    }); //Enf of builder.setPositiveButton
+        Log.e("Contato Excluido"," O contato de emergência foi excluido com sucesso");
+      }
+    });
 
     builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-      //Begin of builder.setNegativeButton
+
 
       @Override
-      public void onClick(DialogInterface dialog, int which) { //Begin of onClick
+      public void onClick(DialogInterface dialog, int which) {
 
-      } //End of onClick
-    }); //End of builder.setNegativeButton
+      }
+    });
     builder.show();
-  } // End of deleteContact
+  }
 
   /*
    * This method is used to check if the name informed by the user is valid.
@@ -816,35 +826,40 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    *
    */
 
-  private boolean checksName(String nameUser) { // Begin of checksName
+  private boolean checksName(String nameUser) {
 
-    Log.d("Begin of Method: ","checksName");
+    // Constant of minimum length name
+    final int MINIMUM = 3;
     // Valid is true if at least information not correct
     boolean valid = true;
 
-    // Verific is nameUser is empty
-    if (nameUser.isEmpty()) { //Begin of if
+    assert valid != true : "valid can't be false";
+    assert nameUser != null : "nameUser can't be null";
+
+    Log.d("Begin of Method: ","checksName");
+
+    if (nameUser.isEmpty()) {
 
       showMessage("Nome Vazio! Informe Seu Nome.");
+      Log.e("This return must be true.","The return is: "+valid);
       return valid;
-      // End of if
-      // Verific if length of nameUser is smaller than minimum
-    } else if (nameUser.trim().length() < minimum) { // Begin of else if
+    } else if (nameUser.trim().length() < MINIMUM) {
 
       showMessage("Informe um nome com no mínimo 3 caracteres.");
+      Log.e("This return must be true.","The return is: "+valid);
       return valid;
-      // End of else if
       // Verific is nameUser is numeric
-    } else if (nameUser.matches(".*\\d.*")) { // Begin of else if
+    } else if (nameUser.matches(".*\\d.*")) {
 
       showMessage("Um nome não pode ter um número!");
+      Log.e("This return must be true.","The return is: "+valid);
       return valid;
-      // Enf of else if
     }
     Log.d("End of Method: ","checksName");
     valid = false;
+    Log.e("This return must be false.","The return is: "+valid);
     return valid;
-  } // End of checksName
+  }
 
   /*
    * This method is used to show a message to the user in the screen.
@@ -852,10 +867,12 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    *
    */
 
-  private void showMessage(String message) { // Begin of showMessage
+  private void showMessage(String message) {
+
+    assert message != null : "message can't be null";
 
     Toast.makeText(this,"" + message,Toast.LENGTH_SHORT).show();
-  } // End of showMessage
+  }
 
   /*
    * This method is used to disable save,update and delete buttons on the field of
@@ -867,12 +884,15 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    */
 
   private void disableOptionsButSave(Button save, Button update, Button delete) {
-    // Begin of disableOptionsButSave
+
+    assert save != null : "save can't be null";
+    assert update != null : "update can't be null";
+    assert delete != null : "delete can't be null";
 
     save.setVisibility(View.VISIBLE);
     update.setVisibility(View.INVISIBLE);
     delete.setVisibility(View.INVISIBLE);
-  } // End of disableOptionsButSave
+  }
 
   /*
    * This method disable only save button.
@@ -883,7 +903,10 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    */
 
   private void disableSaveButton(Button save, Button update, Button delete) {
-    // Begin of disableSaveButton
+
+    assert save != null : "save can't be null";
+    assert update != null : "update can't be null";
+    assert delete != null : "delete can't be null";
 
     save.setEnabled(false);
     save.setVisibility(View.INVISIBLE);
@@ -891,7 +914,7 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
     update.setEnabled(true);
     delete.setVisibility(View.VISIBLE);
     delete.setEnabled(true);
-  } // End of disableSaveButton
+  }
  
   /*
    * This method disable only update button.
@@ -903,14 +926,18 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    */
 
   private void disableUpdateButton(EditText name, EditText phone, Button update, Button save) {
-    // Begin of disableUpdateButton
+
+    assert name != null : "name can't be null";
+    assert phone != null : "phone can't be null";
+    assert update != null : "update can't be null";
+    assert save != null : "save can't be null";
 
     name.setEnabled(true);
     phone.setEnabled(true);
     update.setVisibility(View.INVISIBLE);
     save.setVisibility(View.VISIBLE);
     save.setEnabled(true);
-  } // End of disableUpdateButton
+  }
 
   /*
    * This method is used after the user is already signed in the system, and user will try to
@@ -920,11 +947,14 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    *
    */
 
-  private void setOptionsVisible(Button save, Button update) { // Begin of setOptionsVisible
+  private void setOptionsVisible(Button save, Button update) {
+
+    assert save != null : "save can't be null";
+    assert update != null : "update can't be null";
 
     update.setVisibility(View.VISIBLE);
     save.setVisibility(View.INVISIBLE);
-  } // End of setOptionsVisible
+  }
 
   /*
    * This method is used to disable name and phone field.
@@ -933,11 +963,13 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    *
    */
 
-  private void disableField(EditText name,EditText phone) { // Begin of disableField
+  private void disableField(EditText name,EditText phone) {
 
+    assert name != null : "name can't be null";
+    assert phone != null : "phone can't be null";
     name.setEnabled(false);
     phone.setEnabled(false);
-  } // End of disableField
+  }
 
   /*
    * This method is used to disable an emergency contact field.
@@ -947,70 +979,88 @@ public class EmergencyContactController extends Activity { // Begin of Emergency
    *
    */
 
-  private void disableField(Button save,EditText name, EditText phone) { // Begin of disableField
+  private void disableField(Button save,EditText name, EditText phone) {
+
+    assert save != null : "save can't be null";
+    assert name != null : "name can't be null";
+    assert phone != null : "phone can't be null";
 
     save.setVisibility(View.INVISIBLE);
     name.setEnabled(false);
     phone.setEnabled(false);
-  } // End of disableField
+  }
 
   /**
    * This method is activated when user clicks in GO button, tracing a route to the closest
    * health unity.
-   * @param mapScreen actual View on app
+   * @param goClicked button of emergency
    *
    */
 
-  public void goClicked(View mapScreen) throws IOException, JSONException { // Begin of goClicked
+  public void goClicked(View goClicked) throws IOException, JSONException {
 
-    Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
+    // Constant string about route
+    final String ROUTETRACED = "Rota mais próxima traçada";
+
+    assert goClicked != null : "goClicked can't be null";
+
+    Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(this , RouteActivity.class);
     routeActivity.putExtra("numeroUs" , -1);
     startActivity(routeActivity);
     finish();
-  } // End of goClicked
+  }
 
   /**
    * This method list all the USs, by proximity of the user location, after the list button
    * is clicked.
-   * @param mapScreen actual View on app
+   * @param listMaps list maps on app
    *
    */
 
-  public void listMapsImageClicked(View mapScreen) { // Begin of listMapsImageClicked
+  public void listMapsImageClicked(View listMaps) {
 
     Intent listOfHealth = new Intent();
+
+    assert listMaps != null : "listMaps can't be null";
+
     listOfHealth.setClass(this , ListOfHealthUnitsController.class);
     startActivity(listOfHealth);
     finish();
-  } // End of listMapsImageClicked
+  }
 
   /**
    * This method is activated when user is already in the configuration screen, and
    * try to open it again.
-   * @param mapScreen actual View on app
+   * @param config open the options of config on app
    *
    */
 
-  public void openConfig(View mapScreen) { // Begin of openConfig
+  public void openConfig(View config) {
 
-    Intent config = new Intent();
-    config.setClass(this, ConfigController.class);
-    startActivity(config);
-  } // End of openConfig
+    Intent openConfig = new Intent();
+
+    assert config != null : "config can't be null";
+
+    openConfig.setClass(this, ConfigController.class);
+    startActivity(openConfig);
+  }
 
   /**
    * This method is activated when user clicks in the map button, and open a new map.
-   * @param mapScreen actual View on app
+   * @param openMap open map on app
    *
    */
 
-  public void openMap(View mapScreen) { // Begin of openMap
+  public void openMap(View openMap) {
 
     Intent mapActivity = new Intent();
+
+    assert openMap != null : "openMap can't be null";
+
     mapActivity.setClass(this, MapScreenController.class);
     startActivity(mapActivity);
     finish();
-  } // End of openMap
-} // End of EmergencyContactController class
+  }
+}

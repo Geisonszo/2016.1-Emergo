@@ -14,39 +14,49 @@ import android.widget.TextView;
 
 import unlv.erc.emergo.R;
 
-public class AboutApp extends Activity { // Begin of AboutApp class
-
-  //A Textview that will show information about the app.
-  private TextView informationAboutApp;
+public class AboutApp extends Activity {
 
   @Override
-  protected void onCreate(final Bundle savedInstanceState) { // Begin of onCreate
+  protected void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.about_app);
 
     setInformationAboutApp(showMessageApp());
-  } // End of onCreate
+  }
 
   /*
    * Set informations about app on TextView.
+   * @param messageAboutApp
    *
    */
 
-  private void setInformationAboutApp(String messageAboutApp) { // Begin of setInformationAboutApp
+  //A Textview that will show information about the app.
+  private TextView informationAboutApp;
 
-    Log.i("Log of Information: ","He entered the setInformationAboutApp.");
-    informationAboutApp = (TextView) findViewById(R.id.aboutApp);
-    informationAboutApp.setText(messageAboutApp);
-  } // End of setInformationAboutApp
+  private void setInformationAboutApp(String messageAboutApp) {
+
+    assert messageAboutApp != null : "messageAboutApp";
+
+    if (messageAboutApp != null) {
+
+      Log.d("Log of Information: ", "He entered the setInformationAboutApp.");
+      informationAboutApp = (TextView) findViewById(R.id.aboutApp);
+      informationAboutApp.setText(messageAboutApp);
+    } else {
+
+      // Nothing to do
+    }
+  }
 
   /*
    * Show message about app.
    *
    */
 
-  private String showMessageApp() { // Begin of showMessageApp
+  private String showMessageApp() {
 
-    Log.i("Log of Information: ","He entered the showMessage method.");
+    Log.d("Log of Information: ","He entered the showMessage method.");
+
     //String which will be written the information about the app.
     final String messageApp = "\tEmerGo é um aplicativo que oferece a facilidade de "
             + "encontrar Unidades de Saúde mais próximas. Possui MODO EMERGÊNCIA, "
@@ -55,6 +65,7 @@ public class AboutApp extends Activity { // Begin of AboutApp class
             + "os contatos de emergência salvos!"
             + "\n\n\tTodas as funcionalidades em suas mãos, em apenas um aplicativo.";
 
+    Log.e("Log the return of messageApp","" + messageApp);
     return messageApp;
-  } // End of showMessageApp
-} // End of AboutApp class
+  }
+}
