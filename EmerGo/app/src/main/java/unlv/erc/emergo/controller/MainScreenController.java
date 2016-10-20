@@ -63,7 +63,8 @@ public class MainScreenController extends Activity {
     }
   }
 
-  /** Method that traces the nearest route and call the Health Unit.
+  /**
+   * Method that traces the nearest route and call the Health Unit.
    */
   public void goClicked(View mainScreen) {
 
@@ -75,7 +76,8 @@ public class MainScreenController extends Activity {
     startActivity(routeActivity);
   }
 
-  /** Method that goes to the home page.
+  /**
+   * Method that goes to the home page.
    */
   public void okayClicked(View view) {
 
@@ -84,6 +86,9 @@ public class MainScreenController extends Activity {
     startActivity(mapScreen);
   }
 
+  /*
+   * Method that sets up the medical records in the status bar.
+   */
   private void medicalRecordsNotification() {
 
     resultOfTheUser.moveToFirst();

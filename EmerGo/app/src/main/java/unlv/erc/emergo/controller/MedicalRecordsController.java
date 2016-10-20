@@ -168,7 +168,7 @@ public class MedicalRecordsController extends Activity {
         });
   }
 
-  /**
+  /*
    * This method aims to create a user's medical records.
    */
   private boolean createUser() {
@@ -207,7 +207,7 @@ public class MedicalRecordsController extends Activity {
     return valid;
   }
 
-  /**
+  /*
    * This method aims to upgrade the registered user data.
    *
    * @param id number that identifies the user.
@@ -252,7 +252,7 @@ public class MedicalRecordsController extends Activity {
     }
   }
 
-  /**
+  /*
    * This method aims to make the exclusion of registered user data.
    *
    * @param name username.
@@ -315,7 +315,7 @@ public class MedicalRecordsController extends Activity {
     return false;
   }
 
-  /**
+  /*
    * This method aims to make verification of the user's birth date.
    *
    * @param birthdayUser user birthday.
@@ -386,7 +386,7 @@ public class MedicalRecordsController extends Activity {
     delete.setVisibility(View.INVISIBLE);
   }
 
-  /**
+  /*
    * This method aims to let the disabled buttons to the user.
    *
    * @param save button that saves the information.
@@ -399,7 +399,7 @@ public class MedicalRecordsController extends Activity {
     delete.setVisibility(View.INVISIBLE);
   }
 
-  /**
+  /*
    * This method aims to cancel the notification on the user's mobile phone.
    */
   private void cancelNotification() {
@@ -408,7 +408,7 @@ public class MedicalRecordsController extends Activity {
     notifManager.cancel(1);
   }
 
-  /**
+  /*
    * This method aims to make all writing fields inaccessible to the user.
    *
    * @param save button that saves the information.
@@ -435,7 +435,7 @@ public class MedicalRecordsController extends Activity {
     seropositive.setEnabled(false);
   }
 
-  /**
+  /*
    * This method aims to disable the refresh button.
    *
    * @param save button that saves the information.
@@ -465,7 +465,7 @@ public class MedicalRecordsController extends Activity {
     delete.setEnabled(true);
   }
 
-  /**
+  /*
    * This method aims to make all fields visible to the user unless the refresh button.
    *
    * @param name username.
@@ -496,7 +496,7 @@ public class MedicalRecordsController extends Activity {
     seropositive.setEnabled(true);
   }
 
-  /**
+  /*
    * Este método tem como objetivo deixar os botões de salvar e atualizar visíveis ao usuário.
    *
    * @param save button that saves the information.
@@ -507,7 +507,7 @@ public class MedicalRecordsController extends Activity {
     save.setVisibility(View.INVISIBLE);
   }
 
-  /**
+  /*
    *
    *
    * @param name username.
