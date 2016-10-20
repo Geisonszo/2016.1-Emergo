@@ -94,8 +94,8 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   }
 
   @Override
-  public void onClick(View view) {
-    if (view.getId() == R.id.buttonGo) {
+  public void onClick(View searchView) {
+    if (searchView.getId() == R.id.buttonGo) {
 
       Intent route = new Intent();
 
@@ -103,7 +103,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
       startActivity(route);
       finish();
     }
-    if (view.getId() == R.id.iconMap) {
+    if (searchView.getId() == R.id.iconMap) {
 
       Intent map = new Intent();
 
@@ -112,7 +112,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
       startActivity(map);
       finish();
     }
-    if (view.getId() == R.id.iconList) {
+    if (searchView.getId() == R.id.iconList) {
 
       Intent list = new Intent();
 
