@@ -15,7 +15,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class EmergencyContactDao extends SQLiteOpenHelper {
 
   private static final String DATABASE_NAME = "emerGo";
+
+  // Database version required for the operation of the program.
   private static final int VERSION = 42;
+
   private static EmergencyContactDao instance = null;
 
   private static final String EmergencyContact_TABLE = "EmergencyContact";
@@ -34,7 +37,8 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
           + PHONECONTACT + " VARCHAR(13)); ";
 
   public EmergencyContactDao(Context context) {
-        super(context, DATABASE_NAME, null, VERSION);
+    // Database creation with the stated name and version declared above.
+    super(context, DATABASE_NAME, null, VERSION);
   }
 
   public static EmergencyContactDao getInstance(Context context) {
@@ -63,6 +67,7 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
   public boolean insertEmergencyContact(Integer id,String nameContact,String phone) {
 
     SQLiteDatabase database = this.getWritableDatabase();
+    // Entering values
     ContentValues contentValues = new ContentValues();
     contentValues.put(CONTACT_ID, id);
     contentValues.put(NAMECONTACT, nameContact);
@@ -81,6 +86,7 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
   public boolean updateEmergencyContact(Integer id,String nameContact,String phone) {
 
     SQLiteDatabase database = this.getWritableDatabase();
+    // Update values
     ContentValues contentValues = new ContentValues();
     contentValues.put(NAMECONTACT, nameContact);
     contentValues.put(PHONECONTACT,phone);
