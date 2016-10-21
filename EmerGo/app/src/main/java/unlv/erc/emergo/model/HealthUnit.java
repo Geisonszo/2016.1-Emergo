@@ -39,14 +39,18 @@ public class HealthUnit extends SugarRecord {
   public HealthUnit(Double latitude, Double longitude, String nameHospital, String healthUnitType,
                       String addressNumber, String district, String state, String city) {
 
-    setLatitude(latitude);
-    setLongitude(longitude);
-    setNameHospital(nameHospital);
-    setUnitType(healthUnitType);
-    setAddressNumber(addressNumber);
-    setDistrict(district);
-    setState(state);
-    setCity(city);
+    try {
+      setLatitude(latitude);
+      setLongitude(longitude);
+      setNameHospital(nameHospital);
+      setUnitType(healthUnitType);
+      setAddressNumber(addressNumber);
+      setDistrict(district);
+      setState(state);
+      setCity(city);
+    }catch (NullPointerException exception){
+      exception.printStackTrace();
+    }
   }
 
   public Double getLatitude() {
@@ -54,7 +58,11 @@ public class HealthUnit extends SugarRecord {
   }
 
   public void setLatitude(Double latitude) {
-    this.latitude = latitude;
+    try {
+      this.latitude = latitude;
+    }catch (NullPointerException exception){
+      exception.printStackTrace();
+    }
   }
 
   public Double getLongitude() {
@@ -62,7 +70,11 @@ public class HealthUnit extends SugarRecord {
   }
 
   public void setLongitude(Double longitude) {
-    this.longitude = longitude;
+    try{
+      this.longitude = longitude;
+    }catch (NullPointerException exception){
+      exception.printStackTrace();
+    }
   }
 
   public String getNameHospital() {
@@ -70,7 +82,11 @@ public class HealthUnit extends SugarRecord {
   }
 
   public void setNameHospital(String nameHospital) {
-    this.nameHospital = nameHospital;
+    try{
+      this.nameHospital = nameHospital;
+    }catch (NullPointerException exception){
+        exception.printStackTrace();
+    }
   }
 
   public String getUnitType() {
@@ -78,7 +94,11 @@ public class HealthUnit extends SugarRecord {
   }
 
   public void setUnitType(String healthUnitType) {
-    this.healthUnitType = healthUnitType;
+    try{
+      this.healthUnitType = healthUnitType;
+    }catch (NullPointerException exception){
+        exception.printStackTrace();
+    }
   }
 
   public String getAddressNumber() {
@@ -86,7 +106,11 @@ public class HealthUnit extends SugarRecord {
   }
 
   public void setAddressNumber(String addressNumber) {
-    this.addressNumber = addressNumber;
+    try{
+      this.addressNumber = addressNumber;
+    }catch (NullPointerException exception){
+      exception.printStackTrace();
+    }
   }
 
   public String getDistrict() {
@@ -94,7 +118,11 @@ public class HealthUnit extends SugarRecord {
   }
 
   public void setDistrict(String district) {
-    this.district = district;
+    try{
+      this.district = district;
+    }catch (NullPointerException exception){
+        exception.printStackTrace();
+    }
   }
 
   public String getState() {
@@ -102,7 +130,11 @@ public class HealthUnit extends SugarRecord {
   }
 
   public void setState(String state) {
-    this.state = state;
+    try{
+      this.state = state;
+    }catch (NullPointerException exception){
+        exception.printStackTrace();
+    }
   }
 
   public String getCity() {
@@ -110,7 +142,11 @@ public class HealthUnit extends SugarRecord {
   }
 
   public void setCity(String city) {
-    this.city = city;
+    try{
+      this.city = city;
+    }catch (NullPointerException exception){
+        exception.printStackTrace();
+    }
   }
 
   public Float getDistance() {
@@ -118,6 +154,10 @@ public class HealthUnit extends SugarRecord {
   }
 
   public void setDistance(Float distance) {
-    this.distance = distance;
+    try{
+      this.distance = distance;
+    }catch (NullPointerException exception){
+        exception.printStackTrace();
+    }
   }
 }
