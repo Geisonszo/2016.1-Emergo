@@ -130,23 +130,35 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
 
   private ArrayList<String> getSearchHealthUnit(ArrayList<HealthUnit> closest) {
 
-    search = mapSearchView.getQuery();
-    closestHealthUnit = new ArrayList<>();
-    healthUnit = new ArrayList<>();
-    int numberOfUs;
+   ArrayList<String> searchArray = new ArrayList<>();
 
-    for (numberOfUs = 0 ; numberOfUs < HealthUnitController.getClosestHealthUnit().size() ;
-        numberOfUs++) {
-      if (closest.get(numberOfUs).getNameHospital().toLowerCase().contains(search)) {
-        closestHealthUnit.add(closest.get(numberOfUs ).getNameHospital());
-        healthUnit.add(HealthUnitController.getClosestHealthUnit().get(numberOfUs));
+    try {
+      search = mapSearchView.getQuery();
+      closestHealthUnit = new ArrayList<>();
+      healthUnit = new ArrayList<>();
+      int numberOfUs;
+
+        for (numberOfUs = 0; numberOfUs < HealthUnitController.getClosestHealthUnit().size();
+            numberOfUs++) {
+          if (closest.get(numberOfUs).getNameHospital().toLowerCase().contains(search)) {
+            closestHealthUnit.add(closest.get(numberOfUs).getNameHospital());
+            healthUnit.add(HealthUnitController.getClosestHealthUnit().get(numberOfUs));
+        }
       }
+      return closestHealthUnit;
+    }catch (NullPointerException exception){
+      exception.printStackTrace();
     }
-    return closestHealthUnit;
+
+    return searchArray;
   }
 
   public void setHealthUnitsList(ListView healthUnitsList) {
-    this.healthUnitsList = healthUnitsList;
+    try {
+      this.healthUnitsList = healthUnitsList;
+    }catch(NullPointerException exception){
+      exception.printStackTrace();
+    }
   }
 
   @Override
