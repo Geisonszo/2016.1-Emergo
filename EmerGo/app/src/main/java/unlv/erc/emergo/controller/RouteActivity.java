@@ -64,11 +64,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static unlv.erc.emergo.R.id.map;
+
 public class RouteActivity  extends FragmentActivity implements View.OnClickListener,
     OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
 
+  GoogleMap map;
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
   public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
@@ -204,8 +207,6 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   private void getMapFragment() {
-
-    mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
     map = mapFragment.getMap();
   }
 
@@ -343,7 +344,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    if (view.getId() == R.id.cancelCall) {
+    if (routeActivity.getId() == R.id.cancelCall) {
 
       cancelCalling();
     } else {
