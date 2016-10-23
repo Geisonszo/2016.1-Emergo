@@ -47,9 +47,12 @@ public class MainScreenController extends Activity {
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main_screen);
+
+    // Creation of the buttons.
     goButton = (Button) findViewById(R.id.buttonGo);
     fineButton = (Button) findViewById(R.id.buttonOkay);
 
+    // Access to the database.
     Firebase.setAndroidContext(this);
     SugarContext.init(this);
     myDatabase = new UserDao(this);
@@ -96,6 +99,7 @@ public class MainScreenController extends Activity {
     NotificationCompat.Builder notification =
                 new NotificationCompat.Builder(this);
 
+    // Basic settings of a mobile notification.
     notification.setContentTitle(TITLE_MESSAGE);
     notification.setContentText(TEXT_MESSAGE);
     notification.setTicker(ALERT_MESSAGE);
@@ -108,6 +112,7 @@ public class MainScreenController extends Activity {
 
     String events[ ] = new String[7];
 
+    // Array with the user data.
     events[0] = new String("Nome: " + resultOfTheUser.getString(1));
     events[1] = new String("Data de Nascimento: " + resultOfTheUser.getString(2));
     events[2] = new String("Tipo Sanguineo: " + resultOfTheUser.getString(3));
@@ -125,6 +130,7 @@ public class MainScreenController extends Activity {
 
     notification.setStyle(inboxStyle);
 
+    // The user comes to the application via the notification bar.
     Intent resultIntent = new Intent(this,MedicalRecordsController.class);
     TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
     stackBuilder.addParentStack(MedicalRecordsController.class);
