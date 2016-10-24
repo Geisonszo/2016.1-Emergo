@@ -93,6 +93,7 @@ public class MedicalRecordsController extends Activity {
 
     myDatabase = new UserDao(this);
 
+    // Creation of the edit fields.
     fullName = (EditText) findViewById(R.id.fullNameEditText);
     birthday = (EditText) findViewById(R.id.birthdayEditText);
     observations = (EditText) findViewById(R.id.observationsEditText);
@@ -119,9 +120,12 @@ public class MedicalRecordsController extends Activity {
                         seropositive,typeBlood);
       }
     }
+
+    // Sets the save button.
     saveButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View view) {
             if (createUser() == false) {
+              // Checks if there is already an established user.
               saveButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                       createUser();
@@ -133,6 +137,7 @@ public class MedicalRecordsController extends Activity {
           }
         });
 
+    // Sets the update button.
     updateButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View view) {
         cancelNotification();
@@ -147,6 +152,7 @@ public class MedicalRecordsController extends Activity {
       }
     });
 
+    // Sets the delete button.
     deleteButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View view) {
           deleteUser(fullName,birthday,observations,saveButton,identifier,updateButton,deleteButton,
@@ -154,6 +160,7 @@ public class MedicalRecordsController extends Activity {
           saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
               if (createUser() == false) {
+                // Checks if there is already an established user.
                 saveButton.setOnClickListener(new View.OnClickListener() {
                   public void onClick(View view) {
                         createUser();
@@ -175,9 +182,11 @@ public class MedicalRecordsController extends Activity {
     boolean sucess = true;
     boolean valid = false;
 
+    // Verifies that the name and age field are empty.
     if (checksName(fullName.getText().toString()) == false
                 && checkBirthday(birthday.getText().toString()) == false) {
 
+      // reported data are obtained from related fields.
       birthdayUser = birthday.getText().toString();
       observationsUser = observations.getText().toString();
       nameUser = fullName.getText().toString();
@@ -190,6 +199,7 @@ public class MedicalRecordsController extends Activity {
       sucess = myDatabase.insertUser(identifier, nameUser, birthdayUser, typeBloodUser, cardiacUser,
                     diabeticUser,hypertensionUser, seropositiveUser,
                     observationsUser);
+      // Verifies that the fields have been successfully saved in the database and ...
       if (sucess == true) {
         showMessage(MEDICAL_FORM_REGISTERED);
         disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
@@ -199,6 +209,7 @@ public class MedicalRecordsController extends Activity {
                                             diabeticUser,hypertensionUser,seropositiveUser,
                                             observationsUser);
         valid = true;
+        // ... displays a message on the situation.
       } else {
         showMessage(MEDICAL_FORM_NOT_REGISTERED);
         valid = false;
@@ -223,6 +234,7 @@ public class MedicalRecordsController extends Activity {
     if (checksName(fullName.getText().toString()) == false
                 && checkBirthday(birthday.getText().toString()) == false) {
 
+      // Get the updated data.
       nameUser = fullName.getText().toString();
       birthdayUser = birthday.getText().toString();
       observationsUser = observations.getText().toString();
@@ -235,6 +247,8 @@ public class MedicalRecordsController extends Activity {
 
       sucess = myDatabase.updateUser(id, nameUser, birthdayUser, typeBloodUser, cardiacUser,
               diabeticUser, hypertensionUser, seropositiveUser,observationsUser);
+
+      // It verifies that the data was updated and ...
       if (sucess == true) {
         showMessage(CHANGE_MESSAGE);
         save.setVisibility(View.VISIBLE);
@@ -246,6 +260,7 @@ public class MedicalRecordsController extends Activity {
         medicalRecordsNotification(nameUser,birthdayUser,typeBloodUser,cardiacUser,
                                             diabeticUser,hypertensionUser,seropositiveUser,
                                             observationsUser);
+        // // ... displays a message on the situation.
       } else {
         showMessage(CHANGE_NOT_DONE);
       }
