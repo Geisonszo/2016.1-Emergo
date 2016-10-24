@@ -17,30 +17,26 @@ import unlv.erc.emergo.R;
 
 public class LoadingScreenController extends Activity {
 
-  private static int WAITING_TIME = 9000; //Time in milliseconds the duration of the spinner.
-  private ProgressBar spinner ; //Graphic feature representing the page load.
+  private static final int WAITING_TIME = 9000; //Time in milliseconds the duration of the spinner.
 
   protected void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.loading_screen);
 
-    spinner = (ProgressBar)findViewById(R.id.progressBar);
+    ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBar);
     spinner.setVisibility(View.VISIBLE);
 
     // Needed to leave the graphic moving to the described time.
     new Handler().postDelayed(new Runnable() {
 
       @Override
-            public void run() {
+      public void run() {
 
-            Intent timeCounter = new Intent(LoadingScreenController.this,
-                        MainScreenController.class);
-            startActivity(timeCounter);
-            finish();
-          }
-
-        }, WAITING_TIME);
-
+        Intent timeCounter = new Intent(LoadingScreenController.this,MainScreenController.class);
+        startActivity(timeCounter);
+        finish();
+      }
+    }, WAITING_TIME);
   }
 }

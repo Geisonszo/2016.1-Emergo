@@ -62,7 +62,7 @@ public class EmergencyContact {
    *
    */
 
-  public void setnameContact(String nameContact) { 
+  public void setnameContact(String nameContact) {
 
     assert nameContact != null : "nameContact can't be null";
 
