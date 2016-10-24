@@ -26,14 +26,12 @@ import dao.UserDao;
 
 import unlv.erc.emergo.R;
 
+@SuppressWarnings("ALL")
 public class MainScreenController extends Activity {
 
-  private Button goButton;
-  private Button fineButton;
-  private HealthUnitDao dataAccessObject = new HealthUnitDao(this);
+  private final HealthUnitDao dataAccessObject = new HealthUnitDao(this);
   private Cursor resultOfTheUser;
-  UserDao myDatabase;
-  private static final int MAXIMUM_ARRAY= 7;  //Maximum number of rows that the medical records may
+  private static final int MAXIMUM_ARRAY = 7;  //Maximum number of rows that the medical records may
   // have.
   private int clickPosition = 0;  //Initial position of the user click on the notification screen.
   private static final String TITLE_MESSAGE = "Ficha Médica";
@@ -49,13 +47,13 @@ public class MainScreenController extends Activity {
     setContentView(R.layout.main_screen);
 
     // Creation of the buttons.
-    goButton = (Button) findViewById(R.id.buttonGo);
-    fineButton = (Button) findViewById(R.id.buttonOkay);
+    Button goButton = (Button) findViewById(R.id.buttonGo);
+    Button fineButton = (Button) findViewById(R.id.buttonOkay);
 
     // Access to the database.
     Firebase.setAndroidContext(this);
     SugarContext.init(this);
-    myDatabase = new UserDao(this);
+    UserDao myDatabase = new UserDao(this);
     dataAccessObject.setDataOnSugar();
     resultOfTheUser = myDatabase.getUser();
 
@@ -110,17 +108,17 @@ public class MainScreenController extends Activity {
     final NotificationCompat.InboxStyle inboxStyle =
                 new NotificationCompat.InboxStyle();
 
-    String events[ ] = new String[7];
+    String events[] = new String[7];
 
     // Array with the user data.
-    events[0] = new String("Nome: " + resultOfTheUser.getString(1));
-    events[1] = new String("Data de Nascimento: " + resultOfTheUser.getString(2));
-    events[2] = new String("Tipo Sanguineo: " + resultOfTheUser.getString(3));
-    events[3] = new String("Cardiaco: " + resultOfTheUser.getString(4));
-    events[4] = new String("Diabetico: " + resultOfTheUser.getString(5));
-    events[5] = new String("Hipertenso: " + resultOfTheUser.getString(6));
-    events[6] = new String("Soropositivo: " + resultOfTheUser.getString(7));
-    events[6] = new String("Observações Especiais: " + resultOfTheUser.getString(8));
+    events[0] = "Nome: " + resultOfTheUser.getString(1);
+    events[1] = "Data de Nascimento: " + resultOfTheUser.getString(2);
+    events[2] = "Tipo Sanguineo: " + resultOfTheUser.getString(3);
+    events[3] = "Cardiaco: " + resultOfTheUser.getString(4);
+    events[4] = "Diabetico: " + resultOfTheUser.getString(5);
+    events[5] = "Hipertenso: " + resultOfTheUser.getString(6);
+    events[6] = "Soropositivo: " + resultOfTheUser.getString(7);
+    events[6] = "Observações Especiais: " + resultOfTheUser.getString(8);
 
     inboxStyle.setBigContentTitle(TITLE_MESSAGE);
 
@@ -145,4 +143,3 @@ public class MainScreenController extends Activity {
     notificationManager.notify(notifyId,notification.build());
   }
 }
-
