@@ -14,16 +14,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
-
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.firebase.client.Firebase;
 import com.orm.SugarContext;
 
 import dao.HealthUnitDao;
 import dao.UserDao;
-
 import unlv.erc.emergo.R;
 
 @SuppressWarnings("ALL")
@@ -122,24 +122,30 @@ public class MainScreenController extends Activity {
 
     inboxStyle.setBigContentTitle(TITLE_MESSAGE);
 
-    for (int aux = 0;aux < MAXIMUM_ARRAY;aux++) {
-      inboxStyle.addLine(events[aux]);
+    if (MAXIMUM_ARRAY == 7) {
+
+      for (int aux = 0; aux < MAXIMUM_ARRAY; aux++) {
+        inboxStyle.addLine(events[aux]);
+      }
+
+      notification.setStyle(inboxStyle);
+
+      // The user comes to the application via the notification bar.
+      Intent resultIntent = new Intent(this,MedicalRecordsController.class);
+      TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+      stackBuilder.addParentStack(MedicalRecordsController.class);
+      stackBuilder.addNextIntent(resultIntent);
+      PendingIntent resultPedindIntent = stackBuilder.getPendingIntent(0,
+              PendingIntent.FLAG_UPDATE_CURRENT);
+      notification.setContentIntent(resultPedindIntent);
+
+      NotificationManager notificationManager = (NotificationManager)
+              getSystemService(NOTIFICATION_SERVICE);
+
+      notificationManager.notify(notifyId,notification.build());
+    } else {
+
+      Log.e("Limite excedido! ","O limite do array foi excedido");
     }
-
-    notification.setStyle(inboxStyle);
-
-    // The user comes to the application via the notification bar.
-    Intent resultIntent = new Intent(this,MedicalRecordsController.class);
-    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-    stackBuilder.addParentStack(MedicalRecordsController.class);
-    stackBuilder.addNextIntent(resultIntent);
-    PendingIntent resultPedindIntent = stackBuilder.getPendingIntent(0,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-    notification.setContentIntent(resultPedindIntent);
-
-    NotificationManager notificationManager = (NotificationManager)
-                getSystemService(NOTIFICATION_SERVICE);
-
-    notificationManager.notify(notifyId,notification.build());
   }
 }
