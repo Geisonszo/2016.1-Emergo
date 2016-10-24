@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -17,9 +18,10 @@ import unlv.erc.emergo.R;
 
 public class LoadingScreenController extends Activity {
 
-  private static final int WAITING_TIME = 9000; //Time in milliseconds the duration of the spinner.
+    private static final int WAITING_TIME = 9000; //Time in milliseconds the duration of the spinner.
+    private static final int MAXIMUM_TIME = 9000;
 
-  protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.loading_screen);
@@ -33,9 +35,15 @@ public class LoadingScreenController extends Activity {
       @Override
       public void run() {
 
-        Intent timeCounter = new Intent(LoadingScreenController.this,MainScreenController.class);
-        startActivity(timeCounter);
-        finish();
+          if (WAITING_TIME == MAXIMUM_TIME) {
+              Intent timeCounter = new Intent(LoadingScreenController.this,
+                                                MainScreenController.class);
+              startActivity(timeCounter);
+              finish();
+          } else {
+
+              Log.e("Erro de limite! ","O limite de tempo de espera superou os 9 segundos!");
+          }
       }
     }, WAITING_TIME);
   }
