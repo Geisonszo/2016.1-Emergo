@@ -22,14 +22,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import dao.UserDao;
-import helper.MaskHelper;
-import unlv.erc.emergo.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import dao.UserDao;
+import helper.MaskHelper;
+import unlv.erc.emergo.R;
+
+@SuppressWarnings("ALL")
 public class MedicalRecordsController extends Activity {
 
   private EditText fullName;
@@ -78,8 +80,8 @@ public class MedicalRecordsController extends Activity {
   private static final String MEDICAL_FORM_REGISTERED = "Ficha Médica Cadastrada Com Sucesso!";
   private static final String MEDICAL_FORM_NOT_REGISTERED = "Ficha Médica Não Cadastrada! Tente " +
           "Novamente.";
-  private Integer identifier = 1;
-  UserDao myDatabase;
+  private static final Integer ID = 1;
+  private UserDao myDatabase;
   private static final int MAXIMUM_ARRAY = 7;
 
   public MedicalRecordsController() {
@@ -124,7 +126,7 @@ public class MedicalRecordsController extends Activity {
     // Sets the save button.
     saveButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View view) {
-            if (createUser() == false) {
+            if (!createUser()) {
               // Checks if there is already an established user.
               saveButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
@@ -145,7 +147,7 @@ public class MedicalRecordsController extends Activity {
                         typeBlood,cardiac,diabect,hypertension,seropositive);
         saveButton.setOnClickListener(new View.OnClickListener() {
           public void onClick(View view) {
-            updateUser(identifier,saveButton,updateButton,deleteButton);
+            updateUser(ID,saveButton,updateButton,deleteButton);
             visibleOptions(saveButton,updateButton);
           }
         });
@@ -155,11 +157,11 @@ public class MedicalRecordsController extends Activity {
     // Sets the delete button.
     deleteButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View view) {
-          deleteUser(fullName,birthday,observations,saveButton,identifier,updateButton,deleteButton,
+          deleteUser(fullName,birthday,observations,saveButton,ID,updateButton,deleteButton,
                         typeBlood,cardiac,diabect,hypertension,seropositive);
           saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-              if (createUser() == false) {
+              if (!createUser()) {
                 // Checks if there is already an established user.
                 saveButton.setOnClickListener(new View.OnClickListener() {
                   public void onClick(View view) {
@@ -183,8 +185,8 @@ public class MedicalRecordsController extends Activity {
     boolean valid = false;
 
     // Verifies that the name and age field are empty.
-    if (checksName(fullName.getText().toString()) == false
-                && checkBirthday(birthday.getText().toString()) == false) {
+    if (!checksName(fullName.getText().toString())
+                && !checkBirthday(birthday.getText().toString())) {
 
       // reported data are obtained from related fields.
       birthdayUser = birthday.getText().toString();
@@ -196,11 +198,11 @@ public class MedicalRecordsController extends Activity {
       hypertensionUser = diabect.getSelectedItem().toString();
       seropositiveUser = seropositive.getSelectedItem().toString();
 
-      sucess = myDatabase.insertUser(identifier, nameUser, birthdayUser, typeBloodUser, cardiacUser,
+      sucess = myDatabase.insertUser(ID, nameUser, birthdayUser, typeBloodUser, cardiacUser,
                     diabeticUser,hypertensionUser, seropositiveUser,
                     observationsUser);
       // Verifies that the fields have been successfully saved in the database and ...
-      if (sucess == true) {
+      if (sucess) {
         showMessage(MEDICAL_FORM_REGISTERED);
         disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
                         hypertension,seropositive);
@@ -231,8 +233,8 @@ public class MedicalRecordsController extends Activity {
 
     boolean sucess = true;
 
-    if (checksName(fullName.getText().toString()) == false
-                && checkBirthday(birthday.getText().toString()) == false) {
+    if (!checksName(fullName.getText().toString())
+                && !checkBirthday(birthday.getText().toString())) {
 
       // Get the updated data.
       nameUser = fullName.getText().toString();
@@ -249,7 +251,7 @@ public class MedicalRecordsController extends Activity {
               diabeticUser, hypertensionUser, seropositiveUser,observationsUser);
 
       // It verifies that the data was updated and ...
-      if (sucess == true) {
+      if (sucess) {
         showMessage(CHANGE_MESSAGE);
         save.setVisibility(View.VISIBLE);
         disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
@@ -341,7 +343,7 @@ public class MedicalRecordsController extends Activity {
     final int minimumYear = 42;
 
     // Verifies that the birthday field is not empty or null and ...
-    if (!birthdayUser.isEmpty() && birthdayUser != null) {
+    if (!birthdayUser.isEmpty()) {
       try {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         format.setLenient(false);
@@ -574,10 +576,10 @@ public class MedicalRecordsController extends Activity {
    * @param seropositiveUser check if the user is HIV positive.
    * @param observationsUser additional observations of the user.
    */
-  public void medicalRecordsNotification(String nameUser,String birthdayUser,String typeBloodUser,
-                                         String cardiacUser,String diabeticUser,
-                                         String hypertensionUser,String seropositiveUser,
-                                         String observationsUser) {
+  private void medicalRecordsNotification(String nameUser, String birthdayUser, String typeBloodUser,
+                                          String cardiacUser, String diabeticUser,
+                                          String hypertensionUser, String seropositiveUser,
+                                          String observationsUser) {
     final int notifyIdentifier = 1;
     NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
 
