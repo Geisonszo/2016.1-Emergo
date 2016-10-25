@@ -75,10 +75,13 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
                 .getNameHospital()) == 0) {
 
         Intent information = new Intent();
-        information.setClass(MapScreenController.this , InformationHealthUnitScreenController.class);
+        information.setClass(MapScreenController.this, InformationHealthUnitScreenController.class);
         information.putExtra(POSITION_MESSAGE, aux);
         startActivity(information);
         finish();
+      } else {
+
+        // Nothing to do
       }
     }
     return valid;
@@ -157,6 +160,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
+    } else {
+
+      // Nothing to do
     }
   }
 
@@ -178,6 +184,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
+    } else {
+
+      // Nothing to do
     }
 
     Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(
@@ -213,6 +222,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
+    } else {
+
+      // Nothing to do
     }
 
     map = googleMap;
@@ -238,6 +250,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
       permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
       message += "\nTer acesso a localização no mapa";
+    } else {
+
+      //Nothing to do
     }
 
     if (!permissions.isEmpty()) {
@@ -248,7 +263,13 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
         requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+      } else {
+
+        // Nothing to do
       }
+    } else {
+
+      // Nothing to do
     }
   }
 
