@@ -67,10 +67,13 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public boolean onMarkerClick(Marker marker) {
 
+    boolean valid = false;
+
     for (int aux = 0 ; aux < HealthUnitController.getClosestHealthUnit().size() ; aux++) {
       if (marker.getTitle().compareTo(HealthUnitController.getClosestHealthUnit()
               .get(aux)
                 .getNameHospital()) == 0) {
+
         Intent information = new Intent();
         information.setClass(MapScreenController.this , InformationHealthUnitScreenController.class);
         information.putExtra(POSITION_MESSAGE, aux);
@@ -78,7 +81,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         finish();
       }
     }
-    return false;
+    return valid;
   }
 
   public void goClicked(View mapScreen) throws IOException, JSONException {
@@ -121,7 +124,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   }
 
-  private void messageAboutPermission(Boolean location, Boolean storage) {
+  private void messageAboutPermission() {
+
+    boolean location = false;
+    boolean storage = false;
 
     if (location && storage) {
 
@@ -280,7 +286,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
           startActivity(main);
           finish();
         }
-        messageAboutPermission(location, storage);
+        messageAboutPermission();
       }
           break;
 
