@@ -6,6 +6,18 @@
 
 package unlv.erc.emergo.controller;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.Toast;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -18,22 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.view.View;
-import android.widget.Toast;
-import helper.Services;
-
 import org.json.JSONException;
-
-import unlv.erc.emergo.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,6 +38,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import helper.Services;
+import unlv.erc.emergo.R;
+
+@SuppressWarnings("ALL")
 public class MapScreenController extends FragmentActivity implements OnMapReadyCallback ,
         GoogleMap.OnMarkerClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -48,8 +49,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   //Code of Google services that makes the request of several permissions.
   private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   private static final int FINAL_VERSION_SDK = 23;
-  final String yourPosition = "Sua posição";
-  private Services services = new Services();
+  private final String yourPosition = "Sua posição";
+  private final Services services = new Services();
   private static final String INFORMATION_MESSAGE = "numeroUs";
   private static final String ROUTE_TRACED = "Rota mais próxima traçada";
   private static final String POSITION_MESSAGE = "Posição";
@@ -61,15 +62,13 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   //Google Maps API.
   private GoogleMap map;
-  private Location location;
-  private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
 
   @Override
   public boolean onMarkerClick(Marker marker) {
 
     for (int aux = 0 ; aux < HealthUnitController.getClosestHealthUnit().size() ; aux++) {
-      if (marker.getTitle().toString().compareTo(HealthUnitController.getClosestHealthUnit()
+      if (marker.getTitle().compareTo(HealthUnitController.getClosestHealthUnit()
               .get(aux)
                 .getNameHospital()) == 0) {
         Intent information = new Intent();
@@ -175,12 +174,12 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
       checkPermissions();
     }
 
-    this.mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mapGoogleApiClient);
+    Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+            mapGoogleApiClient);
 
     if (mapLastLocation != null) {
 
-      location = mapLastLocation;
+      Location location = mapLastLocation;
       LatLng userLatLng = new LatLng(location.getLatitude() , location.getLongitude());
 
       focusOnSelfPosition(userLatLng);
@@ -248,8 +247,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                         @NonNull int[] grantResults) {
 
     switch (requestCode) {
 
