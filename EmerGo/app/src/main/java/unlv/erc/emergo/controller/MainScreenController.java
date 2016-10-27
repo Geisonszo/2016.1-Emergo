@@ -26,7 +26,6 @@ import dao.HealthUnitDao;
 import dao.UserDao;
 import unlv.erc.emergo.R;
 
-@SuppressWarnings("ALL")
 public class MainScreenController extends Activity {
 
   private final HealthUnitDao dataAccessObject = new HealthUnitDao(this);

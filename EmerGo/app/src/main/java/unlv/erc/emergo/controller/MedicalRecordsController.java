@@ -368,7 +368,7 @@ public class MedicalRecordsController extends Activity {
    */
   private boolean checkBirthday(String birthdayUser) {
 
-    final int minimumYear = 42;
+    final int MINIMUMYEAR = 42;
 
     // Verifies that the birthday field is not empty or null and ...
     if (!birthdayUser.isEmpty()) {
@@ -381,10 +381,13 @@ public class MedicalRecordsController extends Activity {
         // Check if the age is greater than the determined and ...
         if (userDate.before(new Date())) {
 
-          if (userDate.getTime() < minimumYear) {
+          if (userDate.getTime() < MINIMUMYEAR) {
 
             showMessage(YEAR_OLD_MESSAGE);
             return true;
+          } else {
+
+            // Nothing to do
           }
           this.birthdayUser = birthdayUser;
           return false;

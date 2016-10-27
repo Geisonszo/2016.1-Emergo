@@ -41,7 +41,6 @@ import java.util.Map;
 import helper.Services;
 import unlv.erc.emergo.R;
 
-@SuppressWarnings("ALL")
 public class MapScreenController extends FragmentActivity implements OnMapReadyCallback ,
         GoogleMap.OnMarkerClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
