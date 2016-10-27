@@ -112,36 +112,50 @@ public class MedicalRecordsController extends Activity {
     Cursor result = myDatabase.getUser();
 
     if (result.getCount() == 0) {
+
       disableOptions(saveButton,updateButton,deleteButton);
     } else {
+
       if (result.moveToFirst()) {
+
         fullName.setText(result.getString(1));
         birthday.setText(result.getString(2));
         observations.setText(result.getString(8));
         disableField(saveButton,fullName,birthday,observations,cardiac,diabect,hypertension,
                         seropositive,typeBlood);
+      } else {
+
+        // Nothing to do
       }
     }
 
     // Sets the save button.
     saveButton.setOnClickListener(new View.OnClickListener() {
+
       public void onClick(View view) {
-            if (!createUser()) {
-              // Checks if there is already an established user.
-              saveButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                      createUser();
-                    }
-              });
-            } else {
-              disableButtons(saveButton,updateButton,deleteButton);
+
+        if (createUser() == false) {
+          // Checks if there is already an established user.
+
+          saveButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+              createUser();
             }
-          }
-        });
+          });
+        } else {
+
+          disableButtons(saveButton,updateButton,deleteButton);
+        }
+      }
+    });
 
     // Sets the update button.
     updateButton.setOnClickListener(new View.OnClickListener() {
+
       public void onClick(View view) {
+
         cancelNotification();
         disableJustUpdateButton(fullName, birthday,updateButton,saveButton,observations,
                         typeBlood,cardiac,diabect,hypertension,seropositive);
@@ -161,7 +175,7 @@ public class MedicalRecordsController extends Activity {
                         typeBlood,cardiac,diabect,hypertension,seropositive);
           saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-              if (!createUser()) {
+              if (createUser() == false) {
                 // Checks if there is already an established user.
                 saveButton.setOnClickListener(new View.OnClickListener() {
                   public void onClick(View view) {
@@ -174,7 +188,7 @@ public class MedicalRecordsController extends Activity {
             }
           });
       }
-        });
+    });
   }
 
   /*
@@ -216,6 +230,9 @@ public class MedicalRecordsController extends Activity {
         showMessage(MEDICAL_FORM_NOT_REGISTERED);
         valid = false;
       }
+    } else {
+
+      // Nothing to do
     }
     return valid;
   }
@@ -268,6 +285,9 @@ public class MedicalRecordsController extends Activity {
 
         showMessage(CHANGE_NOT_DONE);
       }
+    } else {
+
+      // Nothing to do
     }
   }
 
