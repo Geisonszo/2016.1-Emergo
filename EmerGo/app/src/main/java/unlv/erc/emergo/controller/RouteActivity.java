@@ -73,6 +73,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   public Boolean canceled = false;
   public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
   public String samuNumber = "tel:192"; // Actual number of public service SAMU
+  private GoogleMap map;
   private Cursor result;
   private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
@@ -95,7 +96,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   protected void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.route_activity);
+      setContentView(R.layout.route_activity);
 
     if (mapGoogleApiClient == null) {
 
@@ -343,7 +344,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    if (view.getId() == R.id.cancelCall) {
+    if (routeActivity.getId() == R.id.cancelarLigacao) {
 
       cancelCalling();
     } else {
