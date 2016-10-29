@@ -22,14 +22,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import dao.UserDao;
-import helper.MaskHelper;
-import unlv.erc.emergo.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import dao.UserDao;
+import helper.MaskHelper;
+import unlv.erc.emergo.R;
+
+@SuppressWarnings("ALL")
 public class MedicalRecordsController extends Activity {
 
   private EditText fullName;
@@ -78,8 +80,8 @@ public class MedicalRecordsController extends Activity {
   private static final String MEDICAL_FORM_REGISTERED = "Ficha Médica Cadastrada Com Sucesso!";
   private static final String MEDICAL_FORM_NOT_REGISTERED = "Ficha Médica Não Cadastrada! Tente " +
           "Novamente.";
-  private Integer identifier = 1;
-  UserDao myDatabase;
+  private static final Integer ID = 1;
+  private UserDao myDatabase;
   private static final int MAXIMUM_ARRAY = 7;
 
   public MedicalRecordsController() {
@@ -93,6 +95,7 @@ public class MedicalRecordsController extends Activity {
 
     myDatabase = new UserDao(this);
 
+    // Creation of the edit fields.
     fullName = (EditText) findViewById(R.id.fullNameEditText);
     birthday = (EditText) findViewById(R.id.birthdayEditText);
     observations = (EditText) findViewById(R.id.observationsEditText);
@@ -109,51 +112,71 @@ public class MedicalRecordsController extends Activity {
     Cursor result = myDatabase.getUser();
 
     if (result.getCount() == 0) {
+
       disableOptions(saveButton,updateButton,deleteButton);
     } else {
+
       if (result.moveToFirst()) {
+
         fullName.setText(result.getString(1));
         birthday.setText(result.getString(2));
         observations.setText(result.getString(8));
         disableField(saveButton,fullName,birthday,observations,cardiac,diabect,hypertension,
                         seropositive,typeBlood);
+      } else {
+
+        // Nothing to do
       }
     }
-    saveButton.setOnClickListener(new View.OnClickListener() {
-      public void onClick(View view) {
-            if (createUser() == false) {
-              saveButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                      createUser();
-                    }
-              });
-            } else {
-              disableButtons(saveButton,updateButton,deleteButton);
-            }
-          }
-        });
 
-    updateButton.setOnClickListener(new View.OnClickListener() {
+    // Sets the save button.
+    saveButton.setOnClickListener(new View.OnClickListener() {
+
       public void onClick(View view) {
+
+        if (createUser() == false) {
+          // Checks if there is already an established user.
+
+          saveButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+              createUser();
+            }
+          });
+        } else {
+
+          disableButtons(saveButton,updateButton,deleteButton);
+        }
+      }
+    });
+
+    // Sets the update button.
+    updateButton.setOnClickListener(new View.OnClickListener() {
+
+      public void onClick(View view) {
+
         cancelNotification();
         disableJustUpdateButton(fullName, birthday,updateButton,saveButton,observations,
                         typeBlood,cardiac,diabect,hypertension,seropositive);
         saveButton.setOnClickListener(new View.OnClickListener() {
           public void onClick(View view) {
-            updateUser(identifier,saveButton,updateButton,deleteButton);
+            updateUser(ID,saveButton,updateButton,deleteButton);
             visibleOptions(saveButton,updateButton);
           }
         });
       }
     });
 
+    // Sets the delete button.
     deleteButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View view) {
-          deleteUser(fullName,birthday,observations,saveButton,identifier,updateButton,deleteButton,
+          deleteUser(fullName,birthday,observations,saveButton,ID,updateButton,deleteButton,
                         typeBlood,cardiac,diabect,hypertension,seropositive);
           saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
               if (createUser() == false) {
+                // Checks if there is already an established user.
                 saveButton.setOnClickListener(new View.OnClickListener() {
                   public void onClick(View view) {
                         createUser();
@@ -165,7 +188,7 @@ public class MedicalRecordsController extends Activity {
             }
           });
       }
-        });
+    });
   }
 
   /*
@@ -175,9 +198,11 @@ public class MedicalRecordsController extends Activity {
     boolean sucess = true;
     boolean valid = false;
 
+    // Verifies that the name and age field are empty.
     if (checksName(fullName.getText().toString()) == false
                 && checkBirthday(birthday.getText().toString()) == false) {
 
+      // reported data are obtained from related fields.
       birthdayUser = birthday.getText().toString();
       observationsUser = observations.getText().toString();
       nameUser = fullName.getText().toString();
@@ -187,9 +212,10 @@ public class MedicalRecordsController extends Activity {
       hypertensionUser = diabect.getSelectedItem().toString();
       seropositiveUser = seropositive.getSelectedItem().toString();
 
-      sucess = myDatabase.insertUser(identifier, nameUser, birthdayUser, typeBloodUser, cardiacUser,
+      sucess = myDatabase.insertUser(ID, nameUser, birthdayUser, typeBloodUser, cardiacUser,
                     diabeticUser,hypertensionUser, seropositiveUser,
                     observationsUser);
+      // Verifies that the fields have been successfully saved in the database and ...
       if (sucess == true) {
         showMessage(MEDICAL_FORM_REGISTERED);
         disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
@@ -199,10 +225,14 @@ public class MedicalRecordsController extends Activity {
                                             diabeticUser,hypertensionUser,seropositiveUser,
                                             observationsUser);
         valid = true;
+        // ... displays a message on the situation.
       } else {
         showMessage(MEDICAL_FORM_NOT_REGISTERED);
         valid = false;
       }
+    } else {
+
+      // Nothing to do
     }
     return valid;
   }
@@ -223,6 +253,7 @@ public class MedicalRecordsController extends Activity {
     if (checksName(fullName.getText().toString()) == false
                 && checkBirthday(birthday.getText().toString()) == false) {
 
+      // Get the updated data.
       nameUser = fullName.getText().toString();
       birthdayUser = birthday.getText().toString();
       observationsUser = observations.getText().toString();
@@ -235,7 +266,10 @@ public class MedicalRecordsController extends Activity {
 
       sucess = myDatabase.updateUser(id, nameUser, birthdayUser, typeBloodUser, cardiacUser,
               diabeticUser, hypertensionUser, seropositiveUser,observationsUser);
+
+      // It verifies that the data was updated and ...
       if (sucess == true) {
+
         showMessage(CHANGE_MESSAGE);
         save.setVisibility(View.VISIBLE);
         disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
@@ -246,9 +280,14 @@ public class MedicalRecordsController extends Activity {
         medicalRecordsNotification(nameUser,birthdayUser,typeBloodUser,cardiacUser,
                                             diabeticUser,hypertensionUser,seropositiveUser,
                                             observationsUser);
+        // ... displays a message on the situation.
       } else {
+
         showMessage(CHANGE_NOT_DONE);
       }
+    } else {
+
+      // Nothing to do
     }
   }
 
@@ -274,6 +313,7 @@ public class MedicalRecordsController extends Activity {
                             final Button delete,final Spinner typeBlood,final Spinner cardiac,
                             final Spinner diabect,final Spinner hypertension,
                             final Spinner seropositive) {
+
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
     builder.setTitle(REQUEST_OF_EXCLUSION);
@@ -298,16 +338,22 @@ public class MedicalRecordsController extends Activity {
   }
 
   private void showMessage(String message) {
+
     Toast.makeText(this,"" + message,Toast.LENGTH_LONG).show();
   }
 
   private boolean checksName(String nameUser) {
+
     final int minimumSizeName = 3;
+
+    // Verifies that the name is empty.
     if (nameUser.isEmpty()) {
+
       showMessage(EMPTY_NAME_MESSAGE);
       return true;
     }
     if (nameUser.trim().length() < minimumSizeName) {
+
       showMessage(LITTLE_NAME_MESSAGE);
       fullName.requestFocus();
       return true;
@@ -321,30 +367,45 @@ public class MedicalRecordsController extends Activity {
    * @param birthdayUser user birthday.
    */
   private boolean checkBirthday(String birthdayUser) {
-    final int minimumYear = 42;
 
-    if (!birthdayUser.isEmpty() && birthdayUser != null) {
+    final int MINIMUMYEAR = 42;
+
+    // Verifies that the birthday field is not empty or null and ...
+    if (!birthdayUser.isEmpty()) {
       try {
+
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         format.setLenient(false);
         Date userDate = format.parse(birthdayUser);
 
+        // Check if the age is greater than the determined and ...
         if (userDate.before(new Date())) {
-          if (userDate.getYear() < minimumYear) {
+
+          if (userDate.getTime() < MINIMUMYEAR) {
+
             showMessage(YEAR_OLD_MESSAGE);
             return true;
+          } else {
+
+            // Nothing to do
           }
           this.birthdayUser = birthdayUser;
           return false;
+
+        // ... displays a message on the situation.
         } else {
+
           showMessage(INVALID_YEAR_MESSAGE);
           return true;
         }
       } catch (ParseException exception) {
+
         showMessage(INVALID_DATE_MESSAGE + REQUEST_MONTH_MESSAGE + REQUEST_YEAR_MESSAGE);
         return true;
       }
+    // ... displays a message on the situation.
     } else {
+
       showMessage(BIRTH_DATE_MESSAGE);
       return true;
     }
@@ -365,10 +426,13 @@ public class MedicalRecordsController extends Activity {
    * @param seropositive field that checks if the user is HIV positive.
    * @param diabect field that checks if user have diabetes.
    */
+
   private void visibleOptionsUser(Button save,EditText name,EditText birthday,
                                     EditText observations,Button update,Button delete,
                                     Spinner typeBlood,Spinner cardiac,Spinner hypertension,
                                     Spinner seropositive,Spinner diabect) {
+
+    // Enabled data fields.
     save.setVisibility(View.VISIBLE);
     save.setEnabled(true);
     name.setText("");
@@ -394,6 +458,7 @@ public class MedicalRecordsController extends Activity {
    * @param delete button that deletes the information.
    */
   private void disableOptions(Button save, Button update,Button delete) {
+
     save.setVisibility(View.VISIBLE);
     update.setVisibility(View.INVISIBLE);
     delete.setVisibility(View.INVISIBLE);
@@ -403,6 +468,7 @@ public class MedicalRecordsController extends Activity {
    * This method aims to cancel the notification on the user's mobile phone.
    */
   private void cancelNotification() {
+
     NotificationManager notifManager = (NotificationManager) this.getSystemService(Context
              .NOTIFICATION_SERVICE);
     notifManager.cancel(1);
@@ -421,9 +487,12 @@ public class MedicalRecordsController extends Activity {
    * @param seropositive field that checks if the user is HIV positive.
    * @param typeBlood type blood user.
    */
+
   private void disableField(Button save,EditText name, EditText birthday,EditText observations,
                               Spinner cardiac,Spinner diabect,Spinner hypertension,
                               Spinner seropositive,Spinner typeBlood) {
+
+    // All fields disabled.
     save.setVisibility(View.INVISIBLE);
     name.setEnabled(false);
     birthday.setEnabled(false);
@@ -442,7 +511,9 @@ public class MedicalRecordsController extends Activity {
    * @param update button that updates the information.
    * @param delete button that deletes the information.
    */
+
   private void disableOptionsUpdate(Button save,Button update,Button delete) {
+
     save.setEnabled(false);
     update.setVisibility(View.VISIBLE);
     update.setEnabled(true);
@@ -457,7 +528,9 @@ public class MedicalRecordsController extends Activity {
    * @param update button that updates the information.
    * @param delete button that deletes the information.
    */
+
   private void disableButtons(Button save,Button update,Button delete) {
+
     save.setVisibility(View.INVISIBLE);
     update.setVisibility(View.VISIBLE);
     update.setEnabled(true);
@@ -479,10 +552,13 @@ public class MedicalRecordsController extends Activity {
    * @param hypertension field that checks if the user has high blood pressure problems.
    * @param seropositive field that checks if the user is HIV positive.
    */
+
   private void disableJustUpdateButton(EditText name, EditText birthday, Button update, Button save,
                                          EditText observations,Spinner typeBlood,Spinner cardiac,
                                          Spinner diabect,Spinner hypertension,Spinner
                                                  seropositive) {
+
+    // Only the update button is invisible.
     name.setEnabled(true);
     birthday.setEnabled(true);
     observations.setEnabled(true);
@@ -502,13 +578,15 @@ public class MedicalRecordsController extends Activity {
    * @param save button that saves the information.
    * @param update button that updates the information.
    */
+
   private void visibleOptions(Button save,Button update) {
+
     update.setVisibility(View.VISIBLE);
     save.setVisibility(View.INVISIBLE);
   }
 
   /*
-   *
+   * This method aims to disable only the option to create user.
    *
    * @param name username.
    * @param birthday user birthday.
@@ -519,9 +597,12 @@ public class MedicalRecordsController extends Activity {
    * @param hypertension field that checks if the user has high blood pressure problems.
    * @param seropositive field that checks if the user is HIV positive.
    */
+
   private void disableOptionsCreateUser(EditText name,EditText birthday,EditText observations,
                                           Spinner typeBlood,Spinner cardiac,Spinner diabect,
                                           Spinner hypertension,Spinner seropositive) {
+
+    // Disabled data fields.
     name.setEnabled(false);
     birthday.setEnabled(false);
     observations.setEnabled(false);
@@ -544,13 +625,16 @@ public class MedicalRecordsController extends Activity {
    * @param seropositiveUser check if the user is HIV positive.
    * @param observationsUser additional observations of the user.
    */
-  public void medicalRecordsNotification(String nameUser,String birthdayUser,String typeBloodUser,
-                                         String cardiacUser,String diabeticUser,
-                                         String hypertensionUser,String seropositiveUser,
-                                         String observationsUser) {
+
+  private void medicalRecordsNotification(String nameUser, String birthdayUser, String typeBloodUser,
+                                          String cardiacUser, String diabeticUser,
+                                          String hypertensionUser, String seropositiveUser,
+                                          String observationsUser) {
+
     final int notifyIdentifier = 1;
     NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
 
+    // Basic settings of a mobile notification.
     notification.setContentTitle(TITLE_MESSAGE);
     notification.setContentText(TEXT_MESSAGE);
     notification.setTicker(ALERT_MESSAGE);
@@ -560,6 +644,7 @@ public class MedicalRecordsController extends Activity {
 
     String events[] = new String[MAXIMUM_ARRAY];
 
+    // Array with the user data.
     events[0] = new String("Nome: "  + nameUser);
     events[1] = new String("Data de Nascimento: " + birthdayUser);
     events[2] = new String("Tipo Sanguineo: " + typeBloodUser);
@@ -576,6 +661,7 @@ public class MedicalRecordsController extends Activity {
     }
     notification.setStyle(inboxStyle);
 
+    // The user comes to the application via the notification bar.
     Intent resultIntent = new Intent(this,MedicalRecordsController.class);
     TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
     stackBuilder.addParentStack(MedicalRecordsController.class);
