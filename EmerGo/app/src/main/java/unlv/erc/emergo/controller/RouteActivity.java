@@ -71,7 +71,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
 
-  GoogleMap map;
+  //GoogleMap map;
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
   public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
@@ -345,11 +345,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-<<<<<<< HEAD
-    if (routeActivity.getId() == R.id.cancelarLigacao) {
-=======
     if (routeActivity.getId() == R.id.cancelCall) {
->>>>>>> 59001be03c6a9b44281955b2371abe8142110c64
 
       cancelCalling();
     } else {
