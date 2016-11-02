@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -42,7 +41,7 @@ public class LoadingScreenController extends Activity {
               finish();
           } else {
 
-              Log.e("Erro de limite! ","O limite de tempo de espera superou os 9 segundos!");
+              //Nothing to do
           }
       }
     }, WAITING_TIME);
