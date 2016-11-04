@@ -178,15 +178,18 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   @Override
   public void onMapReady(GoogleMap googleMap) {
 
-    if (Build.VERSION.SDK_INT >= 23) {
+    if(googleMap != null){
+      if (Build.VERSION.SDK_INT >= 23) {
 
-      checkPermissions();
-    } else {
+        checkPermissions();
+      } else {
 
+        // nothing to do
+      }
+      map = googleMap;
+    }else{
       // nothing to do
     }
-
-    map = googleMap;
   }
 
 
