@@ -689,11 +689,13 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   public void showMessageDialog(String title,String message) {
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder.setCancelable(true);
-    builder.setTitle(title);
-    builder.setMessage(message);
-    builder.show();
+    if(!title.isEmpty() && !message.isEmpty()){
+      AlertDialog.Builder builder = new AlertDialog.Builder(this);
+      builder.setCancelable(true);
+      builder.setTitle(title);
+      builder.setMessage(message);
+      builder.show();
+    }
   }
 }
 
