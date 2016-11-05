@@ -78,7 +78,6 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   public String samuNumber = "tel:192"; // Actual number of public service SAMU
   private GoogleMap map;
   private Cursor result;
-  private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
   private static final int SPLASH_TIME_OUT = 3400;
   ArrayList<LatLng> pointsOfRoute = new ArrayList<>();
@@ -137,7 +136,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    this.mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
+    Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
 
     myDatabase = new UserDao(this);
     result = myDatabase.getUser();
@@ -248,7 +247,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     selfLocation.setOnClickListener(this);
     phone = (ImageView) findViewById(R.id.phone);
     phone.setOnClickListener(this);
-    cancelCall = (ImageView) findViewById(R.id.cancelarLigacao);
+    cancelCall = (ImageView) findViewById(R.id.cancelCall);
     cancelCall.setOnClickListener(this);
     timer = (TextView) findViewById(R.id.timer);
     user = (ImageView) findViewById(R.id.userInformation);

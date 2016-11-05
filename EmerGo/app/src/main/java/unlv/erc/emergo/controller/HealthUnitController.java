@@ -30,9 +30,14 @@ public class HealthUnitController {
     }
 
     public static void setClosestHealthUnit(HealthUnit healthUnit) {
+
+        assert healthUnit != null : "healthUnit can't be null";
+
         try {
+
             closestHealthUnit.add(healthUnit);
         } catch (NullPointerException exception) {
+
             exception.printStackTrace();
         }
     }
@@ -46,6 +51,8 @@ public class HealthUnitController {
 
     static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestHealthUnit,
                                             Location userLocation) {
+        assert closestHealthUnit != null : "closestHealthUnit can't be null";
+        assert userLocation != null : "userLocation can't be null";
 
         Location healthUnitLocation = new Location("");
 
@@ -59,6 +66,7 @@ public class HealthUnitController {
 
             }
         } catch (NullPointerException exception) {
+
             exception.printStackTrace();
         }
     }
@@ -73,10 +81,14 @@ public class HealthUnitController {
 
     static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit, Location location) {
 
+        assert closestHealthUnit != null : "closestHealthUnit can't be null";
+        assert location!= null : "location can't be null";
+
         double smaller = 99999;
         int position = 0;
 
         try {
+
             for (int aux = 0; aux < closestHealthUnit.size(); aux++) {
 
                 if (closestHealthUnit.get(aux).getDistance() < smaller) {
@@ -89,7 +101,9 @@ public class HealthUnitController {
                 }
             }
             return position;
+
         } catch (NullPointerException exception) {
+
             exception.printStackTrace();
         }
         return 0;
