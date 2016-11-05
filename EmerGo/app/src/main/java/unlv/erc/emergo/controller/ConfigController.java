@@ -93,16 +93,10 @@ public class ConfigController extends Activity {
 
         assert map != null : "map can't be null";
 
-        if (map != null) {
-
-          map.setClass(ConfigController.this, RouteActivity.class);
-          map.putExtra("numeroUs", -1);
-          startActivity(map);
-          finish();
-        } else {
-
-          // Nothing to do
-        }
+        map.setClass(ConfigController.this, RouteActivity.class);
+        map.putExtra("numeroUs", -1);
+        startActivity(map);
+        finish();
       }
     });
     Log.d("End of method: ","Method createRouteScreen ");
@@ -127,15 +121,9 @@ public class ConfigController extends Activity {
 
         assert listUs != null : "listUs can't be null";
 
-        if (listUs != null) {
-
-          listUs.setClass(ConfigController.this, ListOfHealthUnitsController.class);
-          startActivity(listUs);
-          finish();
-        } else {
-
-          // Nothing to do
-        }
+        listUs.setClass(ConfigController.this, ListOfHealthUnitsController.class);
+        startActivity(listUs);
+        finish();
       }
     });
     Log.d("End of method: ","Method listUs ");
@@ -158,15 +146,9 @@ public class ConfigController extends Activity {
 
         assert medicalRecord != null : "medicalRecord can't be null";
 
-        if (medicalRecord != null) {
-
-          medicalRecord.setClass(ConfigController.this, MedicalRecordsController.class);
-          startActivity(medicalRecord);
-          finish();
-        } else {
-
-          // Nothing to do
-        }
+        medicalRecord.setClass(ConfigController.this, MedicalRecordsController.class);
+        startActivity(medicalRecord);
+        finish();
       } // End of onClick
     });
     Log.d("End of method: ","Method showMedicalRecord");
@@ -189,14 +171,9 @@ public class ConfigController extends Activity {
 
         assert emergencyContact != null : "emergencyContact can't be null";
 
-        if (emergencyContact != null) {
-          emergencyContact.setClass(ConfigController.this, EmergencyContactController.class);
-          startActivity(emergencyContact);
-          finish();
-        } else {
-
-          // Nothing to do
-        }
+        emergencyContact.setClass(ConfigController.this, EmergencyContactController.class);
+        startActivity(emergencyContact);
+        finish();
       } //End of onClick
     });
     Log.d("End of method: ","Method acessEmergencyContact ");
@@ -219,14 +196,9 @@ public class ConfigController extends Activity {
 
         assert aboutApp != null : "aboutApp";
 
-        if (aboutApp != null) {
-          aboutApp.setClass(ConfigController.this, AboutApp.class);
-          startActivity(aboutApp);
-          finish();
-        } else {
-
-          // Nothing to do
-        }
+        aboutApp.setClass(ConfigController.this, AboutApp.class);
+        startActivity(aboutApp);
+        finish();
       }
     });
     Log.d("End of method: ","Method seeInfoAboutApp ");
