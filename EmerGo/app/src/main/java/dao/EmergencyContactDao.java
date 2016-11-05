@@ -62,6 +62,10 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
 
   public boolean insertEmergencyContact(Integer id,String nameContact,String phone) {
 
+    assert id != null : "id can't be null";
+    assert nameContact != null : "nameContact can't be null";
+    assert phone != null : "phone can't be null";
+
     SQLiteDatabase database = this.getWritableDatabase();
     // Entering values
     ContentValues contentValues = new ContentValues();
@@ -71,8 +75,11 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
 
     long result = database.insert(EmergencyContact_TABLE,null,contentValues);
     database.close();
+
     if (result == -1) {
+
       return false;
+
     } else {
 
       return true;
@@ -80,6 +87,10 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
   }
 
   public boolean updateEmergencyContact(Integer id,String nameContact,String phone) {
+
+    assert id != null : "id can't be null";
+    assert nameContact != null : "nameContact can't be null";
+    assert phone != null : "phone can't be null";
 
     SQLiteDatabase database = this.getWritableDatabase();
     // Update values
@@ -100,6 +111,8 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
   }
 
   public Integer deleteEmergencyContact(Integer id) {
+
+    assert id != null : "id can't be null";
 
     SQLiteDatabase database = this.getWritableDatabase();
     return database.delete(EmergencyContact_TABLE, "[IDContact] = " + id,null);
