@@ -30,13 +30,8 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
     .OnQueryTextListener, View.OnClickListener {
 
   private SearchView mapSearchView;
-  private ImageView goButton;
-  private ImageView map;
-  private ImageView healthUnitList;
-  private List<String> searchHealthUnit = new ArrayList<>();
   private int numberOfHealthUnitClicked = 0; //Index responsable for future searching methods
   private ListView healthUnitsList;
-  private CharSequence search;
   ArrayList<String> closestHealthUnit;
   ArrayList<HealthUnit> healthUnit;
 
@@ -51,6 +46,8 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   }
 
   public void setMapSearchView(SearchView mapSearchView) {
+
+    assert mapSearchView != null : "mapSearchView can't be null";
 
     this.mapSearchView = mapSearchView;
   }
@@ -73,13 +70,13 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
 
     super.onCreateOptionsMenu(menu);
 
-    goButton = (ImageView) findViewById(R.id.buttonGo);
+    ImageView goButton = (ImageView) findViewById(R.id.buttonGo);
     goButton.setOnClickListener(this);
 
-    healthUnitList = (ImageView) findViewById(R.id.iconList);
+    ImageView healthUnitList = (ImageView) findViewById(R.id.iconList);
     healthUnitList.setOnClickListener(this);
 
-    map = (ImageView) findViewById(R.id.iconMap);
+    ImageView map = (ImageView) findViewById(R.id.iconMap);
     map.setOnClickListener(this);
 
     MenuInflater inflater = getMenuInflater();
@@ -133,7 +130,8 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
    ArrayList<String> searchArray = new ArrayList<>();
 
     try {
-      search = mapSearchView.getQuery();
+
+      CharSequence search = mapSearchView.getQuery();
       closestHealthUnit = new ArrayList<>();
       healthUnit = new ArrayList<>();
       int numberOfUs;
@@ -169,7 +167,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   @Override
   public boolean onQueryTextChange(String newText) {
 
-    searchHealthUnit = getSearchHealthUnit(HealthUnitController.getClosestHealthUnit());
+    List<String> searchHealthUnit = getSearchHealthUnit(HealthUnitController.getClosestHealthUnit());
 
     setHealthUnitsList((ListView) findViewById(R.id.list_of_search_us));
     healthUnitsList.setAdapter(new ArrayAdapter<>(this, R.layout.item,
