@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class HealthUnitController {
 
-    static ArrayList<HealthUnit> closestHealthUnit = new ArrayList<HealthUnit>();
+    private static ArrayList<HealthUnit> closestHealthUnit = new ArrayList<HealthUnit>();
 
     public HealthUnitController() {
 
@@ -44,8 +44,8 @@ public class HealthUnitController {
      * @param userLocation      The location of the user
      */
 
-    protected static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestHealthUnit,
-                                                      Location userLocation) {
+    static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestHealthUnit,
+                                            Location userLocation) {
 
         Location healthUnitLocation = new Location("");
 
@@ -71,7 +71,7 @@ public class HealthUnitController {
      * @return position Return the position of the closest health unit
      */
 
-    protected static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit, Location location) {
+    static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit, Location location) {
 
         double smaller = 99999;
         int position = 0;
