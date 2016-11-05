@@ -89,6 +89,8 @@ public class EmergencyContactController extends Activity {
     emergencyContactDao = new EmergencyContactDao(this);
     result = emergencyContactDao.getEmergencyContact();
 
+    assert result != null : "result can't be null";
+
     setBTFirstContact();
     logicFirstContact();
     setBTSecondContact();
@@ -147,7 +149,7 @@ public class EmergencyContactController extends Activity {
       public void onClick(View emergencyContactView) {
 
         // Register the first emergency contact
-        if (signInFirstContact() == false) {
+        if (!signInFirstContact()) {
 
           saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
@@ -208,7 +210,7 @@ public class EmergencyContactController extends Activity {
             // For register the first emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            if (signInFirstContact() == false) {
+            if (!signInFirstContact()) {
 
               saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
