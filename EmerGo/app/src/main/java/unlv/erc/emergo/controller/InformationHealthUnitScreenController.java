@@ -124,28 +124,6 @@ public class InformationHealthUnitScreenController extends Activity
   }
 
   /**
-   * Get the value of attribute listOfInformations.
-   * @return listofInformations: String.
-   *
-   */
-
-  public List<String> getListOfInformations() {
-
-    return listOfInformations;
-  }
-
-  /**
-   * Get the value of attribute healthUnitInfo.
-   * @return healthUnitInfo: ListView
-   *
-   */
-
-  public ListView getHealthUnitInfo() {
-
-    return healthUnitInfo;
-  }
-
-  /**
    * Get the value of attribute titleHealthUnit.
    * @return titleHealthUnit: String.
    *
@@ -156,20 +134,9 @@ public class InformationHealthUnitScreenController extends Activity
     return titleHealthUnit;
   }
 
-  public Intent getReceive() {
+  private Intent getReceive() {
 
     return receive;
-  }
-
-  /**
-    * Get the value of attribute buttonRoute.
-    * @return buttonRoute: Button.
-    *
-   */
-
-  public Button getButtonRoute() {
-
-    return buttonRoute;
   }
 
   /**
@@ -181,17 +148,6 @@ public class InformationHealthUnitScreenController extends Activity
   public ImageView getButtonGo() {
 
     return buttonGo;
-  }
-
-  /**
-    * Get the value of attribute numberHealthUnitSelected.
-    * @return numberHealthUnitSelected: int.
-    *
-   */
-
-  public int getNumberUsSelected() {
-
-    return numberHealthUnitSelected;
   }
 
   /**
@@ -266,7 +222,7 @@ public class InformationHealthUnitScreenController extends Activity
     *
    */
 
-  private String getAddressNumber() {
+  public String getAddressNumber() {
 
     return addressNumber;
   }
@@ -325,6 +281,50 @@ public class InformationHealthUnitScreenController extends Activity
     mapActivity.setClass(this,MapScreenController.class);
     startActivity(mapActivity);
     finish();
+  }
+
+  /**
+   * Get the value of attribute listOfInformations.
+   * @return listofInformations: String.
+   *
+   */
+
+  private List<String> getListOfInformations() {
+
+    return listOfInformations;
+  }
+
+  /**
+   * Get the value of attribute healthUnitInfo.
+   * @return healthUnitInfo: ListView
+   *
+   */
+
+  private ListView getHealthUnitInfo() {
+
+    return healthUnitInfo;
+  }
+
+  /**
+   * Get the value of attribute buttonRoute.
+   * @return buttonRoute: Button.
+   *
+   */
+
+  private Button getButtonRoute() {
+
+    return buttonRoute;
+  }
+
+  /**
+   * Get the value of attribute numberHealthUnitSelected.
+   * @return numberHealthUnitSelected: int.
+   *
+   */
+
+  private int getNumberUsSelected() {
+
+    return numberHealthUnitSelected;
   }
 
   /**
