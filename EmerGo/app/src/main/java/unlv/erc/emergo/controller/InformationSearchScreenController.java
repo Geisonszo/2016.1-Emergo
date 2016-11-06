@@ -129,7 +129,7 @@ public class InformationSearchScreenController extends Activity {
   private void showInformationOnScreen() {
 
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-        android.R.layout.simple_list_item_1, listOfInformations);
+            android.R.layout.simple_list_item_1, listOfInformations);
 
     healthUnitInfo.setAdapter(adapter);
   }
@@ -233,7 +233,7 @@ public class InformationSearchScreenController extends Activity {
    * @return listofInformations: String
    */
 
-  public List<String> getListOfInformations() {
+  private List<String> getListOfInformations() {
 
     return listOfInformations;
   }
@@ -244,7 +244,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setListOfInformations(List<String> listOfInformations) {
+  private void setListOfInformations(List<String> listOfInformations) {
 
     this.listOfInformations = listOfInformations;
   }
@@ -255,7 +255,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public ListView getHealthUnitInfo() {
+  private ListView getHealthUnitInfo() {
 
     return healthUnitInfo;
   }
@@ -266,7 +266,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setHealthUnitInfo(ListView healthUnitInfo) {
+  private void setHealthUnitInfo(ListView healthUnitInfo) {
 
     this.healthUnitInfo = healthUnitInfo;
   }
@@ -277,7 +277,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public Intent getReceive() {
+  private Intent getReceive() {
 
     return receive;
   }
@@ -288,7 +288,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setReceive(Intent receive) {
+  private void setReceive(Intent receive) {
 
     this.receive = receive;
   }
@@ -299,7 +299,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public Button getButtonRoute() {
+  private Button getButtonRoute() {
 
     return buttonRoute;
   }
@@ -310,7 +310,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setButtonRoute(Button buttonRoute) {
+  private void setButtonRoute(Button buttonRoute) {
 
     this.buttonRoute = buttonRoute;
   }
@@ -343,7 +343,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public int getNumberUsSelected() {
+  private int getNumberUsSelected() {
 
     return numberHealthUnitSelected;
   }
@@ -354,7 +354,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void SearchHelthUnitSelected(int numberHealthUnitSelected) {
+  private void SearchHelthUnitSelected(int numberHealthUnitSelected) {
 
     this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
@@ -365,7 +365,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public String getPadding() {
+  protected String getPadding() {
 
     return padding;
   }
@@ -376,7 +376,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setPadding(String padding) {
+  protected void setPadding(String padding) {
 
     this.padding = padding;
   }
@@ -387,7 +387,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public String getTitleHealthUnit() {
+  protected String getTitleHealthUnit() {
 
     return titleHealthUnit;
   }
@@ -398,7 +398,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setTitleHealthUnit(String titleHealthUnit) {
+  protected void setTitleHealthUnit(String titleHealthUnit) {
 
     this.titleHealthUnit = titleHealthUnit;
   }
@@ -409,7 +409,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public String getNameHealthUnit() {
+  protected String getNameHealthUnit() {
 
     return nameHealthUnit;
   }
@@ -420,7 +420,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setNameHealthUnit(String nameHealthUnit) {
+  protected void setNameHealthUnit(String nameHealthUnit) {
 
     this.nameHealthUnit = nameHealthUnit;
   }
@@ -431,7 +431,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public String getUnitType() {
+  protected String getUnitType() {
 
     return healthUnitType;
   }
@@ -442,7 +442,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setUnitType(String healthUnitType) {
+  protected void setUnitType(String healthUnitType) {
 
     this.healthUnitType = healthUnitType;
   }
@@ -453,7 +453,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public String getState() {
+  protected String getState() {
 
     return state;
   }
@@ -464,7 +464,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setState(String state) {
+  protected void setState(String state) {
 
     this.state = state;
   }
@@ -475,7 +475,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public String getCity() {
+  protected String getCity() {
 
     return city;
   }
@@ -486,7 +486,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setCity(String city) {
+  protected void setCity(String city) {
 
     this.city = city;
   }
@@ -497,7 +497,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public String getDistrict() {
+  protected String getDistrict() {
 
     return district;
   }
@@ -508,7 +508,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setDistrict(String district) {
+  protected void setDistrict(String district) {
 
     this.district = district;
   }
@@ -519,7 +519,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public String getAddressNumber() {
+  protected String getAddressNumber() {
 
     return addressNumber;
   }
@@ -530,7 +530,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setAddressNumber(String addressNumber) {
+  protected void setAddressNumber(String addressNumber) {
 
     this.addressNumber = addressNumber;
   }
