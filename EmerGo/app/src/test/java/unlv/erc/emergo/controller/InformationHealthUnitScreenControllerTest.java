@@ -196,5 +196,4 @@ public class InformationHealthUnitScreenControllerTest extends TestCase {
       assertTrue(valido);
     }
   }
-
 }

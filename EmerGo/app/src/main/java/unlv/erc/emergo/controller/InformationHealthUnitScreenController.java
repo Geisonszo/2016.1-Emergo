@@ -455,7 +455,7 @@ public class InformationHealthUnitScreenController extends Activity
    *
    */
 
-  private void setPadding(String padding) {
+  protected void setPadding(String padding) {
 
     this.padding = padding;
   }
@@ -466,7 +466,7 @@ public class InformationHealthUnitScreenController extends Activity
    *
    */
 
-  private void setTitleHealthUnit(String titleHealthUnit) {
+  protected void setTitleHealthUnit(String titleHealthUnit) {
 
     this.titleHealthUnit = titleHealthUnit;
   }
@@ -477,7 +477,7 @@ public class InformationHealthUnitScreenController extends Activity
    *
    */
 
-  private void setNameHealthUnit(String nameHealthUnit) {
+  protected void setNameHealthUnit(String nameHealthUnit) {
 
     this.nameHealthUnit = nameHealthUnit;
   }
@@ -488,7 +488,7 @@ public class InformationHealthUnitScreenController extends Activity
    *
    */
 
-  private void setUnitType(String healthUnitType) {
+  protected void setUnitType(String healthUnitType) {
 
     this.healthUnitType = healthUnitType;
   }
@@ -499,7 +499,7 @@ public class InformationHealthUnitScreenController extends Activity
    *
    */
 
-  private void setState(String state) {
+  protected void setState(String state) {
 
     this.state = state;
   }
@@ -510,7 +510,7 @@ public class InformationHealthUnitScreenController extends Activity
    *
    */
 
-  private void setCity(String city) {
+  protected void setCity(String city) {
 
     this.city = city;
   }
@@ -532,7 +532,7 @@ public class InformationHealthUnitScreenController extends Activity
    *
    */
 
-  private void setAddressNumber(String addressNumber) {
+  protected void setAddressNumber(String addressNumber) {
 
     this.addressNumber = addressNumber;
   }

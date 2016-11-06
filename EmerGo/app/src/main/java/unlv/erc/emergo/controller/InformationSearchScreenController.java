@@ -16,11 +16,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import unlv.erc.emergo.R;
-import unlv.erc.emergo.model.HealthUnit;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import unlv.erc.emergo.R;
+import unlv.erc.emergo.model.HealthUnit;
 
 public class InformationSearchScreenController extends Activity {
 
@@ -89,7 +89,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void setInformation(HealthUnit healthUnit) {
+  private void setInformation(HealthUnit healthUnit) {
 
     setPadding("\n");
     setTitle("        Informações da Unidade de Saúde");
@@ -107,7 +107,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void addInformationToList() {
+  private void addInformationToList() {
 
     listOfInformations.add(padding);
     listOfInformations.add(titleHealthUnit);
@@ -126,7 +126,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void showInformationOnScreen() {
+  private void showInformationOnScreen() {
 
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
         android.R.layout.simple_list_item_1, listOfInformations);
@@ -141,7 +141,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void buttonRoute() {
+  private void buttonRoute() {
 
     Intent route = new Intent();
 
@@ -159,7 +159,7 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  public void buttonClickGo() {
+  private void buttonClickGo() {
 
     String routeTraced = "Rota mais próxima traçada";
 
@@ -186,7 +186,7 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-   * Exchange of current activity and start activity "ConfigController".
+   * Exchange of current activity and start activity "SettingsController".
    * @param viewConfig View of config.
    *
    */
