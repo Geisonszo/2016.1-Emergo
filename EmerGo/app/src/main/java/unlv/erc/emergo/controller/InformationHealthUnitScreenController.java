@@ -67,216 +67,6 @@ public class InformationHealthUnitScreenController extends Activity
   }
 
   /**
-   * Takes the arraylist data that is linked to the related database healthUnits.
-   * @param healthUnit HealthUnit healthUnit.
-   *
-   */
-
-  private void setInformation(HealthUnit healthUnit) {
-
-    setPadding("\n");
-    setTitleHealthUnit("        Informações da Unidade de Saúde");
-    setNameHealthUnit("  Nome: " + healthUnit.getNameHospital());
-    setUnitType("  Tipo de atendimento: " + healthUnit.getUnitType());
-    setState("  UF: " + healthUnit.getState());
-    setCity("  Cidade: " + healthUnit.getCity());
-    setDistrict("  Bairro: " + healthUnit.getDistrict());
-    setAddressNumber("  Cep: " + healthUnit.getAddressNumber());
-  }
-
-  /**
-   * Takes the data from the database, saved in a arraylist and calls another function, where the
-   * saved data in ArrayLists will be shown in a ArrayAdapter.
-   *
-   */
-
-  private void addInformationToList() {
-
-    listOfInformations.add(padding);
-    listOfInformations.add(titleHealthUnit);
-    listOfInformations.add(nameHealthUnit);
-    listOfInformations.add(healthUnitType);
-    listOfInformations.add(state);
-    listOfInformations.add(city);
-    listOfInformations.add(district);
-    listOfInformations.add(addressNumber);
-    showInformationOnScreen();
-  }
-
-  /**
-   * Shows the information saved in the arraylist and put in a ArrayAdapter.
-   *
-   */
-
-  private void showInformationOnScreen() {
-
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-            android.R.layout.simple_list_item_1,
-            listOfInformations);
-
-    healthUnitInfo.setAdapter(adapter);
-  }
-
-  /**
-   * Set the value of attribute listOfInformations.
-   * @param listOfInformations List.
-   *
-   */
-
-  private void setListOfInformations(List<String> listOfInformations) {
-
-    this.listOfInformations = listOfInformations;
-  }
-
-  /**
-    * Set the value of attribute healthUnitInfo.
-    * @param healthUnitInfo ListView.
-    *
-   */
-
-  private void setHealthUnitInfo(ListView healthUnitInfo) {
-
-    this.healthUnitInfo = healthUnitInfo;
-  }
-
-  /**
-   * Set the value of attribute receive.
-   * @param receive Intent.
-   *
-   */
-
-  private void setReceive(Intent receive) {
-
-    this.receive = receive;
-  }
-
-  /**
-   * Set the value of attribute buttonRoute.
-   * @param buttonRoute Button.
-   *
-   */
-
-  private void setButtonRoute(Button buttonRoute) {
-
-    this.buttonRoute = buttonRoute;
-  }
-
-  /**
-   * Set the value of attribute of image buttonGo.
-   * @param buttonGo ImageView.
-   *
-   */
-
-  private void setButtonGo(ImageView buttonGo) {
-
-    this.buttonGo = buttonGo;
-  }
-
-  /**
-   * Set the value of attribute numberHealthUnitSelected.
-   * @param numberHealthUnitSelected int.
-   */
-
-  private void setSearchHelthUnitSelected(int numberHealthUnitSelected) {
-
-    this.numberHealthUnitSelected = numberHealthUnitSelected;
-  }
-
-  /**
-    * Get the value of attribute receive.
-    * @return healthUnitInfo: Intent.
-    *
-   */
-
-  /**
-   * Set the value of attribute padding.
-   * @param padding String.
-   *
-   */
-
-  private void setPadding(String padding) {
-
-    this.padding = padding;
-  }
-
-  /**
-   * Set the value of attribute titleHealthUnit.
-   * @param titleHealthUnit String.
-   *
-   */
-
-  private void setTitleHealthUnit(String titleHealthUnit) {
-
-    this.titleHealthUnit = titleHealthUnit;
-  }
-
-  /**
-   * Set the value of attribute nameHealthUnit.
-   * @param nameHealthUnit String.
-   *
-   */
-
-  private void setNameHealthUnit(String nameHealthUnit) {
-
-    this.nameHealthUnit = nameHealthUnit;
-  }
-
-  /**
-   * Set the value of attribute healthUnitType.
-   * @param healthUnitType String.
-   *
-   */
-
-  private void setUnitType(String healthUnitType) {
-
-    this.healthUnitType = healthUnitType;
-  }
-
-  /**
-   * Set the value of attribute state.
-   * @param state String.
-   *
-   */
-
-  private void setState(String state) {
-
-    this.state = state;
-  }
-
-  /**
-   * Set the value of attribute city.
-   * @param city String.
-   *
-   */
-
-  private void setCity(String city) {
-
-    this.city = city;
-  }
-
-  /**
-   * Set the value of attribute district.
-   * @param district String.
-   *
-   */
-
-  private void setDistrict(String district) {
-
-    this.district = district;
-  }
-
-  /**
-   * Set the value of attribute addressNumber.
-   * @param addressNumber String.
-   *
-   */
-
-  private void setAddressNumber(String addressNumber) {
-
-    this.addressNumber = addressNumber;
-  }
-
-  /**
    * The purpose of this function is to be in accordance with the choice of User buttons, to open
    * the RouteActivity class but with two options:
    * If he hit the "buttonRoute" to open the map showing the nearest health facilities.
@@ -476,7 +266,7 @@ public class InformationHealthUnitScreenController extends Activity
     *
    */
 
-  public String getAddressNumber() {
+  private String getAddressNumber() {
 
     return addressNumber;
   }
@@ -535,6 +325,216 @@ public class InformationHealthUnitScreenController extends Activity
     mapActivity.setClass(this,MapScreenController.class);
     startActivity(mapActivity);
     finish();
+  }
+
+  /**
+   * Takes the arraylist data that is linked to the related database healthUnits.
+   * @param healthUnit HealthUnit healthUnit.
+   *
+   */
+
+  private void setInformation(HealthUnit healthUnit) {
+
+    setPadding("\n");
+    setTitleHealthUnit("        Informações da Unidade de Saúde");
+    setNameHealthUnit("  Nome: " + healthUnit.getNameHospital());
+    setUnitType("  Tipo de atendimento: " + healthUnit.getUnitType());
+    setState("  UF: " + healthUnit.getState());
+    setCity("  Cidade: " + healthUnit.getCity());
+    setDistrict("  Bairro: " + healthUnit.getDistrict());
+    setAddressNumber("  Cep: " + healthUnit.getAddressNumber());
+  }
+
+  /**
+   * Takes the data from the database, saved in a arraylist and calls another function, where the
+   * saved data in ArrayLists will be shown in a ArrayAdapter.
+   *
+   */
+
+  private void addInformationToList() {
+
+    listOfInformations.add(padding);
+    listOfInformations.add(titleHealthUnit);
+    listOfInformations.add(nameHealthUnit);
+    listOfInformations.add(healthUnitType);
+    listOfInformations.add(state);
+    listOfInformations.add(city);
+    listOfInformations.add(district);
+    listOfInformations.add(addressNumber);
+    showInformationOnScreen();
+  }
+
+  /**
+   * Shows the information saved in the arraylist and put in a ArrayAdapter.
+   *
+   */
+
+  private void showInformationOnScreen() {
+
+    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+            android.R.layout.simple_list_item_1,
+            listOfInformations);
+
+    healthUnitInfo.setAdapter(adapter);
+  }
+
+  /**
+   * Set the value of attribute listOfInformations.
+   * @param listOfInformations List.
+   *
+   */
+
+  private void setListOfInformations(List<String> listOfInformations) {
+
+    this.listOfInformations = listOfInformations;
+  }
+
+  /**
+   * Set the value of attribute healthUnitInfo.
+   * @param healthUnitInfo ListView.
+   *
+   */
+
+  private void setHealthUnitInfo(ListView healthUnitInfo) {
+
+    this.healthUnitInfo = healthUnitInfo;
+  }
+
+  /**
+   * Set the value of attribute receive.
+   * @param receive Intent.
+   *
+   */
+
+  private void setReceive(Intent receive) {
+
+    this.receive = receive;
+  }
+
+  /**
+   * Set the value of attribute buttonRoute.
+   * @param buttonRoute Button.
+   *
+   */
+
+  private void setButtonRoute(Button buttonRoute) {
+
+    this.buttonRoute = buttonRoute;
+  }
+
+  /**
+   * Set the value of attribute of image buttonGo.
+   * @param buttonGo ImageView.
+   *
+   */
+
+  private void setButtonGo(ImageView buttonGo) {
+
+    this.buttonGo = buttonGo;
+  }
+
+  /**
+   * Set the value of attribute numberHealthUnitSelected.
+   * @param numberHealthUnitSelected int.
+   */
+
+  private void setSearchHelthUnitSelected(int numberHealthUnitSelected) {
+
+    this.numberHealthUnitSelected = numberHealthUnitSelected;
+  }
+
+  /**
+   * Get the value of attribute receive.
+   * @return healthUnitInfo: Intent.
+   *
+   */
+
+  /**
+   * Set the value of attribute padding.
+   * @param padding String.
+   *
+   */
+
+  private void setPadding(String padding) {
+
+    this.padding = padding;
+  }
+
+  /**
+   * Set the value of attribute titleHealthUnit.
+   * @param titleHealthUnit String.
+   *
+   */
+
+  private void setTitleHealthUnit(String titleHealthUnit) {
+
+    this.titleHealthUnit = titleHealthUnit;
+  }
+
+  /**
+   * Set the value of attribute nameHealthUnit.
+   * @param nameHealthUnit String.
+   *
+   */
+
+  private void setNameHealthUnit(String nameHealthUnit) {
+
+    this.nameHealthUnit = nameHealthUnit;
+  }
+
+  /**
+   * Set the value of attribute healthUnitType.
+   * @param healthUnitType String.
+   *
+   */
+
+  private void setUnitType(String healthUnitType) {
+
+    this.healthUnitType = healthUnitType;
+  }
+
+  /**
+   * Set the value of attribute state.
+   * @param state String.
+   *
+   */
+
+  private void setState(String state) {
+
+    this.state = state;
+  }
+
+  /**
+   * Set the value of attribute city.
+   * @param city String.
+   *
+   */
+
+  private void setCity(String city) {
+
+    this.city = city;
+  }
+
+  /**
+   * Set the value of attribute district.
+   * @param district String.
+   *
+   */
+
+  private void setDistrict(String district) {
+
+    this.district = district;
+  }
+
+  /**
+   * Set the value of attribute addressNumber.
+   * @param addressNumber String.
+   *
+   */
+
+  private void setAddressNumber(String addressNumber) {
+
+    this.addressNumber = addressNumber;
   }
 }
 
