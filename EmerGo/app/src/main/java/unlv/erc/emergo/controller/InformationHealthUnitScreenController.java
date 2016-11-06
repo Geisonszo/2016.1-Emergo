@@ -124,110 +124,6 @@ public class InformationHealthUnitScreenController extends Activity
   }
 
   /**
-   * Get the value of attribute titleHealthUnit.
-   * @return titleHealthUnit: String.
-   *
-   */
-
-  public String getTitleHealthUnit() {
-
-    return titleHealthUnit;
-  }
-
-  private Intent getReceive() {
-
-    return receive;
-  }
-
-  /**
-    * Get the value of attribute of image buttonGo.
-    * @return buttonGo: ImageView.
-    *
-  */
-
-  public ImageView getButtonGo() {
-
-    return buttonGo;
-  }
-
-  /**
-    * Get the value of attribute padding.
-    * @return padding: String.
-    *
-   */
-
-  public String getPadding() {
-
-    return padding;
-  }
-
-  /**
-   * Get the value of attribute nameHealthUnit.
-   * @return nameHealthUnit: String.
-   *
-   */
-
-  public String getNameHealthUnit() {
-
-    return nameHealthUnit;
-  }
-
-  /**
-    * Get the value of attribute healthUnitType.
-    * @return healthUnitType: String.
-    *
-   */
-
-  public String getUnitType() {
-
-    return healthUnitType;
-  }
-
-  /**
-    * Get the value of attribute state.
-    * @return state: String.
-    *
-   */
-
-  public String getState() {
-
-    return state;
-  }
-
-  /**
-    * Get the value of attribute city.
-    * @return city: String.
-    *
-   */
-
-  public String getCity() {
-
-    return city;
-  }
-
-  /**
-   * Get the value of attribute district.
-   * @return district: String.
-   *
-   */
-
-  public String getDistrict() {
-
-    return district;
-  }
-
-  /**
-    * Get the value of attribute addressNumber.
-    * @return addressNumber: String.
-    *
-   */
-
-  public String getAddressNumber() {
-
-    return addressNumber;
-  }
-
-  /**
    * Directs you to the Settings screen.
    * @param mapScreen View.
    */
@@ -281,6 +177,116 @@ public class InformationHealthUnitScreenController extends Activity
     mapActivity.setClass(this,MapScreenController.class);
     startActivity(mapActivity);
     finish();
+  }
+
+  /**
+   * Get the value of attribute of image buttonGo.
+   * @return buttonGo: ImageView.
+   *
+   */
+
+  protected ImageView getButtonGo() {
+
+    return buttonGo;
+  }
+
+  /**
+   * Get the value of attribute padding.
+   * @return padding: String.
+   *
+   */
+
+  protected String getPadding() {
+
+    return padding;
+  }
+
+  /**
+   * Get the value of attribute nameHealthUnit.
+   * @return nameHealthUnit: String.
+   *
+   */
+
+  protected String getNameHealthUnit() {
+
+    return nameHealthUnit;
+  }
+
+  /**
+   * Get the value of attribute titleHealthUnit.
+   * @return titleHealthUnit: String.
+   *
+   */
+
+  protected String getTitleHealthUnit() {
+
+    return titleHealthUnit;
+  }
+
+  /**
+   * Get the value of attribute receive.
+   * @return healthUnitInfo: Intent.
+   *
+   */
+
+  private Intent getReceive() {
+
+    return receive;
+  }
+
+  /**
+   * Get the value of attribute healthUnitType.
+   * @return healthUnitType: String.
+   *
+   */
+
+  protected String getUnitType() {
+
+    return healthUnitType;
+  }
+
+  /**
+   * Get the value of attribute state.
+   * @return state: String.
+   *
+   */
+
+  protected String getState() {
+
+    return state;
+  }
+
+  /**
+   * Get the value of attribute city.
+   * @return city: String.
+   *
+   */
+
+  protected String getCity() {
+
+    return city;
+  }
+
+  /**
+   * Get the value of attribute district.
+   * @return district: String.
+   *
+   */
+
+  protected String getDistrict() {
+
+    return district;
+  }
+
+  /**
+   * Get the value of attribute addressNumber.
+   * @return addressNumber: String.
+   *
+   */
+
+  protected String getAddressNumber() {
+
+    return addressNumber;
   }
 
   /**
@@ -442,12 +448,6 @@ public class InformationHealthUnitScreenController extends Activity
 
     this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
-
-  /**
-   * Get the value of attribute receive.
-   * @return healthUnitInfo: Intent.
-   *
-   */
 
   /**
    * Set the value of attribute padding.
