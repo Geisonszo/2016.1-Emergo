@@ -195,7 +195,7 @@ public class InformationSearchScreenController extends Activity {
 
     Intent config = new Intent();
 
-    config.setClass(this, ConfigController.class);
+    config.setClass(this, SettingsController.class);
     startActivity(config);
   }
 

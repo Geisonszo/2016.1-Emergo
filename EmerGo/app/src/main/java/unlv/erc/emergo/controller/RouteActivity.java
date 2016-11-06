@@ -64,8 +64,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static unlv.erc.emergo.R.id.map;
-
 public class RouteActivity  extends FragmentActivity implements View.OnClickListener,
     OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
@@ -337,7 +335,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     if (routeActivity.getId() == R.id.userInformation) {
 
       Intent config = new Intent();
-      config.setClass(RouteActivity.this , ConfigController.class);
+      config.setClass(RouteActivity.this , SettingsController.class);
       startActivity(config);
     } else {
 

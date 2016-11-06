@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import unlv.erc.emergo.R;
 
-public class ConfigController extends Activity {
+public class SettingsController extends Activity {
 
   // ImageView for ListOfHealthUnitsController.class
   private ImageView iconList;
@@ -93,7 +93,7 @@ public class ConfigController extends Activity {
 
         assert map != null : "map can't be null";
 
-        map.setClass(ConfigController.this, RouteActivity.class);
+        map.setClass(SettingsController.this, RouteActivity.class);
         map.putExtra("numeroUs", -1);
         startActivity(map);
         finish();
@@ -121,7 +121,7 @@ public class ConfigController extends Activity {
 
         assert listUs != null : "listUs can't be null";
 
-        listUs.setClass(ConfigController.this, ListOfHealthUnitsController.class);
+        listUs.setClass(SettingsController.this, ListOfHealthUnitsController.class);
         startActivity(listUs);
         finish();
       }
@@ -146,7 +146,7 @@ public class ConfigController extends Activity {
 
         assert medicalRecord != null : "medicalRecord can't be null";
 
-        medicalRecord.setClass(ConfigController.this, MedicalRecordsController.class);
+        medicalRecord.setClass(SettingsController.this, MedicalRecordsController.class);
         startActivity(medicalRecord);
         finish();
       } // End of onClick
@@ -171,7 +171,7 @@ public class ConfigController extends Activity {
 
         assert emergencyContact != null : "emergencyContact can't be null";
 
-        emergencyContact.setClass(ConfigController.this, EmergencyContactController.class);
+        emergencyContact.setClass(SettingsController.this, EmergencyContactController.class);
         startActivity(emergencyContact);
         finish();
       } //End of onClick
@@ -196,7 +196,7 @@ public class ConfigController extends Activity {
 
         assert aboutApp != null : "aboutApp";
 
-        aboutApp.setClass(ConfigController.this, AboutApp.class);
+        aboutApp.setClass(SettingsController.this, AboutApp.class);
         startActivity(aboutApp);
         finish();
       }
@@ -225,7 +225,7 @@ public class ConfigController extends Activity {
     Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
 
     if (routeActivity != null) {
-      routeActivity.setClass(ConfigController.this, RouteActivity.class);
+      routeActivity.setClass(SettingsController.this, RouteActivity.class);
       routeActivity.putExtra("numeroUs", -1);
       startActivity(routeActivity);
       finish();

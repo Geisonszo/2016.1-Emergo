@@ -705,11 +705,11 @@ public class MedicalRecordsController extends Activity {
   /**
    * This method aims to direct the user to the settings page.
    *
-   * @param config go to ConfigController class.
+   * @param config go to SettingsController class.
    */
   public void openConfig(View config) {
     Intent configuration = new Intent();
-    configuration.setClass(this , ConfigController.class);
+    configuration.setClass(this , SettingsController.class);
     startActivity(configuration);
     finish();
   }

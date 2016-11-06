@@ -1045,7 +1045,7 @@ public class EmergencyContactController extends Activity {
 
     assert config != null : "config can't be null";
 
-    openConfig.setClass(this, ConfigController.class);
+    openConfig.setClass(this, SettingsController.class);
     startActivity(openConfig);
   }
 

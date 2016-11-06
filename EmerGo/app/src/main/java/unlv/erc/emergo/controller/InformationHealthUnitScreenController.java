@@ -234,7 +234,7 @@ public class InformationHealthUnitScreenController extends Activity
 
   public void openSettings(View mapScreen) {
     Intent config = new Intent();
-    config.setClass(this , ConfigController.class);
+    config.setClass(this , SettingsController.class);
     startActivity(config);
     finish();
   }
