@@ -83,95 +83,6 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-   * This function takes the data on the health units saved in the database and through
-   * ArrayLists, each arrow information in place. The data that will be represented are: Name,
-   * type of care,UF,city,neighborhood and zip code.
-   *
-   */
-
-  private void setInformation(HealthUnit healthUnit) {
-
-    setPadding("\n");
-    setTitle("        Informações da Unidade de Saúde");
-    setNameHealthUnit("  Nome: " + healthUnit.getNameHospital());
-    setUnitType("  Tipo de atendimento: " + healthUnit.getUnitType());
-    setState("  UF: " + healthUnit.getState());
-    setCity("  Cidade: " + healthUnit.getCity());
-    setDistrict("  Bairro: " + healthUnit.getDistrict());
-    setAddressNumber("  Cep: " + healthUnit.getAddressNumber());
-  }
-
-  /**
-   * Takes the data from the database, saved in a arraylist and calls another function, where the
-   * saved data in ArrayLists will be shown in a ArrayAdapter.
-   *
-   */
-
-  private void addInformationToList() {
-
-    listOfInformations.add(padding);
-    listOfInformations.add(titleHealthUnit);
-    listOfInformations.add(nameHealthUnit);
-    listOfInformations.add(healthUnitType);
-    listOfInformations.add(state);
-    listOfInformations.add(city);
-    listOfInformations.add(district);
-    listOfInformations.add(addressNumber);
-
-    showInformationOnScreen();
-  }
-
-  /**
-   * Shows the information saved in the arraylist and put in a ArrayAdapter.
-   *
-   */
-
-  private void showInformationOnScreen() {
-
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-            android.R.layout.simple_list_item_1, listOfInformations);
-
-    healthUnitInfo.setAdapter(adapter);
-  }
-
-  /**
-   * When the "buttonRoute" is pressed, it will exit the current class and opened the activity and
-   * "RouteActivity" class. When RouteActivity is finished, come in method "finish ()" which will
-   * close the activity "RouteActivity".
-   *
-   */
-
-  private void buttonRoute() {
-
-    Intent route = new Intent();
-
-    route.setClass(this, RouteActivity.class);
-    route.putExtra(NUMBER_HEALTH_UNIT, receive.getIntExtra(POSITION, RETURN_NOT_FOUND));
-    startActivity(route);
-    finish();
-  }
-
-  /**
-   * When the "buttonGo" is pressed, it will exit the current class, opened the activity
-   * "RouteActivity," only different from the method of "buttonRoute", will now be chosen the
-   * route nearest the user.When the RouteActivity is finished, come in method "finish ()"
-   * which will close the activity "RouteActivity".
-   *
-   */
-
-  private void buttonClickGo() {
-
-    String routeTraced = "Rota mais próxima traçada";
-
-    Toast.makeText(this, routeTraced, Toast.LENGTH_SHORT).show();
-    Intent routeActivity = new Intent();
-    routeActivity.setClass(this, RouteActivity.class);
-    routeActivity.putExtra(NUMBER_HEALTH_UNIT, VALUE_LOWER_CLOSE);
-    startActivity(routeActivity);
-    finish();
-  }
-
-  /**
    * Exchange of current activity and start activity "SearchController".
    * @param mapScreen View of mapScree.
    *
@@ -229,93 +140,6 @@ public class InformationSearchScreenController extends Activity {
   }
 
   /**
-   * Get the value of attribute listOfInformations.
-   * @return listofInformations: String
-   */
-
-  private List<String> getListOfInformations() {
-
-    return listOfInformations;
-  }
-
-  /**
-   * Set the value of attribute listOfInformations.
-   * @param listOfInformations List of Informations about health units.
-   *
-   */
-
-  private void setListOfInformations(List<String> listOfInformations) {
-
-    this.listOfInformations = listOfInformations;
-  }
-
-  /**
-   * Get the value of attribute healthUnitInfo.
-   * @return healthUnitInfo: ListView
-   *
-   */
-
-  private ListView getHealthUnitInfo() {
-
-    return healthUnitInfo;
-  }
-
-  /**
-   * Set the value of attribute healthUnitInfo.
-   * @param healthUnitInfo ListView about health units.
-   *
-   */
-
-  private void setHealthUnitInfo(ListView healthUnitInfo) {
-
-    this.healthUnitInfo = healthUnitInfo;
-  }
-
-  /**
-   * Get the value of attribute receive.
-   * @return healthUnitInfo: Intent.
-   *
-   */
-
-  private Intent getReceive() {
-
-    return receive;
-  }
-
-  /**
-   * Set the value of attribute receive.
-   * @param receive Intent.
-   *
-   */
-
-  private void setReceive(Intent receive) {
-
-    this.receive = receive;
-  }
-
-  /**
-   * Get the value of attribute buttonRoute.
-   * @return buttonRoute: ButtonRoute.
-   *
-   */
-
-  private Button getButtonRoute() {
-
-    return buttonRoute;
-  }
-
-  /**
-   * Set the value of attribute buttonRoute.
-   * @param buttonRoute Button route.
-   *
-   */
-
-  private void setButtonRoute(Button buttonRoute) {
-
-    this.buttonRoute = buttonRoute;
-  }
-
-  /**
    * Get the value of attribute of image buttonGo.
    * @return buttonGo: ImageView.
    *
@@ -335,28 +159,6 @@ public class InformationSearchScreenController extends Activity {
   public void setButtonGo(ImageView buttonGo) {
 
     this.buttonGo = buttonGo;
-  }
-
-  /**
-   * Get the value of attribute numberHealthUnitSelected.
-   * @return numberHealthUnitSelected: int.
-   *
-   */
-
-  private int getNumberUsSelected() {
-
-    return numberHealthUnitSelected;
-  }
-
-  /**
-   * Set the value of attribute numberHealthUnitSelected.
-   * @param numberHealthUnitSelected int.
-   *
-   */
-
-  private void SearchHelthUnitSelected(int numberHealthUnitSelected) {
-
-    this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
 
   /**
@@ -533,5 +335,203 @@ public class InformationSearchScreenController extends Activity {
   protected void setAddressNumber(String addressNumber) {
 
     this.addressNumber = addressNumber;
+  }
+
+  /**
+   * This function takes the data on the health units saved in the database and through
+   * ArrayLists, each arrow information in place. The data that will be represented are: Name,
+   * type of care,UF,city,neighborhood and zip code.
+   *
+   */
+
+  private void setInformation(HealthUnit healthUnit) {
+
+    setPadding("\n");
+    setTitle("        Informações da Unidade de Saúde");
+    setNameHealthUnit("  Nome: " + healthUnit.getNameHospital());
+    setUnitType("  Tipo de atendimento: " + healthUnit.getUnitType());
+    setState("  UF: " + healthUnit.getState());
+    setCity("  Cidade: " + healthUnit.getCity());
+    setDistrict("  Bairro: " + healthUnit.getDistrict());
+    setAddressNumber("  Cep: " + healthUnit.getAddressNumber());
+  }
+
+  /**
+   * Takes the data from the database, saved in a arraylist and calls another function, where the
+   * saved data in ArrayLists will be shown in a ArrayAdapter.
+   *
+   */
+
+  private void addInformationToList() {
+
+    listOfInformations.add(padding);
+    listOfInformations.add(titleHealthUnit);
+    listOfInformations.add(nameHealthUnit);
+    listOfInformations.add(healthUnitType);
+    listOfInformations.add(state);
+    listOfInformations.add(city);
+    listOfInformations.add(district);
+    listOfInformations.add(addressNumber);
+
+    showInformationOnScreen();
+  }
+
+  /**
+   * Shows the information saved in the arraylist and put in a ArrayAdapter.
+   *
+   */
+
+  private void showInformationOnScreen() {
+
+    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+            android.R.layout.simple_list_item_1, listOfInformations);
+
+    healthUnitInfo.setAdapter(adapter);
+  }
+
+  /**
+   * When the "buttonRoute" is pressed, it will exit the current class and opened the activity and
+   * "RouteActivity" class. When RouteActivity is finished, come in method "finish ()" which will
+   * close the activity "RouteActivity".
+   *
+   */
+
+  private void buttonRoute() {
+
+    Intent route = new Intent();
+
+    route.setClass(this, RouteActivity.class);
+    route.putExtra(NUMBER_HEALTH_UNIT, receive.getIntExtra(POSITION, RETURN_NOT_FOUND));
+    startActivity(route);
+    finish();
+  }
+
+  /**
+   * When the "buttonGo" is pressed, it will exit the current class, opened the activity
+   * "RouteActivity," only different from the method of "buttonRoute", will now be chosen the
+   * route nearest the user.When the RouteActivity is finished, come in method "finish ()"
+   * which will close the activity "RouteActivity".
+   *
+   */
+
+  private void buttonClickGo() {
+
+    String routeTraced = "Rota mais próxima traçada";
+
+    Toast.makeText(this, routeTraced, Toast.LENGTH_SHORT).show();
+    Intent routeActivity = new Intent();
+    routeActivity.setClass(this, RouteActivity.class);
+    routeActivity.putExtra(NUMBER_HEALTH_UNIT, VALUE_LOWER_CLOSE);
+    startActivity(routeActivity);
+    finish();
+  }
+
+  /**
+   * Get the value of attribute listOfInformations.
+   * @return listofInformations: String
+   */
+
+  private List<String> getListOfInformations() {
+
+    return listOfInformations;
+  }
+
+  /**
+   * Set the value of attribute listOfInformations.
+   * @param listOfInformations List of Informations about health units.
+   *
+   */
+
+  private void setListOfInformations(List<String> listOfInformations) {
+
+    this.listOfInformations = listOfInformations;
+  }
+
+  /**
+   * Get the value of attribute healthUnitInfo.
+   * @return healthUnitInfo: ListView
+   *
+   */
+
+  private ListView getHealthUnitInfo() {
+
+    return healthUnitInfo;
+  }
+
+  /**
+   * Set the value of attribute healthUnitInfo.
+   * @param healthUnitInfo ListView about health units.
+   *
+   */
+
+  private void setHealthUnitInfo(ListView healthUnitInfo) {
+
+    this.healthUnitInfo = healthUnitInfo;
+  }
+
+  /**
+   * Get the value of attribute receive.
+   * @return healthUnitInfo: Intent.
+   *
+   */
+
+  private Intent getReceive() {
+
+    return receive;
+  }
+
+  /**
+   * Set the value of attribute receive.
+   * @param receive Intent.
+   *
+   */
+
+  private void setReceive(Intent receive) {
+
+    this.receive = receive;
+  }
+
+  /**
+   * Get the value of attribute buttonRoute.
+   * @return buttonRoute: ButtonRoute.
+   *
+   */
+
+  private Button getButtonRoute() {
+
+    return buttonRoute;
+  }
+
+  /**
+   * Set the value of attribute buttonRoute.
+   * @param buttonRoute Button route.
+   *
+   */
+
+  private void setButtonRoute(Button buttonRoute) {
+
+    this.buttonRoute = buttonRoute;
+  }
+
+  /**
+   * Get the value of attribute numberHealthUnitSelected.
+   * @return numberHealthUnitSelected: int.
+   *
+   */
+
+  private int getNumberUsSelected() {
+
+    return numberHealthUnitSelected;
+  }
+
+  /**
+   * Set the value of attribute numberHealthUnitSelected.
+   * @param numberHealthUnitSelected int.
+   *
+   */
+
+  private void SearchHelthUnitSelected(int numberHealthUnitSelected) {
+
+    this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
 }
