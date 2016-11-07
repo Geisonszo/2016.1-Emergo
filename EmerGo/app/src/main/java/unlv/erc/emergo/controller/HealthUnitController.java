@@ -91,6 +91,7 @@ public class HealthUnitController {
 
         try {
 
+            //Control structure responsible for finding the closest health unit
             for (int aux = 0; aux < closestHealthUnit.size(); aux++) {
 
                 if (closestHealthUnit.get(aux).getDistance() < smaller) {
