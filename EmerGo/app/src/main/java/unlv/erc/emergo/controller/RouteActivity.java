@@ -585,7 +585,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    if (!permissions.isEmpty()) {
+    if (permissions.isEmpty() == false) {
       Toast.makeText(this, message, Toast.LENGTH_LONG).show();
       String[] params = permissions.toArray(new String[permissions.size()]);
 
