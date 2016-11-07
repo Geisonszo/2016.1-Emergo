@@ -61,6 +61,7 @@ public class HealthUnitController {
 
             for (int aux = 0; aux < closestHealthUnit.size(); aux++) {
 
+                //Set health unit Latitude, longitude and distance in Kilometers
                 healthUnitLocation.setLatitude(closestHealthUnit.get(aux).getLatitude());
                 healthUnitLocation.setLongitude(closestHealthUnit.get(aux).getLongitude());
                 closestHealthUnit.get(aux).setDistance(userLocation.distanceTo(healthUnitLocation) / 1000);
