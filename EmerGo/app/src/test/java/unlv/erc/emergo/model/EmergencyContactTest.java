@@ -13,47 +13,46 @@ public class EmergencyContactTest extends TestCase {
   public void testSetNameEmergencyContact() {
 
     emergencyContact = new EmergencyContact();
-    emergencyContact.setName("Joaquina Josefina");
-    assertEquals("Joaquina Josefina", emergencyContact.getName());
+    emergencyContact.setnameContact("Joaquina Josefina");
+    assertEquals("Joaquina Josefina", emergencyContact.getnameContact());
   }
 
   public void testGetNameEmergencyContact() {
 
     emergencyContact = new EmergencyContact();
     String name = "Pedro Henrique";
-    emergencyContact.setName("Pedro Henrique");
-    assertEquals(name, emergencyContact.getName());
+    emergencyContact.setnameContact("Pedro Henrique");
+    assertEquals(name, emergencyContact.getnameContact());
   }
 
   public void testSetNameEmergencyContactEmpty() {
 
     emergencyContact = new EmergencyContact();
-    emergencyContact.setName("");
-    assertEquals("", emergencyContact.getName());
+    emergencyContact.setnameContact("");
+    assertEquals("", emergencyContact.getnameContact());
   }
 
-  public void testSetNameEmergencyContactLowerThree() {
+    public void testSetNameEmergencyContactLowerThree() {
 
     emergencyContact = new EmergencyContact();
-    emergencyContact.setName("Ana");
+    emergencyContact.setnameContact("Ana");
     boolean result = true;
 
-    if(emergencyContact.getName().trim().length()<MINIMUM_LENGTH_NAME) {
+    if(emergencyContact.getnameContact().trim().length()<MINIMUM_LENGTH_NAME) {
 
       assertFalse(result);
-    } else {
+    } else 
 
       assertTrue(result);
     }
-  }
 
   public void testSetNameMaximumSize() {
 
     emergencyContact = new EmergencyContact();
-    emergencyContact.setName("Maraia Maraisa Mendonça");
+    emergencyContact.setnameContact("Maraia Maraisa Mendonça");
     boolean result = true;
 
-    if(emergencyContact.getName().trim().length()>MAXIMUM_LENGHT_NAME) {
+    if(emergencyContact.getnameContact().trim().length()>MAXIMUM_LENGHT_NAME) {
 
       assertFalse(result);
     } else {
@@ -103,43 +102,43 @@ public class EmergencyContactTest extends TestCase {
   public void testGetNameAndPhoneEmergencyContact() {
 
     emergencyContact = new EmergencyContact( "Justin Timberlake", "61985980034");
-    assertEquals("Justin Timberlake", emergencyContact.getName());
+    assertEquals("Justin Timberlake", emergencyContact.getnameContact());
     assertEquals("61985980034", emergencyContact.getPhone());
   }
 
   public void testSetNameAndPhoneEmergencyContact() {
 
     emergencyContact = new EmergencyContact("","");
-    emergencyContact.setName("Joana");
+    emergencyContact.setnameContact("Joana");
     emergencyContact.setPhone("6185993870");
-    assertEquals("Joana", emergencyContact.getName());
+    assertEquals("Joana", emergencyContact.getnameContact());
     assertEquals("6185993870", emergencyContact.getPhone());
   }
 
   public void testSetJustNameEmergencyContact() {
 
     emergencyContact = new EmergencyContact("","");
-    emergencyContact.setName("Mariana");
+    emergencyContact.setnameContact("Mariana");
     emergencyContact.setPhone("");
-    assertEquals("Mariana", emergencyContact.getName());
+    assertEquals("Mariana", emergencyContact.getnameContact());
     assertEquals("", emergencyContact.getPhone());
   }
 
   public void testGetJustNameEmergencyContact(){
 
     emergencyContact = new EmergencyContact( "Justin Timberlake", "");
-    assertEquals("Justin Timberlake", emergencyContact.getName());
+    assertEquals("Justin Timberlake", emergencyContact.getnameContact());
     assertEquals("", emergencyContact.getPhone());
   }
 
   public void testSetNameEmergencyContactLessThan42() {
 
     emergencyContact = new EmergencyContact("","");
-    emergencyContact.setName("Mariana Andrade Queiroz");
+    emergencyContact.setnameContact("Mariana Andrade Queiroz");
     emergencyContact.setPhone("");
     boolean result = true;
 
-      if(emergencyContact.getName().trim().length()>MAXIMUM_LENGHT_NAME) {
+      if(emergencyContact.getnameContact().trim().length()>MAXIMUM_LENGHT_NAME) {
 
         result = false;
         assertTrue(result);
@@ -152,11 +151,11 @@ public class EmergencyContactTest extends TestCase {
   public void testSetNameEmergencyContactMoreThan3() {
 
     emergencyContact = new EmergencyContact("","");
-    emergencyContact.setName("Ana");
+    emergencyContact.setnameContact("Ana");
     emergencyContact.setPhone("");
     boolean result = true;
 
-    if(emergencyContact.getName().trim().length()<MINIMUM_LENGTH_NAME) {
+    if(emergencyContact.getnameContact().trim().length()<MINIMUM_LENGTH_NAME) {
 
       result = false;
       assertTrue(result);

@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/cancelar_ligacao"
-        android:id="@+id/cancelarLigacao"
+        android:id="@+id/cancelCall"
         android:visibility="invisible"
         android:layout_alignBottom="@+id/selfLocation"
         android:layout_centerHorizontal="true" />
@@ -78,7 +78,7 @@
         android:id="@+id/phone"
         android:visibility="invisible"
         android:layout_alignBottom="@+id/imageView"
-        android:layout_alignEnd="@+id/cancelarLigacao" />
+        android:layout_alignEnd="@+id/cancelCall" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
         android:text="3"
         android:textSize="50dp"
         android:id="@+id/timer"
-        android:layout_below="@+id/cancelarLigacao"
+        android:layout_below="@+id/cancelCall"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

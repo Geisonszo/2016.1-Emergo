@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class HealthUnitController {
 
-    static ArrayList<HealthUnit> closestHealthUnit = new ArrayList<HealthUnit>();
+    private static ArrayList<HealthUnit> closestHealthUnit = new ArrayList<HealthUnit>();
 
     public HealthUnitController() {
 
@@ -30,9 +30,14 @@ public class HealthUnitController {
     }
 
     public static void setClosestHealthUnit(HealthUnit healthUnit) {
+
+        assert healthUnit != null : "healthUnit can't be null";
+
         try {
+
             closestHealthUnit.add(healthUnit);
         } catch (NullPointerException exception) {
+
             exception.printStackTrace();
         }
     }
@@ -44,8 +49,10 @@ public class HealthUnitController {
      * @param userLocation      The location of the user
      */
 
-    protected static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestHealthUnit,
-                                                      Location userLocation) {
+    static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestHealthUnit,
+                                            Location userLocation) {
+        assert closestHealthUnit != null : "closestHealthUnit can't be null";
+        assert userLocation != null : "userLocation can't be null";
 
         Location healthUnitLocation = new Location("");
 
@@ -59,6 +66,7 @@ public class HealthUnitController {
 
             }
         } catch (NullPointerException exception) {
+
             exception.printStackTrace();
         }
     }
@@ -71,12 +79,16 @@ public class HealthUnitController {
      * @return position Return the position of the closest health unit
      */
 
-    protected static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit, Location location) {
+    static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit, Location location) {
+
+        assert closestHealthUnit != null : "closestHealthUnit can't be null";
+        assert location!= null : "location can't be null";
 
         double smaller = 99999;
         int position = 0;
 
         try {
+
             for (int aux = 0; aux < closestHealthUnit.size(); aux++) {
 
                 if (closestHealthUnit.get(aux).getDistance() < smaller) {
@@ -89,7 +101,9 @@ public class HealthUnitController {
                 }
             }
             return position;
+
         } catch (NullPointerException exception) {
+
             exception.printStackTrace();
         }
         return 0;

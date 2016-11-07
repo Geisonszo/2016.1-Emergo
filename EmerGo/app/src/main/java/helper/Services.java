@@ -28,6 +28,9 @@ public class Services extends Activity {
 
   public void setMarkersOnMap(GoogleMap map, ArrayList<HealthUnit> healthUnits) {
 
+    assert map != null : "map can't be null";
+    assert healthUnits != null : "healthUnits can't be null";
+
     for (int markersQuantity = 0; markersQuantity < healthUnits.size(); markersQuantity++) {
 
       map.addMarker(new MarkerOptions()

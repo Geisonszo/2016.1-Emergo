@@ -64,20 +64,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static unlv.erc.emergo.R.id.map;
-
 public class RouteActivity  extends FragmentActivity implements View.OnClickListener,
     OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
 
-  GoogleMap map;
+  //GoogleMap map;
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
   public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
   public static final String samuNumber = "tel:192"; // Actual number of public service SAMU
+  private GoogleMap map;
   private Cursor result;
-  private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
   private static final int SPLASH_TIME_OUT = 3400;
   ArrayList<LatLng> pointsOfRoute = new ArrayList<>();
@@ -98,7 +96,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   protected void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.route_activity);
+      setContentView(R.layout.route_activity);
 
     if (mapGoogleApiClient == null) {
 
@@ -136,7 +134,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    this.mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
+    Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
 
     myDatabase = new UserDao(this);
     result = myDatabase.getUser();
@@ -250,7 +248,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     selfLocation.setOnClickListener(this);
     phone = (ImageView) findViewById(R.id.phone);
     phone.setOnClickListener(this);
-    cancelCall = (ImageView) findViewById(R.id.cancelarLigacao);
+    cancelCall = (ImageView) findViewById(R.id.cancelCall);
     cancelCall.setOnClickListener(this);
     timer = (TextView) findViewById(R.id.timer);
     user = (ImageView) findViewById(R.id.userInformation);
@@ -340,7 +338,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     if (routeActivity.getId() == R.id.userInformation) {
 
       Intent config = new Intent();
-      config.setClass(RouteActivity.this , ConfigController.class);
+      config.setClass(RouteActivity.this , SettingsController.class);
       startActivity(config);
     } else {
 
