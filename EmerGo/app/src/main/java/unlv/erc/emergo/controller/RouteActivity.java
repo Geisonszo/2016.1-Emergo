@@ -608,6 +608,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
       try {
 
+        //Control structure responsible to send messages to the emergency contacts
         while (result.moveToNext()) {
 
           SmsManager.getDefault().sendTextMessage(result.getString(2),null,
@@ -630,7 +631,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
                                          int[] grantResults) {
 
     switch (requestCode) {
-      case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
+      case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
         Map<String, Integer> perms = new HashMap<>();
         perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
         for (int i = 0; i < permissions.length; i++) {
@@ -644,8 +645,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
             .PERMISSION_GRANTED;
         storage = getPermission(perms, storage);
         messageAboutPermission(location, storage);
-      }
-      break;
+        break;
       default:
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
