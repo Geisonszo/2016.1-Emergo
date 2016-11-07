@@ -217,6 +217,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   private void getMapData() {
 
+    //Block responsible for instaciante an Url and Download map previous info.
       
     String urlInitial =  getDirectionsUrl(userLocation, new LatLng(HealthUnitController
         .getClosestHealthUnit()
