@@ -137,6 +137,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
+    //Line responsible for getting user last location
     Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
 
     myDatabase = new UserDao(this);
@@ -216,6 +217,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   private void getMapData() {
 
+      
     String urlInitial =  getDirectionsUrl(userLocation, new LatLng(HealthUnitController
         .getClosestHealthUnit()
         .get(indexOfClosestHealthUnit).getLatitude(), HealthUnitController.getClosestHealthUnit()
