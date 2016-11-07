@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class HealthUnitController {
 
-    private static ArrayList<HealthUnit> closestHealthUnit = new ArrayList<HealthUnit>();
+    private static ArrayList<HealthUnit> closestHealthUnit = new ArrayList<HealthUnit>(); //closest health units based on user current position.
 
     public HealthUnitController() {
 
@@ -51,6 +51,7 @@ public class HealthUnitController {
 
     static void setDistanceBetweenUserAndUs(ArrayList<HealthUnit> closestHealthUnit,
                                             Location userLocation) {
+
         assert closestHealthUnit != null : "closestHealthUnit can't be null";
         assert userLocation != null : "userLocation can't be null";
 
