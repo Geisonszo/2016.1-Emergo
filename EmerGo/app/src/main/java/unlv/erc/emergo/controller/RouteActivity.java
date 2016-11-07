@@ -75,7 +75,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
   public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
-  public String samuNumber = "tel:192"; // Actual number of public service SAMU
+  public static final String samuNumber = "tel:192"; // Actual number of public service SAMU
   private Cursor result;
   private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
