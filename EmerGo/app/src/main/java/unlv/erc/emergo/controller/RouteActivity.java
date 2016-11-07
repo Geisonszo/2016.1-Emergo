@@ -75,10 +75,12 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
   public static final String SAMU_NUMBER = "tel:192"; // Actual number of public service SAMU
   public static final float MAP_ZOOM_LEVEL = 13.0f;
+  private static final long MILLIS_IN_FUTURE = 3000;
+  private static final long COUNTDOWN = 1000;
+  private static final int SPLASH_TIME_OUT = 3400;
   private GoogleMap map;
   private Cursor result;
   private GoogleApiClient mapGoogleApiClient = null;
-  private static final int SPLASH_TIME_OUT = 3400;
   ArrayList<LatLng> pointsOfRoute = new ArrayList<>();
   EmergencyContactDao emergencyContactDao = new EmergencyContactDao(this);
   LatLng userLocation ;
@@ -275,7 +277,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   private void openCountDown() {
 
-    new CountDownTimer(3000 , 1000) {
+    new CountDownTimer(MILLIS_IN_FUTURE, COUNTDOWN) {
 
       public void onTick(long millisUntilFinished) {
 
