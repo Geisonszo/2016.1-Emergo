@@ -73,7 +73,8 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
   public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
-  public static final String samuNumber = "tel:192"; // Actual number of public service SAMU
+  public static final String SAMU_NUMBER = "tel:192"; // Actual number of public service SAMU
+  public static final float MAP_ZOOM_LEVEL = 13.0f;
   private GoogleMap map;
   private Cursor result;
   private GoogleApiClient mapGoogleApiClient = null;
@@ -310,7 +311,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   private void callSamu() {
 
     Intent callIntent = new Intent(Intent.ACTION_CALL);
-    callIntent.setData(Uri.parse(samuNumber));
+    callIntent.setData(Uri.parse(SAMU_NUMBER));
     startActivity(callIntent);
   }
 
@@ -392,7 +393,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   private void focusOnYourPosition() {
     map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
-        userLocation.longitude), 13.0f));
+        userLocation.longitude), MAP_ZOOM_LEVEL));
   }
 
   private void setYourPositionOnMap() {
