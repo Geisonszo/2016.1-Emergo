@@ -218,7 +218,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   private void getMapData() {
 
     //Block responsible for instaciante an Url and Download map previous info.
-      
+
     String urlInitial =  getDirectionsUrl(userLocation, new LatLng(HealthUnitController
         .getClosestHealthUnit()
         .get(indexOfClosestHealthUnit).getLatitude(), HealthUnitController.getClosestHealthUnit()
@@ -664,8 +664,9 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     try {
 
-      storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager
-          .PERMISSION_GRANTED;
+      int externalPermission = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+      int grantedPermission = PackageManager.PERMISSION_GRANTED;
+      storage = externalPermission == grantedPermission;
     } catch (RuntimeException ex) {
 
       Toast.makeText(this , "É necessário ter a permissão" , Toast.LENGTH_LONG).show();
@@ -674,6 +675,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       startActivity(main);
       finish();
     }
+
     return storage;
   }
 
