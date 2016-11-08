@@ -284,7 +284,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
       public void onTick(long millisUntilFinished) {
 
-        if (!canceled) {
+        if (canceled == false) {
 
           long milis = millisUntilFinished / 1000;
           String time =  String.valueOf(milis) ;
@@ -303,7 +303,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       }
     }.start();
 
-    if (!canceled) {
+    if (canceled == false) {
 
       sendMessage();
       callSamu();
