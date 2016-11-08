@@ -135,7 +135,7 @@ public class EmergencyContactController extends Activity {
 
       // If you have something in the emergencyContact database will be shown in the field name,
       // phone to first contact.
-      if (result.moveToFirst()) {
+      if (result.moveToFirst() == true) {
 
         nameFirstContact.setText(result.getString(NAMEONDATABASE));
         phoneFirstContact.setText(result.getString(PHONEONDATABASE));
@@ -149,7 +149,7 @@ public class EmergencyContactController extends Activity {
       public void onClick(View emergencyContactView) {
 
         // Register the first emergency contact
-        if (!signInFirstContact()) {
+        if (signInFirstContact() == false) {
 
           saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
@@ -210,7 +210,7 @@ public class EmergencyContactController extends Activity {
             // For register the first emergency contact will done some validations and if on
             // validation not passed, will be given a chance to register the emergency contact
             // again
-            if (!signInFirstContact()) {
+            if (signInFirstContact() == false) {
 
               saveFirstContact.setOnClickListener(new View.OnClickListener() {
 
@@ -271,7 +271,7 @@ public class EmergencyContactController extends Activity {
 
       // Move the "cursor" to next position. If has something on first position of table
       // emergencyContact, the "cursor" will moved to next position
-      if (result.moveToNext()) {
+      if (result.moveToNext() ==  true) {
 
         nameSecondContact.setText(result.getString(NAMEONDATABASE));
         phoneSecondContact.setText(result.getString(PHONEONDATABASE));
@@ -409,7 +409,7 @@ public class EmergencyContactController extends Activity {
 
       // Move the "cursor" to next position. If has something on second position of table
       // emergencyContact, the "cursor" will moved to next position
-      if (result.moveToNext()) {
+      if (result.moveToNext() == true) {
 
         nameThirdContact.setText(result.getString(NAMEONDATABASE));
         phoneThirdContact.setText(result.getString(PHONEONDATABASE));
@@ -840,7 +840,7 @@ public class EmergencyContactController extends Activity {
 
     Log.d("Begin of Method: ","checksName");
 
-    if (nameUser.isEmpty()) {
+    if (nameUser.isEmpty() == true) {
 
       showMessage("Nome Vazio! Informe Seu Nome.");
       Log.e("This return must be true.","The return is: "+valid);
