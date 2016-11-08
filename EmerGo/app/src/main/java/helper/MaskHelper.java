@@ -20,8 +20,6 @@ public class MaskHelper {
 
   public static String unmask(String symbols) {
 
-    //String newSymbold = "";
-
     String newSymbold = symbols.replaceAll("[.]", "").replaceAll("[-]", "")
                         .replaceAll("[/]", "").replaceAll("[(]", "")
                         .replaceAll("[)]", "");
@@ -47,7 +45,7 @@ public class MaskHelper {
             String newWord = MaskHelper.unmask(word.toString());
             String mask = "";
 
-            if (isUpdating) {
+            if (isUpdating ==  true) {
 
               oldString = newWord;
               isUpdating = false;
@@ -58,26 +56,25 @@ public class MaskHelper {
             }
 
             int aux = 0;
+
             for (char message : mask.toCharArray()) {
 
-              if (message != '#' && newWord.length() > oldString.length()) {
+              if ((message != '#') && (newWord.length() > oldString.length())) {
 
-                mask += message;
+                mask = mask + message;
                 continue;
               } else {
 
-                  /**
-                   * Nothing to do.
-                   */
+                  // Nothing to do.
               }
               try {
 
-                mask += newWord.charAt(aux);
+                mask = mask + newWord.charAt(aux);
               } catch (Exception error) {
 
                 break;
               }
-              aux++;
+              aux = aux + 1;
             }
             isUpdating = true;
             fieldEditText.setText(mask);
@@ -91,6 +88,6 @@ public class MaskHelper {
         public void afterTextChanged(Editable editable) {
 
         }
-        };
+    };
   }
 }
