@@ -224,16 +224,10 @@ public class SettingsController extends Activity {
 
     Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
 
-    if (routeActivity != null) {
-      routeActivity.setClass(SettingsController.this, RouteActivity.class);
-      routeActivity.putExtra("numeroUs", -1);
-      startActivity(routeActivity);
-      finish();
-    } else {
-
-      // Nothing to do
-    }
-    Log.d("End of method: ","Method goClicked ");
+    routeActivity.setClass(SettingsController.this, RouteActivity.class);
+    routeActivity.putExtra("numeroUs", -1);
+    startActivity(routeActivity);
+    finish();
   }
 
   /**
