@@ -211,7 +211,7 @@ public class SettingsController extends Activity {
    *
    */
 
-  public void goClicked(View mapScreen) throws IOException, JSONException {
+  private void goClicked(View mapScreen) throws IOException, JSONException {
 
     Log.d("Begin of method: ","Method goClicked ");
     // String speaking that the route will be drawn to the nearest health unit
@@ -237,7 +237,7 @@ public class SettingsController extends Activity {
    *
    */
 
-  public void listMapsImageClicked(View mapScreen) {
+  private void listMapsImageClicked(View mapScreen) {
 
     Log.d("Begin of method: ","Method listMapsImageClicked ");
     Intent listOfHealth = new Intent();
@@ -264,7 +264,7 @@ public class SettingsController extends Activity {
    *
    */
 
-  public void openConfig(View openConfig) {
+  private void openConfig(View openConfig) {
 
     Log.d("Method openConfig ","Begin of method");
     // String speaking being clicked the current screen
@@ -282,7 +282,7 @@ public class SettingsController extends Activity {
    *
    */
 
-  public void openMap(View openMap) {
+  private void openMap(View openMap) {
 
     Log.d("Begin of method: ","Method openMap ");
     Intent mapActivity = new Intent();
