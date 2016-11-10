@@ -23,7 +23,7 @@ public class DirectionsJSONParser {
    * @param jObject JSON Objects
    */
 
-  public List<List<HashMap<String,String>>> parse(JSONObject jObject) {
+  private List<List<HashMap<String,String>>> parse(JSONObject jObject) {
 
     List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String,String>>>() ;
     JSONArray jRoutes = null;
