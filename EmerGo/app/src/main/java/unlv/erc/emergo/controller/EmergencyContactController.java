@@ -999,7 +999,7 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  public void goClicked(View goClicked) throws IOException, JSONException {
+  private void goClicked(View goClicked) throws IOException, JSONException {
 
     // Constant string about route
     final String ROUTETRACED = "Rota mais próxima traçada";
@@ -1021,7 +1021,7 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  public void listMapsImageClicked(View listMaps) {
+  private void listMapsImageClicked(View listMaps) {
 
     Intent listOfHealth = new Intent();
 
@@ -1039,7 +1039,7 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  public void openConfig(View config) {
+  private void openConfig(View config) {
 
     Intent openConfig = new Intent();
 
@@ -1055,7 +1055,7 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  public void openMap(View openMap) {
+  private void openMap(View openMap) {
 
     Intent mapActivity = new Intent();
 
