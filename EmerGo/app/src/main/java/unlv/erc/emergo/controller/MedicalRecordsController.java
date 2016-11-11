@@ -344,21 +344,31 @@ public class MedicalRecordsController extends Activity {
 
   private boolean checksName(String nameUser) {
 
+    boolean valid = false;
     final int minimumSizeName = 3;
 
     // Verifies that the name is empty.
     if (nameUser.isEmpty()) {
 
       showMessage(EMPTY_NAME_MESSAGE);
-      return true;
+      valid = true;
+      return valid;
+    } else {
+
+      // Nothing to do.
     }
+
     if (nameUser.trim().length() < minimumSizeName) {
 
       showMessage(LITTLE_NAME_MESSAGE);
       fullName.requestFocus();
-      return true;
+      valid = true;
+      return valid;
+    } else {
+
+      // Nothing to do.
     }
-    return false;
+    return valid;
   }
 
   /*
