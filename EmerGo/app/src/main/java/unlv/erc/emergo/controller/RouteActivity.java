@@ -246,6 +246,8 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   private void linkButtonsAndXml() {
 
+    //Block responsible for linking xml components to class attributes
+
     buttonGo = (Button) findViewById(R.id.buttonGo);
     buttonGo.setOnClickListener(this);
     userInformation = (ImageView) findViewById(R.id.userInformation);
@@ -258,6 +260,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     cancelCall.setOnClickListener(this);
     timer = (TextView) findViewById(R.id.timer);
     user = (ImageView) findViewById(R.id.userInformation);
+
     user.setOnClickListener(new View.OnClickListener() {
       public void onClick(View view) {
         showInformationUser();
