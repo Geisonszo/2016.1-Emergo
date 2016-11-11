@@ -390,6 +390,8 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   private void setMarkerOfClosestUsOnMap() {
 
+    //Block responsible for adding a marker on map, in the ṕosition of the closest US
+
     map.addMarker(new MarkerOptions().position(new LatLng(HealthUnitController
         .getClosestHealthUnit().get(indexOfClosestHealthUnit).getLatitude(),
         HealthUnitController.getClosestHealthUnit()
