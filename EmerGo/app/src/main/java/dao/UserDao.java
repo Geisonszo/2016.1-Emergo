@@ -60,12 +60,12 @@ public class UserDao extends SQLiteOpenHelper {
 
   public static UserDao getInstance(Context context) {
 
-    if (UserDao.instance != null) {
-
-            //Nothing to do.
-    } else {
+    if (UserDao.instance == null) {
 
       UserDao.instance = new UserDao(context);
+    } else {
+
+      // Nothing to do.
     }
     return UserDao.instance;
   }
