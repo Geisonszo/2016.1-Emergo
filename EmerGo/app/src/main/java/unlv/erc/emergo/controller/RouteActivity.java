@@ -69,7 +69,6 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
 
-  //GoogleMap map;
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
   public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
@@ -103,6 +102,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     if (mapGoogleApiClient == null) {
 
+      //Line responsible for creating an connection with API clientu
       mapGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
     } else {
