@@ -337,6 +337,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     //Open map on user location
     if (routeActivity.getId() == R.id.selfLocation) {
 
+      //This line animate the camera on determined LatLng, with vertical distance of 13
       map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
           userLocation.longitude), 13.0f));
     } else {
