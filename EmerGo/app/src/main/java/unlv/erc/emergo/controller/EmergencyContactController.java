@@ -89,6 +89,8 @@ public class EmergencyContactController extends Activity {
     emergencyContactDao = new EmergencyContactDao(this);
     result = emergencyContactDao.getEmergencyContact();
 
+    assert result != null : "result can't be null";
+
     setBTFirstContact();
     logicFirstContact();
     setBTSecondContact();
@@ -133,7 +135,7 @@ public class EmergencyContactController extends Activity {
 
       // If you have something in the emergencyContact database will be shown in the field name,
       // phone to first contact.
-      if (result.moveToFirst()) {
+      if (result.moveToFirst() == true) {
 
         nameFirstContact.setText(result.getString(NAMEONDATABASE));
         phoneFirstContact.setText(result.getString(PHONEONDATABASE));
@@ -269,7 +271,7 @@ public class EmergencyContactController extends Activity {
 
       // Move the "cursor" to next position. If has something on first position of table
       // emergencyContact, the "cursor" will moved to next position
-      if (result.moveToNext()) {
+      if (result.moveToNext() ==  true) {
 
         nameSecondContact.setText(result.getString(NAMEONDATABASE));
         phoneSecondContact.setText(result.getString(PHONEONDATABASE));
@@ -407,7 +409,7 @@ public class EmergencyContactController extends Activity {
 
       // Move the "cursor" to next position. If has something on second position of table
       // emergencyContact, the "cursor" will moved to next position
-      if (result.moveToNext()) {
+      if (result.moveToNext() == true) {
 
         nameThirdContact.setText(result.getString(NAMEONDATABASE));
         phoneThirdContact.setText(result.getString(PHONEONDATABASE));
@@ -838,7 +840,7 @@ public class EmergencyContactController extends Activity {
 
     Log.d("Begin of Method: ","checksName");
 
-    if (nameUser.isEmpty()) {
+    if (nameUser.isEmpty() == true) {
 
       showMessage("Nome Vazio! Informe Seu Nome.");
       Log.e("This return must be true.","The return is: "+valid);
@@ -997,7 +999,7 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  public void goClicked(View goClicked) throws IOException, JSONException {
+  private void goClicked(View goClicked) throws IOException, JSONException {
 
     // Constant string about route
     final String ROUTETRACED = "Rota mais próxima traçada";
@@ -1019,7 +1021,7 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  public void listMapsImageClicked(View listMaps) {
+  private void listMapsImageClicked(View listMaps) {
 
     Intent listOfHealth = new Intent();
 
@@ -1037,13 +1039,13 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  public void openConfig(View config) {
+  private void openConfig(View config) {
 
     Intent openConfig = new Intent();
 
     assert config != null : "config can't be null";
 
-    openConfig.setClass(this, ConfigController.class);
+    openConfig.setClass(this, SettingsController.class);
     startActivity(openConfig);
   }
 
@@ -1053,7 +1055,7 @@ public class EmergencyContactController extends Activity {
    *
    */
 
-  public void openMap(View openMap) {
+  private void openMap(View openMap) {
 
     Intent mapActivity = new Intent();
 

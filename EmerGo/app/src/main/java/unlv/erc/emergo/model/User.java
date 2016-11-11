@@ -62,7 +62,7 @@ public class User {
   *
   */
 
-  public String getObservationsUser() {
+  protected String getObservationsUser() {
 
     return observationsUser;
   }
@@ -74,7 +74,7 @@ public class User {
    *
    */
 
-  public void setObservationsUser(String observationsUser) {
+  protected void setObservationsUser(String observationsUser) {
 
     this.observationsUser = observationsUser;
   }
@@ -86,7 +86,7 @@ public class User {
    *
    */
 
-  public Integer getIdUser() {
+  protected Integer getIdUser() {
 
     return idUser;
   }
@@ -98,7 +98,7 @@ public class User {
    *
    */
 
-  public void setIdUser(Integer idUser) {
+  protected void setIdUser(Integer idUser) {
 
     this.idUser = idUser;
   }
@@ -110,7 +110,7 @@ public class User {
    *
    */
 
-  public String getNameUser() {
+  protected String getNameUser() {
 
     return nameUser;
   }
@@ -122,7 +122,7 @@ public class User {
    *
    */
 
-  public void setNameUser(String nameUser) {
+  protected void setNameUser(String nameUser) {
 
     this.nameUser = nameUser;
   }
@@ -134,7 +134,7 @@ public class User {
    *
    */
 
-  public String getBirthdayUser() {
+  protected String getBirthdayUser() {
 
     return birthdayUser;
   }
@@ -146,7 +146,7 @@ public class User {
    *
    */
 
-  public void setBirthdayUser(String birthdayUser) {
+  protected void setBirthdayUser(String birthdayUser) {
 
     this.birthdayUser = birthdayUser;
   }
@@ -158,7 +158,7 @@ public class User {
    *
    */
 
-  public String getTypeBloodUser() {
+  protected String getTypeBloodUser() {
 
     return typeBloodUser;
   }
@@ -170,7 +170,7 @@ public class User {
    *
    */
 
-  public void setTypeBloodUser(String typeBloodUser) {
+  protected void setTypeBloodUser(String typeBloodUser) {
 
     this.typeBloodUser = typeBloodUser;
   }
@@ -182,7 +182,7 @@ public class User {
     *
    */
 
-  public String getCardiacUser() {
+  protected String getCardiacUser() {
 
     return cardiacUser;
   }
@@ -194,7 +194,7 @@ public class User {
     *
    */
 
-  public void setCardiacUser(String cardiacUser) {
+  protected void setCardiacUser(String cardiacUser) {
 
     this.cardiacUser = cardiacUser;
   }
@@ -206,7 +206,7 @@ public class User {
     *
    */
 
-  public String getDiabeticUser() {
+  protected String getDiabeticUser() {
 
     return diabeticUser;
   }
@@ -218,7 +218,7 @@ public class User {
     *
    */
 
-  public void setDiabeticUser(String diabeticUser) {
+  protected void setDiabeticUser(String diabeticUser) {
 
     this.diabeticUser = diabeticUser;
   }
@@ -230,7 +230,7 @@ public class User {
    *
    */
 
-  public String getHypertensionUser() {
+  protected String getHypertensionUser() {
 
     return hypertensionUser;
   }
@@ -242,7 +242,7 @@ public class User {
    *
    */
 
-  public void setHypertensionUser(String hypertensionUser) {
+  protected void setHypertensionUser(String hypertensionUser) {
 
     this.hypertensionUser = hypertensionUser;
   }
@@ -254,7 +254,7 @@ public class User {
    *
    */
 
-  public String getSeropositiveUser() {
+  protected String getSeropositiveUser() {
 
     return seropositiveUser;
   }
@@ -266,7 +266,7 @@ public class User {
    *
    */
 
-  public void setSeropositiveUser(String seropositiveUser) {
+  protected void setSeropositiveUser(String seropositiveUser) {
 
     this.seropositiveUser = seropositiveUser;
   }

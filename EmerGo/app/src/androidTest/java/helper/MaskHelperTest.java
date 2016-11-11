@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 public class MaskHelperTest  extends TestCase {
 
 
-  MaskHelper maskHelper = new MaskHelper();
+  private MaskHelper maskHelper = new MaskHelper();
 
   public void testThatStringChanges() {
 

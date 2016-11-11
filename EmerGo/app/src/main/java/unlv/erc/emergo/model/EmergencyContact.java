@@ -6,14 +6,14 @@
 
 package unlv.erc.emergo.model;
 
-public class EmergencyContact { 
+public class EmergencyContact {
 
   /**
    * Empty constructor.
    *
    */
 
-  public EmergencyContact() { 
+  EmergencyContact() {
 
     // Nothing to do
   } 
@@ -30,20 +30,14 @@ public class EmergencyContact {
    *
    */
 
-  public EmergencyContact(String nameContact, String phone) {
+  private EmergencyContact(String nameContact, String phone) {
     
     assert nameContact != null : "nameContact can't be null";
     assert phone != null : "phone can't be null";
 
-    if (nameContact != null && phone != null) {
-
-      setnameContact(nameContact);
-      setPhone(phone);
-    } else {
-
-      // Nothing to do
-    }
-  } 
+    setnameContact(nameContact);
+    setPhone(phone);
+  }
 
   /**
    * Get the nameContact of this emergency contact instance.
@@ -51,7 +45,7 @@ public class EmergencyContact {
    *
    */
 
-  public String getnameContact() { 
+  private String getnameContact() {
 
     return nameContact;
   } 
@@ -62,18 +56,12 @@ public class EmergencyContact {
    *
    */
 
-  public void setnameContact(String nameContact) { 
+  private void setnameContact(String nameContact) {
 
     assert nameContact != null : "nameContact can't be null";
 
-    if (nameContact != null) {
-
-      this.nameContact = nameContact;
-    } else {
-
-      // Nothing to do
-    }
-  } 
+    this.nameContact = nameContact;
+  }
 
   /**
    * Get the phone of this emergency contact instance.
@@ -81,7 +69,7 @@ public class EmergencyContact {
    *
    */
 
-  public String getPhone() { 
+  private String getPhone() {
 
     return phone;
   } 
@@ -92,16 +80,10 @@ public class EmergencyContact {
    *
    */
 
-  public void setPhone(String phone) { 
+  private void setPhone(String phone) {
 
     assert phone != null : "phone can't be null";
 
-    if (phone != null) {
-
-      this.phone = phone;
-    } else {
-
-      // Nothing to do
+    this.phone = phone;
     }
-  } 
 } 

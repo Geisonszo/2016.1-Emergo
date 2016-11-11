@@ -1,15 +1,15 @@
 package unlv.erc.emergo.controller;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-
 import android.support.test.uiautomator.UiDevice;
 import android.test.ActivityInstrumentationTestCase2;
 
 import org.junit.Before;
 
 import unlv.erc.emergo.R;
+
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 public class RouteActivityTest extends ActivityInstrumentationTestCase2<RouteActivity> {
 
@@ -37,7 +37,7 @@ public class RouteActivityTest extends ActivityInstrumentationTestCase2<RouteAct
 
     onView(withId(R.id.buttonGo)).perform(click());
     onView(withId(R.id.buttonGo)).perform(click());
-    onView(withId(R.id.cancelarLigacao)).perform(click());
+    onView(withId(R.id.cancelCall)).perform(click());
     onView(withId(R.id.selfLocation)).perform(click());
   }
 
@@ -45,10 +45,10 @@ public class RouteActivityTest extends ActivityInstrumentationTestCase2<RouteAct
 
     onView(withId(R.id.buttonGo)).perform(click());
     onView(withId(R.id.buttonGo)).perform(click());
-    onView(withId(R.id.cancelarLigacao)).perform(click());
+    onView(withId(R.id.cancelCall)).perform(click());
     onView(withId(R.id.buttonGo)).perform(click());
     onView(withId(R.id.iconList)).perform(click());
     onView(withId(R.id.buttonGo)).perform(click());
-    onView(withId(R.id.cancelarLigacao)).perform(click());
+    onView(withId(R.id.cancelCall)).perform(click());
   }
 }

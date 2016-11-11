@@ -1,17 +1,8 @@
 package unlv.erc.emergo.helper;
 
-import android.app.Application;
-import android.content.Context;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.util.StringBuilderPrinter;
-import android.widget.EditText;
-
 import junit.framework.TestCase;
 
 import helper.MaskHelper;
-import unlv.erc.emergo.controller.ConfigController;
-import unlv.erc.emergo.controller.EmergencyContactController;
 
 public class MaskHelperTest  extends TestCase {
 

@@ -23,7 +23,7 @@ public class DirectionsJSONParser {
    * @param jObject JSON Objects
    */
 
-  public List<List<HashMap<String,String>>> parse(JSONObject jObject) {
+  private List<List<HashMap<String,String>>> parse(JSONObject jObject) {
 
     List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String,String>>>() ;
     JSONArray jRoutes = null;
@@ -35,6 +35,7 @@ public class DirectionsJSONParser {
       jRoutes = jObject.getJSONArray("routes");
 
       for (int i = 0; i < jRoutes.length(); i++) {
+
         jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
         List path = new ArrayList<HashMap<String, String>>();
 
@@ -42,15 +43,17 @@ public class DirectionsJSONParser {
           jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
 
           for (int k = 0 ; k < jSteps.length(); k++) {
+
             String polyline = "";
             polyline = (String)((JSONObject)((JSONObject)jSteps.get(k))
                         .get("polyline")).get("points");
             List<LatLng> list = decodePoly(polyline);
 
             for (int l = 0; l < list.size(); l++) {
+
               HashMap<String, String> hm = new HashMap<String, String>();
-              hm.put("lat", Double.toString(((LatLng)list.get(l)).latitude) );
-              hm.put("lng", Double.toString(((LatLng)list.get(l)).longitude) );
+              hm.put("lat", Double.toString(list.get(l).latitude) );
+              hm.put("lng", Double.toString(list.get(l).longitude) );
               path.add(hm);
             }
           }
@@ -59,6 +62,7 @@ public class DirectionsJSONParser {
       }
 
     } catch (JSONException jsonException) {
+
       jsonException.printStackTrace();
     }
 
@@ -72,37 +76,58 @@ public class DirectionsJSONParser {
     int len = encoded.length();
     int lat = 0;
     int lng = 0;
+    int dlat = 0;
+    int dlng = 0;
 
     while (index < len) {
+
       int adress;
       int shift = 0;
       int result = 0;
+
       do {
-        adress = encoded.charAt(index++) - 63;
+
+        adress = encoded.charAt(index) - 63;
+        index = index + 1;
         result |= (adress & 0x1f) << shift;
-        shift += 5;
+        shift = shift + 5;
+      } while (adress >= 0x20);
 
+      if ((result & 1) != 0) {
+
+        dlat = ~(result >> 1);
+
+      } else {
+
+        dlat = (result >> 1);
       }
-      while (adress >= 0x20);
 
-      int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-      lat += dlat;
+      lat = lat + dlat;
 
       shift = 0;
       result = 0;
 
       do {
-        adress = encoded.charAt(index++) - 63;
+
+        adress = encoded.charAt(index) - 63;
+        index = index + 1;
         result |= (adress & 0x1f) << shift;
-        shift += 5;
+        shift = shift + 5;
       }
       while (adress >= 0x20);
 
-      int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-      lng += dlng;
+      if ((result & 1) != 0) {
 
-      LatLng latLng = new LatLng((((double) lat / 1E5)),
-                            (((double) lng / 1E5)));
+        dlng = ~(result >> 1);
+
+      } else {
+
+        dlng = (result >> 1);
+      }
+
+      lng = lng + dlng;
+
+      LatLng latLng = new LatLng((((double) lat / 1E5)), (((double) lng / 1E5)));
       poly.add(latLng);
     }
     return poly;

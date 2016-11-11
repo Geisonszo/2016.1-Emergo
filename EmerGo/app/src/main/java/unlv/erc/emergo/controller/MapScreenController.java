@@ -6,6 +6,18 @@
 
 package unlv.erc.emergo.controller;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.Toast;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -18,28 +30,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.view.View;
-import android.widget.Toast;
-import helper.Services;
-
 import org.json.JSONException;
-
-import unlv.erc.emergo.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import helper.Services;
+import unlv.erc.emergo.R;
 
 public class MapScreenController extends FragmentActivity implements OnMapReadyCallback ,
         GoogleMap.OnMarkerClickListener, GoogleApiClient.ConnectionCallbacks,
@@ -48,8 +48,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   //Code of Google services that makes the request of several permissions.
   private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   private static final int FINAL_VERSION_SDK = 23;
-  final String yourPosition = "Sua posição";
-  private Services services = new Services();
+  private final String yourPosition = "Sua posição";
+  private final Services services = new Services();
   private static final String INFORMATION_MESSAGE = "numeroUs";
   private static final String ROUTE_TRACED = "Rota mais próxima traçada";
   private static final String POSITION_MESSAGE = "Posição";
@@ -61,25 +61,29 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   //Google Maps API.
   private GoogleMap map;
-  private Location location;
-  private Location mapLastLocation;
   private GoogleApiClient mapGoogleApiClient = null;
 
   @Override
   public boolean onMarkerClick(Marker marker) {
 
+    boolean valid = false;
+
     for (int aux = 0 ; aux < HealthUnitController.getClosestHealthUnit().size() ; aux++) {
-      if (marker.getTitle().toString().compareTo(HealthUnitController.getClosestHealthUnit()
+      if (marker.getTitle().compareTo(HealthUnitController.getClosestHealthUnit()
               .get(aux)
                 .getNameHospital()) == 0) {
+
         Intent information = new Intent();
-        information.setClass(MapScreenController.this , InformationHealthUnitScreenController.class);
+        information.setClass(MapScreenController.this, InformationHealthUnitScreenController.class);
         information.putExtra(POSITION_MESSAGE, aux);
         startActivity(information);
         finish();
+      } else {
+
+        // Nothing to do
       }
     }
-    return false;
+    return valid;
   }
 
   public void goClicked(View mapScreen) throws IOException, JSONException {
@@ -113,7 +117,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   public void openConfig(View mapScreen) {
 
     Intent config = new Intent();
-    config.setClass(MapScreenController.this , ConfigController.class);
+    config.setClass(MapScreenController.this , SettingsController.class);
     startActivity(config);
   }
 
@@ -122,7 +126,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   }
 
-  private void messageAboutPermission(Boolean location, Boolean storage) {
+  private void messageAboutPermission() {
+
+    boolean location = false;
+    boolean storage = false;
 
     if (location && storage) {
 
@@ -152,6 +159,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
+    } else {
+
+      // Nothing to do
     }
   }
 
@@ -173,14 +183,17 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
+    } else {
+
+      // Nothing to do
     }
 
-    this.mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mapGoogleApiClient);
+    Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+            mapGoogleApiClient);
 
     if (mapLastLocation != null) {
 
-      location = mapLastLocation;
+      Location location = mapLastLocation;
       LatLng userLatLng = new LatLng(location.getLatitude() , location.getLongitude());
 
       focusOnSelfPosition(userLatLng);
@@ -208,6 +221,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
+    } else {
+
+      // Nothing to do
     }
 
     map = googleMap;
@@ -233,6 +249,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
       permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
       message += "\nTer acesso a localização no mapa";
+    } else {
+
+      //Nothing to do
     }
 
     if (!permissions.isEmpty()) {
@@ -243,13 +262,19 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
         requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+      } else {
+
+        // Nothing to do
       }
+    } else {
+
+      // Nothing to do
     }
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                         @NonNull int[] grantResults) {
 
     switch (requestCode) {
 
@@ -281,7 +306,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
           startActivity(main);
           finish();
         }
-        messageAboutPermission(location, storage);
+        messageAboutPermission();
       }
           break;
 

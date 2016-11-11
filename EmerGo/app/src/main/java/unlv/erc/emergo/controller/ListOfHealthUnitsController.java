@@ -148,7 +148,7 @@ public class ListOfHealthUnitsController extends Activity {
   }
 
   /**
-    * Exchange of current activity and start activity "ConfigController".
+    * Exchange of current activity and start activity "SettingsController".
     * @param viewConfig View of config.
     *
    */
@@ -157,7 +157,7 @@ public class ListOfHealthUnitsController extends Activity {
 
     Intent config = new Intent();
 
-    config.setClass(ListOfHealthUnitsController.this, ConfigController.class);
+    config.setClass(ListOfHealthUnitsController.this, SettingsController.class);
     startActivity(config);
   }
 

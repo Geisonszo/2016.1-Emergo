@@ -69,14 +69,18 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
 
+  //GoogleMap map;
   static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
   public Boolean canceled = false;
   public int indexOfClosestHealthUnit = 0; //Index responsable for future searching methods
-  public String samuNumber = "tel:192"; // Actual number of public service SAMU
-  private Cursor result;
-  private Location mapLastLocation;
-  private GoogleApiClient mapGoogleApiClient = null;
+  public static final String SAMU_NUMBER = "tel:192"; // Actual number of public service SAMU
+  public static final float MAP_ZOOM_LEVEL = 13.0f;
+  private static final long MILLIS_IN_FUTURE = 3000;
+  private static final long COUNTDOWN = 1000;
   private static final int SPLASH_TIME_OUT = 3400;
+  private GoogleMap map;
+  private Cursor result;
+  private GoogleApiClient mapGoogleApiClient = null;
   ArrayList<LatLng> pointsOfRoute = new ArrayList<>();
   EmergencyContactDao emergencyContactDao = new EmergencyContactDao(this);
   LatLng userLocation ;
@@ -95,7 +99,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   protected void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.route_activity);
+      setContentView(R.layout.route_activity);
 
     if (mapGoogleApiClient == null) {
 
@@ -133,7 +137,8 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    this.mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
+    //Line responsible for getting user last location
+    Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
 
     myDatabase = new UserDao(this);
     result = myDatabase.getUser();
@@ -175,15 +180,18 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   @Override
   public void onMapReady(GoogleMap googleMap) {
 
-    if (Build.VERSION.SDK_INT >= 23) {
+    if(googleMap != null){
+      if (Build.VERSION.SDK_INT >= 23) {
 
-      checkPermissions();
-    } else {
+        checkPermissions();
+      } else {
 
+        // nothing to do
+      }
+      map = googleMap;
+    }else{
       // nothing to do
     }
-
-    map = googleMap;
   }
 
 
@@ -204,12 +212,12 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   }
 
   private void getMapFragment() {
-
-    mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
     map = mapFragment.getMap();
   }
 
   private void getMapData() {
+
+    //Block responsible for instaciante an Url and Download map previous info.
 
     String urlInitial =  getDirectionsUrl(userLocation, new LatLng(HealthUnitController
         .getClosestHealthUnit()
@@ -246,7 +254,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     selfLocation.setOnClickListener(this);
     phone = (ImageView) findViewById(R.id.phone);
     phone.setOnClickListener(this);
-    cancelCall = (ImageView) findViewById(R.id.cancelarLigacao);
+    cancelCall = (ImageView) findViewById(R.id.cancelCall);
     cancelCall.setOnClickListener(this);
     timer = (TextView) findViewById(R.id.timer);
     user = (ImageView) findViewById(R.id.userInformation);
@@ -272,11 +280,11 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   private void openCountDown() {
 
-    new CountDownTimer(3000 , 1000) {
+    new CountDownTimer(MILLIS_IN_FUTURE, COUNTDOWN) {
 
       public void onTick(long millisUntilFinished) {
 
-        if (!canceled) {
+        if (canceled == false) {
 
           long milis = millisUntilFinished / 1000;
           String time =  String.valueOf(milis) ;
@@ -295,7 +303,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       }
     }.start();
 
-    if (!canceled) {
+    if (canceled == false) {
 
       sendMessage();
       callSamu();
@@ -308,7 +316,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   private void callSamu() {
 
     Intent callIntent = new Intent(Intent.ACTION_CALL);
-    callIntent.setData(Uri.parse(samuNumber));
+    callIntent.setData(Uri.parse(SAMU_NUMBER));
     startActivity(callIntent);
   }
 
@@ -336,14 +344,14 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     if (routeActivity.getId() == R.id.userInformation) {
 
       Intent config = new Intent();
-      config.setClass(RouteActivity.this , ConfigController.class);
+      config.setClass(RouteActivity.this , SettingsController.class);
       startActivity(config);
     } else {
 
       // nothing to do
     }
 
-    if (view.getId() == R.id.cancelCall) {
+    if (routeActivity.getId() == R.id.cancelCall) {
 
       cancelCalling();
     } else {
@@ -390,7 +398,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   private void focusOnYourPosition() {
     map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
-        userLocation.longitude), 13.0f));
+        userLocation.longitude), MAP_ZOOM_LEVEL));
   }
 
   private void setYourPositionOnMap() {
@@ -577,7 +585,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       // nothing to do
     }
 
-    if (!permissions.isEmpty()) {
+    if (permissions.isEmpty() == false) {
       Toast.makeText(this, message, Toast.LENGTH_LONG).show();
       String[] params = permissions.toArray(new String[permissions.size()]);
 
@@ -603,6 +611,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
       try {
 
+        //Control structure responsible to send messages to the emergency contacts
         while (result.moveToNext()) {
 
           SmsManager.getDefault().sendTextMessage(result.getString(2),null,
@@ -625,7 +634,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
                                          int[] grantResults) {
 
     switch (requestCode) {
-      case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
+      case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
         Map<String, Integer> perms = new HashMap<>();
         perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
         for (int i = 0; i < permissions.length; i++) {
@@ -639,8 +648,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
             .PERMISSION_GRANTED;
         storage = getPermission(perms, storage);
         messageAboutPermission(location, storage);
-      }
-      break;
+        break;
       default:
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -656,8 +664,9 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
     try {
 
-      storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager
-          .PERMISSION_GRANTED;
+      int externalPermission = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+      int grantedPermission = PackageManager.PERMISSION_GRANTED;
+      storage = externalPermission == grantedPermission;
     } catch (RuntimeException ex) {
 
       Toast.makeText(this , "É necessário ter a permissão" , Toast.LENGTH_LONG).show();
@@ -666,6 +675,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       startActivity(main);
       finish();
     }
+
     return storage;
   }
 
@@ -685,11 +695,13 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
 
   public void showMessageDialog(String title,String message) {
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder.setCancelable(true);
-    builder.setTitle(title);
-    builder.setMessage(message);
-    builder.show();
+    if(!title.isEmpty() && !message.isEmpty()){
+      AlertDialog.Builder builder = new AlertDialog.Builder(this);
+      builder.setCancelable(true);
+      builder.setTitle(title);
+      builder.setMessage(message);
+      builder.show();
+    }
   }
 }
 

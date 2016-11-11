@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import unlv.erc.emergo.R;
 
-public class ConfigController extends Activity {
+public class SettingsController extends Activity {
 
   // ImageView for ListOfHealthUnitsController.class
   private ImageView iconList;
@@ -93,16 +93,10 @@ public class ConfigController extends Activity {
 
         assert map != null : "map can't be null";
 
-        if (map != null) {
-
-          map.setClass(ConfigController.this, RouteActivity.class);
-          map.putExtra("numeroUs", -1);
-          startActivity(map);
-          finish();
-        } else {
-
-          // Nothing to do
-        }
+        map.setClass(SettingsController.this, RouteActivity.class);
+        map.putExtra("numeroUs", -1);
+        startActivity(map);
+        finish();
       }
     });
     Log.d("End of method: ","Method createRouteScreen ");
@@ -127,15 +121,9 @@ public class ConfigController extends Activity {
 
         assert listUs != null : "listUs can't be null";
 
-        if (listUs != null) {
-
-          listUs.setClass(ConfigController.this, ListOfHealthUnitsController.class);
-          startActivity(listUs);
-          finish();
-        } else {
-
-          // Nothing to do
-        }
+        listUs.setClass(SettingsController.this, ListOfHealthUnitsController.class);
+        startActivity(listUs);
+        finish();
       }
     });
     Log.d("End of method: ","Method listUs ");
@@ -158,15 +146,9 @@ public class ConfigController extends Activity {
 
         assert medicalRecord != null : "medicalRecord can't be null";
 
-        if (medicalRecord != null) {
-
-          medicalRecord.setClass(ConfigController.this, MedicalRecordsController.class);
-          startActivity(medicalRecord);
-          finish();
-        } else {
-
-          // Nothing to do
-        }
+        medicalRecord.setClass(SettingsController.this, MedicalRecordsController.class);
+        startActivity(medicalRecord);
+        finish();
       } // End of onClick
     });
     Log.d("End of method: ","Method showMedicalRecord");
@@ -189,14 +171,9 @@ public class ConfigController extends Activity {
 
         assert emergencyContact != null : "emergencyContact can't be null";
 
-        if (emergencyContact != null) {
-          emergencyContact.setClass(ConfigController.this, EmergencyContactController.class);
-          startActivity(emergencyContact);
-          finish();
-        } else {
-
-          // Nothing to do
-        }
+        emergencyContact.setClass(SettingsController.this, EmergencyContactController.class);
+        startActivity(emergencyContact);
+        finish();
       } //End of onClick
     });
     Log.d("End of method: ","Method acessEmergencyContact ");
@@ -219,14 +196,9 @@ public class ConfigController extends Activity {
 
         assert aboutApp != null : "aboutApp";
 
-        if (aboutApp != null) {
-          aboutApp.setClass(ConfigController.this, AboutApp.class);
-          startActivity(aboutApp);
-          finish();
-        } else {
-
-          // Nothing to do
-        }
+        aboutApp.setClass(SettingsController.this, AboutApp.class);
+        startActivity(aboutApp);
+        finish();
       }
     });
     Log.d("End of method: ","Method seeInfoAboutApp ");
@@ -239,7 +211,7 @@ public class ConfigController extends Activity {
    *
    */
 
-  public void goClicked(View mapScreen) throws IOException, JSONException {
+  private void goClicked(View mapScreen) throws IOException, JSONException {
 
     Log.d("Begin of method: ","Method goClicked ");
     // String speaking that the route will be drawn to the nearest health unit
@@ -252,16 +224,10 @@ public class ConfigController extends Activity {
 
     Toast.makeText(this, routeTraced , Toast.LENGTH_SHORT).show();
 
-    if (routeActivity != null) {
-      routeActivity.setClass(ConfigController.this, RouteActivity.class);
-      routeActivity.putExtra("numeroUs", -1);
-      startActivity(routeActivity);
-      finish();
-    } else {
-
-      // Nothing to do
-    }
-    Log.d("End of method: ","Method goClicked ");
+    routeActivity.setClass(SettingsController.this, RouteActivity.class);
+    routeActivity.putExtra("numeroUs", -1);
+    startActivity(routeActivity);
+    finish();
   }
 
   /**
@@ -271,7 +237,7 @@ public class ConfigController extends Activity {
    *
    */
 
-  public void listMapsImageClicked(View mapScreen) {
+  private void listMapsImageClicked(View mapScreen) {
 
     Log.d("Begin of method: ","Method listMapsImageClicked ");
     Intent listOfHealth = new Intent();
@@ -298,7 +264,7 @@ public class ConfigController extends Activity {
    *
    */
 
-  public void openConfig(View openConfig) {
+  private void openConfig(View openConfig) {
 
     Log.d("Method openConfig ","Begin of method");
     // String speaking being clicked the current screen
@@ -316,7 +282,7 @@ public class ConfigController extends Activity {
    *
    */
 
-  public void openMap(View openMap) {
+  private void openMap(View openMap) {
 
     Log.d("Begin of method: ","Method openMap ");
     Intent mapActivity = new Intent();

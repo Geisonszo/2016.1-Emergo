@@ -30,22 +30,13 @@ public class AboutApp extends Activity {
    *
    */
 
-  //A Textview that will show information about the app.
-  private TextView informationAboutApp;
-
   private void setInformationAboutApp(String messageAboutApp) {
 
     assert messageAboutApp != null : "messageAboutApp";
 
-    if (messageAboutApp != null) {
-
-      Log.d("Log of Information: ", "He entered the setInformationAboutApp.");
-      informationAboutApp = (TextView) findViewById(R.id.aboutApp);
-      informationAboutApp.setText(messageAboutApp);
-    } else {
-
-      // Nothing to do
-    }
+    Log.d("Log of Information: ", "He entered the setInformationAboutApp.");
+    TextView informationAboutApp = (TextView) findViewById(R.id.aboutApp);
+    informationAboutApp.setText(messageAboutApp);
   }
 
   /*
@@ -65,7 +56,7 @@ public class AboutApp extends Activity {
             + "os contatos de emergência salvos!"
             + "\n\n\tTodas as funcionalidades em suas mãos, em apenas um aplicativo.";
 
-    Log.e("Log the return of messageApp","" + messageApp);
+    Log.e("Return of messageApp","" + messageApp);
     return messageApp;
   }
 }

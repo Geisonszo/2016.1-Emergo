@@ -13,13 +13,13 @@ import unlv.erc.emergo.R;
 
 
 
-public class ConfigControllerTest extends ActivityInstrumentationTestCase2<ConfigController> {
+public class SettingsControllerTest extends ActivityInstrumentationTestCase2<SettingsController> {
 
   private UiDevice device;
-  private ConfigController config;
+  private SettingsController config;
 
-  public ConfigControllerTest() {
-    super(ConfigController.class);
+  public SettingsControllerTest() {
+    super(SettingsController.class);
   }
 
   @Before
