@@ -6,6 +6,8 @@
 
 package unlv.erc.emergo.model;
 
+import android.util.Log;
+
 import com.orm.SugarRecord;
 
 public class HealthUnit extends SugarRecord {
@@ -60,6 +62,7 @@ public class HealthUnit extends SugarRecord {
   public void setLatitude(Double latitude) {
     try {
       this.latitude = latitude;
+      Log.i("latitude setted","HealthUnit.class");
     }catch (NullPointerException exception){
       exception.printStackTrace();
     }
@@ -72,6 +75,7 @@ public class HealthUnit extends SugarRecord {
   public void setLongitude(Double longitude) {
     try{
       this.longitude = longitude;
+      Log.i("longitude setted","HealthUnit.class");
     }catch (NullPointerException exception){
       exception.printStackTrace();
     }
@@ -84,6 +88,7 @@ public class HealthUnit extends SugarRecord {
   public void setNameHospital(String nameHospital) {
     try{
       this.nameHospital = nameHospital;
+      Log.i("hospitals name setted","HealthUnit.class");
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
@@ -96,6 +101,7 @@ public class HealthUnit extends SugarRecord {
   public void setUnitType(String healthUnitType) {
     try{
       this.healthUnitType = healthUnitType;
+      Log.i("health unity type setted","HealthUnit.class");
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
@@ -108,6 +114,7 @@ public class HealthUnit extends SugarRecord {
   public void setAddressNumber(String addressNumber) {
     try{
       this.addressNumber = addressNumber;
+      Log.i("adress setted","HealthUnit.class");
     }catch (NullPointerException exception){
       exception.printStackTrace();
     }
@@ -120,6 +127,7 @@ public class HealthUnit extends SugarRecord {
   public void setDistrict(String district) {
     try{
       this.district = district;
+      Log.i("district setted","HealthUnit.class");
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
@@ -132,6 +140,7 @@ public class HealthUnit extends SugarRecord {
   public void setState(String state) {
     try{
       this.state = state;
+      Log.i("state setted","HealthUnit.class");
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
@@ -144,6 +153,7 @@ public class HealthUnit extends SugarRecord {
   public void setCity(String city) {
     try{
       this.city = city;
+      Log.i("city setted","HealthUnit.class");
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
@@ -156,6 +166,7 @@ public class HealthUnit extends SugarRecord {
   public void setDistance(Float distance) {
     try{
       this.distance = distance;
+      Log.i("distance setted","HealthUnit.class");
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
