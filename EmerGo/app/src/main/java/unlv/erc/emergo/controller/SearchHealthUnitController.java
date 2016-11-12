@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -68,6 +69,8 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
 
+    Log.i("SearchHealthUnit Activity Requested!","Sucessfull intent creation");
+
     super.onCreateOptionsMenu(menu);
 
     ImageView goButton = (ImageView) findViewById(R.id.buttonGo);
@@ -87,6 +90,8 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
     mapSearchView.setQueryHint("Busca");
     mapSearchView.setOnQueryTextListener(this);
 
+    Log.i("SearchHealthUnit Activity Created!","request sucessfull");
+
     return true;
   }
 
@@ -94,6 +99,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   public void onClick(View searchView) {
     if (searchView.getId() == R.id.buttonGo) {
 
+      Log.i("Button 'Go' clicked sucessfully!","create an RouteActivity intent");
       Intent route = new Intent();
 
       route.setClass(SearchHealthUnitController.this, RouteActivity.class);
@@ -102,6 +108,8 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
     }
     if (searchView.getId() == R.id.iconMap) {
 
+
+      Log.i("Button 'Map' clicked sucessfully!","create an MapScreen intent");
       Intent map = new Intent();
 
       map.setClass(SearchHealthUnitController.this, MapScreenController.class);
@@ -111,6 +119,8 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
     }
     if (searchView.getId() == R.id.iconList) {
 
+
+      Log.i("Button 'List' clicked sucessfully!","create an ListOfHealthUnit intent");
       Intent list = new Intent();
 
       list.setClass(SearchHealthUnitController.this, ListOfHealthUnitsController.class);
