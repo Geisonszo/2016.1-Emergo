@@ -69,8 +69,6 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
 
-    Log.i("SearchHealthUnit Activity Requested!","Sucessfull intent creation");
-
     super.onCreateOptionsMenu(menu);
 
     ImageView goButton = (ImageView) findViewById(R.id.buttonGo);
@@ -89,8 +87,6 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
       .getActionView();
     mapSearchView.setQueryHint("Busca");
     mapSearchView.setOnQueryTextListener(this);
-
-    Log.i("SearchHealthUnit Activity Created!","request sucessfull");
 
     return true;
   }
@@ -146,16 +142,20 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
       healthUnit = new ArrayList<>();
       int numberOfUs;
 
-        for (numberOfUs = 0; numberOfUs < HealthUnitController.getClosestHealthUnit().size();
-            numberOfUs++) {
-          if (closest.get(numberOfUs).getNameHospital().toLowerCase().contains(search)) {
-            closestHealthUnit.add(closest.get(numberOfUs).getNameHospital());
-            healthUnit.add(HealthUnitController.getClosestHealthUnit().get(numberOfUs));
+      Log.i("Starting US search","getSearchHealthUnit method");
+
+      for (numberOfUs = 0; numberOfUs < HealthUnitController.getClosestHealthUnit().size();
+          numberOfUs++) {
+        if (closest.get(numberOfUs).getNameHospital().toLowerCase().contains(search)) {
+          closestHealthUnit.add(closest.get(numberOfUs).getNameHospital());
+          healthUnit.add(HealthUnitController.getClosestHealthUnit().get(numberOfUs));
         }
       }
       return closestHealthUnit;
     }catch (NullPointerException exception){
       exception.printStackTrace();
+
+      Log.i("Search failed, nothing will be return!","getSearchHealthUnit method");
     }
 
     return searchArray;
@@ -164,8 +164,10 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   public void setHealthUnitsList(ListView healthUnitsList) {
     try {
       this.healthUnitsList = healthUnitsList;
+      Log.i("Health Unit ListView setted","setHealthUnitListView method");
     }catch(NullPointerException exception){
       exception.printStackTrace();
+      Log.i("error in setting health unit ListView","setHealthUnitListView method");
     }
   }
 
@@ -194,7 +196,11 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
 
   protected void onCreate(Bundle savedInstanceState) {
 
+    Log.i("SearchHealthUnit Activity Requested!","Sucessfull intent creation");
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.search_screen);
+
+    Log.i("SearchHealthUnit Activity Created!","request sucessfull");
   }
 }
