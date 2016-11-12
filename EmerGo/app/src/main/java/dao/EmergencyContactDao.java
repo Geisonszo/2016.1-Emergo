@@ -54,10 +54,12 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
     database.execSQL(CREATE_EMERGENCYCONTACT);
   }
 
-  @Override
-  public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
-    database.execSQL(DROP_TABLE_EmergencyContact);
-    onCreate(database);
+  public Cursor getEmergencyContact() {
+
+    SQLiteDatabase database = this.getWritableDatabase();
+    Cursor cursor = database.rawQuery("SELECT * FROM " + EmergencyContact_TABLE,null);
+
+    return cursor;
   }
 
   public boolean insertEmergencyContact(Integer id,String nameContact,String phone) {
@@ -86,6 +88,12 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
     }
   }
 
+  @Override
+  public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
+    database.execSQL(DROP_TABLE_EmergencyContact);
+    onCreate(database);
+  }
+
   public boolean updateEmergencyContact(Integer id,String nameContact,String phone) {
 
     assert id != null : "id can't be null";
@@ -100,14 +108,6 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
     database.update(EmergencyContact_TABLE, contentValues, "[IDContact] = " + id,null);
     database.close();
     return true;
-  }
-
-  public Cursor getEmergencyContact() {
-
-    SQLiteDatabase database = this.getWritableDatabase();
-    Cursor cursor = database.rawQuery("SELECT * FROM " + EmergencyContact_TABLE,null);
-
-    return cursor;
   }
 
   public Integer deleteEmergencyContact(Integer id) {
