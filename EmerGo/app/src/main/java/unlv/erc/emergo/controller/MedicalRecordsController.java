@@ -191,6 +191,67 @@ public class MedicalRecordsController extends Activity {
     });
   }
 
+  /**
+   * This method aims to direct the user to the page that forwards to the nearest health unit and
+   *  call the SAMU.
+   *
+   * @param mapScreen go to RouteActivity class.
+   */
+  public void goClicked(View mapScreen) {
+    Toast.makeText(this , FUNCTION_NOT_ENABLE_MESSAGE , Toast.LENGTH_SHORT).show();
+    Intent routeActivity = new Intent();
+    routeActivity.setClass(this, RouteActivity.class);
+    startActivity(routeActivity);
+    finish();
+  }
+
+  /**
+   * This method aims to direct the user to the page with the Health Units list.
+   *
+   * @param mapScreen go to ListOfHealthUnitsController class.
+   */
+  public void listMapsImageClicked(View mapScreen) {
+    Intent listOfHealth = new Intent();
+    listOfHealth.setClass(this , ListOfHealthUnitsController.class);
+    startActivity(listOfHealth);
+    finish();
+  }
+
+  /**
+   * This method aims to direct the user to the settings page.
+   *
+   * @param config go to SettingsController class.
+   */
+  public void openConfig(View config) {
+    Intent configuration = new Intent();
+    configuration.setClass(this , SettingsController.class);
+    startActivity(configuration);
+    finish();
+  }
+
+  /**
+   * This method aims to direct the user to the map page.
+   *
+   * @param mapScreen go to MapScreenController class.
+   */
+  public void openMap(View mapScreen) {
+    Intent mapActivity = new Intent();
+    mapActivity.setClass(this, MapScreenController.class);
+    startActivity(mapActivity);
+    finish();
+  }
+
+  /**
+   * This method aims to direct the page to search Health Units.
+   *
+   * @param search go to SearchHealthUnitController class.
+   */
+  public void openSearch(View search) {
+    Intent openSearch = new Intent();
+    openSearch.setClass(this , SearchHealthUnitController.class);
+    startActivity(openSearch);
+  }
+
   /*
    * This method aims to create a user's medical records.
    */
@@ -684,66 +745,5 @@ public class MedicalRecordsController extends Activity {
             getSystemService(NOTIFICATION_SERVICE);
 
     notificationManager.notify(notifyIdentifier,notification.build());
-  }
-
-  /**
-   * This method aims to direct the user to the page that forwards to the nearest health unit and
-   *  call the SAMU.
-   *
-   * @param mapScreen go to RouteActivity class.
-   */
-  public void goClicked(View mapScreen) {
-    Toast.makeText(this , FUNCTION_NOT_ENABLE_MESSAGE , Toast.LENGTH_SHORT).show();
-    Intent routeActivity = new Intent();
-    routeActivity.setClass(this, RouteActivity.class);
-    startActivity(routeActivity);
-    finish();
-  }
-
-  /**
-   * This method aims to direct the user to the page with the Health Units list.
-   *
-   * @param mapScreen go to ListOfHealthUnitsController class.
-   */
-  public void listMapsImageClicked(View mapScreen) {
-    Intent listOfHealth = new Intent();
-    listOfHealth.setClass(this , ListOfHealthUnitsController.class);
-    startActivity(listOfHealth);
-    finish();
-  }
-
-  /**
-   * This method aims to direct the user to the settings page.
-   *
-   * @param config go to SettingsController class.
-   */
-  public void openConfig(View config) {
-    Intent configuration = new Intent();
-    configuration.setClass(this , SettingsController.class);
-    startActivity(configuration);
-    finish();
-  }
-
-  /**
-   * This method aims to direct the user to the map page.
-   *
-   * @param mapScreen go to MapScreenController class.
-   */
-  public void openMap(View mapScreen) {
-    Intent mapActivity = new Intent();
-    mapActivity.setClass(this, MapScreenController.class);
-    startActivity(mapActivity);
-    finish();
-  }
-
-  /**
-   * This method aims to direct the page to search Health Units.
-   *
-   * @param search go to SearchHealthUnitController class.
-   */
-  public void openSearch(View search) {
-    Intent openSearch = new Intent();
-    openSearch.setClass(this , SearchHealthUnitController.class);
-    startActivity(openSearch);
   }
 }
