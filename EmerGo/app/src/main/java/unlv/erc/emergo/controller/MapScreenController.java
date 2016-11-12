@@ -86,6 +86,49 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     return valid;
   }
 
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                         @NonNull int[] grantResults) {
+
+    switch (requestCode) {
+
+      case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
+        Map<String, Integer> perms = new HashMap<>();
+
+        perms.put(Manifest.permission.ACCESS_FINE_LOCATION,
+                PackageManager.PERMISSION_GRANTED);
+
+        for (int i = 0; i < permissions.length; i++) {
+
+          perms.put(permissions[i], grantResults[i]);
+        }
+
+        Boolean location = false;
+        Boolean storage = false;
+
+        location = perms.get(Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+        try {
+
+          storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                  == PackageManager.PERMISSION_GRANTED;
+        } catch (RuntimeException ex) {
+
+          Toast.makeText(this , PERMISION_MESSAGE, Toast.LENGTH_LONG).show();
+          Intent main = new Intent();
+          main.setClass(this , MainScreenController.class);
+          startActivity(main);
+          finish();
+        }
+        messageAboutPermission();
+      }
+      break;
+
+      default:
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+  }
+
   public void goClicked(View mapScreen) throws IOException, JSONException {
 
     Toast.makeText(this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
@@ -103,78 +146,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     startActivity(listOfHealth);
   }
 
-  public void openSearch(View mapScreen) {
-
-    Intent openSearch = new Intent();
-    openSearch.setClass(this , SearchHealthUnitController.class);
-    startActivity(openSearch);
-  }
-
-  public void openMap(View mapScreen) {
-
-  }
-
-  public void openConfig(View mapScreen) {
-
-    Intent config = new Intent();
-    config.setClass(MapScreenController.this , SettingsController.class);
-    startActivity(config);
-  }
-
   @Override
   public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-  }
-
-  private void messageAboutPermission() {
-
-    boolean location = false;
-    boolean storage = false;
-
-    if (location && storage) {
-
-      Toast.makeText(this, PERMISION_APPROVED_MESSAGE, Toast.LENGTH_SHORT).show();
-    } else {
-
-      Toast.makeText(this,REQUEST_PERMISION_MESSAGE, Toast.LENGTH_SHORT).show();
-    }
-  }
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-
-    super.onCreate(savedInstanceState);
-
-    setContentView(R.layout.map_screen);
-    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-    mapFragment.getMapAsync(this);
-    map = mapFragment.getMap();
-    map.setOnMarkerClickListener(this);
-
-    if (mapGoogleApiClient == null) {
-
-      mapGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-    } else {
-
-      // Nothing to do
-    }
-  }
-
-  protected void onStart() {
-
-    mapGoogleApiClient.connect();
-    super.onStart();
-  }
-
-  protected void onStop() {
-
-    mapGoogleApiClient.disconnect();
-    super.onStop();
   }
 
   @Override
@@ -229,6 +203,74 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     map = googleMap;
   }
 
+  public void openSearch(View mapScreen) {
+
+    Intent openSearch = new Intent();
+    openSearch.setClass(this , SearchHealthUnitController.class);
+    startActivity(openSearch);
+  }
+
+  public void openMap(View mapScreen) {
+
+  }
+
+  public void openConfig(View mapScreen) {
+
+    Intent config = new Intent();
+    config.setClass(MapScreenController.this , SettingsController.class);
+    startActivity(config);
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+
+    super.onCreate(savedInstanceState);
+
+    setContentView(R.layout.map_screen);
+    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+            .findFragmentById(R.id.map);
+    mapFragment.getMapAsync(this);
+    map = mapFragment.getMap();
+    map.setOnMarkerClickListener(this);
+
+    if (mapGoogleApiClient == null) {
+
+      mapGoogleApiClient = new GoogleApiClient.Builder(this)
+              .addConnectionCallbacks(this)
+              .addOnConnectionFailedListener(this)
+              .addApi(LocationServices.API)
+              .build();
+    } else {
+
+      // Nothing to do
+    }
+  }
+
+  protected void onStart() {
+
+    mapGoogleApiClient.connect();
+    super.onStart();
+  }
+
+  protected void onStop() {
+
+    mapGoogleApiClient.disconnect();
+    super.onStop();
+  }
+
+  private void messageAboutPermission() {
+
+    boolean location = false;
+    boolean storage = false;
+
+    if (location && storage) {
+
+      Toast.makeText(this, PERMISION_APPROVED_MESSAGE, Toast.LENGTH_SHORT).show();
+    } else {
+
+      Toast.makeText(this,REQUEST_PERMISION_MESSAGE, Toast.LENGTH_SHORT).show();
+    }
+  }
 
   private void focusOnSelfPosition(LatLng userLatLng) {
 
@@ -237,7 +279,6 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     map.animateCamera(CameraUpdateFactory.newLatLngZoom( new LatLng(userLatLng.latitude,
             userLatLng.longitude), 13.0f));
   }
-
 
   private void checkPermissions() {
 
@@ -272,47 +313,5 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     }
   }
 
-  @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                         @NonNull int[] grantResults) {
-
-    switch (requestCode) {
-
-      case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
-        Map<String, Integer> perms = new HashMap<>();
-
-        perms.put(Manifest.permission.ACCESS_FINE_LOCATION,
-                        PackageManager.PERMISSION_GRANTED);
-
-        for (int i = 0; i < permissions.length; i++) {
-
-          perms.put(permissions[i], grantResults[i]);
-        }
-
-        Boolean location = false;
-        Boolean storage = false;
-
-        location = perms.get(Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED;
-        try {
-
-          storage = perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_GRANTED;
-        } catch (RuntimeException ex) {
-
-          Toast.makeText(this , PERMISION_MESSAGE, Toast.LENGTH_LONG).show();
-          Intent main = new Intent();
-          main.setClass(this , MainScreenController.class);
-          startActivity(main);
-          finish();
-        }
-        messageAboutPermission();
-      }
-          break;
-
-      default:
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-  }
 }
 
