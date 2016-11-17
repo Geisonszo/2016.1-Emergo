@@ -64,7 +64,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RouteActivity  extends FragmentActivity implements View.OnClickListener,
+public class RouteActivity  extends FragmentActivity implements
     OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener {
@@ -88,8 +88,6 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   ImageView cancelCall;
   ImageView phone;
   ImageView userInformation;
-  Button buttonGo;
-  Button selfLocation;
   UserDao myDatabase;
   Intent intent;
   SupportMapFragment mapFragment;
@@ -114,16 +112,65 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     getExtraIntent();
   }
 
-  protected void onStart() {
+  @Override
+  public void onMapReady(GoogleMap googleMap) {
 
-    mapGoogleApiClient.connect();
-    super.onStart();
+    if(googleMap != null){
+      if (Build.VERSION.SDK_INT >= 23) {
+
+        checkPermissions();
+      } else {
+
+        // nothing to do
+      }
+      map = googleMap;
+    }else{
+      // nothing to do
+    }
   }
 
-  protected void onStop() {
+  private void getMapFragment() {
+    map = mapFragment.getMap();
+  }
 
-    mapGoogleApiClient.disconnect();
-    super.onStop();
+  private void getMapData() {
+
+    //Block responsible for instaciante an Url and Download map previous info.
+
+    String urlInitial =  getDirectionsUrl(userLocation, new LatLng(HealthUnitController
+            .getClosestHealthUnit()
+            .get(indexOfClosestHealthUnit).getLatitude(), HealthUnitController.getClosestHealthUnit()
+            .get(indexOfClosestHealthUnit).getLongitude()));
+    DownloadTask downloadTask = new DownloadTask();
+    downloadTask.execute(urlInitial);
+  }
+
+  private void selectindexOfClosestHealthUnit(Location location) {
+
+    if (indexOfClosestHealthUnit == -1) {
+
+      indexOfClosestHealthUnit = HealthUnitController.selectClosestUs(HealthUnitController
+              .getClosestHealthUnit(), location);
+      cancelCall.setVisibility(View.VISIBLE);
+      phone.setVisibility(View.INVISIBLE);
+      startCountDown();
+    } else {
+
+      timer.setText("");
+      phone.setVisibility(View.VISIBLE);
+      cancelCall.setVisibility(View.INVISIBLE);
+    }
+  }
+
+
+  @NonNull
+  private Location getUserPosition(Location mapLastLocation) {
+
+    Location location = new Location("");
+    location.setLatitude(mapLastLocation.getLatitude());
+    location.setLongitude(mapLastLocation.getLongitude());
+
+    return location;
   }
 
   @Override
@@ -172,37 +219,56 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
   }
 
+  private void checkPermissions() {
+
+    List<String> permissions = new ArrayList<>();
+    String message = "Permissão";
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+
+      permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+      message += "\nTer acesso a localização no mapa";
+    } else {
+      // nothing to do
+    }
+
+    if (permissions.isEmpty() == false) {
+      Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+      String[] params = permissions.toArray(new String[permissions.size()]);
+
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+      } else {
+        // nothing to do
+      }
+
+    } else {
+      // nothing to do
+    }
+  }
+
+  private void setYourPositionOnMap() {
+    final String yourPosition = "Sua posição";
+
+    map.addMarker(new MarkerOptions().position(userLocation).title(yourPosition)
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+  }
+
   @Override
   public void onConnectionSuspended(int i) {
 
   }
 
-  @Override
-  public void onMapReady(GoogleMap googleMap) {
+  protected void onStart() {
 
-    if(googleMap != null){
-      if (Build.VERSION.SDK_INT >= 23) {
-
-        checkPermissions();
-      } else {
-
-        // nothing to do
-      }
-      map = googleMap;
-    }else{
-      // nothing to do
-    }
+    mapGoogleApiClient.connect();
+    super.onStart();
   }
 
+  protected void onStop() {
 
-  @NonNull
-  private Location getUserPosition(Location mapLastLocation) {
-
-    Location location = new Location("");
-    location.setLatitude(mapLastLocation.getLatitude());
-    location.setLongitude(mapLastLocation.getLongitude());
-
-    return location;
+    mapGoogleApiClient.disconnect();
+    super.onStop();
   }
 
   private void getExtraIntent() {
@@ -211,53 +277,12 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     indexOfClosestHealthUnit =  intent.getIntExtra("numeroUs" , 0);
   }
 
-  private void getMapFragment() {
-    map = mapFragment.getMap();
-  }
-
-  private void getMapData() {
-
-    //Block responsible for instaciante an Url and Download map previous info.
-
-    String urlInitial =  getDirectionsUrl(userLocation, new LatLng(HealthUnitController
-        .getClosestHealthUnit()
-        .get(indexOfClosestHealthUnit).getLatitude(), HealthUnitController.getClosestHealthUnit()
-        .get(indexOfClosestHealthUnit).getLongitude()));
-    DownloadTask downloadTask = new DownloadTask();
-    downloadTask.execute(urlInitial);
-  }
-
-  private void selectindexOfClosestHealthUnit(Location location) {
-
-    if (indexOfClosestHealthUnit == -1) {
-
-      indexOfClosestHealthUnit = HealthUnitController.selectClosestUs(HealthUnitController
-        .getClosestHealthUnit(), location);
-      cancelCall.setVisibility(View.VISIBLE);
-      phone.setVisibility(View.INVISIBLE);
-      startCountDown();
-    } else {
-
-      timer.setText("");
-      phone.setVisibility(View.VISIBLE);
-      cancelCall.setVisibility(View.INVISIBLE);
-    }
-  }
-
   private void linkButtonsAndXml() {
 
     //Block responsible for linking xml components to class attributes
-
-    buttonGo = (Button) findViewById(R.id.buttonGo);
-    buttonGo.setOnClickListener(this);
     userInformation = (ImageView) findViewById(R.id.userInformation);
-    userInformation.setOnClickListener(this);
-    selfLocation = (Button) findViewById(R.id.selfLocation);
-    selfLocation.setOnClickListener(this);
     phone = (ImageView) findViewById(R.id.phone);
-    phone.setOnClickListener(this);
     cancelCall = (ImageView) findViewById(R.id.cancelCall);
-    cancelCall.setOnClickListener(this);
     timer = (TextView) findViewById(R.id.timer);
     user = (ImageView) findViewById(R.id.userInformation);
 
@@ -267,6 +292,7 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
       }
     });
   }
+
 
   private void startCountDown() {
 
@@ -316,68 +342,104 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
   }
 
+  /**
+   * This method will launch emergency mode screen when button Go is clicked
+   * @param view
+   */
+  public void goClicked(View view){
+    openMap();
+  }
+
+  /**
+   * This method will cancel the call before its starts.
+   * @param view
+   */
+  public void cancelCall(View view){
+    canceled = true;
+    cancelCall.setVisibility(View.INVISIBLE);
+    phone.setVisibility(View.VISIBLE);
+  }
+
+  /**
+   * This method will initializa a call to Samu.
+   * @param view
+     */
+  public void startCall(View view){
+    callSamu();
+  }
+
+  /**
+   * This method will open settings controller, and show the info about the user.
+   * @param view
+     */
+  public void openUserInformation(View view){
+    Intent config = new Intent();
+    config.setClass(RouteActivity.this , SettingsController.class);
+    startActivity(config);
+  }
+
+  /**
+   * This method will centralize map on user current position.
+   * @param view
+   */
+  public void findSelfLocation(View view){
+    map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
+            userLocation.longitude), 13.0f));
+  }
+
+  /**
+   * This method sends help SMS to the emergency contact.
+   */
+  public void sendMessage() {
+    Cursor result = emergencyContactDao.getEmergencyContact();
+
+    if (result.getCount() != 0) {
+
+      try {
+
+        //Control structure responsible to send messages to the emergency contacts
+        while (result.moveToNext()) {
+
+          SmsManager.getDefault().sendTextMessage(result.getString(2),null,
+                  result.getString(1) + ", Estou precisando de ajuda urgente!",null,null);
+        }
+        Toast.makeText(getApplicationContext(),"Ajuda a caminho!", Toast.LENGTH_LONG).show();
+      } catch (Exception exception) {
+
+        Toast.makeText(getApplicationContext(),"Impossivel encaminhar o SMS", Toast.LENGTH_LONG)
+                .show();
+      }
+    } else {
+
+      Toast.makeText(getApplicationContext(),"Nenhum contato adicionado", Toast.LENGTH_LONG).show();
+    }
+  }
+
+  public void showInformationUser() {
+
+    result.moveToFirst();
+
+    if (result.getCount() == 0) {
+
+      Toast.makeText(this,"Não existe nenhum cadastro no momento.",Toast.LENGTH_LONG).show();
+    } else {
+
+      showMessageDialog("Notificações do Usuário","Nome: " + result.getString(1) + "\n"
+              + "Data de Aniversário: " + result.getString(2) + "\n"
+              + "Tipo Sanguíneo: " + result.getString(3) + "\n"
+              + "Cardiaco: " + result.getString(4) + "\n"
+              + "Diabetico: " + result.getString(5) + "\n"
+              + "Hipertenso: " + result.getString(6) + "\n"
+              + "Soropositivo: " + result.getString(7) + "\n"
+              + "Observações Especiais: " + result.getString(8));
+    }
+  }
+
   private void callSamu() {
 
     Intent callIntent = new Intent(Intent.ACTION_CALL);
     callIntent.setData(Uri.parse(SAMU_NUMBER));
     startActivity(callIntent);
-  }
-
-  @Override
-  public void onClick(View routeActivity) {
-
-    //Open emergency mode
-    if (routeActivity.getId() == R.id.buttonGo) {
-      openMap();
-    } else {
-
-      // nothing to do
-    }
-
-    //Open map on user location
-    if (routeActivity.getId() == R.id.selfLocation) {
-
-      //This line animate the camera on determined LatLng, with vertical distance of 13
-      map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
-          userLocation.longitude), 13.0f));
-    } else {
-      // nothing to do
-    }
-
-    //Open user info
-    if (routeActivity.getId() == R.id.userInformation) {
-
-      Intent config = new Intent();
-      config.setClass(RouteActivity.this , SettingsController.class);
-      startActivity(config);
-    } else {
-
-      // nothing to do
-    }
-
-    if (routeActivity.getId() == R.id.cancelCall) {
-
-      cancelCalling();
-    } else {
-
-      // nothing to do
-    }
-
-    //Call samu method
-    if (routeActivity.getId() == R.id.phone) {
-
-      callSamu();
-    } else {
-
-      // nothing to do
-    }
-  }
-
-  private void cancelCalling() {
-
-    canceled = true;
-    cancelCall.setVisibility(View.INVISIBLE);
-    phone.setVisibility(View.VISIBLE);
   }
 
   private void openMap() {
@@ -405,13 +467,6 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   private void focusOnYourPosition() {
     map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userLocation.latitude,
         userLocation.longitude), MAP_ZOOM_LEVEL));
-  }
-
-  private void setYourPositionOnMap() {
-    final String yourPosition = "Sua posição";
-
-    map.addMarker(new MarkerOptions().position(userLocation).title(yourPosition)
-        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
   }
 
 
@@ -457,26 +512,6 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
   /**
    * This method shows the medical information about the user.
    */
-
-  public void showInformationUser() {
-
-    result.moveToFirst();
-
-    if (result.getCount() == 0) {
-
-      Toast.makeText(this,"Não existe nenhum cadastro no momento.",Toast.LENGTH_LONG).show();
-    } else {
-
-      showMessageDialog("Notificações do Usuário","Nome: " + result.getString(1) + "\n"
-          + "Data de Aniversário: " + result.getString(2) + "\n"
-          + "Tipo Sanguíneo: " + result.getString(3) + "\n"
-          + "Cardiaco: " + result.getString(4) + "\n"
-          + "Diabetico: " + result.getString(5) + "\n"
-          + "Hipertenso: " + result.getString(6) + "\n"
-          + "Soropositivo: " + result.getString(7) + "\n"
-          + "Observações Especiais: " + result.getString(8));
-    }
-  }
 
   private String downloadUrl(String strUrl) throws IOException {
 
@@ -578,62 +613,8 @@ public class RouteActivity  extends FragmentActivity implements View.OnClickList
     }
   }
 
-  private void checkPermissions() {
 
-    List<String> permissions = new ArrayList<>();
-    String message = "Permissão";
-    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED) {
 
-      permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-      message += "\nTer acesso a localização no mapa";
-    } else {
-      // nothing to do
-    }
-
-    if (permissions.isEmpty() == false) {
-      Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-      String[] params = permissions.toArray(new String[permissions.size()]);
-
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
-      } else {
-        // nothing to do
-      }
-
-    } else {
-      // nothing to do
-    }
-  }
-
-  /**
-   * This method sends help SMS to the emergency contact.
-   */
-
-  public void sendMessage() {
-    Cursor result = emergencyContactDao.getEmergencyContact();
-
-    if (result.getCount() != 0) {
-
-      try {
-
-        //Control structure responsible to send messages to the emergency contacts
-        while (result.moveToNext()) {
-
-          SmsManager.getDefault().sendTextMessage(result.getString(2),null,
-              result.getString(1) + ", Estou precisando de ajuda urgente!",null,null);
-        }
-        Toast.makeText(getApplicationContext(),"Ajuda a caminho!", Toast.LENGTH_LONG).show();
-      } catch (Exception exception) {
-
-        Toast.makeText(getApplicationContext(),"Impossivel encaminhar o SMS", Toast.LENGTH_LONG)
-            .show();
-      }
-    } else {
-
-      Toast.makeText(getApplicationContext(),"Nenhum contato adicionado", Toast.LENGTH_LONG).show();
-    }
-  }
 
   @Override
   public void onRequestPermissionsResult(int requestCode, String[] permissions,

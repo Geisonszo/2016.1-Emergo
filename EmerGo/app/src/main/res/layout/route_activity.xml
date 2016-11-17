@@ -9,6 +9,7 @@
         android:layout_width="45dp"
         android:layout_height="37dp"
         android:id="@+id/buttonGo"
+        android:onClick="goClickedOnRouteActv"
         android:layout_gravity="center_horizontal"
         android:textSize="@dimen/abc_action_bar_default_height_material"
         android:background="@drawable/xx"
@@ -37,6 +38,7 @@
         android:layout_height="70dp"
         android:id="@+id/selfLocation"
         android:background="@drawable/local_self"
+        android:onClick="findSelfLocation"
         android:contextClickable="false"
         android:textColor="#fbf6f6"
         android:textSize="30dp"
@@ -59,6 +61,7 @@
         android:layout_height="70dp"
         android:background="@drawable/user"
         android:id="@+id/userInformation"
+        android:onClick="openUserInformation"
         android:layout_alignTop="@+id/phone"
         android:layout_alignParentEnd="true" />
 
@@ -68,6 +71,7 @@
         android:background="@drawable/cancelar_ligacao"
         android:id="@+id/cancelCall"
         android:visibility="invisible"
+        android:onClick="cancelCall"
         android:layout_alignBottom="@+id/selfLocation"
         android:layout_centerHorizontal="true" />
 
@@ -76,6 +80,7 @@
         android:layout_height="60dp"
         android:background="@drawable/phone"
         android:id="@+id/phone"
+        android:onClick="startCall"
         android:visibility="invisible"
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignEnd="@+id/cancelCall" />
