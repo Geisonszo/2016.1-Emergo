@@ -36,34 +36,14 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   ArrayList<String> closestHealthUnit;
   ArrayList<HealthUnit> healthUnit;
 
-  public ListView getHealtshUnitList() {
+  protected void onCreate(Bundle savedInstanceState) {
 
-    return healthUnitsList;
-  }
+    Log.i("SearchHealth Requested!","Sucessfull intent creation");
 
-  public SearchView getMapSearchView() {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.search_screen);
 
-    return mapSearchView;
-  }
-
-  public void setMapSearchView(SearchView mapSearchView) {
-
-    assert mapSearchView != null : "mapSearchView can't be null";
-
-    this.mapSearchView = mapSearchView;
-  }
-
-  /**
-   * This method open the screen with inforamtion about the health unit.
-   */
-  public void openInformationHealthUnitScreen() {
-
-    Intent informationScreen = new Intent();
-
-    informationScreen.putExtra("position", numberOfHealthUnitClicked);
-    informationScreen.setClass(SearchHealthUnitController.this, InformationSearchScreenController.class);
-    startActivity(informationScreen);
-    finish();
+    Log.i("SearchHealth Created!","request sucessfull");
   }
 
   @Override
@@ -84,7 +64,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
 
     inflater.inflate(R.menu.menu_search, menu);
     mapSearchView = (SearchView) menu.findItem(R.id.search)
-      .getActionView();
+            .getActionView();
     mapSearchView.setQueryHint("Busca");
     mapSearchView.setOnQueryTextListener(this);
 
@@ -95,7 +75,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   public void onClick(View searchView) {
     if (searchView.getId() == R.id.buttonGo) {
 
-      Log.i("Button 'Go' clicked sucessfully!","create an RouteActivity intent");
+      Log.i("Go clicked sucessfully","create an RouteActivity intent");
       Intent route = new Intent();
 
       route.setClass(SearchHealthUnitController.this, RouteActivity.class);
@@ -105,7 +85,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
     if (searchView.getId() == R.id.iconMap) {
 
 
-      Log.i("Button 'Map' clicked sucessfully!","create an MapScreen intent");
+      Log.i("Map clicked sucessfully","create an MapScreen intent");
       Intent map = new Intent();
 
       map.setClass(SearchHealthUnitController.this, MapScreenController.class);
@@ -116,7 +96,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
     if (searchView.getId() == R.id.iconList) {
 
 
-      Log.i("Button 'List' clicked sucessfully!","create an ListOfHealthUnit intent");
+      Log.i("List click sucessfull","create an ListOfHealthUnit intent");
       Intent list = new Intent();
 
       list.setClass(SearchHealthUnitController.this, ListOfHealthUnitsController.class);
@@ -125,6 +105,42 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
     }
   }
 
+  @Override
+  public boolean onQueryTextSubmit(String query) {
+    return false;
+  }
+
+  @Override
+  public boolean onQueryTextChange(String newText) {
+
+    List<String> searchHealthUnit = getSearchHealthUnit(HealthUnitController.getClosestHealthUnit());
+
+    setHealthUnitsList((ListView) findViewById(R.id.list_of_search_us));
+    healthUnitsList.setAdapter(new ArrayAdapter<>(this, R.layout.item,
+            R.id.hospitalUnitText, searchHealthUnit));
+    healthUnitsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        numberOfHealthUnitClicked = parent.getPositionForView(view);
+        openInformationHealthUnitScreen();
+      }
+    });
+    return false;
+  }
+
+  /**
+   * This method open the screen with inforamtion about the health unit.
+   */
+  public void openInformationHealthUnitScreen() {
+
+    Intent informationScreen = new Intent();
+
+    informationScreen.putExtra("position", numberOfHealthUnitClicked);
+    informationScreen.setClass(SearchHealthUnitController.this, InformationSearchScreenController.class);
+    startActivity(informationScreen);
+    finish();
+  }
+  
   /*
    * This method search the health unit on map.
    * @param closest the closest health unit
@@ -155,7 +171,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
     }catch (NullPointerException exception){
       exception.printStackTrace();
 
-      Log.i("Search failed, nothing will be return!","getSearchHealthUnit method");
+      Log.i("Search failed","getSearchHealthUnit method");
     }
 
     return searchArray;
@@ -164,43 +180,11 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
   public void setHealthUnitsList(ListView healthUnitsList) {
     try {
       this.healthUnitsList = healthUnitsList;
-      Log.i("Health Unit ListView setted","setHealthUnitListView method");
+      Log.i("Health Unit setted","setHealthUnitListView method");
     }catch(NullPointerException exception){
       exception.printStackTrace();
-      Log.i("error in setting health unit ListView","setHealthUnitListView method");
+      Log.i("error ListView","setHealthUnitListView method");
     }
   }
 
-  @Override
-  public boolean onQueryTextSubmit(String query) {
-    return false;
-  }
-
-  @Override
-  public boolean onQueryTextChange(String newText) {
-
-    List<String> searchHealthUnit = getSearchHealthUnit(HealthUnitController.getClosestHealthUnit());
-
-    setHealthUnitsList((ListView) findViewById(R.id.list_of_search_us));
-    healthUnitsList.setAdapter(new ArrayAdapter<>(this, R.layout.item,
-        R.id.hospitalUnitText, searchHealthUnit));
-    healthUnitsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        numberOfHealthUnitClicked = parent.getPositionForView(view);
-        openInformationHealthUnitScreen();
-      }
-    });
-    return false;
-  }
-
-  protected void onCreate(Bundle savedInstanceState) {
-
-    Log.i("SearchHealthUnit Activity Requested!","Sucessfull intent creation");
-
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.search_screen);
-
-    Log.i("SearchHealthUnit Activity Created!","request sucessfull");
-  }
 }
