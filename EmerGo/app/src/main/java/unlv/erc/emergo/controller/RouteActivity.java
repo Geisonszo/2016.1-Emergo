@@ -100,7 +100,7 @@ public class RouteActivity  extends FragmentActivity implements
 
     if (mapGoogleApiClient == null) {
 
-      //Line responsible for creating an connection with API clientu
+      //Line responsible for creating an connection with API client
       mapGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
     } else {
@@ -151,15 +151,22 @@ public class RouteActivity  extends FragmentActivity implements
 
       indexOfClosestHealthUnit = HealthUnitController.selectClosestUs(HealthUnitController
               .getClosestHealthUnit(), location);
-      cancelCall.setVisibility(View.VISIBLE);
-      phone.setVisibility(View.INVISIBLE);
+      setOnCallingConfig();
       startCountDown();
     } else {
-
-      timer.setText("");
-      phone.setVisibility(View.VISIBLE);
-      cancelCall.setVisibility(View.INVISIBLE);
+      setDefaultCallConfig();
     }
+  }
+
+  private void setOnCallingConfig(){
+    cancelCall.setVisibility(View.VISIBLE);
+    phone.setVisibility(View.INVISIBLE);
+  }
+
+  private void setDefaultCallConfig(){
+    timer.setText("");
+    phone.setVisibility(View.VISIBLE);
+    cancelCall.setVisibility(View.INVISIBLE);
   }
 
 
@@ -247,30 +254,6 @@ public class RouteActivity  extends FragmentActivity implements
     }
   }
 
-  private void setYourPositionOnMap() {
-    final String yourPosition = "Sua posição";
-
-    map.addMarker(new MarkerOptions().position(userLocation).title(yourPosition)
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-  }
-
-  @Override
-  public void onConnectionSuspended(int i) {
-
-  }
-
-  protected void onStart() {
-
-    mapGoogleApiClient.connect();
-    super.onStart();
-  }
-
-  protected void onStop() {
-
-    mapGoogleApiClient.disconnect();
-    super.onStop();
-  }
-
   private void getExtraIntent() {
 
     intent = getIntent();
@@ -292,6 +275,37 @@ public class RouteActivity  extends FragmentActivity implements
       }
     });
   }
+
+  private void setYourPositionOnMap() {
+    final String yourPosition = "Sua posição";
+
+    map.addMarker(new MarkerOptions().position(userLocation).title(yourPosition)
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+  }
+
+  @Override
+  public void onConnectionSuspended(int i) {
+
+  }
+
+  @Override
+  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+  }
+
+  protected void onStart() {
+
+    mapGoogleApiClient.connect();
+    super.onStart();
+  }
+
+  protected void onStop() {
+
+    mapGoogleApiClient.disconnect();
+    super.onStop();
+  }
+
+
 
 
   private void startCountDown() {
@@ -414,6 +428,10 @@ public class RouteActivity  extends FragmentActivity implements
       Toast.makeText(getApplicationContext(),"Nenhum contato adicionado", Toast.LENGTH_LONG).show();
     }
   }
+
+  /**
+   * This method show user info
+   */
 
   public void showInformationUser() {
 
@@ -639,11 +657,6 @@ public class RouteActivity  extends FragmentActivity implements
       default:
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
-  }
-
-  @Override
-  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
   }
 
