@@ -80,7 +80,6 @@ public class RouteActivity  extends FragmentActivity implements
   private GoogleMap map;
   private Cursor result;
   private GoogleApiClient mapGoogleApiClient = null;
-  ArrayList<LatLng> pointsOfRoute = new ArrayList<>();
   EmergencyContactDao emergencyContactDao = new EmergencyContactDao(this);
   LatLng userLocation ;
   TextView timer;
@@ -98,14 +97,9 @@ public class RouteActivity  extends FragmentActivity implements
     super.onCreate(savedInstanceState);
       setContentView(R.layout.route_activity);
 
-    if (mapGoogleApiClient == null) {
-
-      //Line responsible for creating an connection with API client
-      mapGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this)
+    //Line responsible for creating an connection with API client
+    mapGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
-    } else {
-      // nothing to do
-    }
 
     checkPermissions();
     linkButtonsAndXml();
@@ -198,28 +192,30 @@ public class RouteActivity  extends FragmentActivity implements
     result = myDatabase.getUser();
 
     getMapFragment();
+    startBuildingInfoInMap(mapLastLocation);
+  }
+
+  private void startBuildingInfoInMap(Location mapLastLocation){
     Location location = getUserPosition(mapLastLocation);
 
     HealthUnitController.setDistanceBetweenUserAndUs(HealthUnitController.getClosestHealthUnit(),
-        location);
+            location);
     selectindexOfClosestHealthUnit(location);
 
     userLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
     setYourPositionOnMap();
     focusOnYourPosition();
-    pointsOfRoute.add(userLocation);
+    getDataBasedOnInternetStatus();
+  }
 
+  private void getDataBasedOnInternetStatus(){
     try {
-
       getMapData();
       setMarkerOfClosestUsOnMap();
     } catch (RuntimeException c) {
-
       Toast.makeText(this, "Sem internet", Toast.LENGTH_SHORT).show();
-
       Intent main = new Intent();
-
       main.setClass(this , MainScreenController.class);
       startActivity(main);
       finish();
