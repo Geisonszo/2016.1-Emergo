@@ -140,7 +140,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
     startActivity(informationScreen);
     finish();
   }
-  
+
   /*
    * This method search the health unit on map.
    * @param closest the closest health unit
