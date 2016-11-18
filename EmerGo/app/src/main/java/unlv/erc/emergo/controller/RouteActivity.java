@@ -123,9 +123,6 @@ public class RouteActivity  extends FragmentActivity implements
     }
   }
 
-  private void getMapFragment() {
-    map = mapFragment.getMap();
-  }
 
   private void getMapData() {
 
@@ -186,14 +183,19 @@ public class RouteActivity  extends FragmentActivity implements
       // nothing to do
     }
 
-    //Line responsible for getting user last location
-    Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
-
     myDatabase = new UserDao(this);
     result = myDatabase.getUser();
 
     getMapFragment();
+
+    //Line responsible for getting user last location
+    Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
+
     startBuildingInfoInMap(mapLastLocation);
+  }
+
+  private void getMapFragment() {
+    map = mapFragment.getMap();
   }
 
   private void startBuildingInfoInMap(Location mapLastLocation){
