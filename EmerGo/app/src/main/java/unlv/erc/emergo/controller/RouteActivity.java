@@ -171,6 +171,7 @@ public class RouteActivity  extends FragmentActivity implements
     location.setLatitude(mapLastLocation.getLatitude());
     location.setLongitude(mapLastLocation.getLongitude());
 
+    Log.i("RouteActivity","User Location:"+location);
     return location;
   }
 
@@ -493,6 +494,7 @@ public class RouteActivity  extends FragmentActivity implements
     String output = "json";
     String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
 
+    Log.i("RouteActivity","URL: "+url);
     return url;
   }
 
@@ -510,6 +512,7 @@ public class RouteActivity  extends FragmentActivity implements
         Log.d("Background Task",e.toString());
       }
 
+      Log.i("DowloadTask","Data: "+data);
       return data;
     }
 
