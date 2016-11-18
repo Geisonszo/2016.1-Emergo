@@ -556,6 +556,7 @@ public class RouteActivity  extends FragmentActivity implements
       urlConnection.disconnect();
     }
 
+    Log.i("RouteActivity.java", "Data: "+data);
     return data;
   }
 
@@ -576,6 +577,8 @@ public class RouteActivity  extends FragmentActivity implements
     URL url = new URL(strUrl);
     urlConnection = (HttpURLConnection) url.openConnection();
     urlConnection.connect();
+
+    Log.i("RouteActivity.java","Url Connection"+urlConnection.toString());
     return urlConnection;
   }
 
@@ -595,6 +598,8 @@ public class RouteActivity  extends FragmentActivity implements
       } catch (Exception e) {
         e.printStackTrace();
       }
+
+      Log.i("ParserTask","Routes nullity: "+routes.isEmpty());
       return routes;
     }
 
@@ -675,6 +680,7 @@ public class RouteActivity  extends FragmentActivity implements
       finish();
     }
 
+    Log.i("RouteActivity","Storage: "+storage);
     return storage;
   }
 
