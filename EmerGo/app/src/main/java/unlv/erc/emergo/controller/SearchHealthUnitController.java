@@ -174,6 +174,7 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
       Log.i("Search failed","getSearchHealthUnit method");
     }
 
+    Log.i("SearchHealthUnit","searchArray nullity"+searchArray.isEmpty());
     return searchArray;
   }
 

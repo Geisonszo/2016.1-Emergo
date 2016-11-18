@@ -101,7 +101,7 @@ public class HealthUnit extends SugarRecord {
   public void setUnitType(String healthUnitType) {
     try{
       this.healthUnitType = healthUnitType;
-      Log.i("health unity type setted","HealthUnit.class");
+      Log.i("health unit type setted","HealthUnit.class");
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }

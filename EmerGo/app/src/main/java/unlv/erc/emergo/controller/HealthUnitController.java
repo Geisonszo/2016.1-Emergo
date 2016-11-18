@@ -26,6 +26,7 @@ public class HealthUnitController {
 
     public static ArrayList<HealthUnit> getClosestHealthUnit() {
 
+        Log.i("HealthUnitController","closestHU nullity:"+closestHealthUnit.isEmpty());
         return closestHealthUnit;
     }
 
@@ -103,6 +104,7 @@ public class HealthUnitController {
                     /** nothing to do*/
                 }
             }
+            Log.i("HealthUnitController","HealthU Unit Position: "+position);
             return position;
 
         } catch (NullPointerException exception) {
