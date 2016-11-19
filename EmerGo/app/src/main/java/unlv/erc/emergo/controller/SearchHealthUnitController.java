@@ -160,13 +160,8 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
 
       Log.i("Starting US search","getSearchHealthUnit method");
 
-      for (numberOfUs = 0; numberOfUs < HealthUnitController.getClosestHealthUnit().size();
-          numberOfUs++) {
-        if (closest.get(numberOfUs).getNameHospital().toLowerCase().contains(search)) {
-          closestHealthUnit.add(closest.get(numberOfUs).getNameHospital());
-          healthUnit.add(HealthUnitController.getClosestHealthUnit().get(numberOfUs));
-        }
-      }
+      findSimilarHealthUnitDueToUserInput(closest, search);
+      
       return closestHealthUnit;
     }catch (NullPointerException exception){
       exception.printStackTrace();
@@ -176,6 +171,17 @@ public class SearchHealthUnitController extends AppCompatActivity implements Sea
 
     Log.i("SearchHealthUnit","searchArray nullity"+searchArray.isEmpty());
     return searchArray;
+  }
+
+  private void findSimilarHealthUnitDueToUserInput(ArrayList<HealthUnit> closest, CharSequence search) {
+    int numberOfUs;
+    for (numberOfUs = 0; numberOfUs < HealthUnitController.getClosestHealthUnit().size();
+       numberOfUs++) {
+      if (closest.get(numberOfUs).getNameHospital().toLowerCase().contains(search)) {
+        closestHealthUnit.add(closest.get(numberOfUs).getNameHospital());
+        healthUnit.add(HealthUnitController.getClosestHealthUnit().get(numberOfUs));
+      }
+    }
   }
 
   public void setHealthUnitsList(ListView healthUnitsList) {
