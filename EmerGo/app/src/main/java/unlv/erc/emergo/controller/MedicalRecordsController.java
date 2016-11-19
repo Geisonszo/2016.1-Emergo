@@ -244,11 +244,11 @@ public class MedicalRecordsController extends Activity {
   /**
    * This method aims to direct the page to search Health Units.
    *
-   * @param search go to SearchHealthUnitController class.
+   * @param search go to SearchHealthUnitActivity class.
    */
   public void openSearch(View search) {
     Intent openSearch = new Intent();
-    openSearch.setClass(this , SearchHealthUnitController.class);
+    openSearch.setClass(this , SearchHealthUnitActivity.class);
     startActivity(openSearch);
   }
 

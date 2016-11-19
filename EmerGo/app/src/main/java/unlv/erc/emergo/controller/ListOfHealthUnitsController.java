@@ -171,7 +171,7 @@ public class ListOfHealthUnitsController extends Activity {
 
     Intent openSearch = new Intent();
 
-    openSearch.setClass(this, SearchHealthUnitController.class);
+    openSearch.setClass(this, SearchHealthUnitActivity.class);
     startActivity(openSearch);
     finish();
   }

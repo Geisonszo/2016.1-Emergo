@@ -31,7 +31,7 @@ public class SettingsController extends Activity {
   private Button emergencyContact;
   // Button for MedicalRecordsController class
   private Button medicalRecord;
-  // Button for AboutApp class
+  // Button for AboutAppActivity class
   private Button aboutApp;
 
   @Override
@@ -196,7 +196,7 @@ public class SettingsController extends Activity {
 
         assert aboutApp != null : "aboutApp";
 
-        aboutApp.setClass(SettingsController.this, AboutApp.class);
+        aboutApp.setClass(SettingsController.this, AboutAppActivity.class);
         startActivity(aboutApp);
         finish();
       }

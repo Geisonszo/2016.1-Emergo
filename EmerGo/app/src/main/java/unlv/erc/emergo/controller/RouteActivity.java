@@ -271,13 +271,6 @@ public class RouteActivity  extends FragmentActivity implements
     phone = (ImageView) findViewById(R.id.phone);
     cancelCall = (ImageView) findViewById(R.id.cancelCall);
     timer = (TextView) findViewById(R.id.timer);
-    user = (ImageView) findViewById(R.id.userInformation);
-
-    user.setOnClickListener(new View.OnClickListener() {
-      public void onClick(View view) {
-        showInformationUser();
-      }
-    });
   }
 
   private void setYourPositionOnMap() {

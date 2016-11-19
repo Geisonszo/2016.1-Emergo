@@ -86,7 +86,7 @@
         </activity>
 
         <activity
-            android:name=".controller.AboutApp" >
+            android:name=".controller.AboutAppActivity" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -101,7 +101,7 @@
 
         <activity
             android:windowSoftInputMode="adjustNothing|adjustPan"
-            android:name=".controller.SearchHealthUnitController" >
+            android:name=".controller.SearchHealthUnitActivity" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
