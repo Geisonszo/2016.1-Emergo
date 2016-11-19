@@ -15,23 +15,23 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.util.List;
+
 import unlv.erc.emergo.controller.HealthUnitController;
 import unlv.erc.emergo.model.HealthUnit;
-
-import java.util.List;
 
 public class HealthUnitDao {
 
   private Context context;
   private static final String URL_BASE_DB = "https://emergodf.firebaseio.com/";
-
+  protected HealthUnit healthUnit = new HealthUnit();
   /**
     * You receive the "context" of the HealthUnitDao class.
     * @param context Context.
     *
    */
 
-  public HealthUnitDao(Context context) {
+  protected HealthUnitDao(Context context) {
 
     this.context = context;
   }
@@ -45,7 +45,6 @@ public class HealthUnitDao {
   public void setDataOnSugar() {
 
     Firebase ref = new Firebase(URL_BASE_DB);
-    HealthUnit healthUnit = new HealthUnit();
     List<HealthUnit> list;
     list = healthUnit.listAll(HealthUnit.class);
 
