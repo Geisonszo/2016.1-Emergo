@@ -10,6 +10,8 @@ import android.util.Log;
 
 import com.orm.SugarRecord;
 
+import java.util.regex.Pattern;
+
 public class HealthUnit extends SugarRecord {
 
   private Double latitude = 0.0;
@@ -87,8 +89,10 @@ public class HealthUnit extends SugarRecord {
 
   public void setNameHospital(String nameHospital) {
     try{
-      this.nameHospital = nameHospital;
-      Log.i("hospitals name setted","HealthUnit.class");
+     if(checkStringIntegrity(nameHospital) == true) {
+       this.nameHospital = nameHospital;
+       Log.i("hospitals name setted", "HealthUnit.class");
+     }
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
@@ -100,8 +104,10 @@ public class HealthUnit extends SugarRecord {
 
   public void setUnitType(String healthUnitType) {
     try{
-      this.healthUnitType = healthUnitType;
-      Log.i("health unit type setted","HealthUnit.class");
+      if (checkStringIntegrity(healthUnitType)) {
+        this.healthUnitType = healthUnitType;
+        Log.i("health unit type setted", "HealthUnit.class");
+      }
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
@@ -113,8 +119,10 @@ public class HealthUnit extends SugarRecord {
 
   public void setAddressNumber(String addressNumber) {
     try{
-      this.addressNumber = addressNumber;
-      Log.i("adress setted","HealthUnit.class");
+      if (checkStringIntegrity(addressNumber) == true) {
+        this.addressNumber = addressNumber;
+        Log.i("adress setted", "HealthUnit.class");
+      }
     }catch (NullPointerException exception){
       exception.printStackTrace();
     }
@@ -126,8 +134,10 @@ public class HealthUnit extends SugarRecord {
 
   public void setDistrict(String district) {
     try{
-      this.district = district;
-      Log.i("district setted","HealthUnit.class");
+      if (checkStringIntegrity(district)) {
+        this.district = district;
+        Log.i("district setted", "HealthUnit.class");
+      }
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
@@ -139,8 +149,10 @@ public class HealthUnit extends SugarRecord {
 
   public void setState(String state) {
     try{
-      this.state = state;
-      Log.i("state setted","HealthUnit.class");
+      if(checkStringIntegrity(state) == true) {
+        this.state = state;
+        Log.i("state setted", "HealthUnit.class");
+      }
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
@@ -152,8 +164,10 @@ public class HealthUnit extends SugarRecord {
 
   public void setCity(String city) {
     try{
-      this.city = city;
-      Log.i("city setted","HealthUnit.class");
+      if(checkStringIntegrity(city) == true) {
+        this.city = city;
+        Log.i("city setted", "HealthUnit.class");
+      }
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
@@ -170,5 +184,16 @@ public class HealthUnit extends SugarRecord {
     }catch (NullPointerException exception){
         exception.printStackTrace();
     }
+  }
+
+  private boolean checkStringIntegrity(String nameHospital) {
+
+    for(int i = 0; i < nameHospital.length(); i++){
+      if(Character.isLetter(nameHospital.charAt(i)) == false &&
+              Character.isDigit(nameHospital.charAt(i)) == false){
+        return false;
+      }
+    }
+    return true;
   }
 }
