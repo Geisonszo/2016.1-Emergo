@@ -106,7 +106,7 @@ public class HealthUnitDao {
    *
    */
 
-  protected HealthUnitDao(Context context) {
+  public HealthUnitDao(Context context) {
 
     this.context = context;
   }
