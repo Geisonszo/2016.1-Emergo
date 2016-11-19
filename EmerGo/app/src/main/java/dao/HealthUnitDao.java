@@ -25,21 +25,11 @@ public class HealthUnitDao {
   private Context context;
   private static final String URL_BASE_DB = "https://emergodf.firebaseio.com/";
   protected HealthUnit healthUnit = new HealthUnit();
-  /**
-    * You receive the "context" of the HealthUnitDao class.
-    * @param context Context.
-    *
-   */
-
-  protected HealthUnitDao(Context context) {
-
-    this.context = context;
-  }
 
   /**
-    * Low data from health units and saved in the database. In addition to putting this data in the
-    * arraylist.
-    *
+   * Low data from health units and saved in the database. In addition to putting this data in the
+   * arraylist.
+   *
    */
 
   public void setDataOnSugar() {
@@ -52,48 +42,48 @@ public class HealthUnitDao {
 
       ref.child("EmerGo").addValueEventListener(new ValueEventListener() {
 
-          @Override
-          public void onDataChange(DataSnapshot dataSnapshot) {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-            /**
-             * Set database with data from health units.
-             */
+          /**
+           * Set database with data from health units.
+           */
 
-            HealthUnit model;
-              for (DataSnapshot child : dataSnapshot.getChildren()) {
+          HealthUnit model;
+          for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-                double latitude = (double) child.child("lat").getValue();
-                double longitude = (double) child.child("long").getValue();
-                String nameHospital = child.child("no_fantasia").getValue().toString();
-                String healthUnitType = child.child("ds_tipo_unidade").getValue().toString();
-                String addressNumber = child.child("co_cep").getValue().toString();
-                String district = child.child("no_bairro").getValue().toString();
-                String state = child.child("uf").getValue().toString();
-                String city = child.child("municipio").getValue().toString();
+            double latitude = (double) child.child("lat").getValue();
+            double longitude = (double) child.child("long").getValue();
+            String nameHospital = child.child("no_fantasia").getValue().toString();
+            String healthUnitType = child.child("ds_tipo_unidade").getValue().toString();
+            String addressNumber = child.child("co_cep").getValue().toString();
+            String district = child.child("no_bairro").getValue().toString();
+            String state = child.child("uf").getValue().toString();
+            String city = child.child("municipio").getValue().toString();
 
-                if ((healthUnitType.contains("HOSPITAL GERAL")
+            if ((healthUnitType.contains("HOSPITAL GERAL")
                     || healthUnitType.contains("CENTRO DE SAUDE/UNIDADE BASICA")
                     || healthUnitType.contains("UNIDADE MOVEL DE NIVEL PRE-HOSPITALAR NA AREA DE "
-                                       + "URGENCIA")
+                    + "URGENCIA")
                     || healthUnitType.contains("UNIDADE MOVEL TERRESTRE"))) {
 
-                  model = new HealthUnit(latitude,longitude,nameHospital,healthUnitType,
-                                           addressNumber,district,state,city);
-                  model.save();
-                  HealthUnitController.setClosestHealthUnit(model);
-                }
-              }
-              Toast.makeText(context, "Atualize o mapa para carregar mais USs" ,
-                                    Toast.LENGTH_LONG).show();
-              Log.i("Database has finished", HealthUnitController.getClosestHealthUnit()
+              model = new HealthUnit(latitude,longitude,nameHospital,healthUnitType,
+                      addressNumber,district,state,city);
+              model.save();
+              HealthUnitController.setClosestHealthUnit(model);
+            }
+          }
+          Toast.makeText(context, "Atualize o mapa para carregar mais USs" ,
+                  Toast.LENGTH_LONG).show();
+          Log.i("Database has finished", HealthUnitController.getClosestHealthUnit()
                   .size() + "Us");
-          }
+        }
 
-          @Override
-          public void onCancelled(FirebaseError firebaseError) {
+        @Override
+        public void onCancelled(FirebaseError firebaseError) {
 
-          }
+        }
       });
     } else {
 
@@ -108,5 +98,16 @@ public class HealthUnitDao {
       Log.d("log123", "preenchida offline");
       Log.i("Database has finished", HealthUnitController.getClosestHealthUnit().size() + " Us");
     }
+  }
+
+  /**
+   * You receive the "context" of the HealthUnitDao class.
+   * @param context Context.
+   *
+   */
+
+  protected HealthUnitDao(Context context) {
+
+    this.context = context;
   }
 }
