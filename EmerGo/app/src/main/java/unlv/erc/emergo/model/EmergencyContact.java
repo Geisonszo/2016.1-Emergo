@@ -30,7 +30,7 @@ public class EmergencyContact {
    *
    */
 
-  private EmergencyContact(String nameContact, String phone) {
+  protected EmergencyContact(String nameContact, String phone) {
     
     assert nameContact != null : "nameContact can't be null";
     assert phone != null : "phone can't be null";
@@ -45,7 +45,7 @@ public class EmergencyContact {
    *
    */
 
-  private String getnameContact() {
+  protected String getnameContact() {
 
     return nameContact;
   } 
@@ -56,7 +56,7 @@ public class EmergencyContact {
    *
    */
 
-  private void setnameContact(String nameContact) {
+  protected void setnameContact(String nameContact) {
 
     assert nameContact != null : "nameContact can't be null";
 
@@ -69,7 +69,7 @@ public class EmergencyContact {
    *
    */
 
-  private String getPhone() {
+  protected String getPhone() {
 
     return phone;
   } 
@@ -80,7 +80,7 @@ public class EmergencyContact {
    *
    */
 
-  private void setPhone(String phone) {
+  protected void setPhone(String phone) {
 
     assert phone != null : "phone can't be null";
 
