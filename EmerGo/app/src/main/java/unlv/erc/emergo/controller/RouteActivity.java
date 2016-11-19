@@ -33,6 +33,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.app.AlertDialog;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -218,11 +219,15 @@ public class RouteActivity  extends FragmentActivity implements
       setMarkerOfClosestUsOnMap();
     } catch (RuntimeException c) {
       Toast.makeText(this, "Sem internet", Toast.LENGTH_SHORT).show();
-      Intent main = new Intent();
-      main.setClass(this , MainScreenController.class);
-      startActivity(main);
+      launchMainScreenController();
       finish();
     }
+  }
+
+  private void launchMainScreenController(){
+    Intent main = new Intent();
+    main.setClass(this , MainScreenController.class);
+    startActivity(main);
   }
 
   private void checkPermissions() {
@@ -543,12 +548,7 @@ public class RouteActivity  extends FragmentActivity implements
       urlConnection = getHttpUrlConnection(strUrl, urlConnection);
       inStream = urlConnection.getInputStream();
 
-      BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
-      StringBuffer sb  = new StringBuffer();
-      concatenateBufferRead(br, sb);
-
-      data = sb.toString();
-      br.close();
+      data = createBufferReaderLogic(data, inStream);
     } catch (Exception e) {
 
       Log.d("Error downloading url", e.toString());
@@ -559,6 +559,17 @@ public class RouteActivity  extends FragmentActivity implements
     }
 
     Log.i("RouteActivity.java", "Data: "+data);
+    return data;
+  }
+
+  @NonNull
+  private String createBufferReaderLogic(String data, InputStream inStream) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
+    StringBuffer sb  = new StringBuffer();
+    concatenateBufferRead(br, sb);
+
+    data = sb.toString();
+    br.close();
     return data;
   }
 
@@ -609,12 +620,10 @@ public class RouteActivity  extends FragmentActivity implements
     protected void onPostExecute(List<List<HashMap<String, String>>> result) {
 
       ArrayList<LatLng> points = null;
-      PolylineOptions lineOptions = null;
 
       for (int i = 0; i < result.size();i++) {
 
         points = new ArrayList<LatLng>();
-        lineOptions = new PolylineOptions();
 
         List<HashMap<String, String>> path = result.get(i);
 
@@ -628,12 +637,18 @@ public class RouteActivity  extends FragmentActivity implements
 
           points.add(position);
         }
-
-        lineOptions.addAll(points);
-        lineOptions.width(7);
-        lineOptions.color(Color.BLUE);
       }
-      map.addPolyline(lineOptions);
+      map.addPolyline(drawPolyline(points));
+    }
+
+    private PolylineOptions drawPolyline(ArrayList<LatLng> points){
+      PolylineOptions lineOptions = new PolylineOptions();
+
+      lineOptions.addAll(points);
+      lineOptions.width(7);
+      lineOptions.color(Color.BLUE);
+
+      return lineOptions;
     }
   }
 
