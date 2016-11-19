@@ -32,7 +32,6 @@ public class MainScreenController extends Activity {
   private Cursor resultOfTheUser;
   private static final int MAXIMUM_ARRAY = 7;  //Maximum number of rows that the medical records may
   // have.
-  private int clickPosition = 0;  //Initial position of the user click on the notification screen.
   private static final String TITLE_MESSAGE = "Ficha Médica";
   private static final String TEXT_MESSAGE = "Você tem uma ficha médica!";
   private static final String ALERT_MESSAGE = "Alerta de Mensagem";
@@ -90,6 +89,8 @@ public class MainScreenController extends Activity {
    * Method that sets up the medical records in the status bar.
    */
   private void medicalRecordsNotification() {
+
+    int clickPosition = 0;  //Initial position of the user click on the notification screen.
 
     resultOfTheUser.moveToFirst();
     final int notifyId = 1;
