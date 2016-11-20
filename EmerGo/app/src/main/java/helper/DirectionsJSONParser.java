@@ -74,6 +74,12 @@ public class DirectionsJSONParser {
     return routes;
   }
 
+  /**
+   * Method to decode polyline points.
+   * @param encoded String to be decoded
+   * @return poly String decoded
+   */
+
   private List<LatLng> decodePoly(String encoded) {
 
     assert encoded != null : "encoded can't be null";
