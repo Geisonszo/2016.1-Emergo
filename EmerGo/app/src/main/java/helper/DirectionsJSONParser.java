@@ -23,8 +23,9 @@ public class DirectionsJSONParser {
    * @param jObject JSON Objects
    */
 
-  //DEIXA PUBLIC!
   public List<List<HashMap<String,String>>> parse(JSONObject jObject) {
+
+    assert jObject != null : "jObject can't be null";
 
     List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String,String>>>() ;
     JSONArray jRoutes = null;
@@ -71,6 +72,8 @@ public class DirectionsJSONParser {
   }
 
   private List<LatLng> decodePoly(String encoded) {
+
+    assert encoded != null : "encoded can't be null";
 
     List<LatLng> poly = new ArrayList<LatLng>();
     int index = 0;
