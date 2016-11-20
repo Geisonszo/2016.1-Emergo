@@ -199,14 +199,16 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     // Check the user's last location.
     if (mapLastLocation != null) {
 
-      Location location = mapLastLocation;
-      LatLng userLatLng = new LatLng(location.getLatitude() , location.getLongitude());
+      // Instantiate an object with the user location
+      LatLng userLatLng = new LatLng(mapLastLocation.getLatitude() , mapLastLocation.getLongitude());
 
+      // Focus on user position
       focusOnSelfPosition(userLatLng);
       services.setMarkersOnMap(map , HealthUnitController.getClosestHealthUnit());
 
     } else {
 
+      // Shows a message when the position is not found.
       Toast.makeText(this, POSITION_NOT_LOCATED_MESSAGE, Toast.LENGTH_SHORT).show();
       Intent mainScreen = new Intent();
 
@@ -239,6 +241,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   public void openSearch(View mapScreen) {
 
     assert mapScreen != null : "mapScreen can not be null";
+
 
     Intent openSearch = new Intent();
     openSearch.setClass(this , SearchHealthUnitActivity.class);
@@ -309,9 +312,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     // Verify if the location an storage permission is available, if not, request permission.
     if (location && storage) {
 
+      // Shows up the message when the permission is approved.
       Toast.makeText(this, PERMISION_APPROVED_MESSAGE, Toast.LENGTH_SHORT).show();
     } else {
-
+      // Shows up the message when is need to request the permission.
       Toast.makeText(this,REQUEST_PERMISION_MESSAGE, Toast.LENGTH_SHORT).show();
     }
   }
@@ -354,6 +358,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     // Verify if the permissions array is empty, if yes, request permission.
     if (!permissions.isEmpty()) {
 
+      // Shows up a permission message.
       Toast.makeText(this, message, Toast.LENGTH_LONG).show();
       String[] params = permissions.toArray(new String[permissions.size()]);
 
