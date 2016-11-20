@@ -30,8 +30,8 @@ public class MainScreenController extends Activity {
 
   private final HealthUnitDao dataAccessObject = new HealthUnitDao(this);
   private Cursor resultOfTheUser;
-  private static final int MAXIMUM_ARRAY = 7;  //Maximum number of rows that the medical records may
-  // have.
+  //Maximum number of rows that the medical records may have.
+  private static final int MAXIMUM_ARRAY = 7;
   private static final String TITLE_MESSAGE = "Ficha Médica";
   private static final String TEXT_MESSAGE = "Você tem uma ficha médica!";
   private static final String ALERT_MESSAGE = "Alerta de Mensagem";
@@ -55,7 +55,9 @@ public class MainScreenController extends Activity {
     dataAccessObject.setDataOnSugar();
     resultOfTheUser = myDatabase.getUser();
 
+    // Verify if resultOftheUser is != 0. If yes sets up the medical records in the status bar.
     if (resultOfTheUser.getCount() != 0) {
+
       medicalRecordsNotification();
     } else {
       //Nothing to do
@@ -69,8 +71,7 @@ public class MainScreenController extends Activity {
 
     assert mainScreen != null : "mainScreen can't be null";
 
-    Toast.makeText(MainScreenController.this, ROUTE_TRACED,
-                Toast.LENGTH_SHORT).show();
+    Toast.makeText(MainScreenController.this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(MainScreenController.this, RouteActivity.class);
     routeActivity.putExtra(INFORMATION_MESSAGE, -1);
@@ -109,10 +110,9 @@ public class MainScreenController extends Activity {
 
     notification.setNumber(++clickPosition);
 
-    final NotificationCompat.InboxStyle inboxStyle =
-                new NotificationCompat.InboxStyle();
+    final NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-    String events[] = new String[7];
+    String events[] = new String[8];
 
     // Array with the user data.
     events[0] = "Nome: " + resultOfTheUser.getString(1);
@@ -122,13 +122,15 @@ public class MainScreenController extends Activity {
     events[4] = "Diabetico: " + resultOfTheUser.getString(5);
     events[5] = "Hipertenso: " + resultOfTheUser.getString(6);
     events[6] = "Soropositivo: " + resultOfTheUser.getString(7);
-    events[6] = "Observações Especiais: " + resultOfTheUser.getString(8);
+    events[7] = "Observações Especiais: " + resultOfTheUser.getString(8);
 
     inboxStyle.setBigContentTitle(TITLE_MESSAGE);
 
-    if (MAXIMUM_ARRAY == 7) {
+    // Verify if the length of array with the user data is exceeded
+    if (MAXIMUM_ARRAY == 8) {
 
       for (int aux = 0; aux < MAXIMUM_ARRAY; aux++) {
+
         inboxStyle.addLine(events[aux]);
       }
 

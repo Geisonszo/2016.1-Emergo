@@ -848,7 +848,7 @@ public class EmergencyContactController extends Activity {
       Log.e("The return must be true","The return is: " + valid);
 
       return valid;
-      // Verify if the legth of the name is larger the MINIMUM
+      // Verify if the length of the name is larger the MINIMUM
     } else if (nameUser.trim().length() < MINIMUM) {
 
       showMessage("Informe um nome com no mínimo 3 caracteres.");
