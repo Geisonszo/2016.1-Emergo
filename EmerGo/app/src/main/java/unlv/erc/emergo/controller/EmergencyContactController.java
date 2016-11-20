@@ -560,7 +560,7 @@ public class EmergencyContactController extends Activity {
 
       // Nothing to do
     }
-    Log.e("The return must be true.","The return is: " + valid);
+    Log.e("The return must be true","The return is: " + valid);
     Log.d("End of Method: ","signInFirstContact");
     return valid;
   }
@@ -623,7 +623,7 @@ public class EmergencyContactController extends Activity {
 
       //Nothing to do
     }
-    Log.e("The return must be true.","The return is: " + valid);
+    Log.e("The return must be true","The return is: " + valid);
     Log.d("End of Method: ","signInSecondContact");
     return valid;
   }
@@ -686,7 +686,7 @@ public class EmergencyContactController extends Activity {
 
       //Nothing to do
     }
-    Log.e("The return must be true.","The return is: " + valid);
+    Log.e("The return must be true","The return is: " + valid);
     Log.d("End of Method: ","signInThirdContact");
     return valid;
   }
@@ -757,7 +757,7 @@ public class EmergencyContactController extends Activity {
 
       //Nothing to do
     }
-    Log.e("The return must be true.","The return is: " + valid);
+    Log.e("The return must be true","The return is: " + valid);
     Log.d("End of Method:","updateContact");
     return valid;
   }
@@ -843,23 +843,23 @@ public class EmergencyContactController extends Activity {
     if (nameUser.isEmpty() == true) {
 
       showMessage("Nome Vazio! Informe Seu Nome.");
-      Log.e("This return must be true.","The return is: "+valid);
+      Log.e("The return must be true","The return is: "+valid);
       return valid;
     } else if (nameUser.trim().length() < MINIMUM) {
 
       showMessage("Informe um nome com no mínimo 3 caracteres.");
-      Log.e("This return must be true.","The return is: "+valid);
+      Log.e("The return must be true","The return is: "+valid);
       return valid;
       // Verific is nameUser is numeric
     } else if (nameUser.matches(".*\\d.*")) {
 
       showMessage("Um nome não pode ter um número!");
-      Log.e("This return must be true.","The return is: "+valid);
+      Log.e("The return must be true","The return is: "+valid);
       return valid;
     }
     Log.d("End of Method: ","checksName");
     valid = false;
-    Log.e("This return must be false.","The return is: "+valid);
+    Log.e("Return must be false.","The return is: "+valid);
     return valid;
   }
 
