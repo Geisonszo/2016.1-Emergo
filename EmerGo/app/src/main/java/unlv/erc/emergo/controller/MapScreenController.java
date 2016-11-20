@@ -66,13 +66,14 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public boolean onMarkerClick(Marker marker) {
 
-    assert marker != null : "marker con't be null";
+    assert marker != null : "marker can't be null";
 
     boolean valid = false;
 
+    // Set information about health units on the screen.
     for (int aux = 0 ; aux < HealthUnitController.getClosestHealthUnit().size() ; aux++) {
-      if (marker.getTitle().compareTo(HealthUnitController.getClosestHealthUnit()
-              .get(aux)
+
+      if (marker.getTitle().compareTo(HealthUnitController.getClosestHealthUnit().get(aux)
                 .getNameHospital()) == 0) {
 
         Intent information = new Intent();
@@ -92,6 +93,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                          @NonNull int[] grantResults) {
 
+    //
     switch (requestCode) {
 
       case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
@@ -100,6 +102,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         perms.put(Manifest.permission.ACCESS_FINE_LOCATION,
                 PackageManager.PERMISSION_GRANTED);
 
+        // Set permissions on grantResults.
         for (int i = 0; i < permissions.length; i++) {
 
           perms.put(permissions[i], grantResults[i]);
@@ -145,7 +148,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   public void listMapsImageClicked(View mapscreen) {
 
-    assert mapscreen != null : "mapScreen can not be null";
+    assert mapscreen != null : "mapscreen can not be null";
 
     Intent listOfHealth = new Intent();
     listOfHealth.setClass(this, ListOfHealthUnitsController.class);
@@ -160,6 +163,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public void onConnected(Bundle connectionHint) {
 
+    // Verify the SDK version and check the permissions.
     if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
@@ -171,6 +175,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(
             mapGoogleApiClient);
 
+    // Check the user's last location.
     if (mapLastLocation != null) {
 
       Location location = mapLastLocation;
@@ -198,6 +203,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public void onMapReady(GoogleMap googleMap) {
 
+    // // Verify the SDK version and check the permissions.
     if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
@@ -243,6 +249,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     map = mapFragment.getMap();
     map.setOnMarkerClickListener(this);
 
+    // Verify if the mapGoogleApiClient is null, if yes set the mapGoogleApiClient.
     if (mapGoogleApiClient == null) {
 
       mapGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -273,6 +280,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     boolean location = false;
     boolean storage = false;
 
+    // Verify if the location an storage permission is available, if not, request permission.
     if (location && storage) {
 
       Toast.makeText(this, PERMISION_APPROVED_MESSAGE, Toast.LENGTH_SHORT).show();
@@ -297,6 +305,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     List<String> permissions = new ArrayList<>();
     String message = "Permissão";
 
+    // Verify that the application has permission to use the location.
     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
 
@@ -307,6 +316,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
       //Nothing to do
     }
 
+    // Verify if the permissions array is empty, if yes, request permission.
     if (!permissions.isEmpty()) {
 
       Toast.makeText(this, message, Toast.LENGTH_LONG).show();

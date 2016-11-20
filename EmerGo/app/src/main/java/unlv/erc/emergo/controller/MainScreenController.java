@@ -126,7 +126,7 @@ public class MainScreenController extends Activity {
 
     inboxStyle.setBigContentTitle(TITLE_MESSAGE);
 
-    // Verify if the length of array with the user data is exceeded
+    // Verify if the length of array with the user data is exceeded.
     if (MAXIMUM_ARRAY == 8) {
 
       for (int aux = 0; aux < MAXIMUM_ARRAY; aux++) {
