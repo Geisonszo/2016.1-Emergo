@@ -290,6 +290,11 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     }
   }
 
+  /**
+   * This method focus on map the location of the user.
+   * @param userLatLng The location (latitude and longitude) of the user
+   */
+
   private void focusOnSelfPosition(LatLng userLatLng) {
 
     assert userLatLng != null : "userLatLng can not be null";
@@ -299,6 +304,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     map.animateCamera(CameraUpdateFactory.newLatLngZoom( new LatLng(userLatLng.latitude,
             userLatLng.longitude), 13.0f));
   }
+
+  /**
+   * This method check the permission to use the location.
+   */
 
   private void checkPermissions() {
 

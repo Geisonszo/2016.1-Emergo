@@ -20,6 +20,13 @@ import unlv.erc.emergo.R;
 
 public class EmerGoWidgetProvider extends AppWidgetProvider {
 
+  /**
+   * This method provides RemoteViews for a set of AppWidgets.
+   * @param context The Context in which this receiver is running.
+   * @param appWidgetManager A AppWidgetManager object you can call updateAppWidget on.
+   * @param appWidgetIds The appWidgetIds for which an update is needed.
+   */
+
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
