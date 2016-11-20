@@ -19,7 +19,6 @@ public class LoadingScreenController extends Activity {
 
    // Time in milliseconds the duration of the spinner.
    private static final int WAITING_TIME = 9000;
-    private static final int MAXIMUM_TIME = 9000;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,18 +35,12 @@ public class LoadingScreenController extends Activity {
       @Override
       public void run() {
 
-          // If WAITING_TIME is equal to 9000 run the timeCounter
-          if (WAITING_TIME == MAXIMUM_TIME) {
-
             // Set the intent to bind LoadingScreenController screen to MainScreenController screen.
             Intent timeCounter = new Intent(LoadingScreenController.this,
                                                 MainScreenController.class);
               startActivity(timeCounter);
               finish();
-          } else {
 
-              //Nothing to do
-          }
       }
     }, WAITING_TIME);
   }

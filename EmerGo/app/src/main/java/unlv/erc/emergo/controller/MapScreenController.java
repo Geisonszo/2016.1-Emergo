@@ -45,20 +45,6 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         GoogleMap.OnMarkerClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-  //Code of Google services that makes the request of several permissions.
-  private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-  private static final int FINAL_VERSION_SDK = 23;
-  private final String yourPosition = "Sua posição";
-  private final Services services = new Services();
-  private static final String INFORMATION_MESSAGE = "numeroUs";
-  private static final String ROUTE_TRACED = "Rota mais próxima traçada";
-  private static final String POSITION_MESSAGE = "Posição";
-  private static final String PERMISION_APPROVED_MESSAGE = "Permissão aprovada";
-  private static final String REQUEST_PERMISION_MESSAGE = "Permita ter o acesso para te localizar";
-  private static final String PERMISION_MESSAGE = "É necessário ter a permissão";
-  private static final String POSITION_NOT_LOCATED_MESSAGE = "Não foi possível localizar sua " +
-          "posição";
-
   //Google Maps API.
   private GoogleMap map;
   private GoogleApiClient mapGoogleApiClient = null;
@@ -71,6 +57,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   @Override
   public boolean onMarkerClick(Marker marker) {
+
+    final String POSITION_MESSAGE = "Posição";
 
     assert marker != null : "marker can't be null";
 
@@ -96,6 +84,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     return valid;
   }
 
+  //Code of Google services that makes the request of several permissions.
+  final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+
   /**
    * This method callback for the result from requesting permissions.
    * @param requestCode  The request code passed.
@@ -106,6 +97,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                          @NonNull int[] grantResults) {
+
+    final String PERMISION_MESSAGE = "É necessário ter a permissão";
 
     switch (requestCode) {
 
@@ -155,6 +148,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
    */
   public void goClicked(View mapScreen) throws IOException, JSONException {
 
+    final String INFORMATION_MESSAGE = "numeroUs";
+    final String ROUTE_TRACED = "Rota mais próxima traçada";
+
     assert mapScreen != null : "mapScreen can not be null";
 
     Toast.makeText(this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
@@ -187,8 +183,15 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   }
 
+  private static final int FINAL_VERSION_SDK = 23;
+
   @Override
   public void onConnected(Bundle connectionHint) {
+
+    final String POSITION_NOT_LOCATED_MESSAGE = "Não foi possível localizar sua " +
+            "posição";
+
+    final Services services = new Services();
 
     // Verify the SDK version and check the permissions.
     if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
@@ -313,6 +316,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   private void messageAboutPermission() {
 
+    final String PERMISION_APPROVED_MESSAGE = "Permissão aprovada";
+    final String REQUEST_PERMISION_MESSAGE = "Permita ter o acesso para te localizar";
+
     boolean location = false;
     boolean storage = false;
 
@@ -333,6 +339,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
    */
 
   private void focusOnSelfPosition(LatLng userLatLng) {
+
+    final String yourPosition = "Sua posição";
 
     assert userLatLng != null : "userLatLng can not be null";
 
