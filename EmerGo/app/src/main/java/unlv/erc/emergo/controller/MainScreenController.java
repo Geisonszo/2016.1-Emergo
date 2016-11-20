@@ -67,6 +67,8 @@ public class MainScreenController extends Activity {
    */
   public void goClicked(View mainScreen) {
 
+    assert mainScreen != null : "mainScreen can't be null";
+
     Toast.makeText(MainScreenController.this, ROUTE_TRACED,
                 Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
@@ -79,6 +81,8 @@ public class MainScreenController extends Activity {
    * Method that goes to the home page.
    */
   public void okayClicked(View view) {
+
+    assert view != null : "view can't be null";
 
     Intent mapScreen = new Intent();
     mapScreen.setClass(getBaseContext(), MapScreenController.class);

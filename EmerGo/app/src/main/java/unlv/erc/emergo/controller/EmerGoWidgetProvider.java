@@ -21,8 +21,8 @@ import unlv.erc.emergo.R;
 public class EmerGoWidgetProvider extends AppWidgetProvider {
 
   @Override
-  public void onUpdate(Context context, AppWidgetManager appWidgetManager,
-      int[] appWidgetIds) {
+  public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+
     Log.d("Begin of Method: ","onUpdate");
     // Instantiation of class ComponentName
     ComponentName thisWidget = new ComponentName(context, EmerGoWidgetProvider.class);
