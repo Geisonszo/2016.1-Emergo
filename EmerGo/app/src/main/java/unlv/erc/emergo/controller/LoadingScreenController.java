@@ -17,7 +17,8 @@ import unlv.erc.emergo.R;
 
 public class LoadingScreenController extends Activity {
 
-    private static final int WAITING_TIME = 9000; //Time in milliseconds the duration of the spinner.
+   // Time in milliseconds the duration of the spinner.
+   private static final int WAITING_TIME = 9000;
     private static final int MAXIMUM_TIME = 9000;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class LoadingScreenController extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.loading_screen);
 
+    // Set the spinner of bar menu.
     ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBar);
     spinner.setVisibility(View.VISIBLE);
 
@@ -37,7 +39,8 @@ public class LoadingScreenController extends Activity {
           // If WAITING_TIME is equal to 9000 run the timeCounter
           if (WAITING_TIME == MAXIMUM_TIME) {
 
-              Intent timeCounter = new Intent(LoadingScreenController.this,
+            // Set the intent to bind LoadingScreenController screen to MainScreenController screen.
+            Intent timeCounter = new Intent(LoadingScreenController.this,
                                                 MainScreenController.class);
               startActivity(timeCounter);
               finish();
