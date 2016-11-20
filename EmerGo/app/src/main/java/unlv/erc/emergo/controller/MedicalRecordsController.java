@@ -198,6 +198,9 @@ public class MedicalRecordsController extends Activity {
    * @param mapScreen go to RouteActivity class.
    */
   public void goClicked(View mapScreen) {
+
+    assert mapScreen != null : "mapScreen can not be null";
+
     Toast.makeText(this , FUNCTION_NOT_ENABLE_MESSAGE , Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(this, RouteActivity.class);
@@ -211,6 +214,9 @@ public class MedicalRecordsController extends Activity {
    * @param mapScreen go to ListOfHealthUnitsController class.
    */
   public void listMapsImageClicked(View mapScreen) {
+
+    assert mapScreen != null : "mapScreen can not be null";
+
     Intent listOfHealth = new Intent();
     listOfHealth.setClass(this , ListOfHealthUnitsController.class);
     startActivity(listOfHealth);
@@ -223,6 +229,9 @@ public class MedicalRecordsController extends Activity {
    * @param config go to SettingsController class.
    */
   public void openConfig(View config) {
+
+    assert config != null : "config can not be null";
+
     Intent configuration = new Intent();
     configuration.setClass(this , SettingsController.class);
     startActivity(configuration);
@@ -235,6 +244,9 @@ public class MedicalRecordsController extends Activity {
    * @param mapScreen go to MapScreenController class.
    */
   public void openMap(View mapScreen) {
+
+    assert mapScreen != null : "mapScreen can not be null";
+
     Intent mapActivity = new Intent();
     mapActivity.setClass(this, MapScreenController.class);
     startActivity(mapActivity);
@@ -247,6 +259,9 @@ public class MedicalRecordsController extends Activity {
    * @param search go to SearchHealthUnitActivity class.
    */
   public void openSearch(View search) {
+
+    assert search != null : "search can not be null";
+
     Intent openSearch = new Intent();
     openSearch.setClass(this , SearchHealthUnitActivity.class);
     startActivity(openSearch);
@@ -256,6 +271,8 @@ public class MedicalRecordsController extends Activity {
    * This method aims to create a user's medical records.
    */
   private boolean createUser() {
+
+
     boolean sucess = true;
     boolean valid = false;
 
@@ -306,8 +323,11 @@ public class MedicalRecordsController extends Activity {
    * @param update button that updates the information.
    * @param delete button that deletes the information.
    */
-  private void updateUser(Integer id,Button save,Button update,
-                            Button delete) {
+  private void updateUser(Integer id,Button save,Button update, Button delete) {
+
+    assert id != null : "id can not be null";
+    assert update != null : "update can not be null";
+    assert delete != null : "delete can not be null";
 
     boolean sucess = true;
 
@@ -371,8 +391,8 @@ public class MedicalRecordsController extends Activity {
   private void deleteUser(final EditText name, final EditText birthday,
                             final EditText observations,
                             final Button save, final Integer id, final Button update,
-                            final Button delete,final Spinner typeBlood,final Spinner cardiac,
-                            final Spinner diabect,final Spinner hypertension,
+                            final Button delete, final Spinner typeBlood,final Spinner cardiac,
+                            final Spinner diabect, final Spinner hypertension,
                             final Spinner seropositive) {
 
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -400,10 +420,14 @@ public class MedicalRecordsController extends Activity {
 
   private void showMessage(String message) {
 
+    assert message != null : "message can not be null";
+
     Toast.makeText(this,"" + message,Toast.LENGTH_LONG).show();
   }
 
   private boolean checksName(String nameUser) {
+
+    assert nameUser != null : "nameUser can not be null";
 
     boolean valid = false;
     final int minimumSizeName = 3;
@@ -438,6 +462,8 @@ public class MedicalRecordsController extends Activity {
    * @param birthdayUser user birthday.
    */
   private boolean checkBirthday(String birthdayUser) {
+
+    assert birthdayUser != null : "birthdayUser can not be null";
 
     final int MINIMUMYEAR = 42;
 
@@ -530,6 +556,10 @@ public class MedicalRecordsController extends Activity {
    */
   private void disableOptions(Button save, Button update,Button delete) {
 
+    assert save != null : "save can not be null";
+    assert update != null : "update can not be null";
+    assert delete != null : "delete can not be null";
+
     save.setVisibility(View.VISIBLE);
     update.setVisibility(View.INVISIBLE);
     delete.setVisibility(View.INVISIBLE);
@@ -585,6 +615,10 @@ public class MedicalRecordsController extends Activity {
 
   private void disableOptionsUpdate(Button save,Button update,Button delete) {
 
+    assert save != null : "save can not be null";
+    assert update != null : "update can not be null";
+    assert delete != null : "delete can not be null";
+
     save.setEnabled(false);
     update.setVisibility(View.VISIBLE);
     update.setEnabled(true);
@@ -601,6 +635,10 @@ public class MedicalRecordsController extends Activity {
    */
 
   private void disableButtons(Button save,Button update,Button delete) {
+
+    assert save != null : "save can not be null";
+    assert update != null : "update can not be null";
+    assert delete != null : "delete can not be null";
 
     save.setVisibility(View.INVISIBLE);
     update.setVisibility(View.VISIBLE);
@@ -651,6 +689,9 @@ public class MedicalRecordsController extends Activity {
    */
 
   private void visibleOptions(Button save,Button update) {
+
+    assert save != null : "save can not be null";
+    assert update != null : "update can not be null";
 
     update.setVisibility(View.VISIBLE);
     save.setVisibility(View.INVISIBLE);
