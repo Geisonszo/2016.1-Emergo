@@ -58,6 +58,7 @@ public class MainScreenController extends Activity {
     // Verify if resultOftheUser is != 0. If yes sets up the medical records in the status bar.
     if (resultOfTheUser.getCount() != 0) {
 
+      // Shows the medical records notification on status bar
       medicalRecordsNotification();
     } else {
       //Nothing to do
@@ -71,7 +72,9 @@ public class MainScreenController extends Activity {
 
     assert mainScreen != null : "mainScreen can't be null";
 
+    // Show the message when route is traced.
     Toast.makeText(MainScreenController.this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
+
     Intent routeActivity = new Intent();
     routeActivity.setClass(MainScreenController.this, RouteActivity.class);
     routeActivity.putExtra(INFORMATION_MESSAGE, -1);
@@ -99,8 +102,7 @@ public class MainScreenController extends Activity {
 
     resultOfTheUser.moveToFirst();
     final int notifyId = 1;
-    NotificationCompat.Builder notification =
-                new NotificationCompat.Builder(this);
+    NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
 
     // Basic settings of a mobile notification.
     notification.setContentTitle(TITLE_MESSAGE);
