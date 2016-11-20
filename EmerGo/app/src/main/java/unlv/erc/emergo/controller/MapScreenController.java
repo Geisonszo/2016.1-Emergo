@@ -63,6 +63,12 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   private GoogleMap map;
   private GoogleApiClient mapGoogleApiClient = null;
 
+  /**
+   * Called when a marker has been clicked or tapped.
+   * @param marker The marker that was clicked.
+   * @return The answer of event.
+   */
+
   @Override
   public boolean onMarkerClick(Marker marker) {
 
@@ -89,11 +95,17 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     return valid;
   }
 
+  /**
+   * This method callback for the result from requesting permissions.
+   * @param requestCode  The request code passed.
+   * @param permissions The requested permissions. Never null.
+   * @param grantResults The grant results for the corresponding permissions. Never null.
+   */
+
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                          @NonNull int[] grantResults) {
 
-    //
     switch (requestCode) {
 
       case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
@@ -134,6 +146,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     }
   }
 
+  /**
+   * This method shows a route to the health unit clicked.
+   * @param mapScreen The map view passed.
+   */
   public void goClicked(View mapScreen) throws IOException, JSONException {
 
     assert mapScreen != null : "mapScreen can not be null";
@@ -145,6 +161,11 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     startActivity(routeActivity);
     finish();
   }
+
+  /**
+   * This method shows the list of health units image on map.
+   * @param mapscreen The map view passed.
+   */
 
   public void listMapsImageClicked(View mapscreen) {
 
@@ -274,6 +295,11 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     mapGoogleApiClient.disconnect();
     super.onStop();
   }
+
+  /**
+   * This method shows the approved permission message and request permission method for location
+   * and storage.
+   */
 
   private void messageAboutPermission() {
 
