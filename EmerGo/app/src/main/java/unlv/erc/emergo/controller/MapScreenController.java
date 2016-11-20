@@ -66,6 +66,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public boolean onMarkerClick(Marker marker) {
 
+    assert marker != null : "marker con't be null";
+
     boolean valid = false;
 
     for (int aux = 0 ; aux < HealthUnitController.getClosestHealthUnit().size() ; aux++) {
@@ -131,6 +133,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   public void goClicked(View mapScreen) throws IOException, JSONException {
 
+    assert mapScreen != null : "mapScreen can not be null";
+
     Toast.makeText(this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
     routeActivity.setClass(MapScreenController.this , RouteActivity.class);
@@ -140,6 +144,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   }
 
   public void listMapsImageClicked(View mapscreen) {
+
+    assert mapscreen != null : "mapScreen can not be null";
 
     Intent listOfHealth = new Intent();
     listOfHealth.setClass(this, ListOfHealthUnitsController.class);
@@ -205,6 +211,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   public void openSearch(View mapScreen) {
 
+    assert mapScreen != null : "mapScreen can not be null";
+
     Intent openSearch = new Intent();
     openSearch.setClass(this , SearchHealthUnitActivity.class);
     startActivity(openSearch);
@@ -215,6 +223,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   }
 
   public void openConfig(View mapScreen) {
+
+    assert mapScreen != null : "mapScreen can not be null";
 
     Intent config = new Intent();
     config.setClass(MapScreenController.this , SettingsController.class);
@@ -273,6 +283,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   }
 
   private void focusOnSelfPosition(LatLng userLatLng) {
+
+    assert userLatLng != null : "userLatLng can not be null";
 
     map.addMarker(new MarkerOptions().position(userLatLng).title(yourPosition)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
