@@ -41,9 +41,11 @@ public class DirectionsJSONParser {
         jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
         List path = new ArrayList<HashMap<String, String>>();
 
+        // Traversing all legs.
         for (int j = 0; j < jLegs.length(); j++) {
           jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
 
+          // Traversing all steps.
           for (int k = 0 ; k < jSteps.length(); k++) {
 
             String polyline = "";
@@ -51,6 +53,7 @@ public class DirectionsJSONParser {
                         .get("polyline")).get("points");
             List<LatLng> list = decodePoly(polyline);
 
+            // Traversing all points.
             for (int l = 0; l < list.size(); l++) {
 
               HashMap<String, String> hm = new HashMap<String, String>();
