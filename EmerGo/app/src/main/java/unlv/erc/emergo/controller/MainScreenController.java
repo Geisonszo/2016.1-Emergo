@@ -28,18 +28,12 @@ import unlv.erc.emergo.R;
 
 public class MainScreenController extends Activity {
 
-  private final HealthUnitDao dataAccessObject = new HealthUnitDao(this);
   private Cursor resultOfTheUser;
-  //Maximum number of rows that the medical records may have.
-  private static final int MAXIMUM_ARRAY = 7;
-  private static final String TITLE_MESSAGE = "Ficha Médica";
-  private static final String TEXT_MESSAGE = "Você tem uma ficha médica!";
-  private static final String ALERT_MESSAGE = "Alerta de Mensagem";
-  private static final String ROUTE_TRACED = "Rota mais próxima traçada";
-  private static final String INFORMATION_MESSAGE = "numeroUs";
 
   @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+    final HealthUnitDao dataAccessObject = new HealthUnitDao(this);
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main_screen);
@@ -70,6 +64,9 @@ public class MainScreenController extends Activity {
    */
   public void goClicked(View mainScreen) {
 
+    final String ROUTE_TRACED = "Rota mais próxima traçada";
+    final String INFORMATION_MESSAGE = "numeroUs";
+
     assert mainScreen != null : "mainScreen can't be null";
 
     // Show the message when route is traced.
@@ -97,6 +94,12 @@ public class MainScreenController extends Activity {
    * Method that sets up the medical records in the status bar.
    */
   private void medicalRecordsNotification() {
+
+    //Maximum number of rows that the medical records may have.
+    final int MAXIMUM_ARRAY = 7;
+    final String TITLE_MESSAGE = "Ficha Médica";
+    final String TEXT_MESSAGE = "Você tem uma ficha médica!";
+    final String ALERT_MESSAGE = "Alerta de Mensagem";
 
     int clickPosition = 0;  //Initial position of the user click on the notification screen.
 
