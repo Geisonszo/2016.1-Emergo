@@ -560,7 +560,9 @@ public class MedicalRecordsController extends Activity {
     assert update != null : "update can not be null";
     assert delete != null : "delete can not be null";
 
+    // Set button save visible.
     save.setVisibility(View.VISIBLE);
+    // Set button save invisible.
     update.setVisibility(View.INVISIBLE);
     delete.setVisibility(View.INVISIBLE);
   }
@@ -619,6 +621,7 @@ public class MedicalRecordsController extends Activity {
     assert update != null : "update can not be null";
     assert delete != null : "delete can not be null";
 
+    // Set save button invisible, set update and delete button visible.
     save.setEnabled(false);
     update.setVisibility(View.VISIBLE);
     update.setEnabled(true);
@@ -640,6 +643,7 @@ public class MedicalRecordsController extends Activity {
     assert update != null : "update can not be null";
     assert delete != null : "delete can not be null";
 
+    // Set save button invisible, set update and delete button visible.
     save.setVisibility(View.INVISIBLE);
     update.setVisibility(View.VISIBLE);
     update.setEnabled(true);
