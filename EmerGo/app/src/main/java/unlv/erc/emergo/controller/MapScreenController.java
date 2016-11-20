@@ -82,6 +82,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
       if (marker.getTitle().compareTo(HealthUnitController.getClosestHealthUnit().get(aux)
                 .getNameHospital()) == 0) {
 
+        // Set an intent to bind MapScreen to InformationHealthUnitScreen.
         Intent information = new Intent();
         information.setClass(MapScreenController.this, InformationHealthUnitScreenController.class);
         information.putExtra(POSITION_MESSAGE, aux);
@@ -132,6 +133,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         } catch (RuntimeException ex) {
 
           Toast.makeText(this , PERMISION_MESSAGE, Toast.LENGTH_LONG).show();
+
+          // Set intent to bind current screen to MainScreen.
           Intent main = new Intent();
           main.setClass(this , MainScreenController.class);
           startActivity(main);
@@ -155,6 +158,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     assert mapScreen != null : "mapScreen can not be null";
 
     Toast.makeText(this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
+
+    // Set intent to bind MapScreen to RouteActivity
     Intent routeActivity = new Intent();
     routeActivity.setClass(MapScreenController.this , RouteActivity.class);
     routeActivity.putExtra(INFORMATION_MESSAGE , -1);
@@ -171,6 +176,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
     assert mapscreen != null : "mapscreen can not be null";
 
+    // Set intent to bind current screen to List of Health unit screen.
     Intent listOfHealth = new Intent();
     listOfHealth.setClass(this, ListOfHealthUnitsController.class);
     startActivity(listOfHealth);
@@ -242,7 +248,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
     assert mapScreen != null : "mapScreen can not be null";
 
-
+    // Set intent to bind current screen to SearchHealthUnit screen.
     Intent openSearch = new Intent();
     openSearch.setClass(this , SearchHealthUnitActivity.class);
     startActivity(openSearch);
@@ -256,6 +262,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
     assert mapScreen != null : "mapScreen can not be null";
 
+    // Set intent to bind MapScreen to Settings screen.
     Intent config = new Intent();
     config.setClass(MapScreenController.this , SettingsController.class);
     startActivity(config);
