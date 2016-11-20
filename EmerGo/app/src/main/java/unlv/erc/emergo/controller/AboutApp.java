@@ -35,6 +35,8 @@ public class AboutApp extends Activity {
     assert messageAboutApp != null : "messageAboutApp";
 
     Log.d("Log of Information: ", "He entered the setInformationAboutApp.");
+
+    // Set the information about app
     TextView informationAboutApp = (TextView) findViewById(R.id.aboutApp);
     informationAboutApp.setText(messageAboutApp);
   }

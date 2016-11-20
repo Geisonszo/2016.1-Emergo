@@ -91,10 +91,13 @@ public class EmergencyContactController extends Activity {
 
     assert result != null : "result can't be null";
 
+    // Set information about first emergency contact.
     setBTFirstContact();
     logicFirstContact();
+    // Set information about second emergency contact.
     setBTSecondContact();
     logicSecondContact();
+    // Set information about third emergency contact.
     setBTThirdContact();
     logicThirdContact();
   }
@@ -107,14 +110,19 @@ public class EmergencyContactController extends Activity {
   private void setBTFirstContact() {
 
     Log.d("Begin of Method: ","setBTFirstContact");
+
+    // Set variables buttons on screen.
     saveFirstContact = (Button) findViewById(R.id.saveButtonFirstContact);
     updateFirstContact = (Button) findViewById(R.id.updateButtonFirstContact);
     deleteFirstContact = (Button) findViewById(R.id.deleteFirstContactButton);
-
+    // Set variables for edit texts field on screen.
     nameFirstContact = (EditText) findViewById(R.id.nameFirstContactEditText);
     phoneFirstContact = (EditText) findViewById(R.id.phoneEditText);
+
+    // Set mask to phone text field on screen.
     phoneFirstContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
             phoneFirstContact));
+
     Log.d("End of Method: ","setBTFirstContact");
   }
 
@@ -126,10 +134,13 @@ public class EmergencyContactController extends Activity {
   private void logicFirstContact() {
 
     Log.d("Begin of Method: ","logicFirstContact");
+
     // Verifies that has something registered in the database on the emergencyContact.
     if (result.getCount() == DATABASEEMPTY) {
 
+      // Disable buttons on screen.
       disableOptionsButSave(saveFirstContact,updateFirstContact,deleteFirstContact);
+
       Log.e("Database is Empty.","");
     } else {
 
@@ -140,6 +151,7 @@ public class EmergencyContactController extends Activity {
         nameFirstContact.setText(result.getString(NAMEONDATABASE));
         phoneFirstContact.setText(result.getString(PHONEONDATABASE));
         disableField(saveFirstContact,nameFirstContact,phoneFirstContact);
+
         Log.e("Database not is empty","In database have at least an emergency contact");
       }
     }
@@ -241,12 +253,15 @@ public class EmergencyContactController extends Activity {
   private void setBTSecondContact() {
 
     Log.d("Begin of Method: ","setBTSecondContact");
+
+    // Set variables buttons on screen.
     saveSecondContact = (Button) findViewById(R.id.saveSecondContactButton);
     updateSecondContact = (Button) findViewById(R.id.updateSecondContactButton);
     deleteSecondContact = (Button) findViewById(R.id.deleteSecondContactButton);
-
+    // Set variables for edit texts field on screen.
     nameSecondContact = (EditText) findViewById(R.id.nameSecondContactEditText);
     phoneSecondContact = (EditText) findViewById(R.id.phoneSecondContactEditText);
+    // Set mask to phone text field on screen.
     phoneSecondContact.addTextChangedListener(MaskHelper.insert("(###)#####-####",
             phoneSecondContact));
     Log.d("End of Method: ","setBTSecondContact");
@@ -398,10 +413,12 @@ public class EmergencyContactController extends Activity {
   private void logicThirdContact() {
 
     Log.d("Begin of Method: ","logicThirdContact");
+
     // Verifies that has something registered in the database on the emergencyContact.
     if (result.getCount() == DATABASEEMPTY) {
 
       disableOptionsButSave(saveThirdContact, updateThirdContact,deleteThirdContact);
+
       Log.e("Database is Empty.","");
       // If you have something in the emergencyContact database will be shown in the field name,
       // phone to third contact.
