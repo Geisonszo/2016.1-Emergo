@@ -32,11 +32,17 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
           + NAMECONTACT + " VARCHAR(42), "
           + PHONECONTACT + " VARCHAR(13)); ";
 
+  // EmergencyContactDao constructor.
   public EmergencyContactDao(Context context) {
     // Database creation with the stated name and version declared above.
     super(context, DATABASE_NAME, null, VERSION);
   }
 
+  /**
+   * This method returns a instance of EmergencyContactDao.
+   * @param context  The Context in which this receiver is running.
+   * @return instance An instance of EmergencyContactDao class.
+   */
   public static EmergencyContactDao getInstance(Context context) {
 
     if (EmergencyContactDao.instance == null) {
@@ -62,11 +68,21 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
     return cursor;
   }
 
+  /**
+   * This method insert into database an emergency contact.
+   * @param id The id of the contact.
+   * @param nameContact The name of contact.
+   * @param phone the phone of contact.
+   * @return success The result of operation.
+   */
+
   public boolean insertEmergencyContact(Integer id,String nameContact,String phone) {
 
     assert id != null : "id can't be null";
     assert nameContact != null : "nameContact can't be null";
     assert phone != null : "phone can't be null";
+
+    boolean success =  false;
 
     SQLiteDatabase database = this.getWritableDatabase();
     // Entering values
@@ -80,11 +96,12 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
 
     if (result == -1) {
 
-      return false;
+      return success;
 
     } else {
 
-      return true;
+      success = true;
+      return success;
     }
   }
 
@@ -94,11 +111,21 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
     onCreate(database);
   }
 
+  /**
+   * This method update the emergency contact on database.
+   * @param id The id of the contact.
+   * @param nameContact The name of contact.
+   * @param phone the phone of contact.
+   * @return success The result of operation.
+   */
+
   public boolean updateEmergencyContact(Integer id,String nameContact,String phone) {
 
     assert id != null : "id can't be null";
     assert nameContact != null : "nameContact can't be null";
     assert phone != null : "phone can't be null";
+
+    boolean success = true;
 
     SQLiteDatabase database = this.getWritableDatabase();
     // Update values
@@ -107,14 +134,25 @@ public class EmergencyContactDao extends SQLiteOpenHelper {
     contentValues.put(PHONECONTACT,phone);
     database.update(EmergencyContact_TABLE, contentValues, "[IDContact] = " + id,null);
     database.close();
-    return true;
+    return success;
   }
+
+  /**
+   * This method delete an emergency contact from database .
+   * @param id The id of the contact.
+   * @return success The result of operation.
+   */
 
   public Integer deleteEmergencyContact(Integer id) {
 
     assert id != null : "id can't be null";
 
+    int success = 0;
+
     SQLiteDatabase database = this.getWritableDatabase();
-    return database.delete(EmergencyContact_TABLE, "[IDContact] = " + id,null);
+    success = database.delete(EmergencyContact_TABLE, "[IDContact] = " + id,null);
+
+    return success;
+
   }
 }
