@@ -832,34 +832,45 @@ public class EmergencyContactController extends Activity {
 
     // Constant of minimum length name
     final int MINIMUM = 3;
+
     // Valid is true if at least information not correct
     boolean valid = true;
 
-    assert valid != true : "valid can't be false";
     assert nameUser != null : "nameUser can't be null";
 
     Log.d("Begin of Method: ","checksName");
 
+    // Verify if the User's name is empty
     if (nameUser.isEmpty() == true) {
 
       showMessage("Nome Vazio! Informe Seu Nome.");
-      Log.e("The return must be true","The return is: "+valid);
+
+      Log.e("The return must be true","The return is: " + valid);
+
       return valid;
+      // Verify if the legth of the name is larger the MINIMUM
     } else if (nameUser.trim().length() < MINIMUM) {
 
       showMessage("Informe um nome com no mínimo 3 caracteres.");
-      Log.e("The return must be true","The return is: "+valid);
+
+      Log.e("The return must be true","The return is: " + valid);
+
       return valid;
-      // Verific is nameUser is numeric
+      // Verific if nameUser is numeric
     } else if (nameUser.matches(".*\\d.*")) {
 
       showMessage("Um nome não pode ter um número!");
-      Log.e("The return must be true","The return is: "+valid);
+
+      Log.e("The return must be true","The return is: " + valid);
       return valid;
     }
+
     Log.d("End of Method: ","checksName");
+
     valid = false;
+
     Log.e("Return must be false.","The return is: "+valid);
+
     return valid;
   }
 
@@ -969,6 +980,7 @@ public class EmergencyContactController extends Activity {
 
     assert name != null : "name can't be null";
     assert phone != null : "phone can't be null";
+
     name.setEnabled(false);
     phone.setEnabled(false);
   }
@@ -1001,10 +1013,10 @@ public class EmergencyContactController extends Activity {
 
   private void goClicked(View goClicked) throws IOException, JSONException {
 
+    assert goClicked != null : "goClicked can't be null";
+
     // Constant string about route
     final String ROUTETRACED = "Rota mais próxima traçada";
-
-    assert goClicked != null : "goClicked can't be null";
 
     Toast.makeText(this, ROUTETRACED , Toast.LENGTH_SHORT).show();
     Intent routeActivity = new Intent();
@@ -1023,9 +1035,9 @@ public class EmergencyContactController extends Activity {
 
   private void listMapsImageClicked(View listMaps) {
 
-    Intent listOfHealth = new Intent();
-
     assert listMaps != null : "listMaps can't be null";
+
+    Intent listOfHealth = new Intent();
 
     listOfHealth.setClass(this , ListOfHealthUnitsController.class);
     startActivity(listOfHealth);
@@ -1041,9 +1053,9 @@ public class EmergencyContactController extends Activity {
 
   private void openConfig(View config) {
 
-    Intent openConfig = new Intent();
-
     assert config != null : "config can't be null";
+
+    Intent openConfig = new Intent();
 
     openConfig.setClass(this, SettingsController.class);
     startActivity(openConfig);
@@ -1057,9 +1069,9 @@ public class EmergencyContactController extends Activity {
 
   private void openMap(View openMap) {
 
-    Intent mapActivity = new Intent();
-
     assert openMap != null : "openMap can't be null";
+
+    Intent mapActivity = new Intent();
 
     mapActivity.setClass(this, MapScreenController.class);
     startActivity(mapActivity);

@@ -34,7 +34,9 @@ public class LoadingScreenController extends Activity {
       @Override
       public void run() {
 
+          // If WAITING_TIME is equal to 9000 run the timeCounter
           if (WAITING_TIME == MAXIMUM_TIME) {
+
               Intent timeCounter = new Intent(LoadingScreenController.this,
                                                 MainScreenController.class);
               startActivity(timeCounter);
