@@ -23,12 +23,17 @@ public class LoadingScreenController extends Activity {
    // Time in milliseconds the duration of the spinner.
    private static final int WAITING_TIME = 9000;
 
-    protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(Bundle savedInstanceState) {
 
       Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
 
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.loading_screen);
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.loading_screen);
+
+      setLoadingScreen();
+  }
+
+  private void setLoadingScreen() {
 
     // Set the spinner of bar menu.
     ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBar);
@@ -40,11 +45,11 @@ public class LoadingScreenController extends Activity {
       @Override
       public void run() {
 
-            // Set the intent to bind LoadingScreenController screen to MainScreenController screen.
-            Intent timeCounter = new Intent(LoadingScreenController.this,
-                                                MainScreenController.class);
-              startActivity(timeCounter);
-              finish();
+        // Set the intent to bind LoadingScreenController screen to MainScreenController screen.
+        Intent timeCounter = new Intent(LoadingScreenController.this,
+            MainScreenController.class);
+        startActivity(timeCounter);
+        finish();
 
       }
     }, WAITING_TIME);
