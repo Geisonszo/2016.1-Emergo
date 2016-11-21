@@ -6,6 +6,8 @@
 
 package helper;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -18,12 +20,16 @@ import java.util.List;
 
 public class DirectionsJSONParser {
 
+  private static final String TAG = "DirectionsJSONParser";
+
   /*
    * This method parses the JSON Objects to an list os Objects
    * @param jObject JSON Objects
    */
 
   public List<List<HashMap<String,String>>> parse(JSONObject jObject) {
+
+    Log.d(TAG, "parse() called with: jObject = [" + jObject + "]");
 
     assert jObject != null : "jObject can't be null";
 
@@ -68,9 +74,10 @@ public class DirectionsJSONParser {
 
     } catch (JSONException jsonException) {
 
+      Log.d(TAG, "parse() ", jsonException);      
       jsonException.printStackTrace();
     }
-
+    Log.d(TAG, "parse() returned: " + routes);
     return routes;
   }
 
@@ -81,6 +88,8 @@ public class DirectionsJSONParser {
    */
 
   private List<LatLng> decodePoly(String encoded) {
+
+    Log.d(TAG, "decodePoly() called with: encoded = [" + encoded + "]");
 
     assert encoded != null : "encoded can't be null";
 
@@ -143,6 +152,7 @@ public class DirectionsJSONParser {
       LatLng latLng = new LatLng((((double) lat / 1E5)), (((double) lng / 1E5)));
       poly.add(latLng);
     }
+    Log.d(TAG, "decodePoly() returned: " + poly);
     return poly;
   }
 }
