@@ -153,6 +153,9 @@ public class EmergencyContactController extends Activity {
         disableField(saveFirstContact,nameFirstContact,phoneFirstContact);
 
         Log.e("Database not is empty","In database have at least an emergency contact");
+      } else {
+
+        // Nothing to do.
       }
     }
 
@@ -292,6 +295,9 @@ public class EmergencyContactController extends Activity {
         phoneSecondContact.setText(result.getString(PHONEONDATABASE));
         disableField(saveSecondContact,nameSecondContact,phoneSecondContact);
         Log.e("Database not is empty","In database have at least an emergency contact");
+      } else {
+
+        // Nothing to do.
       }
     }
 
@@ -432,6 +438,9 @@ public class EmergencyContactController extends Activity {
         phoneThirdContact.setText(result.getString(PHONEONDATABASE));
         disableField(saveThirdContact,nameThirdContact,phoneThirdContact);
         Log.e("Database not is empty","In database have at least an emergency contact");
+      } else {
+
+        // Nothing to do.
       }
     }
 
@@ -880,6 +889,9 @@ public class EmergencyContactController extends Activity {
 
       Log.e("The return must be true","The return is: " + valid);
       return valid;
+    } else {
+
+      // Nothing to do.
     }
 
     Log.d("End of Method: ","checksName");
