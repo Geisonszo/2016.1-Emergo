@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -17,10 +18,14 @@ import unlv.erc.emergo.R;
 
 public class LoadingScreenController extends Activity {
 
+  private static final String TAG = "LoadingScreenController";
+
    // Time in milliseconds the duration of the spinner.
    private static final int WAITING_TIME = 9000;
 
     protected void onCreate(Bundle savedInstanceState) {
+
+      Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.loading_screen);

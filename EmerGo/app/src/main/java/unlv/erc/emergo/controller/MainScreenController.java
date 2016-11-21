@@ -28,10 +28,14 @@ import unlv.erc.emergo.R;
 
 public class MainScreenController extends Activity {
 
+  private static final String TAG = "MainScreenController";
+
   private Cursor resultOfTheUser;
 
   @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+    Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
 
     final HealthUnitDao dataAccessObject = new HealthUnitDao(this);
 
@@ -64,6 +68,8 @@ public class MainScreenController extends Activity {
    */
   public void goClicked(View mainScreen) {
 
+    Log.d(TAG, "goClicked() called with: mainScreen = [" + mainScreen + "]");
+
     final String ROUTE_TRACED = "Rota mais próxima traçada";
     final String INFORMATION_MESSAGE = "numeroUs";
 
@@ -83,6 +89,8 @@ public class MainScreenController extends Activity {
    */
   public void okayClicked(View view) {
 
+    Log.d(TAG, "okayClicked() called with: view = [" + view + "]");
+
     assert view != null : "view can't be null";
 
     Intent mapScreen = new Intent();
@@ -94,6 +102,8 @@ public class MainScreenController extends Activity {
    * Method that sets up the medical records in the status bar.
    */
   private void medicalRecordsNotification() {
+
+    Log.d(TAG, "medicalRecordsNotification() called");
 
     //Maximum number of rows that the medical records may have.
     final int MAXIMUM_ARRAY = 7;
