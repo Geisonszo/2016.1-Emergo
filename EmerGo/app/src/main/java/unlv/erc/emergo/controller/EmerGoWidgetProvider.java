@@ -20,6 +20,8 @@ import unlv.erc.emergo.R;
 
 public class EmerGoWidgetProvider extends AppWidgetProvider {
 
+  private static final String TAG = "EmerGoWidgetProvider";
+
   /**
    * This method provides RemoteViews for a set of AppWidgets.
    * @param context The Context in which this receiver is running.
@@ -31,41 +33,50 @@ public class EmerGoWidgetProvider extends AppWidgetProvider {
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
     Log.d("Begin of Method: ","onUpdate");
-    // Instantiation of class ComponentName
-    ComponentName thisWidget = new ComponentName(context, EmerGoWidgetProvider.class);
-    // Array of integers widgets
-    int [] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
-    Log.d("Widgets: ","It is being made an instantiation of an array of widgets");
-
     assert context != null : "context can't be null";
     assert appWidgetIds != null : "appWidgetsIds can't be null";
-    assert appWidgetManager != null : "appWidgetManager can't be null";
+    
+    // Instantiation of class ComponentName
+    ComponentName thisWidget = new ComponentName(context, EmerGoWidgetProvider.class);
+    
+    // Array of integers widgets
+    int [] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);    
+    Log.d("Widgets: ","It is being made an instantiation of an array of widgets");       
+    
+    setWidget(allWidgetIds, context, appWidgetManager);
+    
+    Log.d("End of Method: ","onUpdate");
+  }
+  
+  public void setWidget(int [] allWidgetIds, Context context, AppWidgetManager appWidgetManager) {
+
+    Log.d(TAG, "setWidget() called with: allWidgetIds = [" + allWidgetIds + "], " +
+        "context = [" + context + "], appWidgetManager = [" + appWidgetManager + "]");
 
     // By clicking a widget will be directed to Router Activity class
     for (int widgetId : allWidgetIds) {
 
       // Instantiation of class Intent
       Intent intent = new Intent(context, RouteActivity.class);
+
+      // Instantiation of  class RemoteViews
+      RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+      
       // Private request code for the sender
       final int requestCode = 0 ;
+      
       // Code of flags that will be used
       final int flag = 0;
+      
       // The integer data value
-      final int value = -1;
-
-      assert intent != null : "intent can'bt null";
-      assert requestCode != 0 : "requestCode has to be 0";
-      assert flag != 0 : "flag has to be 0";
-      assert value != -1 : "value has to be -1";
+      final int value = -1;      
 
       intent.putExtra("numeroUs" , value);
       PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, flag);
-
-      RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+      
       views.setOnClickPendingIntent(R.id.update, pendingIntent);
 
       appWidgetManager.updateAppWidget(widgetId, views);
-    }
-    Log.d("End of Method: ","onUpdate");
+    }    
   }
 }
