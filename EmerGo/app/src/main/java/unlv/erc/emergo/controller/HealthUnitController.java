@@ -110,8 +110,7 @@ public class HealthUnitController {
             Log.i("HealthUnitController","HealthU Unit Position: "+position);
             return position;
 
-        } catch (LocationException exception) {
-
+        } catch (NullPointerException exception) {
             exception.printStackTrace();
         }
         return 0;
