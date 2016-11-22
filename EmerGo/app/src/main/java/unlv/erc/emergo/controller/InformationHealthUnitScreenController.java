@@ -341,6 +341,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   private void setInformation(HealthUnit healthUnit) {
 
+    assert healthUnit != null : "healthUnit can't be null";
+
     setPadding("\n");
     setTitleHealthUnit("        Informações da Unidade de Saúde");
     setNameHealthUnit("  Nome: " + healthUnit.getNameHospital());
@@ -391,6 +393,8 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   private void setListOfInformations(List<String> listOfInformations) {
+
+    assert listOfInformations != null: "Error: listOfInformations cant be null";
 
     this.listOfInformations = listOfInformations;
   }
@@ -457,6 +461,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   protected void setPadding(String padding) {
 
+    assert padding != null: "Error: padding is null";
+
     this.padding = padding;
   }
 
@@ -468,6 +474,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   protected void setTitleHealthUnit(String titleHealthUnit) {
 
+    assert titleHealthUnit != null : "Error: titleHealthUnit is null";
+
     this.titleHealthUnit = titleHealthUnit;
   }
 
@@ -478,6 +486,8 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   protected void setNameHealthUnit(String nameHealthUnit) {
+
+    assert nameHealthUnit != null : "Error: nameHealthUnit is null";
 
     this.nameHealthUnit = nameHealthUnit;
   }
