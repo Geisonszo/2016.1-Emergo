@@ -18,10 +18,16 @@ public class AboutApp extends Activity {
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
+
+    String message = "";
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.about_app);
 
-    setInformationAboutApp(showMessageApp());
+    message = showMessageApp();
+    assert message != null : "message can't be null";
+
+    setInformationAboutApp(message);
   }
 
   /*
@@ -35,6 +41,8 @@ public class AboutApp extends Activity {
     assert messageAboutApp != null : "messageAboutApp";
 
     Log.d("Log of Information: ", "He entered the setInformationAboutApp.");
+
+    // Set the information about app
     TextView informationAboutApp = (TextView) findViewById(R.id.aboutApp);
     informationAboutApp.setText(messageAboutApp);
   }

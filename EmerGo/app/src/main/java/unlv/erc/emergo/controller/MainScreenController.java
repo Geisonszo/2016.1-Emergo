@@ -28,18 +28,16 @@ import unlv.erc.emergo.R;
 
 public class MainScreenController extends Activity {
 
-  private final HealthUnitDao dataAccessObject = new HealthUnitDao(this);
+  private static final String TAG = "MainScreenController";
+
   private Cursor resultOfTheUser;
-  private static final int MAXIMUM_ARRAY = 7;  //Maximum number of rows that the medical records may
-  // have.
-  private static final String TITLE_MESSAGE = "Ficha Médica";
-  private static final String TEXT_MESSAGE = "Você tem uma ficha médica!";
-  private static final String ALERT_MESSAGE = "Alerta de Mensagem";
-  private static final String ROUTE_TRACED = "Rota mais próxima traçada";
-  private static final String INFORMATION_MESSAGE = "numeroUs";
 
   @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+    Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
+
+    final HealthUnitDao dataAccessObject = new HealthUnitDao(this);
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main_screen);
@@ -55,7 +53,10 @@ public class MainScreenController extends Activity {
     dataAccessObject.setDataOnSugar();
     resultOfTheUser = myDatabase.getUser();
 
+    // Verify if resultOftheUser is != 0. If yes sets up the medical records in the status bar.
     if (resultOfTheUser.getCount() != 0) {
+
+      // Shows the medical records notification on status bar
       medicalRecordsNotification();
     } else {
       //Nothing to do
@@ -67,8 +68,16 @@ public class MainScreenController extends Activity {
    */
   public void goClicked(View mainScreen) {
 
-    Toast.makeText(MainScreenController.this, ROUTE_TRACED,
-                Toast.LENGTH_SHORT).show();
+    Log.d(TAG, "goClicked() called with: mainScreen = [" + mainScreen + "]");
+
+    final String ROUTE_TRACED = "Rota mais próxima traçada";
+    final String INFORMATION_MESSAGE = "numeroUs";
+
+    assert mainScreen != null : "mainScreen can't be null";
+
+    // Show the message when route is traced.
+    Toast.makeText(MainScreenController.this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
+
     Intent routeActivity = new Intent();
     routeActivity.setClass(MainScreenController.this, RouteActivity.class);
     routeActivity.putExtra(INFORMATION_MESSAGE, -1);
@@ -80,6 +89,10 @@ public class MainScreenController extends Activity {
    */
   public void okayClicked(View view) {
 
+    Log.d(TAG, "okayClicked() called with: view = [" + view + "]");
+
+    assert view != null : "view can't be null";
+
     Intent mapScreen = new Intent();
     mapScreen.setClass(getBaseContext(), MapScreenController.class);
     startActivity(mapScreen);
@@ -90,12 +103,19 @@ public class MainScreenController extends Activity {
    */
   private void medicalRecordsNotification() {
 
+    Log.d(TAG, "medicalRecordsNotification() called");
+
+    //Maximum number of rows that the medical records may have.
+    final int MAXIMUM_ARRAY = 7;
+    final String TITLE_MESSAGE = "Ficha Médica";
+    final String TEXT_MESSAGE = "Você tem uma ficha médica!";
+    final String ALERT_MESSAGE = "Alerta de Mensagem";
+
     int clickPosition = 0;  //Initial position of the user click on the notification screen.
 
     resultOfTheUser.moveToFirst();
     final int notifyId = 1;
-    NotificationCompat.Builder notification =
-                new NotificationCompat.Builder(this);
+    NotificationCompat.Builder notification = new NotificationCompat.Builder(this);
 
     // Basic settings of a mobile notification.
     notification.setContentTitle(TITLE_MESSAGE);
@@ -105,10 +125,9 @@ public class MainScreenController extends Activity {
 
     notification.setNumber(++clickPosition);
 
-    final NotificationCompat.InboxStyle inboxStyle =
-                new NotificationCompat.InboxStyle();
+    final NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-    String events[] = new String[7];
+    String events[] = new String[8];
 
     // Array with the user data.
     events[0] = "Nome: " + resultOfTheUser.getString(1);
@@ -118,13 +137,15 @@ public class MainScreenController extends Activity {
     events[4] = "Diabetico: " + resultOfTheUser.getString(5);
     events[5] = "Hipertenso: " + resultOfTheUser.getString(6);
     events[6] = "Soropositivo: " + resultOfTheUser.getString(7);
-    events[6] = "Observações Especiais: " + resultOfTheUser.getString(8);
+    events[7] = "Observações Especiais: " + resultOfTheUser.getString(8);
 
     inboxStyle.setBigContentTitle(TITLE_MESSAGE);
 
-    if (MAXIMUM_ARRAY == 7) {
+    // Verify if the length of array with the user data is exceeded.
+    if (MAXIMUM_ARRAY == 8) {
 
       for (int aux = 0; aux < MAXIMUM_ARRAY; aux++) {
+
         inboxStyle.addLine(events[aux]);
       }
 

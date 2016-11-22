@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -17,14 +18,24 @@ import unlv.erc.emergo.R;
 
 public class LoadingScreenController extends Activity {
 
-    private static final int WAITING_TIME = 9000; //Time in milliseconds the duration of the spinner.
-    private static final int MAXIMUM_TIME = 9000;
+  private static final String TAG = "LoadingScreenController";
 
-    protected void onCreate(Bundle savedInstanceState) {
+   // Time in milliseconds the duration of the spinner.
+   private static final int WAITING_TIME = 9000;
 
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.loading_screen);
+  protected void onCreate(Bundle savedInstanceState) {
 
+      Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
+
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.loading_screen);
+
+      setLoadingScreen();
+  }
+
+  private void setLoadingScreen() {
+
+    // Set the spinner of bar menu.
     ProgressBar spinner = (ProgressBar) findViewById(R.id.progressBar);
     spinner.setVisibility(View.VISIBLE);
 
@@ -34,15 +45,12 @@ public class LoadingScreenController extends Activity {
       @Override
       public void run() {
 
-          if (WAITING_TIME == MAXIMUM_TIME) {
-              Intent timeCounter = new Intent(LoadingScreenController.this,
-                                                MainScreenController.class);
-              startActivity(timeCounter);
-              finish();
-          } else {
+        // Set the intent to bind LoadingScreenController screen to MainScreenController screen.
+        Intent timeCounter = new Intent(LoadingScreenController.this,
+            MainScreenController.class);
+        startActivity(timeCounter);
+        finish();
 
-              //Nothing to do
-          }
       }
     }, WAITING_TIME);
   }

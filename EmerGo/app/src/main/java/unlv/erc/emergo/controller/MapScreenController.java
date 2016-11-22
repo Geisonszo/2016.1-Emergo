@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -45,34 +46,36 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         GoogleMap.OnMarkerClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-  //Code of Google services that makes the request of several permissions.
-  private static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-  private static final int FINAL_VERSION_SDK = 23;
-  private final String yourPosition = "Sua posição";
-  private final Services services = new Services();
-  private static final String INFORMATION_MESSAGE = "numeroUs";
-  private static final String ROUTE_TRACED = "Rota mais próxima traçada";
-  private static final String POSITION_MESSAGE = "Posição";
-  private static final String PERMISION_APPROVED_MESSAGE = "Permissão aprovada";
-  private static final String REQUEST_PERMISION_MESSAGE = "Permita ter o acesso para te localizar";
-  private static final String PERMISION_MESSAGE = "É necessário ter a permissão";
-  private static final String POSITION_NOT_LOCATED_MESSAGE = "Não foi possível localizar sua " +
-          "posição";
+  private static final String TAG = "MapScreenController";
 
   //Google Maps API.
   private GoogleMap map;
   private GoogleApiClient mapGoogleApiClient = null;
 
+  /**
+   * Called when a marker has been clicked or tapped.
+   * @param marker The marker that was clicked.
+   * @return The answer of event.
+   */
+
   @Override
   public boolean onMarkerClick(Marker marker) {
 
+    Log.d(TAG, "onMarkerClick() called with: marker = [" + marker + "]");
+
+    final String POSITION_MESSAGE = "Posição";
+
+    assert marker != null : "marker can't be null";
+
     boolean valid = false;
 
+    // Set information about health units on the screen.
     for (int aux = 0 ; aux < HealthUnitController.getClosestHealthUnit().size() ; aux++) {
-      if (marker.getTitle().compareTo(HealthUnitController.getClosestHealthUnit()
-              .get(aux)
+
+      if (marker.getTitle().compareTo(HealthUnitController.getClosestHealthUnit().get(aux)
                 .getNameHospital()) == 0) {
 
+        // Set an intent to bind MapScreen to InformationHealthUnitScreen.
         Intent information = new Intent();
         information.setClass(MapScreenController.this, InformationHealthUnitScreenController.class);
         information.putExtra(POSITION_MESSAGE, aux);
@@ -86,9 +89,24 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     return valid;
   }
 
+  //Code of Google services that makes the request of several permissions.
+  final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+
+  /**
+   * This method callback for the result from requesting permissions.
+   * @param requestCode  The request code passed.
+   * @param permissions The requested permissions. Never null.
+   * @param grantResults The grant results for the corresponding permissions. Never null.
+   */
+
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                          @NonNull int[] grantResults) {
+
+    Log.d(TAG, "onRequestPermissionsResult() called with: requestCode = [" + requestCode + "], " +
+        "permissions = [" + permissions + "], grantResults = [" + grantResults + "]");
+
+    final String PERMISION_MESSAGE = "É necessário ter a permissão";
 
     switch (requestCode) {
 
@@ -98,6 +116,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         perms.put(Manifest.permission.ACCESS_FINE_LOCATION,
                 PackageManager.PERMISSION_GRANTED);
 
+        // Set permissions on grantResults.
         for (int i = 0; i < permissions.length; i++) {
 
           perms.put(permissions[i], grantResults[i]);
@@ -115,6 +134,8 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
         } catch (RuntimeException ex) {
 
           Toast.makeText(this , PERMISION_MESSAGE, Toast.LENGTH_LONG).show();
+
+          // Set intent to bind current screen to MainScreen.
           Intent main = new Intent();
           main.setClass(this , MainScreenController.class);
           startActivity(main);
@@ -129,9 +150,22 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     }
   }
 
+  /**
+   * This method shows a route to the health unit clicked.
+   * @param mapScreen The map view passed.
+   */
   public void goClicked(View mapScreen) throws IOException, JSONException {
 
+    Log.d(TAG, "goClicked() called with: mapScreen = [" + mapScreen + "]");
+
+    final String INFORMATION_MESSAGE = "numeroUs";
+    final String ROUTE_TRACED = "Rota mais próxima traçada";
+
+    assert mapScreen != null : "mapScreen can not be null";
+
     Toast.makeText(this, ROUTE_TRACED, Toast.LENGTH_SHORT).show();
+
+    // Set intent to bind MapScreen to RouteActivity
     Intent routeActivity = new Intent();
     routeActivity.setClass(MapScreenController.this , RouteActivity.class);
     routeActivity.putExtra(INFORMATION_MESSAGE , -1);
@@ -139,8 +173,18 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     finish();
   }
 
+  /**
+   * This method shows the list of health units image on map.
+   * @param mapscreen The map view passed.
+   */
+
   public void listMapsImageClicked(View mapscreen) {
 
+    Log.d(TAG, "listMapsImageClicked() called with: mapscreen = [" + mapscreen + "]");
+
+    assert mapscreen != null : "mapscreen can not be null";
+
+    // Set intent to bind current screen to List of Health unit screen.
     Intent listOfHealth = new Intent();
     listOfHealth.setClass(this, ListOfHealthUnitsController.class);
     startActivity(listOfHealth);
@@ -151,9 +195,19 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   }
 
+  private static final int FINAL_VERSION_SDK = 23;
+
   @Override
   public void onConnected(Bundle connectionHint) {
 
+    Log.d(TAG, "onConnected() called with: connectionHint = [" + connectionHint + "]");
+
+    final String POSITION_NOT_LOCATED_MESSAGE = "Não foi possível localizar sua " +
+            "posição";
+
+    final Services services = new Services();
+
+    // Verify the SDK version and check the permissions.
     if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
@@ -165,16 +219,19 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(
             mapGoogleApiClient);
 
+    // Check the user's last location.
     if (mapLastLocation != null) {
 
-      Location location = mapLastLocation;
-      LatLng userLatLng = new LatLng(location.getLatitude() , location.getLongitude());
+      // Instantiate an object with the user location
+      LatLng userLatLng = new LatLng(mapLastLocation.getLatitude() , mapLastLocation.getLongitude());
 
+      // Focus on user position
       focusOnSelfPosition(userLatLng);
       services.setMarkersOnMap(map , HealthUnitController.getClosestHealthUnit());
 
     } else {
 
+      // Shows a message when the position is not found.
       Toast.makeText(this, POSITION_NOT_LOCATED_MESSAGE, Toast.LENGTH_SHORT).show();
       Intent mainScreen = new Intent();
 
@@ -192,6 +249,9 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
   @Override
   public void onMapReady(GoogleMap googleMap) {
 
+    Log.d(TAG, "onMapReady() called with: googleMap = [" + googleMap + "]");
+
+    // // Verify the SDK version and check the permissions.
     if (Build.VERSION.SDK_INT >= FINAL_VERSION_SDK) {
 
       checkPermissions();
@@ -205,6 +265,11 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   public void openSearch(View mapScreen) {
 
+    Log.d(TAG, "openSearch() called with: mapScreen = [" + mapScreen + "]");
+
+    assert mapScreen != null : "mapScreen can not be null";
+
+    // Set intent to bind current screen to SearchHealthUnit screen.
     Intent openSearch = new Intent();
     openSearch.setClass(this , SearchHealthUnitActivity.class);
     startActivity(openSearch);
@@ -216,6 +281,11 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   public void openConfig(View mapScreen) {
 
+    Log.d(TAG, "openConfig() called with: mapScreen = [" + mapScreen + "]");
+
+    assert mapScreen != null : "mapScreen can not be null";
+
+    // Set intent to bind MapScreen to Settings screen.
     Intent config = new Intent();
     config.setClass(MapScreenController.this , SettingsController.class);
     startActivity(config);
@@ -233,6 +303,7 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
     map = mapFragment.getMap();
     map.setOnMarkerClickListener(this);
 
+    // Verify if the mapGoogleApiClient is null, if yes set the mapGoogleApiClient.
     if (mapGoogleApiClient == null) {
 
       mapGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -248,31 +319,58 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
 
   protected void onStart() {
 
+    Log.d(TAG, "onStart() called");
+
     mapGoogleApiClient.connect();
     super.onStart();
   }
 
   protected void onStop() {
 
+    Log.d(TAG, "onStop() called");
+
     mapGoogleApiClient.disconnect();
     super.onStop();
   }
 
+  /**
+   * This method shows the approved permission message and request permission method for location
+   * and storage.
+   */
+
   private void messageAboutPermission() {
+
+    Log.d(TAG, "messageAboutPermission() called");
+
+    final String PERMISION_APPROVED_MESSAGE = "Permissão aprovada";
+    final String REQUEST_PERMISION_MESSAGE = "Permita ter o acesso para te localizar";
 
     boolean location = false;
     boolean storage = false;
 
+    // Verify if the location an storage permission is available, if not, request permission.
     if (location && storage) {
 
+      // Shows up the message when the permission is approved.
       Toast.makeText(this, PERMISION_APPROVED_MESSAGE, Toast.LENGTH_SHORT).show();
     } else {
-
+      // Shows up the message when is need to request the permission.
       Toast.makeText(this,REQUEST_PERMISION_MESSAGE, Toast.LENGTH_SHORT).show();
     }
   }
 
+  /**
+   * This method focus on map the location of the user.
+   * @param userLatLng The location (latitude and longitude) of the user
+   */
+
   private void focusOnSelfPosition(LatLng userLatLng) {
+
+    Log.d(TAG, "focusOnSelfPosition() called with: userLatLng = [" + userLatLng + "]");
+
+    final String yourPosition = "Sua posição";
+
+    assert userLatLng != null : "userLatLng can not be null";
 
     map.addMarker(new MarkerOptions().position(userLatLng).title(yourPosition)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
@@ -280,11 +378,18 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
             userLatLng.longitude), 13.0f));
   }
 
+  /**
+   * This method check the permission to use the location.
+   */
+
   private void checkPermissions() {
+
+    Log.d(TAG, "checkPermissions() called");
 
     List<String> permissions = new ArrayList<>();
     String message = "Permissão";
 
+    // Verify that the application has permission to use the location.
     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
 
@@ -295,8 +400,10 @@ public class MapScreenController extends FragmentActivity implements OnMapReadyC
       //Nothing to do
     }
 
+    // Verify if the permissions array is empty, if yes, request permission.
     if (!permissions.isEmpty()) {
 
+      // Shows up a permission message.
       Toast.makeText(this, message, Toast.LENGTH_LONG).show();
       String[] params = permissions.toArray(new String[permissions.size()]);
 

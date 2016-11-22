@@ -6,6 +6,8 @@
 
 package helper;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -18,13 +20,18 @@ import java.util.List;
 
 public class DirectionsJSONParser {
 
+  private static final String TAG = "DirectionsJSONParser";
+
   /*
    * This method parses the JSON Objects to an list os Objects
    * @param jObject JSON Objects
    */
 
-  //DEIXA PUBLIC!
   public List<List<HashMap<String,String>>> parse(JSONObject jObject) {
+
+    Log.d(TAG, "parse() called with: jObject = [" + jObject + "]");
+
+    assert jObject != null : "jObject can't be null";
 
     List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String,String>>>() ;
     JSONArray jRoutes = null;
@@ -40,9 +47,11 @@ public class DirectionsJSONParser {
         jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
         List path = new ArrayList<HashMap<String, String>>();
 
+        // Traversing all legs.
         for (int j = 0; j < jLegs.length(); j++) {
           jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
 
+          // Traversing all steps.
           for (int k = 0 ; k < jSteps.length(); k++) {
 
             String polyline = "";
@@ -50,6 +59,7 @@ public class DirectionsJSONParser {
                         .get("polyline")).get("points");
             List<LatLng> list = decodePoly(polyline);
 
+            // Traversing all points.
             for (int l = 0; l < list.size(); l++) {
 
               HashMap<String, String> hm = new HashMap<String, String>();
@@ -64,13 +74,24 @@ public class DirectionsJSONParser {
 
     } catch (JSONException jsonException) {
 
+      Log.d(TAG, "parse() ", jsonException);      
       jsonException.printStackTrace();
     }
-
+    Log.d(TAG, "parse() returned: " + routes);
     return routes;
   }
 
+  /**
+   * Method to decode polyline points.
+   * @param encoded String to be decoded
+   * @return poly String decoded
+   */
+
   private List<LatLng> decodePoly(String encoded) {
+
+    Log.d(TAG, "decodePoly() called with: encoded = [" + encoded + "]");
+
+    assert encoded != null : "encoded can't be null";
 
     List<LatLng> poly = new ArrayList<LatLng>();
     int index = 0;
@@ -131,6 +152,7 @@ public class DirectionsJSONParser {
       LatLng latLng = new LatLng((((double) lat / 1E5)), (((double) lng / 1E5)));
       poly.add(latLng);
     }
+    Log.d(TAG, "decodePoly() returned: " + poly);
     return poly;
   }
 }
