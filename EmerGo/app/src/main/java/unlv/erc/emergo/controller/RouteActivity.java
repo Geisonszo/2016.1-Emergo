@@ -222,7 +222,7 @@ public class RouteActivity  extends FragmentActivity implements
       getMapData();
       setMarkerOfClosestUsOnMap();
     } catch (RuntimeException c) {
-      Toast.makeText(this, "Sem internet", Toast.LENGTH_SHORT).show();
+      Toast.makeText(this, getResources().getText(R.string.no_internet_connection).toString(), Toast.LENGTH_SHORT).show();
       launchMainScreenController();
       finish();
     }
@@ -237,18 +237,18 @@ public class RouteActivity  extends FragmentActivity implements
   private void checkPermissions() {
 
     List<String> permissions = new ArrayList<>();
-    String message = "Permissão";
+    String permissionMessage = getResources().getText(R.string.permission_message).toString();
     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
 
       permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-      message += "\nTer acesso a localização no mapa";
+      permissionMessage += "\n"+getResources().getText(R.string.map_permission_message);
     } else {
       // nothing to do
     }
 
     if (permissions.isEmpty() == false) {
-      Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+      Toast.makeText(this, permissionMessage, Toast.LENGTH_LONG).show();
       String[] params = permissions.toArray(new String[permissions.size()]);
 
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -278,9 +278,9 @@ public class RouteActivity  extends FragmentActivity implements
   }
 
   private void setYourPositionOnMap() {
-    final String yourPosition = "Sua posição";
 
-    map.addMarker(new MarkerOptions().position(userLocation).title(yourPosition)
+    map.addMarker(new MarkerOptions().position(userLocation)
+            .title(getResources().getText(R.string.user_position).toString())
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
   }
 
@@ -416,46 +416,22 @@ public class RouteActivity  extends FragmentActivity implements
         while (result.moveToNext()) {
 
           SmsManager.getDefault().sendTextMessage(result.getString(2),null,
-                  result.getString(1) + ", Estou precisando de ajuda urgente!",null,null);
+                  result.getString(1) +
+                          getResources().getText(R.string.help_request_message).toString(),
+                  null,null);
         }
-        Toast.makeText(getApplicationContext(),"Ajuda a caminho!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),getResources()
+                .getText(R.string.help_contacted_message).toString(), Toast.LENGTH_LONG).show();
       } catch (Exception exception) {
 
-        Toast.makeText(getApplicationContext(),"Impossivel encaminhar o SMS", Toast.LENGTH_LONG)
+        Toast.makeText(getApplicationContext(),getResources()
+                .getText(R.string.error_on_contacting_message), Toast.LENGTH_LONG)
                 .show();
       }
     } else {
 
-      Toast.makeText(getApplicationContext(),"Nenhum contato adicionado", Toast.LENGTH_LONG).show();
-    }
-  }
-
-  /**
-   * This method show user info
-   */
-
-  public void showInformationUser() {
-
-    try {
-      result.moveToFirst();
-
-      if (result.getCount() == 0) {
-
-        Toast.makeText(this, "Não existe nenhum cadastro no momento.", Toast.LENGTH_LONG).show();
-      } else {
-
-        showMessageDialog("Notificações do Usuário", "Nome: " + result.getString(1) + "\n"
-                + "Data de Aniversário: " + result.getString(2) + "\n"
-                + "Tipo Sanguíneo: " + result.getString(3) + "\n"
-                + "Cardiaco: " + result.getString(4) + "\n"
-                + "Diabetico: " + result.getString(5) + "\n"
-                + "Hipertenso: " + result.getString(6) + "\n"
-                + "Soropositivo: " + result.getString(7) + "\n"
-                + "Observações Especiais: " + result.getString(8));
-      }
-    } catch (NullPointerException exception) {
-
-      throw new CursorConnectionException("Problema no banco de dados, impossível mostrar informações");
+      Toast.makeText(getApplicationContext(), getResources()
+              .getText(R.string.no_contact_added).toString(), Toast.LENGTH_LONG).show();
     }
   }
 

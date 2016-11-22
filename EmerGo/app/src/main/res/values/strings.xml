@@ -45,4 +45,21 @@
         <item>Sim</item>
         <item>Não Sei</item>
     </string-array>
+
+    <string name="no_internet_connection">Sem conexão com a internet</string>
+
+    <string name="permission_message">Permissão</string>
+
+    <string name="map_permission_message">Ter acesso a localização no mapa</string>
+
+    <string name="user_position">Sua posição</string>
+
+    <string name="help_request_message">Estou precisando de ajuda urgente!</string>
+
+    <string name="help_contacted_message">Ajuda a caminho!</string>
+    
+    <string name="error_on_contacting_message">Impossível enviar mensagem</string>
+
+    <string name="no_contact_added">Nenhum contato adicionado</string>
+
 </resources>
