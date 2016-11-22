@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.RuntimeRemoteException;
 
 import android.Manifest;
 import android.content.Intent;
@@ -84,7 +85,6 @@ public class RouteActivity  extends FragmentActivity implements
   EmergencyContactDao emergencyContactDao = new EmergencyContactDao(this);
   LatLng userLocation ;
   TextView timer;
-  ImageView user;
   ImageView cancelCall;
   ImageView phone;
   ImageView userInformation;
@@ -432,21 +432,26 @@ public class RouteActivity  extends FragmentActivity implements
 
   public void showInformationUser() {
 
-    result.moveToFirst();
+    try {
+      result.moveToFirst();
 
-    if (result.getCount() == 0) {
+      if (result.getCount() == 0) {
 
-      Toast.makeText(this,"Não existe nenhum cadastro no momento.",Toast.LENGTH_LONG).show();
-    } else {
+        Toast.makeText(this, "Não existe nenhum cadastro no momento.", Toast.LENGTH_LONG).show();
+      } else {
 
-      showMessageDialog("Notificações do Usuário","Nome: " + result.getString(1) + "\n"
-              + "Data de Aniversário: " + result.getString(2) + "\n"
-              + "Tipo Sanguíneo: " + result.getString(3) + "\n"
-              + "Cardiaco: " + result.getString(4) + "\n"
-              + "Diabetico: " + result.getString(5) + "\n"
-              + "Hipertenso: " + result.getString(6) + "\n"
-              + "Soropositivo: " + result.getString(7) + "\n"
-              + "Observações Especiais: " + result.getString(8));
+        showMessageDialog("Notificações do Usuário", "Nome: " + result.getString(1) + "\n"
+                + "Data de Aniversário: " + result.getString(2) + "\n"
+                + "Tipo Sanguíneo: " + result.getString(3) + "\n"
+                + "Cardiaco: " + result.getString(4) + "\n"
+                + "Diabetico: " + result.getString(5) + "\n"
+                + "Hipertenso: " + result.getString(6) + "\n"
+                + "Soropositivo: " + result.getString(7) + "\n"
+                + "Observações Especiais: " + result.getString(8));
+      }
+    } catch (NullPointerException exception) {
+
+      throw new CursorConnectionException("Problema no banco de dados, impossível mostrar informações");
     }
   }
 
@@ -718,5 +723,12 @@ public class RouteActivity  extends FragmentActivity implements
       builder.show();
     }
   }
+
+  public class CursorConnectionException extends NullPointerException{
+    public CursorConnectionException(String error){
+      super(error);
+    }
+  }
+
 }
 
