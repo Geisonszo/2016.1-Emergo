@@ -24,7 +24,7 @@ public class HealthUnitController {
 
     }
 
-    public static ArrayList<HealthUnit> getClosestHealthUnit() {
+    static ArrayList<HealthUnit> getClosestHealthUnit() {
 
         Log.i("HealthUnitController","closestHU nullity:"+closestHealthUnit.isEmpty());
         return closestHealthUnit;
@@ -84,14 +84,17 @@ public class HealthUnitController {
 
     static int selectClosestUs(ArrayList<HealthUnit> closestHealthUnit, Location location) {
 
-        assert closestHealthUnit != null : "closestHealthUnit can't be null";
-        assert location!= null : "location can't be null";
-
         double smaller = 99999;
         int position = 0;
 
         try {
 
+            if(location == null){
+                throw new LocationException("Erro em achar a posição do usuário");
+            }
+            if(closestHealthUnit == null || closestHealthUnit.isEmpty()){
+                throw new HealthUnitException("Erro em achar a unidade mais próxima");
+            }
             //Control structure responsible for finding the closest health unit
             for (int aux = 0; aux < closestHealthUnit.size(); aux++) {
 
@@ -107,11 +110,23 @@ public class HealthUnitController {
             Log.i("HealthUnitController","HealthU Unit Position: "+position);
             return position;
 
-        } catch (NullPointerException exception) {
+        } catch (LocationException exception) {
 
             exception.printStackTrace();
         }
         return 0;
     }
 
+
+    public static class LocationException extends NullPointerException{
+        public LocationException(String error){
+            super(error);
+        }
+    }
+
+    public static class HealthUnitException extends NullPointerException{
+        public HealthUnitException(String error){
+            super(error);
+        }
+    }
 }
