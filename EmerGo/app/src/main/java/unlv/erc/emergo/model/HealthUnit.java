@@ -94,7 +94,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
 
   public void setNameHospital(String nameHospital) {
     try{
-     if(checkStringIntegrity(nameHospital) == true) {
+     if(verifyHealthUnitName(nameHospital)) {
        this.nameHospital = nameHospital;
        Log.i("hospitals name setted", "HealthUnit.class");
      }
@@ -109,7 +109,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
 
   public void setUnitType(String healthUnitType) {
     try{
-      if (checkStringIntegrity(healthUnitType)) {
+      if (verifyHealthUnitType(healthUnitType)) {
         this.healthUnitType = healthUnitType;
         Log.i("health unit type setted", "HealthUnit.class");
       }
@@ -124,7 +124,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
 
   public void setAddressNumber(String addressNumber) {
     try{
-      if (checkStringIntegrity(addressNumber) == true) {
+      if (verifyHealthUnitAdress(addressNumber)) {
         this.addressNumber = addressNumber;
         Log.i("adress setted", "HealthUnit.class");
       }
@@ -139,7 +139,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
 
   public void setDistrict(String district) {
     try{
-      if (checkStringIntegrity(district)) {
+      if (verifyHealthUnitDistrict(district)) {
         this.district = district;
         Log.i("district setted", "HealthUnit.class");
       }
@@ -154,7 +154,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
 
   public void setState(String state) {
     try{
-      if(checkStringIntegrity(state) == true) {
+      if(verifyHealthUnitState(state)) {
         this.state = state;
         Log.i("state setted", "HealthUnit.class");
       }
@@ -169,7 +169,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
 
   public void setCity(String city) {
     try{
-      if(checkStringIntegrity(city) == true) {
+      if(verifyHealthUnitCity(city)) {
         this.city = city;
         Log.i("city setted", "HealthUnit.class");
       }
@@ -191,11 +191,11 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
     }
   }
 
-  private boolean checkStringIntegrity(String nameHospital) {
+  private boolean checkStringIntegrity(String string) {
 
-    for(int i = 0; i < nameHospital.length(); i++){
-      if(Character.isLetter(nameHospital.charAt(i)) == false &&
-              Character.isDigit(nameHospital.charAt(i)) == false){
+    for(int i = 0; i < string.length(); i++){
+      if(Character.isLetter(string.charAt(i)) == false &&
+              Character.isDigit(string.charAt(i)) == false){
         return false;
       }
     }
@@ -204,8 +204,9 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
 
   @Override
   public boolean verifyHealthUnitName(String name) {
+
     if (name.length() <= HU_NAME_MAX_SIZE) {
-      return true;
+      return checkStringIntegrity(name);
     }
     return false;
   }
@@ -213,7 +214,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
   @Override
   public boolean verifyHealthUnitType(String type) {
     if (type.length() <= HU_TYPE_MAX_SIZE){
-      return true;
+      return checkStringIntegrity(type);
     }
     return false;
   }
@@ -221,7 +222,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
   @Override
   public boolean verifyHealthUnitAdress(String adress) {
     if(adress.length() <= HU_ADRESS_MAX_SIZE) {
-      return true;
+      return checkStringIntegrity(adress);
     }
     return false;
   }
@@ -229,7 +230,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
   @Override
   public boolean verifyHealthUnitDistrict(String district) {
     if(district.length() <= HU_DISTRICT_MAX_SIZE){
-      return true;
+      return checkStringIntegrity(district);
     }
     return false;
   }
@@ -237,7 +238,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
   @Override
   public boolean verifyHealthUnitState(String state) {
     if(state.length() <= HU_STATE_MAX_SIZE){
-     return true;
+     return checkStringIntegrity(state);
     }
     return false;
   }
@@ -245,7 +246,7 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
   @Override
   public boolean verifyHealthUnitCity(String city) {
     if(city.length() <= HU_CITY_MAX_SIZE){
-      return true;
+      return checkStringIntegrity(city);
     }
     return false;
   }
