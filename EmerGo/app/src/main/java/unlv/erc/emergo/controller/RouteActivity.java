@@ -79,6 +79,8 @@ public class RouteActivity  extends FragmentActivity implements
   private static final long MILLIS_IN_FUTURE = 3000;
   private static final long COUNTDOWN = 1000;
   private static final int SPLASH_TIME_OUT = 3400;
+  private static final double LATITUDE_LIMIT = 90;
+  private static final double LONGITUDE_LIMIT = 180;
   private GoogleMap map;
   private Cursor result;
   private GoogleApiClient mapGoogleApiClient = null;
@@ -192,6 +194,16 @@ public class RouteActivity  extends FragmentActivity implements
     //Line responsible for getting user last location
     try {
       Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
+
+      if(mapLastLocation.getLatitude() > LATITUDE_LIMIT ||
+              mapLastLocation.getLatitude() <-LATITUDE_LIMIT){
+        throw new LocationException("Latitude incorreta");
+      }
+
+      if(mapLastLocation.getLongitude() > LONGITUDE_LIMIT ||
+              mapLastLocation.getLongitude() <- LONGITUDE_LIMIT){
+        throw new LocationException("Longitude incorreta");
+      }
 
       startBuildingInfoInMap(mapLastLocation);
     }catch (RuntimeException runTimeException){
