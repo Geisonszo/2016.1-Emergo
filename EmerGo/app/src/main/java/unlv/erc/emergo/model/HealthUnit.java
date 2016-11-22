@@ -12,7 +12,7 @@ import com.orm.SugarRecord;
 
 import java.util.regex.Pattern;
 
-public class HealthUnit extends SugarRecord {
+public class HealthUnit extends SugarRecord implements HealthUnitInfo{
 
   private Double latitude = 0.0;
   private Double longitude = 0.0;
@@ -53,6 +53,7 @@ public class HealthUnit extends SugarRecord {
       setState(state);
       setCity(city);
     }catch (NullPointerException exception){
+      Log.i("Impossível cadastrar HU",nameHospital+"");
       exception.printStackTrace();
     }
   }
@@ -63,8 +64,10 @@ public class HealthUnit extends SugarRecord {
 
   public void setLatitude(Double latitude) {
     try {
-      this.latitude = latitude;
-      Log.i("latitude setted","HealthUnit.class");
+      if(verifyHealthUnitLatitude(latitude)) {
+        this.latitude = latitude;
+        Log.i("latitude setted","HealthUnit.class");
+      }
     }catch (NullPointerException exception){
       exception.printStackTrace();
     }
@@ -76,8 +79,10 @@ public class HealthUnit extends SugarRecord {
 
   public void setLongitude(Double longitude) {
     try{
-      this.longitude = longitude;
-      Log.i("longitude setted","HealthUnit.class");
+      if(verifyHealthUnitLongitude(longitude)) {
+        this.longitude = longitude;
+        Log.i("longitude setted", "HealthUnit.class");
+      }
     }catch (NullPointerException exception){
       exception.printStackTrace();
     }
@@ -195,5 +200,69 @@ public class HealthUnit extends SugarRecord {
       }
     }
     return true;
+  }
+
+  @Override
+  public boolean verifyHealthUnitName(String name) {
+    if (name.length() <= HU_NAME_MAX_SIZE) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean verifyHealthUnitType(String type) {
+    if (type.length() <= HU_TYPE_MAX_SIZE){
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean verifyHealthUnitAdress(String adress) {
+    if(adress.length() <= HU_ADRESS_MAX_SIZE) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean verifyHealthUnitDistrict(String district) {
+    if(district.length() <= HU_DISTRICT_MAX_SIZE){
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean verifyHealthUnitState(String state) {
+    if(state.length() <= HU_STATE_MAX_SIZE){
+     return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean verifyHealthUnitCity(String city) {
+    if(city.length() <= HU_CITY_MAX_SIZE){
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean verifyHealthUnitLatitude(double latitude) {
+    if (latitude <= HU_MAX_LATITUDE && latitude >= -HU_MAX_LATITUDE){
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean verifyHealthUnitLongitude(double longitude) {
+    if(longitude <= HU_MAX_LONGITUDE && longitude >= -HU_MAX_LONGITUDE){
+      return true;
+    }
+    return false;
   }
 }
