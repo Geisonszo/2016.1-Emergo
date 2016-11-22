@@ -190,9 +190,13 @@ public class RouteActivity  extends FragmentActivity implements
     getMapFragment();
 
     //Line responsible for getting user last location
-    Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
+    try {
+      Location mapLastLocation = LocationServices.FusedLocationApi.getLastLocation(mapGoogleApiClient);
 
-    startBuildingInfoInMap(mapLastLocation);
+      startBuildingInfoInMap(mapLastLocation);
+    }catch (RuntimeException runTimeException){
+      throw new LocationException("Erro em achar posição do usuário");
+    }
   }
 
   private void getMapFragment() {
@@ -724,8 +728,16 @@ public class RouteActivity  extends FragmentActivity implements
     }
   }
 
+  // Exceptions
+
   public class CursorConnectionException extends NullPointerException{
     public CursorConnectionException(String error){
+      super(error);
+    }
+  }
+
+  public class LocationException extends RuntimeException{
+    public LocationException(String error){
       super(error);
     }
   }
