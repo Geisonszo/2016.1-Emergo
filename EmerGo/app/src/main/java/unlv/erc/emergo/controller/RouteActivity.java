@@ -517,6 +517,8 @@ public class RouteActivity  extends FragmentActivity implements
 
   private String downloadUrl(String strUrl) throws IOException {
 
+    assert strUrl != null : "Erro: strUrl is null";
+
     String data = "";
     InputStream inStream = null;
     HttpURLConnection urlConnection = null;
@@ -542,6 +544,7 @@ public class RouteActivity  extends FragmentActivity implements
 
   @NonNull
   private String createBufferReaderLogic(String data, InputStream inStream) throws IOException {
+
     BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
     StringBuffer sb  = new StringBuffer();
     concatenateBufferRead(br, sb);
@@ -564,6 +567,8 @@ public class RouteActivity  extends FragmentActivity implements
   @NonNull
   private HttpURLConnection getHttpUrlConnection(String strUrl, HttpURLConnection urlConnection)
       throws IOException {
+
+    assert urlConnection != null : "Error: urlConnection is null";
 
     URL url = new URL(strUrl);
     urlConnection = (HttpURLConnection) url.openConnection();
@@ -596,6 +601,8 @@ public class RouteActivity  extends FragmentActivity implements
 
     @Override
     protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+
+      assert result != null : "Error: result is null";
 
       ArrayList<LatLng> points = null;
 
@@ -637,6 +644,8 @@ public class RouteActivity  extends FragmentActivity implements
   public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                          int[] grantResults) {
 
+    assert permissions != null : "Error: permissions are null";
+
     switch (requestCode) {
       case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
         Map<String, Integer> perms = new HashMap<>();
@@ -660,6 +669,8 @@ public class RouteActivity  extends FragmentActivity implements
   }
 
   private Boolean getPermission(Map<String, Integer> perms, Boolean storage) {
+
+    assert perms != null : "Error: perms are null";
 
     try {
 
