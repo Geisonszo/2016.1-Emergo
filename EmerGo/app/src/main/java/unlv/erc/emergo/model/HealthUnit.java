@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 
 public class HealthUnit extends SugarRecord implements HealthUnitInfo{
 
+  //HealthUnit attributes
+
   private Double latitude = 0.0;
   private Double longitude = 0.0;
   private String nameHospital = "";
@@ -23,6 +25,8 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
   private String state = "";
   private String city = "";
   private Float distance = 0f;
+
+  //HealthUnit Constructors
 
   public HealthUnit(){
 
@@ -57,6 +61,8 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
       exception.printStackTrace();
     }
   }
+
+  //Getters and Setters
 
   public Double getLatitude() {
     return latitude;
@@ -201,6 +207,9 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
     }
     return true;
   }
+
+
+  //Verifying methods
 
   @Override
   public boolean verifyHealthUnitName(String name) {
