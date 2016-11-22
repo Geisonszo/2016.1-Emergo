@@ -115,6 +115,8 @@ public class SearchHealthUnitActivity extends AppCompatActivity implements Searc
   @Override
   public boolean onQueryTextChange(String newText) {
 
+    assert newText != null : "Error: newText is null";
+
     List<String> searchHealthUnit = getSearchHealthUnit(HealthUnitController.getClosestHealthUnit());
 
     setHealthUnitsList((ListView) findViewById(R.id.list_of_search_us));
@@ -151,14 +153,15 @@ public class SearchHealthUnitActivity extends AppCompatActivity implements Searc
 
   private ArrayList<String> getSearchHealthUnit(ArrayList<HealthUnit> closest) {
 
-   ArrayList<String> searchArray = new ArrayList<>();
+    assert closest != null : "Error: closest is null";
+
+    ArrayList<String> searchArray = new ArrayList<>();
 
     try {
 
       CharSequence search = mapSearchView.getQuery();
       closestHealthUnit = new ArrayList<>();
       healthUnit = new ArrayList<>();
-      int numberOfUs;
 
       Log.i("Starting US search","getSearchHealthUnit method");
 
@@ -172,6 +175,8 @@ public class SearchHealthUnitActivity extends AppCompatActivity implements Searc
     }
 
     Log.i("SearchHealthUnit","searchArray nullity"+searchArray.isEmpty());
+
+    assert !searchArray.isEmpty() : "Error: method to find closest HU find nothing";
     return searchArray;
   }
 
@@ -187,13 +192,11 @@ public class SearchHealthUnitActivity extends AppCompatActivity implements Searc
   }
 
   public void setHealthUnitsList(ListView healthUnitsList) {
-    try {
-      this.healthUnitsList = healthUnitsList;
-      Log.i("Health Unit setted","setHealthUnitListView method");
-    }catch(NullPointerException exception){
-      exception.printStackTrace();
-      Log.i("error ListView","setHealthUnitListView method");
-    }
-  }
+    assert healthUnitsList != null: "Error: healtUnit List is null";
 
+    this.healthUnitsList = healthUnitsList;
+    Log.i("Health Unit setted","setHealthUnitListView method");
+  }
 }
+
+
