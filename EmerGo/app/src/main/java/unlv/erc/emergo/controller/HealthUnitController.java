@@ -24,12 +24,14 @@ public class HealthUnitController {
 
     }
 
-    static ArrayList<HealthUnit> getClosestHealthUnit() {
+    //NO COMMENTS
+    public static ArrayList<HealthUnit> getClosestHealthUnit() {
 
         Log.i("HealthUnitController","closestHU nullity:"+closestHealthUnit.isEmpty());
         return closestHealthUnit;
     }
 
+    //NO COMMENTS
     public static void setClosestHealthUnit(HealthUnit healthUnit) {
 
         assert healthUnit != null : "healthUnit can't be null";
@@ -116,7 +118,8 @@ public class HealthUnitController {
         return 0;
     }
 
-
+    //EXCEPTONS
+    
     public static class LocationException extends NullPointerException{
         public LocationException(String error){
             super(error);
