@@ -107,11 +107,14 @@ public class SearchHealthUnitActivity extends AppCompatActivity implements Searc
     }
   }
 
+
+  //NO COMMENTS
   @Override
   public boolean onQueryTextSubmit(String query) {
     return false;
   }
 
+  //NO COMMENTS
   @Override
   public boolean onQueryTextChange(String newText) {
 
@@ -191,6 +194,7 @@ public class SearchHealthUnitActivity extends AppCompatActivity implements Searc
     }
   }
 
+  //NO COMMENTS
   public void setHealthUnitsList(ListView healthUnitsList) {
     assert healthUnitsList != null: "Error: healtUnit List is null";
 
