@@ -54,29 +54,35 @@ public class InformationSearchScreenController extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 
+    // Creation of screen.
     super.onCreate(savedInstanceState);
     setContentView(R.layout.information_us_screen);
 
+    // Route button setting.
     setReceive(getIntent());
     SearchHelthUnitSelected(receive.getIntExtra(POSITION, RETURN_NOT_FOUND));
     buttonRoute = (Button) findViewById(R.id.botaoRota);
     buttonRoute.setOnClickListener(new View.OnClickListener() {
 
+      // Call the route setup method.
       public void onClick(View viewButtonRoute) {
 
         buttonRoute();
       }
     });
 
+    // Go button setting.
     buttonGo = (ImageView) findViewById(R.id.buttonGo);
     buttonGo.setOnClickListener(new View.OnClickListener() {
 
+      // Call the button "Go" setup method.
       public void onClick(View viewButtonGo) {
 
         buttonClickGo();
       }
     });
 
+    // List with health units sought.
     setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
     setInformation(HealthUnitController.getClosestHealthUnit().get(numberHealthUnitSelected));
     addInformationToList();
