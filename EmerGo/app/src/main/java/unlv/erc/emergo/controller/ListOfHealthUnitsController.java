@@ -9,6 +9,7 @@ package unlv.erc.emergo.controller;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,8 @@ public class ListOfHealthUnitsController extends Activity {
 
   private static final String ROUTE_TRACED = "Rota mais próxima traçada";
 
+  private static final String TAG = "ListOfHealthUnits";
+
   // The Bundle data value of numeroUs .
   private static final int VALUE_LOWER_CLOSE = -1;
 
@@ -41,6 +44,8 @@ public class ListOfHealthUnitsController extends Activity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+
+    Log.d(TAG, "onCreate() called with: Bundle = [" + savedInstanceState + "]");
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.list_of_health_unit);
@@ -86,6 +91,8 @@ public class ListOfHealthUnitsController extends Activity {
 
   public List<String> get50closestUs(ArrayList<HealthUnit> closest) {
 
+    Log.d(TAG, "get50closestUs() called with: ArrayList<HealthUnit> = [" + closest + "]");
+
     List<String> closestHealthUnits = new ArrayList<String>();
 
     /**
@@ -110,6 +117,8 @@ public class ListOfHealthUnitsController extends Activity {
 
   public void setuSsList(ListView listHealthUnitsListView) {
 
+    Log.d(TAG, "setuSsList() called with: ListView = [" + listHealthUnitsListView + "]");
+
     this.listHealthUnitsListView = listHealthUnitsListView;
   }
 
@@ -122,6 +131,7 @@ public class ListOfHealthUnitsController extends Activity {
 
   public void goClicked(View mapScreen) {
 
+    Log.d(TAG, "goClicked() called with: View = [" + mapScreen + "]");
 
     Intent routeActivity = new Intent();
 
@@ -140,6 +150,8 @@ public class ListOfHealthUnitsController extends Activity {
 
   public void openMap(View mapScreen) {
 
+    Log.d(TAG, "openMap() called with: View = [" + mapScreen + "]");
+
     Intent mapActivity = new Intent();
 
     mapActivity.setClass(this, MapScreenController.class);
@@ -153,7 +165,9 @@ public class ListOfHealthUnitsController extends Activity {
     *
    */
 
-  public void openConfig(View viewConfig) {
+  public void openSettings(View viewSettings) {
+
+    Log.d(TAG, "openSettings() called with: View = [" + viewSettings + "]");
 
     Intent config = new Intent();
 
@@ -168,6 +182,8 @@ public class ListOfHealthUnitsController extends Activity {
    */
 
   public void openSearch(View mapScreen) {
+
+    Log.d(TAG, "openSearch() called with: View = [" + mapScreen + "]");
 
     Intent openSearch = new Intent();
 
