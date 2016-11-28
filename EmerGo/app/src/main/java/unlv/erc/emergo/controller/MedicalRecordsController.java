@@ -63,6 +63,8 @@ public class MedicalRecordsController extends Activity {
 
     Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
 
+    assert savedInstanceState != null : "savedInstanceState can't be null";
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.medical_records);
 
@@ -174,6 +176,8 @@ public class MedicalRecordsController extends Activity {
 
     Log.d(TAG, "goClicked() called with: mapScreen = [" + mapScreen + "]");
 
+    assert mapScreen != null : "mapScreen can't be null";
+
     final String FUNCTION_NOT_ENABLE_MESSAGE = "Função não habilitada!";
 
     Toast.makeText(this , FUNCTION_NOT_ENABLE_MESSAGE , Toast.LENGTH_SHORT).show();
@@ -192,6 +196,8 @@ public class MedicalRecordsController extends Activity {
 
     Log.d(TAG, "listMapsImageClicked() called with: mapScreen = [" + mapScreen + "]");
 
+    assert mapScreen != null : "mapScreen can't be null";
+
     Intent listOfHealth = new Intent();
     listOfHealth.setClass(this , ListOfHealthUnitsController.class);
     startActivity(listOfHealth);
@@ -203,9 +209,11 @@ public class MedicalRecordsController extends Activity {
    *
    * @param config go to SettingsController class.
    */
-  public void openConfig(View config) {
+  public void openSettings(View settings) {
 
-    Log.d(TAG, "openConfig() called with: config = [" + config + "]");
+    Log.d(TAG, "openSettings() called with: View = [" + settings + "]");
+
+    assert settings != null : "settings can't be null";
 
     Intent configuration = new Intent();
     configuration.setClass(this , SettingsController.class);
@@ -222,6 +230,8 @@ public class MedicalRecordsController extends Activity {
 
     Log.d(TAG, "openMap() called with: mapScreen = [" + mapScreen + "]");
 
+    assert mapScreen != null : "mapScreen can't be null";
+
     Intent mapActivity = new Intent();
     mapActivity.setClass(this, MapScreenController.class);
     startActivity(mapActivity);
@@ -236,6 +246,8 @@ public class MedicalRecordsController extends Activity {
   public void openSearch(View search) {
 
     Log.d(TAG, "openSearch() called with: search = [" + search + "]");
+
+    assert search != null : "search can't be null";
 
     Intent openSearch = new Intent();
     openSearch.setClass(this , SearchHealthUnitController.class);
@@ -320,6 +332,11 @@ public class MedicalRecordsController extends Activity {
     Log.d(TAG, "updateUser() called with: id = [" + id + "], save = [" + save + "], " +
         "update = [" + update + "], delete = [" + delete + "]");
 
+    assert id != null : "id can't be null";
+    assert save != null : "save can't be null";
+    assert update != null : "update can't be null";
+    assert delete != null : "delete can't be null";
+
     final String CHANGE_MESSAGE = "Alteração Realizada Com Sucesso!";
     final String CHANGE_NOT_DONE = "Não Foi Possível Fazer A Alteração, Tente Novamente.";
 
@@ -395,6 +412,19 @@ public class MedicalRecordsController extends Activity {
         "cardiac = [" + cardiac + "], diabect = [" + diabect + "], " +
         "hypertension = [" + hypertension + "], seropositive = [" + seropositive + "]");
 
+    assert name != null : "name can't be null";
+    assert birthday != null : "birthday can't be null";
+    assert observations != null : "observation can't be null";
+    assert save != null : "save can't be null";
+    assert id != null : "id can't be null";
+    assert update != null : "update can't be null";
+    assert delete != null : "delete can't be null";
+    assert typeBlood != null : "typeBlood can't be null";
+    assert cardiac != null : "cardiac can't be null";
+    assert diabect != null : "diabect can't be null";
+    assert hypertension != null : "hypertension can't be null";
+    assert seropositive != null : "seropositive can't be null";
+
     final String REQUEST_OF_EXCLUSION = "Deseja Mesmo Excluir Esta Ficha Médica?";
     final String TITLE_REQUEST_OF_EXCLUSION = "Deseja Mesmo Excluir Esta Ficha Médica?";
     final String EXCLUSION_MESSAGE = "Ficha Médica Excluida Com Sucesso";
@@ -426,12 +456,16 @@ public class MedicalRecordsController extends Activity {
 
     Log.d(TAG, "showMessage() called with: message = [" + message + "]");
 
+    assert message != null : "message can't be null";
+
     Toast.makeText(this,"" + message,Toast.LENGTH_LONG).show();
   }
 
   private boolean checksName(String nameUser) {
 
     Log.d(TAG, "checksName() called with: nameUser = [" + nameUser + "]");
+
+    assert nameUser != null : "nameUser can't be null";
 
     final String EMPTY_NAME_MESSAGE = "Nome Vazio! Informe Seu Nome.";
     final String LITTLE_NAME_MESSAGE = "Informe um nome com no mínimo 3 caracteres.";
@@ -471,6 +505,8 @@ public class MedicalRecordsController extends Activity {
   private boolean checkBirthday(String birthdayUser) {
 
     Log.d(TAG, "checkBirthday() called with: birthdayUser = [" + birthdayUser + "]");
+
+    assert birthdayUser != null : "birthdayUser can't be null";
 
     final String YEAR_OLD_MESSAGE = "Informe um ano superior a 1942.";
     final String INVALID_YEAR_MESSAGE = "Ops, essa data é inválida!.";
@@ -550,6 +586,18 @@ public class MedicalRecordsController extends Activity {
         "cardiac = [" + cardiac + "], hypertension = [" + hypertension + "], " +
         "seropositive = [" + seropositive + "], diabect = [" + diabect + "]");
 
+    assert name != null : "name can't be null";
+    assert birthday != null : "birthday can't be null";
+    assert observations != null : "observation can't be null";
+    assert save != null : "save can't be null";
+    assert update != null : "update can't be null";
+    assert delete != null : "delete can't be null";
+    assert typeBlood != null : "typeBlood can't be null";
+    assert cardiac != null : "cardiac can't be null";
+    assert diabect != null : "diabect can't be null";
+    assert hypertension != null : "hypertension can't be null";
+    assert seropositive != null : "seropositive can't be null";
+
     // Enabled data fields.
     save.setVisibility(View.VISIBLE);
     save.setEnabled(true);
@@ -579,6 +627,10 @@ public class MedicalRecordsController extends Activity {
 
     Log.d(TAG, "disableOptions() called with: save = [" + save + "], " +
         "update = [" + update + "], delete = [" + delete + "]");
+
+    assert save != null : "save can't be null";
+    assert update != null : "update can't be null";
+    assert delete != null : "delete can't be null";
 
     save.setVisibility(View.VISIBLE);
     update.setVisibility(View.INVISIBLE);
@@ -621,6 +673,16 @@ public class MedicalRecordsController extends Activity {
         "hypertension = [" + hypertension + "], seropositive = [" + seropositive + "], " +
         "typeBlood = [" + typeBlood + "]");
 
+    assert name != null : "name can't be null";
+    assert birthday != null : "birthday can't be null";
+    assert observations != null : "observation can't be null";
+    assert save != null : "save can't be null";
+    assert typeBlood != null : "typeBlood can't be null";
+    assert cardiac != null : "cardiac can't be null";
+    assert diabect != null : "diabect can't be null";
+    assert hypertension != null : "hypertension can't be null";
+    assert seropositive != null : "seropositive can't be null";
+
     // All fields disabled.
     save.setVisibility(View.INVISIBLE);
     name.setEnabled(false);
@@ -646,6 +708,10 @@ public class MedicalRecordsController extends Activity {
     Log.d(TAG, "disableOptionsUpdate() called with: save = [" + save + "], " +
         "update = [" + update + "], delete = [" + delete + "]");
 
+    assert save != null : "save can't be null";
+    assert update != null : "update can't be null";
+    assert delete != null : "delete can't be null";
+
     save.setEnabled(false);
     update.setVisibility(View.VISIBLE);
     update.setEnabled(true);
@@ -665,6 +731,10 @@ public class MedicalRecordsController extends Activity {
 
     Log.d(TAG, "disableButtons() called with: save = [" + save + "], " +
         "update = [" + update + "], delete = [" + delete + "]");
+
+    assert save != null : "save can't be null";
+    assert update != null : "update can't be null";
+    assert delete != null : "delete can't be null";
 
     save.setVisibility(View.INVISIBLE);
     update.setVisibility(View.VISIBLE);
@@ -699,6 +769,17 @@ public class MedicalRecordsController extends Activity {
         "cardiac = [" + cardiac + "], diabect = [" + diabect + "], " +
         "hypertension = [" + hypertension + "], seropositive = [" + seropositive + "]");
 
+    assert name != null : "name can't be null";
+    assert birthday != null : "birthday can't be null";
+    assert observations != null : "observation can't be null";
+    assert save != null : "save can't be null";
+    assert update != null : "update can't be null";
+    assert typeBlood != null : "typeBlood can't be null";
+    assert cardiac != null : "cardiac can't be null";
+    assert diabect != null : "diabect can't be null";
+    assert hypertension != null : "hypertension can't be null";
+    assert seropositive != null : "seropositive can't be null";
+
     // Only the update button is invisible.
     name.setEnabled(true);
     birthday.setEnabled(true);
@@ -723,6 +804,9 @@ public class MedicalRecordsController extends Activity {
   private void visibleOptions(Button save,Button update) {
 
     Log.d(TAG, "visibleOptions() called with: save = [" + save + "], update = [" + update + "]");
+
+    assert save != null : "save can't be null";
+    assert update != null : "update can't be null";
 
     update.setVisibility(View.VISIBLE);
     save.setVisibility(View.INVISIBLE);
@@ -751,6 +835,15 @@ public class MedicalRecordsController extends Activity {
         "typeBlood = [" + typeBlood + "], cardiac = [" + cardiac + "]," +
         " diabect = [" + diabect + "], hypertension = [" + hypertension + "], " +
         "seropositive = [" + seropositive + "]");
+
+    assert name != null : "name can't be null";
+    assert birthday != null : "birthday can't be null";
+    assert observations != null : "observation can't be null";
+    assert typeBlood != null : "typeBlood can't be null";
+    assert cardiac != null : "cardiac can't be null";
+    assert diabect != null : "diabect can't be null";
+    assert hypertension != null : "hypertension can't be null";
+    assert seropositive != null : "seropositive can't be null";
 
     // Disabled data fields.
     name.setEnabled(false);
@@ -787,6 +880,15 @@ public class MedicalRecordsController extends Activity {
         "hypertensionUser = [" + hypertensionUser + "], " +
         "seropositiveUser = [" + seropositiveUser + "], " +
         "observationsUser = [" + observationsUser + "]");
+
+    assert nameUser != null : "nameUser can't be null";
+    assert birthday != null : "birthday can't be null";
+    assert observations != null : "observation can't be null";
+    assert typeBlood != null : "typeBlood can't be null";
+    assert cardiac != null : "cardiac can't be null";
+    assert diabect != null : "diabect can't be null";
+    assert hypertension != null : "hypertension can't be null";
+    assert seropositive != null : "seropositive can't be null";
 
     final int notifyIdentifier = 1;
 
