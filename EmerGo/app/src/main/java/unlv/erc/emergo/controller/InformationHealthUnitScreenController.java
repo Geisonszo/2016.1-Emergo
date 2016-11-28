@@ -56,6 +56,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "onCreate() called with: Bundle = [" + savedInstanceState + "]");
 
+    assert savedInstanceState != null : "savedInstanceState can not be null";
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.information_us_screen);
 
@@ -85,6 +87,8 @@ public class InformationHealthUnitScreenController extends Activity
   public void onClick(View viewOnClick) {
 
     Log.d(TAG, "onClick() called with: View = [" + viewOnClick + "]");
+
+    assert viewOnClick != null : "viewClick can not be null";
 
     /**
      * When the "buttonRoute" is pressed, it will exit the current class and opened the
@@ -132,12 +136,14 @@ public class InformationHealthUnitScreenController extends Activity
 
   /**
    * Directs you to the Settings screen.
-   * @param mapScreen View.
+   * @param viewSettings View.
    */
 
-  public void openSettings(View mapScreen) {
+  public void openSettings(View viewSettings) {
 
-    Log.d(TAG, "openSettings() called with: View = [" + mapScreen + "]");
+    Log.d(TAG, "openSettings() called with: View = [" + viewSettings + "]");
+
+    assert viewSettings != null : "viewSettings can not be null";
 
     Intent config = new Intent();
 
@@ -156,6 +162,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "openSearch() called with: View = [" + mapScreen + "]");
 
+    assert mapScreen != null : "mapScreen can not be null";
+
     Intent openSearch = new Intent();
 
     openSearch.setClass(this,SearchHealthUnitActivity.class);
@@ -171,6 +179,8 @@ public class InformationHealthUnitScreenController extends Activity
   public void listMapsImageClicked(View mapScreen) {
 
     Log.d(TAG, "listMapsImageClicked() called with: View = [" + mapScreen + "]");
+
+    assert mapScreen != null : "mapScreen can not be null";
 
     Intent listOfHealth = new Intent();
 
@@ -188,6 +198,8 @@ public class InformationHealthUnitScreenController extends Activity
   public void openMap(View mapScreen) {
 
     Log.d(TAG, "openMap() called with: View = [" + mapScreen + "]");
+
+    assert mapScreen != null : "mapScreen can not be null";
 
     Intent mapActivity = new Intent();
 
@@ -360,6 +372,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "setInformation() called with: HealthUnit = [" + healthUnit + "]");
 
+    assert healthUnit != null : "healthUnit can not be null";
+
     setPadding("\n");
     setTitleHealthUnit("        Informações da Unidade de Saúde");
     setNameHealthUnit("  Nome: " + healthUnit.getNameHospital());
@@ -413,6 +427,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "setListOfInformation() called with: List<String> = [" + listOfInformations + "]");
 
+    assert listOfInformations != null : "listOfInformations can not be null";
+
     this.listOfInformations = listOfInformations;
   }
 
@@ -425,6 +441,8 @@ public class InformationHealthUnitScreenController extends Activity
   private void setHealthUnitInfo(ListView healthUnitInfo) {
 
     Log.d(TAG, "setHealthUnitInfo() called with: ListView = [" + healthUnitInfo + "]");
+
+    assert healthUnitInfo != null : "healthUnitInfo can not be null";
 
     this.healthUnitInfo = healthUnitInfo;
   }
@@ -439,6 +457,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "setReceive() called with: Intent = [" + receive + "]");
 
+    assert receive != null : "receive can not be null";
+
     this.receive = receive;
   }
 
@@ -451,6 +471,8 @@ public class InformationHealthUnitScreenController extends Activity
   private void setButtonRoute(Button buttonRoute) {
 
     Log.d(TAG, "setButtonRoute() called with: Button = [" + buttonRoute + "]");
+
+    assert buttonRoute != null : "buttonRoute can not be null";
 
     this.buttonRoute = buttonRoute;
   }
@@ -465,6 +487,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "setButtonGo() called with: ImageView = [" + buttonGo + "]");
 
+    assert buttonGo != null : "buttonGo can not be null";
+
     this.buttonGo = buttonGo;
   }
 
@@ -477,6 +501,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "setSearchHealthUnitSelected() called with: int = [" + numberHealthUnitSelected +
             "]");
+
+    assert numberHealthUnitSelected <= 0 : "numberHealthUnitSelected can not be less than 0";
 
     this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
@@ -491,6 +517,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "setPadding() called with: String = [" + padding + "]");
 
+    assert padding != null : "padding can not be null";
+
     this.padding = padding;
   }
 
@@ -503,6 +531,8 @@ public class InformationHealthUnitScreenController extends Activity
   protected void setTitleHealthUnit(String titleHealthUnit) {
 
     Log.d(TAG, "setTitleHealthUnit() called with: String = [" + titleHealthUnit + "]");
+
+    assert titleHealthUnit != null : "titleHealthUnit can not be null";
 
     this.titleHealthUnit = titleHealthUnit;
   }
@@ -517,6 +547,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "setNameHealthUnit() called with: String = [" + nameHealthUnit + "]");
 
+    assert nameHealthUnit != null : "nameHealthUnit can not be null";
+
     this.nameHealthUnit = nameHealthUnit;
   }
 
@@ -529,6 +561,8 @@ public class InformationHealthUnitScreenController extends Activity
   protected void setUnitType(String healthUnitType) {
 
     Log.d(TAG, "setUnitType() called with: String = [" + healthUnitType + "]");
+
+    assert healthUnitType != null : "healthUnitType can not be null";
 
     this.healthUnitType = healthUnitType;
   }
@@ -543,6 +577,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "setState() called with: String = [" + state + "]");
 
+    assert state != null : "state can not be null";
+
     this.state = state;
   }
 
@@ -555,6 +591,8 @@ public class InformationHealthUnitScreenController extends Activity
   protected void setCity(String city) {
 
     Log.d(TAG, "setCity() called with: String = [" + city + "]");
+
+    assert city != null : "city can not be null";
 
     this.city = city;
   }
@@ -569,6 +607,8 @@ public class InformationHealthUnitScreenController extends Activity
 
     Log.d(TAG, "setDistrict() called with: String = [" + district + "]");
 
+    assert district != null : "district can not be null";
+
     this.district = district;
   }
 
@@ -581,6 +621,8 @@ public class InformationHealthUnitScreenController extends Activity
   protected void setAddressNumber(String addressNumber) {
 
     Log.d(TAG, "setAddressNumber() called with: String = [" + addressNumber + "]");
+
+    assert addressNumber != null : "addressNumber can not be null";
 
     this.addressNumber = addressNumber;
   }
