@@ -9,6 +9,7 @@ package unlv.erc.emergo.controller;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,6 +24,8 @@ import unlv.erc.emergo.R;
 import unlv.erc.emergo.model.HealthUnit;
 
 public class InformationSearchScreenController extends Activity {
+
+  private static final String TAG = "InformationSearchScreen";
 
   // The Bundle data value of numeroUs.
   private static final int VALUE_LOWER_CLOSE = -1;
@@ -54,13 +57,15 @@ public class InformationSearchScreenController extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 
+    Log.d(TAG, "onCreate() called with: Bundle = [" + savedInstanceState + "]");
+
     // Creation of screen.
     super.onCreate(savedInstanceState);
     setContentView(R.layout.information_us_screen);
 
     // Route button setting.
     setReceive(getIntent());
-    SearchHelthUnitSelected(receive.getIntExtra(POSITION, RETURN_NOT_FOUND));
+    searchHealthUnitSelected(receive.getIntExtra(POSITION, RETURN_NOT_FOUND));
     buttonRoute = (Button) findViewById(R.id.botaoRota);
     buttonRoute.setOnClickListener(new View.OnClickListener() {
 
@@ -96,6 +101,8 @@ public class InformationSearchScreenController extends Activity {
 
   public void openSearch(View mapScreen) {
 
+    Log.d(TAG, "openSearch() called with: View = [" + mapScreen + "]");
+
     Intent openSearch = new Intent();
 
     openSearch.setClass(this, SearchHealthUnitActivity.class);
@@ -104,11 +111,13 @@ public class InformationSearchScreenController extends Activity {
 
   /**
    * Exchange of current activity and start activity "SettingsController".
-   * @param viewConfig View of config.
+   * @param viewSettings View of config.
    *
    */
 
-  public void openConfig(View viewConfig) {
+  public void openSettings(View viewSettings) {
+
+    Log.d(TAG, "openSettings() called with: View = [" + viewSettings + "]");
 
     Intent config = new Intent();
 
@@ -122,6 +131,8 @@ public class InformationSearchScreenController extends Activity {
    */
 
   public void listMapsImageClicked(View mapScreen) {
+
+    Log.d(TAG, "listMapsImageClicked() called with: View = [" + mapScreen + "]");
 
     Intent listOfHealth = new Intent();
 
@@ -137,6 +148,8 @@ public class InformationSearchScreenController extends Activity {
    */
 
   public void openMap(View mapScreen) {
+
+    Log.d(TAG, "openMap() called with: View = [" + mapScreen + "]");
 
     Intent mapActivity = new Intent();
 
@@ -164,6 +177,8 @@ public class InformationSearchScreenController extends Activity {
 
   public void setButtonGo(ImageView buttonGo) {
 
+    Log.d(TAG, "setButtonGo() called with: ImageView = [" + buttonGo + "]");
+
     this.buttonGo = buttonGo;
   }
 
@@ -185,6 +200,8 @@ public class InformationSearchScreenController extends Activity {
    */
 
   protected void setPadding(String padding) {
+
+    Log.d(TAG, "setPadding() called with: String = [" + padding+ "]");
 
     this.padding = padding;
   }
@@ -208,6 +225,8 @@ public class InformationSearchScreenController extends Activity {
 
   protected void setTitleHealthUnit(String titleHealthUnit) {
 
+    Log.d(TAG, "setTitleHealthUnit() called with: String = [" + titleHealthUnit + "]");
+
     this.titleHealthUnit = titleHealthUnit;
   }
 
@@ -229,6 +248,8 @@ public class InformationSearchScreenController extends Activity {
    */
 
   protected void setNameHealthUnit(String nameHealthUnit) {
+
+    Log.d(TAG, "setNameHealthUnit() called with: String = [" + nameHealthUnit + "]");
 
     this.nameHealthUnit = nameHealthUnit;
   }
@@ -252,6 +273,8 @@ public class InformationSearchScreenController extends Activity {
 
   protected void setUnitType(String healthUnitType) {
 
+    Log.d(TAG, "setUnitType() called with: String = [" + healthUnitType + "]");
+
     this.healthUnitType = healthUnitType;
   }
 
@@ -273,6 +296,8 @@ public class InformationSearchScreenController extends Activity {
    */
 
   protected void setState(String state) {
+
+    Log.d(TAG, "setState() called with: String = [" + state + "]");
 
     this.state = state;
   }
@@ -296,6 +321,8 @@ public class InformationSearchScreenController extends Activity {
 
   protected void setCity(String city) {
 
+    Log.d(TAG, "setCity() called with: String = [" + city + "]");
+
     this.city = city;
   }
 
@@ -317,6 +344,8 @@ public class InformationSearchScreenController extends Activity {
    */
 
   protected void setDistrict(String district) {
+
+    Log.d(TAG, "setDistrict() called with: String = [" + district + "]");
 
     this.district = district;
   }
@@ -340,6 +369,8 @@ public class InformationSearchScreenController extends Activity {
 
   protected void setAddressNumber(String addressNumber) {
 
+    Log.d(TAG, "setAddressNumber() called with: String = [" + addressNumber + "]");
+
     this.addressNumber = addressNumber;
   }
 
@@ -351,6 +382,8 @@ public class InformationSearchScreenController extends Activity {
    */
 
   private void setInformation(HealthUnit healthUnit) {
+
+    Log.d(TAG, "setInformation() called with: HealthUnit = [" + healthUnit + "]");
 
     setPadding("\n");
     setTitle("        Informações da Unidade de Saúde");
@@ -450,6 +483,8 @@ public class InformationSearchScreenController extends Activity {
 
   private void setListOfInformations(List<String> listOfInformations) {
 
+    Log.d(TAG, "setListOfInformation() called with: List<String> = [" + listOfInformations + "]");
+
     this.listOfInformations = listOfInformations;
   }
 
@@ -471,6 +506,8 @@ public class InformationSearchScreenController extends Activity {
    */
 
   private void setHealthUnitInfo(ListView healthUnitInfo) {
+
+    Log.d(TAG, "setHealthUnitInfo() called with: ListView = [" + healthUnitInfo + "]");
 
     this.healthUnitInfo = healthUnitInfo;
   }
@@ -494,6 +531,8 @@ public class InformationSearchScreenController extends Activity {
 
   private void setReceive(Intent receive) {
 
+    Log.d(TAG, "setReceive() called with: Intent = [" + receive + "]");
+
     this.receive = receive;
   }
 
@@ -516,6 +555,8 @@ public class InformationSearchScreenController extends Activity {
 
   private void setButtonRoute(Button buttonRoute) {
 
+    Log.d(TAG, "setButtonRoute() called with: String = [" + buttonRoute + "]");
+
     this.buttonRoute = buttonRoute;
   }
 
@@ -536,7 +577,9 @@ public class InformationSearchScreenController extends Activity {
    *
    */
 
-  private void SearchHelthUnitSelected(int numberHealthUnitSelected) {
+  private void searchHealthUnitSelected(int numberHealthUnitSelected) {
+
+    Log.d(TAG, "searchHealthUnitSelected() called with: int = [" + numberHealthUnitSelected + "]");
 
     this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
