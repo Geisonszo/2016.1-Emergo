@@ -9,6 +9,7 @@ package unlv.erc.emergo.controller;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,6 +25,8 @@ import unlv.erc.emergo.model.HealthUnit;
 
 public class InformationHealthUnitScreenController extends Activity
     implements View.OnClickListener {
+
+  private static final String TAG = "InformationHUScreen";
 
   // The value to be returned if no value of the desired type is stored with the given name.
   private static final int RETURN_NOT_FOUND = 0;
@@ -51,11 +54,13 @@ public class InformationHealthUnitScreenController extends Activity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 
+    Log.d(TAG, "onCreate() called with: Bundle = [" + savedInstanceState + "]");
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.information_us_screen);
 
     setReceive(getIntent());
-    setSearchHelthUnitSelected(receive.getIntExtra(POSITION , RETURN_NOT_FOUND));
+    setSearchHealthUnitSelected(receive.getIntExtra(POSITION , RETURN_NOT_FOUND));
     buttonRoute = (Button) findViewById(R.id.botaoRota);
     buttonRoute.setOnClickListener(this);
     buttonGo = (ImageView) findViewById(R.id.buttonGo);
@@ -78,6 +83,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   @Override
   public void onClick(View viewOnClick) {
+
+    Log.d(TAG, "onClick() called with: View = [" + viewOnClick + "]");
 
     /**
      * When the "buttonRoute" is pressed, it will exit the current class and opened the
@@ -129,7 +136,11 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   public void openSettings(View mapScreen) {
+
+    Log.d(TAG, "openSettings() called with: View = [" + mapScreen + "]");
+
     Intent config = new Intent();
+
     config.setClass(this , SettingsController.class);
     startActivity(config);
     finish();
@@ -142,6 +153,8 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   public void openSearch(View mapScreen) {
+
+    Log.d(TAG, "openSearch() called with: View = [" + mapScreen + "]");
 
     Intent openSearch = new Intent();
 
@@ -157,6 +170,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   public void listMapsImageClicked(View mapScreen) {
 
+    Log.d(TAG, "listMapsImageClicked() called with: View = [" + mapScreen + "]");
+
     Intent listOfHealth = new Intent();
 
     listOfHealth.setClass(this,ListOfHealthUnitsController.class);
@@ -171,6 +186,8 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   public void openMap(View mapScreen) {
+
+    Log.d(TAG, "openMap() called with: View = [" + mapScreen + "]");
 
     Intent mapActivity = new Intent();
 
@@ -341,6 +358,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   private void setInformation(HealthUnit healthUnit) {
 
+    Log.d(TAG, "setInformation() called with: HealthUnit = [" + healthUnit + "]");
+
     setPadding("\n");
     setTitleHealthUnit("        Informações da Unidade de Saúde");
     setNameHealthUnit("  Nome: " + healthUnit.getNameHospital());
@@ -392,6 +411,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   private void setListOfInformations(List<String> listOfInformations) {
 
+    Log.d(TAG, "setListOfInformation() called with: List<String> = [" + listOfInformations + "]");
+
     this.listOfInformations = listOfInformations;
   }
 
@@ -402,6 +423,8 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   private void setHealthUnitInfo(ListView healthUnitInfo) {
+
+    Log.d(TAG, "setHealthUnitInfo() called with: ListView = [" + healthUnitInfo + "]");
 
     this.healthUnitInfo = healthUnitInfo;
   }
@@ -414,6 +437,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   private void setReceive(Intent receive) {
 
+    Log.d(TAG, "setReceive() called with: Intent = [" + receive + "]");
+
     this.receive = receive;
   }
 
@@ -424,6 +449,8 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   private void setButtonRoute(Button buttonRoute) {
+
+    Log.d(TAG, "setButtonRoute() called with: Button = [" + buttonRoute + "]");
 
     this.buttonRoute = buttonRoute;
   }
@@ -436,6 +463,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   private void setButtonGo(ImageView buttonGo) {
 
+    Log.d(TAG, "setButtonGo() called with: ImageView = [" + buttonGo + "]");
+
     this.buttonGo = buttonGo;
   }
 
@@ -444,7 +473,10 @@ public class InformationHealthUnitScreenController extends Activity
    * @param numberHealthUnitSelected int.
    */
 
-  private void setSearchHelthUnitSelected(int numberHealthUnitSelected) {
+  private void setSearchHealthUnitSelected(int numberHealthUnitSelected) {
+
+    Log.d(TAG, "setSearchHealthUnitSelected() called with: int = [" + numberHealthUnitSelected +
+            "]");
 
     this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
@@ -457,6 +489,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   protected void setPadding(String padding) {
 
+    Log.d(TAG, "setPadding() called with: String = [" + padding + "]");
+
     this.padding = padding;
   }
 
@@ -467,6 +501,8 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   protected void setTitleHealthUnit(String titleHealthUnit) {
+
+    Log.d(TAG, "setTitleHealthUnit() called with: String = [" + titleHealthUnit + "]");
 
     this.titleHealthUnit = titleHealthUnit;
   }
@@ -479,6 +515,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   protected void setNameHealthUnit(String nameHealthUnit) {
 
+    Log.d(TAG, "setNameHealthUnit() called with: String = [" + nameHealthUnit + "]");
+
     this.nameHealthUnit = nameHealthUnit;
   }
 
@@ -489,6 +527,8 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   protected void setUnitType(String healthUnitType) {
+
+    Log.d(TAG, "setUnitType() called with: String = [" + healthUnitType + "]");
 
     this.healthUnitType = healthUnitType;
   }
@@ -501,6 +541,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   protected void setState(String state) {
 
+    Log.d(TAG, "setState() called with: String = [" + state + "]");
+
     this.state = state;
   }
 
@@ -511,6 +553,8 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   protected void setCity(String city) {
+
+    Log.d(TAG, "setCity() called with: String = [" + city + "]");
 
     this.city = city;
   }
@@ -523,6 +567,8 @@ public class InformationHealthUnitScreenController extends Activity
 
   private void setDistrict(String district) {
 
+    Log.d(TAG, "setDistrict() called with: String = [" + district + "]");
+
     this.district = district;
   }
 
@@ -533,6 +579,8 @@ public class InformationHealthUnitScreenController extends Activity
    */
 
   protected void setAddressNumber(String addressNumber) {
+
+    Log.d(TAG, "setAddressNumber() called with: String = [" + addressNumber + "]");
 
     this.addressNumber = addressNumber;
   }
