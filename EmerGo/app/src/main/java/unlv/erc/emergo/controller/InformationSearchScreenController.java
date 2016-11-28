@@ -59,6 +59,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "onCreate() called with: Bundle = [" + savedInstanceState + "]");
 
+    assert savedInstanceState != null : "savedInstanceState can not be null";
+
     // Creation of screen.
     super.onCreate(savedInstanceState);
     setContentView(R.layout.information_us_screen);
@@ -103,6 +105,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "openSearch() called with: View = [" + mapScreen + "]");
 
+    assert mapScreen != null : "mapScreen can not be null";
+
     Intent openSearch = new Intent();
 
     openSearch.setClass(this, SearchHealthUnitActivity.class);
@@ -119,6 +123,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "openSettings() called with: View = [" + viewSettings + "]");
 
+    assert viewSettings != null : "viewSettings can not be null";
+
     Intent config = new Intent();
 
     config.setClass(this, SettingsController.class);
@@ -133,6 +139,8 @@ public class InformationSearchScreenController extends Activity {
   public void listMapsImageClicked(View mapScreen) {
 
     Log.d(TAG, "listMapsImageClicked() called with: View = [" + mapScreen + "]");
+
+    assert mapScreen != null : "mapScreen can not be null";
 
     Intent listOfHealth = new Intent();
 
@@ -150,6 +158,8 @@ public class InformationSearchScreenController extends Activity {
   public void openMap(View mapScreen) {
 
     Log.d(TAG, "openMap() called with: View = [" + mapScreen + "]");
+
+    assert mapScreen != null : "mapScreen can not be null";
 
     Intent mapActivity = new Intent();
 
@@ -179,6 +189,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "setButtonGo() called with: ImageView = [" + buttonGo + "]");
 
+    assert buttonGo != null : "buttonGo can not be null";
+
     this.buttonGo = buttonGo;
   }
 
@@ -202,6 +214,8 @@ public class InformationSearchScreenController extends Activity {
   protected void setPadding(String padding) {
 
     Log.d(TAG, "setPadding() called with: String = [" + padding+ "]");
+
+    assert padding != null : "padding can not be null";
 
     this.padding = padding;
   }
@@ -227,6 +241,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "setTitleHealthUnit() called with: String = [" + titleHealthUnit + "]");
 
+    assert titleHealthUnit != null : "titleHealthUnit can not be null";
+
     this.titleHealthUnit = titleHealthUnit;
   }
 
@@ -250,6 +266,8 @@ public class InformationSearchScreenController extends Activity {
   protected void setNameHealthUnit(String nameHealthUnit) {
 
     Log.d(TAG, "setNameHealthUnit() called with: String = [" + nameHealthUnit + "]");
+
+    assert nameHealthUnit != null : "nameHealthUnit can not be null";
 
     this.nameHealthUnit = nameHealthUnit;
   }
@@ -275,6 +293,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "setUnitType() called with: String = [" + healthUnitType + "]");
 
+    assert healthUnitType != null : "healthUnitType can not be null";
+
     this.healthUnitType = healthUnitType;
   }
 
@@ -298,6 +318,8 @@ public class InformationSearchScreenController extends Activity {
   protected void setState(String state) {
 
     Log.d(TAG, "setState() called with: String = [" + state + "]");
+
+    assert state != null : "state can not be null";
 
     this.state = state;
   }
@@ -323,6 +345,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "setCity() called with: String = [" + city + "]");
 
+    assert city != null : "city can not be null";
+
     this.city = city;
   }
 
@@ -346,6 +370,8 @@ public class InformationSearchScreenController extends Activity {
   protected void setDistrict(String district) {
 
     Log.d(TAG, "setDistrict() called with: String = [" + district + "]");
+
+    assert district != null : "district can not be null";
 
     this.district = district;
   }
@@ -371,6 +397,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "setAddressNumber() called with: String = [" + addressNumber + "]");
 
+    assert addressNumber != null : "addressNumber can not be null";
+
     this.addressNumber = addressNumber;
   }
 
@@ -384,6 +412,8 @@ public class InformationSearchScreenController extends Activity {
   private void setInformation(HealthUnit healthUnit) {
 
     Log.d(TAG, "setInformation() called with: HealthUnit = [" + healthUnit + "]");
+
+    assert healthUnit != null : "healthUnit can not be null";
 
     setPadding("\n");
     setTitle("        Informações da Unidade de Saúde");
@@ -485,6 +515,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "setListOfInformation() called with: List<String> = [" + listOfInformations + "]");
 
+    assert listOfInformations != null : "listOfInformations can not be null";
+
     this.listOfInformations = listOfInformations;
   }
 
@@ -508,6 +540,8 @@ public class InformationSearchScreenController extends Activity {
   private void setHealthUnitInfo(ListView healthUnitInfo) {
 
     Log.d(TAG, "setHealthUnitInfo() called with: ListView = [" + healthUnitInfo + "]");
+
+    assert healthUnitInfo != null : "healthUnitInfo can not be null";
 
     this.healthUnitInfo = healthUnitInfo;
   }
@@ -533,6 +567,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "setReceive() called with: Intent = [" + receive + "]");
 
+    assert receive != null : "receive can not be null";
+
     this.receive = receive;
   }
 
@@ -557,6 +593,8 @@ public class InformationSearchScreenController extends Activity {
 
     Log.d(TAG, "setButtonRoute() called with: String = [" + buttonRoute + "]");
 
+    assert buttonRoute != null : "buttonRoute can not be null";
+
     this.buttonRoute = buttonRoute;
   }
 
@@ -580,6 +618,8 @@ public class InformationSearchScreenController extends Activity {
   private void searchHealthUnitSelected(int numberHealthUnitSelected) {
 
     Log.d(TAG, "searchHealthUnitSelected() called with: int = [" + numberHealthUnitSelected + "]");
+
+    assert numberHealthUnitSelected <= 0 : "numberHealthUnitSelected can't be less ";
 
     this.numberHealthUnitSelected = numberHealthUnitSelected;
   }
