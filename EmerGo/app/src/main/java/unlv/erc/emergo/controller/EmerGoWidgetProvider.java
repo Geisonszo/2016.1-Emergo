@@ -40,11 +40,19 @@ public class EmerGoWidgetProvider extends AppWidgetProvider {
     ComponentName thisWidget = new ComponentName(context, EmerGoWidgetProvider.class);
     
     // Array of integers widgets
-    int [] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);    
-    Log.d("Widgets: ","It is being made an instantiation of an array of widgets");       
-    
-    setWidget(allWidgetIds, context, appWidgetManager);
-    
+    try {
+
+      int [] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+      Log.d("Widgets: ","It is being made an instantiation of an array of widgets");
+
+      setWidget(allWidgetIds, context, appWidgetManager);
+    }catch(RuntimeException runtimeException){
+
+      Log.d(TAG, "onUpdate: " + runtimeException);
+      runtimeException.printStackTrace();
+    }
+
+
     Log.d("End of Method: ","onUpdate");
   }
   
@@ -61,15 +69,15 @@ public class EmerGoWidgetProvider extends AppWidgetProvider {
 
       // Instantiation of  class RemoteViews
       RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-      
+
       // Private request code for the sender
       final int requestCode = 0 ;
-      
+
       // Code of flags that will be used
       final int flag = 0;
-      
+
       // The integer data value
-      final int value = -1;      
+      final int value = -1;
 
       intent.putExtra("numeroUs" , value);
       PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, flag);
