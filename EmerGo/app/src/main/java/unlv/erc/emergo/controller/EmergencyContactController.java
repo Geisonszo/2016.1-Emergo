@@ -86,8 +86,15 @@ public class EmergencyContactController extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.emergency_contact);
 
-    emergencyContactDao = new EmergencyContactDao(this);
-    result = emergencyContactDao.getEmergencyContact();
+    try {
+
+      emergencyContactDao = new EmergencyContactDao(this);
+      result = emergencyContactDao.getEmergencyContact();
+    } catch (NullPointerException nullPointException) {
+
+      nullPointException.printStackTrace();
+    }
+
 
     assert result != null : "result can't be null";
 
