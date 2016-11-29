@@ -20,6 +20,13 @@ import unlv.erc.emergo.R;
 
 public class EmerGoWidgetProvider extends AppWidgetProvider {
 
+  // Private request code for the sender
+  private final int requestCode = 0 ;
+  // Code of flags that will be used
+  private final int flag = 0;
+  // The integer data value
+  private final int value = -1;
+
   private static final String TAG = "EmerGoWidgetProvider";
 
   /**
@@ -56,7 +63,7 @@ public class EmerGoWidgetProvider extends AppWidgetProvider {
     Log.d("End of Method: ","onUpdate");
   }
   
-  public void setWidget(int [] allWidgetIds, Context context, AppWidgetManager appWidgetManager) {
+  private void setWidget(int [] allWidgetIds, Context context, AppWidgetManager appWidgetManager) {
 
     Log.d(TAG, "setWidget() called with: allWidgetIds = [" + allWidgetIds + "], " +
         "context = [" + context + "], appWidgetManager = [" + appWidgetManager + "]");
@@ -69,15 +76,6 @@ public class EmerGoWidgetProvider extends AppWidgetProvider {
 
       // Instantiation of  class RemoteViews
       RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-
-      // Private request code for the sender
-      final int requestCode = 0 ;
-
-      // Code of flags that will be used
-      final int flag = 0;
-
-      // The integer data value
-      final int value = -1;
 
       intent.putExtra("numeroUs" , value);
       PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, flag);
