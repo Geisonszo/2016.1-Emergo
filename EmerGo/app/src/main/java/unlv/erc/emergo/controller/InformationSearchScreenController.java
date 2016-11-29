@@ -59,14 +59,17 @@ public class InformationSearchScreenController extends Activity {
 
     setReceive(getIntent());
     SearchHelthUnitSelected(receive.getIntExtra(POSITION, RETURN_NOT_FOUND));
-    buttonRoute = (Button) findViewById(R.id.botaoRota);
-    buttonRoute.setOnClickListener(new View.OnClickListener() {
 
-      public void onClick(View viewButtonRoute) {
+    clickOnButtonRoute();
 
-        buttonRoute();
-      }
-    });
+    clickOnButtonGo();
+
+    setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
+    setInformation(HealthUnitController.getClosestHealthUnit().get(numberHealthUnitSelected));
+    addInformationToList();
+  }
+
+  private void clickOnButtonGo() {
 
     buttonGo = (ImageView) findViewById(R.id.buttonGo);
     buttonGo.setOnClickListener(new View.OnClickListener() {
@@ -76,10 +79,18 @@ public class InformationSearchScreenController extends Activity {
         buttonClickGo();
       }
     });
+  }
 
-    setHealthUnitInfo((ListView) findViewById(R.id.hospInformation));
-    setInformation(HealthUnitController.getClosestHealthUnit().get(numberHealthUnitSelected));
-    addInformationToList();
+  private void clickOnButtonRoute() {
+
+    buttonRoute = (Button) findViewById(R.id.botaoRota);
+    buttonRoute.setOnClickListener(new View.OnClickListener() {
+
+      public void onClick(View viewButtonRoute) {
+
+        buttonRoute();
+      }
+    });
   }
 
   /**
