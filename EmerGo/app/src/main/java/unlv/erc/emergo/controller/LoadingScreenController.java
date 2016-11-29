@@ -22,6 +22,7 @@ public class LoadingScreenController extends Activity {
 
    // Time in milliseconds the duration of the spinner.
    private static final int WAITING_TIME = 9000;
+  private static final int MAXIMUM_TIME = 9000;
 
   protected void onCreate(Bundle savedInstanceState) {
 
@@ -45,11 +46,17 @@ public class LoadingScreenController extends Activity {
       @Override
       public void run() {
 
-        // Set the intent to bind LoadingScreenController screen to MainScreenController screen.
-        Intent timeCounter = new Intent(LoadingScreenController.this,
-            MainScreenController.class);
-        startActivity(timeCounter);
-        finish();
+        if (WAITING_TIME == MAXIMUM_TIME) {
+
+          // Set the intent to bind LoadingScreenController screen to MainScreenController screen.
+          Intent timeCounter = new Intent(LoadingScreenController.this,
+              MainScreenController.class);
+          startActivity(timeCounter);
+          finish();
+        } else {
+
+          Log.e("Limit error! ","The wait time limit has exceeded 9 seconds!");
+        }
 
       }
     }, WAITING_TIME);
