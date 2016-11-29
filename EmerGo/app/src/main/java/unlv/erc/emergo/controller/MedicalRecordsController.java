@@ -238,7 +238,7 @@ public class MedicalRecordsController extends Activity {
     Log.d(TAG, "openSearch() called with: search = [" + search + "]");
 
     Intent openSearch = new Intent();
-    openSearch.setClass(this , SearchHealthUnitController.class);
+    openSearch.setClass(this , SearchHealthUnitActivity.class);
     startActivity(openSearch);
   }
 

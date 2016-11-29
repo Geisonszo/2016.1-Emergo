@@ -51,7 +51,9 @@ public class DirectionsJSONParser {
 
           // Traversing all legs.
           for (int j = 0; j < jLegs.length(); j++) {
+
             jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
+            assert jSteps != null : "jSteps can't be null";
 
             // Traversing all steps.
             for (int k = 0 ; k < jSteps.length(); k++) {
@@ -59,12 +61,16 @@ public class DirectionsJSONParser {
               String polyline = "";
               polyline = (String)((JSONObject)((JSONObject)jSteps.get(k))
                   .get("polyline")).get("points");
+              assert polyline != null : "polyline can't be null";
+
               List<LatLng> list = decodePoly(polyline);
+              assert list != null : "list can't be null";
 
               // Traversing all points.
               for (int l = 0; l < list.size(); l++) {
 
                 HashMap<String, String> hm = new HashMap<String, String>();
+
                 hm.put("lat", Double.toString(list.get(l).latitude) );
                 hm.put("lng", Double.toString(list.get(l).longitude) );
                 path.add(hm);
