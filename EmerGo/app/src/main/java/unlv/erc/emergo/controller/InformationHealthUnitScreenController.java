@@ -141,7 +141,7 @@ public class InformationHealthUnitScreenController extends Activity
    *
    */
 
-  public void openSearch(View mapScreen) {
+  protected void openSearch(View mapScreen) {
 
     Intent openSearch = new Intent();
 
@@ -155,7 +155,7 @@ public class InformationHealthUnitScreenController extends Activity
    *
    */
 
-  public void listMapsImageClicked(View mapScreen) {
+  protected void listMapsImageClicked(View mapScreen) {
 
     Intent listOfHealth = new Intent();
 
@@ -170,7 +170,7 @@ public class InformationHealthUnitScreenController extends Activity
    *
    */
 
-  public void openMap(View mapScreen) {
+  protected void openMap(View mapScreen) {
 
     Intent mapActivity = new Intent();
 

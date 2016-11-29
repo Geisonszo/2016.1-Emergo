@@ -14,6 +14,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.orm.SugarRecord;
 
 import java.util.List;
 
@@ -24,7 +25,18 @@ public class HealthUnitDao {
 
   private Context context;
   private static final String URL_BASE_DB = "https://emergodf.firebaseio.com/";
-  protected HealthUnit healthUnit = new HealthUnit();
+  private HealthUnit healthUnit = new HealthUnit();
+
+  /**
+   * You receive the "context" of the HealthUnitDao class.
+   * @param context Context.
+   *
+   */
+
+  public HealthUnitDao(Context context) {
+
+    this.context = context;
+  }
 
   /**
    * Low data from health units and saved in the database. In addition to putting this data in the
@@ -32,11 +44,11 @@ public class HealthUnitDao {
    *
    */
 
-  public void setDataOnSugar() {
+  protected void setDataOnSugar() {
 
     Firebase ref = new Firebase(URL_BASE_DB);
     List<HealthUnit> list;
-    list = healthUnit.listAll(HealthUnit.class);
+    list = SugarRecord.listAll(HealthUnit.class);
 
     if (list.size() == 0 || list == null ) {
 
@@ -98,16 +110,5 @@ public class HealthUnitDao {
       Log.d("log123", "preenchida offline");
       Log.i("Database has finished", HealthUnitController.getClosestHealthUnit().size() + " Us");
     }
-  }
-
-  /**
-   * You receive the "context" of the HealthUnitDao class.
-   * @param context Context.
-   *
-   */
-
-  public HealthUnitDao(Context context) {
-
-    this.context = context;
   }
 }
