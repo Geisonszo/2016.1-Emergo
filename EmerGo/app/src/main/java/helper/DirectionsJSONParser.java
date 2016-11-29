@@ -42,34 +42,40 @@ public class DirectionsJSONParser {
 
       jRoutes = jObject.getJSONArray("routes");
 
-      for (int i = 0; i < jRoutes.length(); i++) {
+      try {
 
-        jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
-        List path = new ArrayList<HashMap<String, String>>();
+        for (int i = 0; i < jRoutes.length(); i++) {
 
-        // Traversing all legs.
-        for (int j = 0; j < jLegs.length(); j++) {
-          jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
+          jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
+          List path = new ArrayList<HashMap<String, String>>();
 
-          // Traversing all steps.
-          for (int k = 0 ; k < jSteps.length(); k++) {
+          // Traversing all legs.
+          for (int j = 0; j < jLegs.length(); j++) {
+            jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
 
-            String polyline = "";
-            polyline = (String)((JSONObject)((JSONObject)jSteps.get(k))
-                        .get("polyline")).get("points");
-            List<LatLng> list = decodePoly(polyline);
+            // Traversing all steps.
+            for (int k = 0 ; k < jSteps.length(); k++) {
 
-            // Traversing all points.
-            for (int l = 0; l < list.size(); l++) {
+              String polyline = "";
+              polyline = (String)((JSONObject)((JSONObject)jSteps.get(k))
+                  .get("polyline")).get("points");
+              List<LatLng> list = decodePoly(polyline);
 
-              HashMap<String, String> hm = new HashMap<String, String>();
-              hm.put("lat", Double.toString(list.get(l).latitude) );
-              hm.put("lng", Double.toString(list.get(l).longitude) );
-              path.add(hm);
+              // Traversing all points.
+              for (int l = 0; l < list.size(); l++) {
+
+                HashMap<String, String> hm = new HashMap<String, String>();
+                hm.put("lat", Double.toString(list.get(l).latitude) );
+                hm.put("lng", Double.toString(list.get(l).longitude) );
+                path.add(hm);
+              }
             }
+            routes.add(path);
           }
-          routes.add(path);
         }
+      } catch (NullPointerException exception) {
+
+        exception.printStackTrace();
       }
 
     } catch (JSONException jsonException) {
@@ -77,6 +83,7 @@ public class DirectionsJSONParser {
       Log.d(TAG, "parse() ", jsonException);      
       jsonException.printStackTrace();
     }
+
     Log.d(TAG, "parse() returned: " + routes);
     return routes;
   }
