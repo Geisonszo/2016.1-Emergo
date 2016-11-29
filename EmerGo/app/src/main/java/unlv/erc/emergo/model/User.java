@@ -100,6 +100,8 @@ public class User {
 
   protected void setIdUser(Integer idUser) {
 
+    assert idUser < 0 : "idUser can not be < 0";
+
     this.idUser = idUser;
   }
 
