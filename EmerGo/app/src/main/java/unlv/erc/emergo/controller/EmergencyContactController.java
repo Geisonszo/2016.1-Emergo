@@ -409,6 +409,9 @@ public class EmergencyContactController extends Activity {
         phoneThirdContact.setText(result.getString(PHONEONDATABASE));
         disableField(saveThirdContact,nameThirdContact,phoneThirdContact);
         Log.e("Database not is empty","In database have at least an emergency contact");
+      } else {
+
+        // Nothing to do.
       }
     }
 
