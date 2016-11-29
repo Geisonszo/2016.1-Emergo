@@ -29,6 +29,9 @@ import unlv.erc.emergo.R;
 
 public class EmergencyContactController extends Activity {
 
+  // Name must be at least 3 characters
+  final static int MINIMUM_LENGTH_NAME = 3;
+
   // Button for saveFirstContact
   private Button saveFirstContact;
   // Button for saveSecondContact
@@ -704,7 +707,7 @@ public class EmergencyContactController extends Activity {
     // String of nameContact
     String nameContact = "";
     // Constant of minimum length name
-    final int MINIMUM = 3;
+    final int MINIMUM_LENGTH_NAME = 3;
     // Sucess is true is all informations is correct or false if ate least information not correct
     boolean sucess = true;
     // Valid is false if sucess is true that is was register first emergency contact
@@ -713,7 +716,7 @@ public class EmergencyContactController extends Activity {
     assert id < IDFIRSTCONTACT && id > IDTHIRDCONTACT: "id can't be lower than idFirstContact and "
             + "bigger than idThirdContact";
     assert name != null : "the name can't be null";
-    assert name.getText().length() > MINIMUM;
+    assert name.getText().length() > MINIMUM_LENGTH_NAME;
     assert phone != null : "the phone can't be null";
     assert save != null : "the save can't be null";
     assert update != null : "the update can't be null";
@@ -821,7 +824,7 @@ public class EmergencyContactController extends Activity {
   private boolean checksName(String nameUser) {
 
     // Constant of minimum length name
-    final int MINIMUM = 3;
+    final int MINIMUM_LENGTH_NAME = 3;
     // Valid is true if at least information not correct
     boolean valid = true;
 
@@ -834,7 +837,7 @@ public class EmergencyContactController extends Activity {
 
       showMessage("Nome Vazio! Informe Seu Nome.");
       return valid;
-    } else if (nameUser.trim().length() < MINIMUM) {
+    } else if (nameUser.trim().length() < MINIMUM_LENGTH_NAME) {
 
       showMessage("Informe um nome com no mínimo 3 caracteres.");
       return valid;

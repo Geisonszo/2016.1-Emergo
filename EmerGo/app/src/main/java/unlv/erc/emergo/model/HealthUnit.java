@@ -189,11 +189,18 @@ public class HealthUnit extends SugarRecord implements HealthUnitInfo{
   }
 
   public void setDistance(Float distance) {
-    try{
-      this.distance = distance;
-      Log.i("distance setted","HealthUnit.class");
-    }catch (NullPointerException exception){
+
+    if(distance < 0) {
+
+      assert distance < 0 : "distance can't be negative";
+    } else {
+
+      try{
+        this.distance = distance;
+        Log.i("distance setted","HealthUnit.class");
+      }catch (NullPointerException exception){
         exception.printStackTrace();
+      }
     }
   }
 
