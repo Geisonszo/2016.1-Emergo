@@ -20,6 +20,7 @@ public class MaskHelper {
 
   public static String unmask(String symbols) {
 
+    // Simbolos especiais usados na mácara
     String newSymbold = symbols.replaceAll("[.]", "").replaceAll("[-]", "")
                         .replaceAll("[/]", "").replaceAll("[(]", "")
                         .replaceAll("[)]", "");
