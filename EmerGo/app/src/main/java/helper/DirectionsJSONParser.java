@@ -71,6 +71,8 @@ public class DirectionsJSONParser {
 
                 HashMap<String, String> hm = new HashMap<String, String>();
 
+
+                // Conversion from double to String
                 String toStringLatitude = Double.toString(list.get(l).latitude);
                 String toStringLongitude = Double.toString(list.get(l).longitude);
 

@@ -43,7 +43,10 @@ public class MaskHelper {
 
         public void onTextChanged(CharSequence word, int start, int before,int count) {
 
-            String newWord = MaskHelper.unmask(word.toString());
+          // Conversion from CharSequence to String.
+          String toStringWord = word.toString();
+
+            String newWord = MaskHelper.unmask(toStringWord);
             String mask = "";
 
             if (isUpdating ==  true) {
