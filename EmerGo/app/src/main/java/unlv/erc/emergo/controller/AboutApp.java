@@ -16,6 +16,8 @@ import unlv.erc.emergo.R;
 
 public class AboutApp extends Activity {
 
+  private static final String TAG = "AboutApp";
+
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
 
@@ -67,5 +69,12 @@ public class AboutApp extends Activity {
 
     Log.e("Return of messageApp","" + messageApp);
     return messageApp;
+  }
+
+  @Override
+  protected void finalize() throws Throwable {
+
+    Log.d(TAG, "finalize: " + getClass());
+    super.finalize();
   }
 }

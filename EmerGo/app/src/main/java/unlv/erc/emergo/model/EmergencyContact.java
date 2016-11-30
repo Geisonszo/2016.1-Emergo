@@ -6,7 +6,11 @@
 
 package unlv.erc.emergo.model;
 
+import android.util.Log;
+
 public class EmergencyContact implements EmergecyContactInfo{
+
+  private static final String TAG = "EmergencyContact";
 
   /**
    * Empty constructor.
@@ -116,4 +120,12 @@ public class EmergencyContact implements EmergecyContactInfo{
 
     return phone.length() <= PHONE_MAXIMUM_SIZE;
   }
+
+  @Override
+  protected void finalize() throws Throwable {
+
+    Log.d(TAG, "finalize: " + getClass());
+    super.finalize();
+  }
 }
+

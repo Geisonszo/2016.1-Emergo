@@ -168,4 +168,11 @@ public class DirectionsJSONParser {
     Log.d(TAG, "decodePoly() returned: " + poly);
     return poly;
   }
+
+  @Override
+  protected void finalize() throws Throwable {
+
+    Log.d(TAG, "finalize: " + getClass());
+    super.finalize();
+  }
 }
