@@ -61,6 +61,9 @@ public class EmerGoWidgetProvider extends AppWidgetProvider {
 
 
     Log.d("End of Method: ","onUpdate");
+
+    // Calling garbage collector.
+    System.gc();
   }
   
   private void setWidget(int [] allWidgetIds, Context context, AppWidgetManager appWidgetManager) {
@@ -83,6 +86,8 @@ public class EmerGoWidgetProvider extends AppWidgetProvider {
       views.setOnClickPendingIntent(R.id.update, pendingIntent);
 
       appWidgetManager.updateAppWidget(widgetId, views);
-    }    
+    }
+    // Calling garbage collector.
+    System.gc();
   }
 }
