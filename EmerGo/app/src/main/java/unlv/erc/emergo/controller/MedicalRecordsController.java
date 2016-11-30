@@ -164,6 +164,8 @@ public class MedicalRecordsController extends Activity {
         });
       }
     });
+
+    System.gc(); // Performs garbage collection.
   }
 
   /**
@@ -185,6 +187,8 @@ public class MedicalRecordsController extends Activity {
     routeActivity.setClass(this, RouteActivity.class);
     startActivity(routeActivity);
     finish();
+
+    System.gc(); // Performs garbage collection.
   }
 
   /**
@@ -202,6 +206,8 @@ public class MedicalRecordsController extends Activity {
     listOfHealth.setClass(this , ListOfHealthUnitsController.class);
     startActivity(listOfHealth);
     finish();
+
+    System.gc(); // Performs garbage collection.
   }
 
   /**
@@ -219,6 +225,8 @@ public class MedicalRecordsController extends Activity {
     configuration.setClass(this , SettingsController.class);
     startActivity(configuration);
     finish();
+
+    System.gc(); // Performs garbage collection.
   }
 
   /**
@@ -236,6 +244,8 @@ public class MedicalRecordsController extends Activity {
     mapActivity.setClass(this, MapScreenController.class);
     startActivity(mapActivity);
     finish();
+
+    System.gc(); // Performs garbage collection.
   }
 
   /**
@@ -252,6 +262,8 @@ public class MedicalRecordsController extends Activity {
     Intent openSearch = new Intent();
     openSearch.setClass(this , SearchHealthUnitController.class);
     startActivity(openSearch);
+
+    System.gc(); // Performs garbage collection.
   }
 
 
@@ -381,6 +393,8 @@ public class MedicalRecordsController extends Activity {
 
       // Nothing to do
     }
+
+    System.gc(); // Performs garbage collection.
   }
 
   /*
@@ -450,6 +464,8 @@ public class MedicalRecordsController extends Activity {
       }
     });
     builder.show();
+
+    System.gc(); // Performs garbage collection.
   }
 
   private void showMessage(String message) {
@@ -459,6 +475,8 @@ public class MedicalRecordsController extends Activity {
     assert message != null : "message can't be null";
 
     Toast.makeText(this,"" + message,Toast.LENGTH_LONG).show();
+
+    System.gc(); // Performs garbage collection.
   }
 
   private boolean checksName(String nameUser) {
@@ -614,6 +632,8 @@ public class MedicalRecordsController extends Activity {
     seropositive.setEnabled(true);
     update.setVisibility(View.INVISIBLE);
     delete.setVisibility(View.INVISIBLE);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /*
@@ -635,6 +655,8 @@ public class MedicalRecordsController extends Activity {
     save.setVisibility(View.VISIBLE);
     update.setVisibility(View.INVISIBLE);
     delete.setVisibility(View.INVISIBLE);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /*
@@ -647,6 +669,8 @@ public class MedicalRecordsController extends Activity {
     NotificationManager notifManager = (NotificationManager) this.getSystemService(Context
             .NOTIFICATION_SERVICE);
     notifManager.cancel(1);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /*
@@ -693,6 +717,8 @@ public class MedicalRecordsController extends Activity {
     diabect.setEnabled(false);
     hypertension.setEnabled(false);
     seropositive.setEnabled(false);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /*
@@ -717,6 +743,8 @@ public class MedicalRecordsController extends Activity {
     update.setEnabled(true);
     delete.setVisibility(View.VISIBLE);
     delete.setEnabled(true);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /**
@@ -741,6 +769,8 @@ public class MedicalRecordsController extends Activity {
     update.setEnabled(true);
     delete.setVisibility(View.VISIBLE);
     delete.setEnabled(true);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /*
@@ -792,6 +822,8 @@ public class MedicalRecordsController extends Activity {
     diabect.setEnabled(true);
     hypertension.setEnabled(true);
     seropositive.setEnabled(true);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /*
@@ -810,6 +842,8 @@ public class MedicalRecordsController extends Activity {
 
     update.setVisibility(View.VISIBLE);
     save.setVisibility(View.INVISIBLE);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /*
@@ -854,6 +888,8 @@ public class MedicalRecordsController extends Activity {
     diabect.setEnabled(false);
     hypertension.setEnabled(false);
     seropositive.setEnabled(false);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /**
@@ -940,5 +976,7 @@ public class MedicalRecordsController extends Activity {
             getSystemService(NOTIFICATION_SERVICE);
 
     notificationManager.notify(notifyIdentifier,notification.build());
+
+    System.gc(); // Performs garbage collection.
   }
 }
