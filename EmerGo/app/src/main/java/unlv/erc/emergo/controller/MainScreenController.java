@@ -61,6 +61,8 @@ public class MainScreenController extends Activity {
     } else {
       //Nothing to do
     }
+
+    System.gc(); // Performs garbage collection.
   }
 
   /**
@@ -82,6 +84,8 @@ public class MainScreenController extends Activity {
     routeActivity.setClass(MainScreenController.this, RouteActivity.class);
     routeActivity.putExtra(INFORMATION_MESSAGE, -1);
     startActivity(routeActivity);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /**
@@ -96,6 +100,8 @@ public class MainScreenController extends Activity {
     Intent mapScreen = new Intent();
     mapScreen.setClass(getBaseContext(), MapScreenController.class);
     startActivity(mapScreen);
+
+    System.gc(); // Performs garbage collection.
   }
 
   /*
@@ -168,5 +174,7 @@ public class MainScreenController extends Activity {
 
       Log.e("Limite excedido! ","O limite do array foi excedido");
     }
+
+    System.gc(); // Performs garbage collection.
   }
 }
