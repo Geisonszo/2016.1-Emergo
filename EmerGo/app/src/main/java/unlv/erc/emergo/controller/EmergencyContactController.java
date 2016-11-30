@@ -538,13 +538,17 @@ public class EmergencyContactController extends Activity {
     assert sucess != true : "sucess can't be false";
     assert valid != true : "valid can't be false";
 
-    //Verific is all information is correct
-    if (checksName(nameFirstContact.getText().toString()) == false) {
 
-      nameContact = nameFirstContact.getText().toString();
-      Log.d("Nome do Contato: ",nameContact);
-      phoneContact = phoneFirstContact.getText().toString();
-      Log.d("Telefone do Contato: ",phoneContact);
+    // Conversion type from EditText to String.
+    nameContact = nameFirstContact.getText().toString();
+    Log.d("Nome do Contato: ",nameContact);
+
+    // Conversion type from EditText to String.
+    phoneContact = phoneFirstContact.getText().toString();
+    Log.d("Telefone do Contato: ",phoneContact);
+
+    //Verific is all information is correct
+    if (checksName(nameContact) == false) {
 
       sucess = emergencyContactDao.insertEmergencyContact(IDFIRSTCONTACT, nameContact,
               phoneContact);
@@ -591,16 +595,19 @@ public class EmergencyContactController extends Activity {
     assert sucess != true : "sucess can't be false";
     assert valid != true : "valid can't be false";
 
+    // Cnversion type from EditTExt to String.
+    nameContact = nameSecondContact.getText().toString();
+    Log.d("Nome do Contato: ",nameContact);
+    phoneContact = phoneSecondContact.getText().toString();
+    Log.d("Telefone do Contato: ",phoneContact);
+
     //Verific is all information is correct
-    if (checksName(nameSecondContact.getText().toString()) == false) {
+    if (checksName(nameContact) == false) {
 
       //Verific is all information is correct
-      if (checksName(nameSecondContact.getText().toString()) == false) {
+      if (checksName(nameContact) == false) {
 
-        nameContact = nameSecondContact.getText().toString();
-        Log.d("Nome do Contato: ",nameContact);
-        phoneContact = phoneSecondContact.getText().toString();
-        Log.d("Telefone do Contato: ",phoneContact);
+
 
         sucess = emergencyContactDao.insertEmergencyContact(IDSECONDCONTACT, nameContact,
                 phoneContact);
@@ -651,16 +658,19 @@ public class EmergencyContactController extends Activity {
     assert sucess != true : "sucess can't be false";
     assert valid != true : "valid can't be false";
 
+    // Coversion from TextEdit to String.
+    nameContact = nameSecondContact.getText().toString();
+    Log.d("Nome do Contato: ",nameContact);
+    phoneContact = phoneSecondContact.getText().toString();
+    Log.d("Telefone do Contato: ",phoneContact);
+
     //Verific is all information is correct
-    if (checksName(nameThirdContact.getText().toString()) == false) {
+    if (checksName(nameContact) == false) {
 
       //Verific is all information is correct
-      if (checksName(nameThirdContact.getText().toString()) == false) {
+      if (checksName(nameContact) == false) {
 
-        nameContact = nameSecondContact.getText().toString();
-        Log.d("Nome do Contato: ",nameContact);
-        phoneContact = phoneSecondContact.getText().toString();
-        Log.d("Telefone do Contato: ",phoneContact);
+
 
         sucess = emergencyContactDao.insertEmergencyContact(IDTHIRDCONTACT, nameContact,
                 phoneContact);
@@ -723,18 +733,16 @@ public class EmergencyContactController extends Activity {
     assert save != null : "the save can't be null";
     assert update != null : "the update can't be null";
     assert delete != null : "the delete can't be null";
-    assert sucess != true : "sucess can't be false";
-    assert valid != true : "valid can't be false";
+
+    nameContact = nameSecondContact.getText().toString();
+    Log.d("Nome do Contato: ",nameContact);
+    phoneContact = phoneSecondContact.getText().toString();
+    Log.d("Telefone do Contato: ",phoneContact);
 
     // Verific is all information is correct
-    if (checksName(name.getText().toString()) == false) {
+    if (checksName(nameContact) == false) {
 
-      nameContact = nameSecondContact.getText().toString();
-      Log.d("Nome do Contato: ",nameContact);
-      phoneContact = phoneSecondContact.getText().toString();
-      Log.d("Telefone do Contato: ",phoneContact);
-
-      sucess = emergencyContactDao.updateEmergencyContact(id,nameContact,phoneContact);
+      sucess = emergencyContactDao.updateEmergencyContact(id, nameContact, phoneContact);
       // If all the information is correct, it will be changed and saved in the database
       if (sucess == true) {
 
