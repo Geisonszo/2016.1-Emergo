@@ -29,6 +29,8 @@ import unlv.erc.emergo.R;
 
 public class EmergencyContactController extends Activity {
 
+  // O usuário poderá salvar 3 contatos de emergência.
+
   // Name must be at least 3 characters
   final static int MINIMUM_LENGTH_NAME = 3;
 
