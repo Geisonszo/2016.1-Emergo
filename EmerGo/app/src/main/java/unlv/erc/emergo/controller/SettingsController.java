@@ -23,6 +23,8 @@ import unlv.erc.emergo.R;
 
 public class SettingsController extends Activity {
 
+  // Classes criada para configurar as classes da controle
+
   // ImageView for ListOfHealthUnitsController.class
   private ImageView iconList;
   // ImageView for RouteActivity.class
@@ -34,11 +36,15 @@ public class SettingsController extends Activity {
   // Button for AboutAppActivity class
   private Button aboutApp;
 
+  // Não precisa comentar esse método.
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 
     super.onCreate(savedInstanceState);
     setContentView(R.layout.config);
+
+
     setImageViewIcons();
     setButtons();
     createRouteScreen();

@@ -422,12 +422,16 @@ public class MedicalRecordsController extends Activity {
     builder.show();
   }
 
+  // Comentar esse método
+
   private void showMessage(String message) {
 
     Log.d(TAG, "showMessage() called with: message = [" + message + "]");
 
     Toast.makeText(this,"" + message,Toast.LENGTH_LONG).show();
   }
+
+  // Comentar esse método
 
   private boolean checksName(String nameUser) {
 
