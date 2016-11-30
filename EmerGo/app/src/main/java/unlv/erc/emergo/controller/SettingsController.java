@@ -106,6 +106,9 @@ public class SettingsController extends Activity {
       }
     });
     Log.d("End of method: ","Method createRouteScreen ");
+
+    // Calling garbage collector.
+    System.gc();
   }
 
   /*
@@ -133,6 +136,9 @@ public class SettingsController extends Activity {
       }
     });
     Log.d("End of method: ","Method listUs ");
+
+    // Calling garbage collector.
+    System.gc();
   }
 
   /**
@@ -158,6 +164,9 @@ public class SettingsController extends Activity {
       } // End of onClick
     });
     Log.d("End of method: ","Method showMedicalRecord");
+
+    // Calling garbage collector.
+    System.gc();
   }
 
   /**
@@ -183,6 +192,9 @@ public class SettingsController extends Activity {
       } //End of onClick
     });
     Log.d("End of method: ","Method acessEmergencyContact ");
+
+    // Calling garbage collector.
+    System.gc();
   }
 
   /**
@@ -208,6 +220,9 @@ public class SettingsController extends Activity {
       }
     });
     Log.d("End of method: ","Method seeInfoAboutApp ");
+
+    // Calling garbage collector.
+    System.gc();
   }
 
   /**
@@ -234,6 +249,9 @@ public class SettingsController extends Activity {
     routeActivity.putExtra("numeroUs", -1);
     startActivity(routeActivity);
     finish();
+
+    // Calling garbage collector.
+    System.gc();
   }
 
   /**
@@ -261,6 +279,9 @@ public class SettingsController extends Activity {
       // Nothing to do
     }
     Log.d("End of method: ","Method listMapsImageClicked ");
+
+    // Calling garbage collector.
+    System.gc();
   }
 
   /**
@@ -280,6 +301,9 @@ public class SettingsController extends Activity {
 
     Toast.makeText(this , errorMessage , Toast.LENGTH_SHORT ).show();
     Log.d("Method openConfig ","End of method");
+
+    // Calling garbage collector.
+    System.gc();
   }
 
   /**
@@ -305,5 +329,8 @@ public class SettingsController extends Activity {
       // Nothing to do
     }
     Log.d("End of method: ","Method openMap ");
+
+   // Calling garbage collector.
+    System.gc();
   }
 }
