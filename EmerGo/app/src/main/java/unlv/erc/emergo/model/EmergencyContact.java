@@ -95,12 +95,25 @@ public class EmergencyContact implements EmergecyContactInfo{
 
     assert phone != null : "phone can't be null";
 
-    this.phone = phone;
+    try {
+      if (verifyEmergencyContactPhone(phone)) {
+        this.phone = phone;
+      }
+    } catch (NullPointerException nullPointExceptiom){
+
+      nullPointExceptiom.printStackTrace();
     }
+  }
 
   @Override
   public boolean verifyEmergencyContactName(String name) {
 
     return name.length() <= NAME_MAXIMUM_SIZE;
+  }
+
+  @Override
+  public boolean verifyEmergencyContactPhone(String phone) {
+
+    return phone.length() <= PHONE_MAXIMUM_SIZE;
   }
 }
