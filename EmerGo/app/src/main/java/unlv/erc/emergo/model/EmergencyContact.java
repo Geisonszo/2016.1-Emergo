@@ -6,7 +6,7 @@
 
 package unlv.erc.emergo.model;
 
-public class EmergencyContact {
+public class EmergencyContact implements EmergecyContactInfo{
 
   /**
    * Empty constructor.
@@ -60,7 +60,18 @@ public class EmergencyContact {
 
     assert nameContact != null : "nameContact can't be null";
 
-    this.nameContact = nameContact;
+    try {
+
+      if (verifyEmergencyContactName(nameContact)) {
+
+        this.nameContact = nameContact;
+      }
+    } catch (NullPointerException nullPointException) {
+
+      nullPointException.printStackTrace();
+    }
+
+
   }
 
   /**
@@ -86,4 +97,10 @@ public class EmergencyContact {
 
     this.phone = phone;
     }
-} 
+
+  @Override
+  public boolean verifyEmergencyContactName(String name) {
+
+    return name.length() <= NAME_MAXIMUM_SIZE;
+  }
+}
