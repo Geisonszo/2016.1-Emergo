@@ -86,12 +86,15 @@ public class MedicalRecordsController extends Activity {
 
     Cursor result = myDatabase.getUser();
 
+    // checks the number of rows filled in Cursor result is equal to zero and...
     if (result.getCount() == 0) {
+      // ... if it is, disable the buttons
 
       disableOptions(saveButton,updateButton,deleteButton);
     } else {
 
       if (result.moveToFirst()) {
+        // if it is in the first position, allocate values ​​to fields and disable
 
         fullName.setText(result.getString(1));
         birthday.setText(result.getString(2));
@@ -102,7 +105,7 @@ public class MedicalRecordsController extends Activity {
 
         // Nothing to do
       }
-    }
+    } // end of if/else.
 
     // Sets the save button.
     saveButton.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +118,7 @@ public class MedicalRecordsController extends Activity {
           saveButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+              // if it does not exist, create a user
 
               createUser();
             }
@@ -306,8 +310,10 @@ public class MedicalRecordsController extends Activity {
       sucess = myDatabase.insertUser(ID, nameUser, birthdayUser, typeBloodUser, cardiacUser,
               diabeticUser,hypertensionUser, seropositiveUser,
               observationsUser);
+
       // Verifies that the fields have been successfully saved in the database and ...
       if (sucess == true) {
+        
         showMessage(MEDICAL_FORM_REGISTERED);
         disableOptionsCreateUser(fullName,birthday,observations,typeBlood,cardiac,diabect,
                 hypertension,seropositive);
