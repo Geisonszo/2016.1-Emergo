@@ -48,5 +48,7 @@ public class LoadingScreenController extends Activity {
 
       }
     }, WAITING_TIME);
+
+        System.gc(); // Performs garbage collection.
   }
 }
