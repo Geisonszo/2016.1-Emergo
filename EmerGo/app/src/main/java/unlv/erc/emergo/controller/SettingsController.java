@@ -23,7 +23,7 @@ import unlv.erc.emergo.R;
 
 public class SettingsController extends Activity {
 
-  // Classes criada para configurar as classes da controle
+  // Class created for set the classes controller.
 
   // ImageView for ListOfHealthUnitsController.class
   private ImageView iconList;
@@ -36,7 +36,7 @@ public class SettingsController extends Activity {
   // Button for AboutAppActivity class
   private Button aboutApp;
 
-  // Não precisa comentar esse método.
+  // Comments here.
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

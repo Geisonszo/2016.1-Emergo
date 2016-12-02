@@ -422,7 +422,7 @@ public class MedicalRecordsController extends Activity {
     builder.show();
   }
 
-  // Comentar esse método
+  // Comments here
 
   private void showMessage(String message) {
 
@@ -431,7 +431,7 @@ public class MedicalRecordsController extends Activity {
     Toast.makeText(this,"" + message,Toast.LENGTH_LONG).show();
   }
 
-  // Comentar esse método
+  // Comments here
 
   private boolean checksName(String nameUser) {
 
