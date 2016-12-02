@@ -54,7 +54,7 @@ public class AboutApp extends Activity {
    *
    */
 
-  // Colocar text de descrição do applicativo que está na wiki
+  // Set app description, text on wiki.
   private String showMessageApp() {
 
     Log.d("Log of Information: ","He entered the showMessage method.");
